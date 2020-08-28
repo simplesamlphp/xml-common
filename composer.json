@@ -1,0 +1,39 @@
+{
+    "name": "simplesamlphp/xml-common",
+    "description": "A library with classes and utilities for handling XML structures.",
+    "type": "project",
+    "keywords": [ "saml", "xml" ],
+    "homepage": "http://simplesamlphp.org",
+    "license": "LGPL-2.1-or-later",
+    "authors": [
+        {
+            "name": "Jaime Perez",
+            "email": "jaime.perez@uninett.no"
+        },
+        {
+            "name": "Tim van Dijen",
+            "email": "tvdijen@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "SimpleSAML\\XML\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SimpleSAML\\XML\\Test\\": ["tests", "tests/src"]
+        }
+    },
+    "require": {
+        "php": ">=7.4 || ^8,0",
+        "ext-dom": "*"
+    },
+    "require-dev": {
+        "simplesamlphp/simplesamlphp-test-framework": "^0.2.7"
+    },
+    "support": {
+        "issues": "https://github.com/simplesamlphp/xml-tools/issues",
+        "source": "https://github.com/simplesamlphp/xml-tools"
+    }
+}
