@@ -34,7 +34,11 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
             $e = $doc->createElementNS($namespace, $qualifiedName);
             $doc->appendChild($e);
         } else {
-            $e = $parent->ownerDocument->createElementNS($namespace, $qualifiedName);
+            $doc = $parent->ownerDocument;
+            Assert::notNull($doc);
+
+            /** @psalm-var \DOMDocument $doc */
+            $e = $doc->createElementNS($namespace, $qualifiedName);
             $parent->appendChild($e);
         }
 

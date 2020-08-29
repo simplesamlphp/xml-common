@@ -9,6 +9,7 @@ use DOMElement;
 use DOMNode;
 use DOMXPath;
 use InvalidArgumentException;
+use SimpleSAML\Assert\Assert;
 
 /**
  * Helper functions for the SAML2 library.
@@ -32,6 +33,8 @@ class Utils
             $doc = $node;
         } else {
             $doc = $node->ownerDocument;
+            Assert::notNull($doc);
+            /** @psalm-var \DOMDocument $doc */
         }
 
         if ($xpCache === null || !$xpCache->document->isSameNode($doc)) {
@@ -67,6 +70,8 @@ class Utils
             $document = DOMDocumentFactory::create();
         } else {
             $document = $parent->ownerDocument;
+            Assert::notNull($document);
+            /** @psalm-var \DOMDocument $document */
         }
 
         $namespaces = [];
@@ -167,6 +172,8 @@ class Utils
         string $value
     ): DOMElement {
         $doc = $parent->ownerDocument;
+        Assert::notNull($doc);
+        /** @psalm-var \DOMDocument $doc */
 
         $n = $doc->createElementNS($namespace, $name);
         $n->appendChild($doc->createTextNode($value));
@@ -194,6 +201,8 @@ class Utils
         array $values
     ): void {
         $doc = $parent->ownerDocument;
+        Assert::notNull($doc);
+        /** @psalm-var \DOMDocument $doc */
 
         foreach ($values as $index => $value) {
             $n = $doc->createElementNS($namespace, $name);
