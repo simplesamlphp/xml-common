@@ -7,6 +7,7 @@ namespace SimpleSAML\XML;
 use DOMDocument;
 use InvalidArgumentException;
 use RuntimeException;
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\UnparseableXmlException;
 
 /**
@@ -30,9 +31,7 @@ final class DOMDocumentFactory
      */
     public static function fromString(string $xml): DOMDocument
     {
-        if (trim($xml) === '') {
-            throw InvalidArgumentException::invalidType('non-empty string', $xml);
-        }
+        Assert::stringNotEmpty(trim($xml));
 
         $entityLoader = libxml_disable_entity_loader(true);
         $internalErrors = libxml_use_internal_errors(true);
