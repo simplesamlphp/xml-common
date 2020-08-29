@@ -16,7 +16,6 @@
   </coverage>
   <testsuites>
     <testsuite name="Unit tests">
-      <directory>./vendor/simplesamlphp/simplesamlphp-test-framework/src</directory>
       <directory>./tests</directory>
     </testsuite>
   </testsuites>
