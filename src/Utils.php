@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SimpleSAML\XML\Utils;
+namespace SimpleSAML\XML;
 
 use DOMDocument;
 use DOMElement;

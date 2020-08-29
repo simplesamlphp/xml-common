@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMDocument;
+use InvalidArgumentException;
 use RuntimeException;
 use SimpleSAML\XML\Exception\UnparseableXmlException;
 
