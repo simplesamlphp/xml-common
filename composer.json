@@ -34,7 +34,7 @@
         "simplesamlphp/simplesamlphp-test-framework": "^0.2.8"
     },
     "support": {
-        "issues": "https://github.com/simplesamlphp/xml-tools/issues",
-        "source": "https://github.com/simplesamlphp/xml-tools"
+        "issues": "https://github.com/simplesamlphp/xml-common/issues",
+        "source": "https://github.com/simplesamlphp/xml-common"
     }
 }
