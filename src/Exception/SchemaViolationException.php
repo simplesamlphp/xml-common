@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Exception;
 
-use InvalidArgumentException;
+use SimpleSAML\Assert\AssertionFailedException;
 
 /**
  * This exception may be raised when a violation of the SAML2 schema is detected
@@ -12,6 +12,6 @@ use InvalidArgumentException;
  * @author Tim van Dijen, <tvdijen@gmail.com>
  * @package simplesamlphp/saml2
  */
-class SchemaViolationException extends InvalidArgumentException
+class SchemaViolationException extends AssertionFailedException
 {
 }
