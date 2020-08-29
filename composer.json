@@ -26,12 +26,12 @@
         }
     },
     "require": {
-        "php": ">=7.4 || ^8,0",
+        "php": ">=7.4 || ^8.0",
         "ext-dom": "*",
-        "simplesamlphp/assert": "~0.0.12"
+        "simplesamlphp/assert": "~0.0.13"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp-test-framework": "^0.2.7"
+        "simplesamlphp/simplesamlphp-test-framework": "^0.2.8"
     },
     "support": {
         "issues": "https://github.com/simplesamlphp/xml-tools/issues",
