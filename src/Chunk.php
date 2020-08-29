@@ -142,6 +142,17 @@ final class Chunk extends AbstractSerializableXML
 
 
     /**
+     * Get the XML qualified name (prefix:name) of the element represented by this class.
+     *
+     * @return string
+     */
+    public function getQualifiedName(): string
+    {
+        return $this->getPrefix() . ':' . $this->getLocalName();
+    }
+
+
+    /**
      * @param \DOMElement $xml
      * @return self
      */
