@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMElement;
-use Serializable;
 
 /**
  * interface class to be implemented by all the classes that represent an XML element
