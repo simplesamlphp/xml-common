@@ -27,7 +27,7 @@ final class Chunk extends AbstractSerializableXML
      *
      * @var string|null
      */
-    protected $namespace;
+    protected $namespaceURI;
 
     /**
      * The prefix of this element.
@@ -52,7 +52,7 @@ final class Chunk extends AbstractSerializableXML
     public function __construct(DOMElement $xml)
     {
         $this->setLocalName($xml->localName);
-        $this->setNamespace($xml->namespaceURI);
+        $this->setNamespaceURI($xml->namespaceURI);
         $this->setPrefix($xml->prefix);
 
         $this->xml = Utils::copyElement($xml);
@@ -100,21 +100,21 @@ final class Chunk extends AbstractSerializableXML
      *
      * @return string|null
      */
-    public function getNamespace(): ?string
+    public function getNamespaceURI(): ?string
     {
-        return $this->namespace;
+        return $this->namespaceURI;
     }
 
 
     /**
      * Set the value of the namespaceURI-property
      *
-     * @param string|null $namespace
+     * @param string|null $namespaceURI
      * @return void
      */
-    protected function setNamespace(string $namespace = null): void
+    protected function setNamespaceURI(string $namespaceURI = null): void
     {
-        $this->namespace = $namespace;
+        $this->namespaceURI = $namespaceURI;
     }
 
 
