@@ -180,15 +180,15 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
     /**
      * Get the namespace for the element.
      *
-     * @return string|null
+     * @return string
      */
-    abstract public static function getNamespaceURI(): ?string;
+    abstract public static function getNamespaceURI(): string;
 
 
     /**
      * Get the namespace-prefix for the element.
      *
-     * @return string|null
+     * @return string
      */
-    abstract public static function getNamespacePrefix(): ?string;
+    abstract public static function getNamespacePrefix(): string;
 }
