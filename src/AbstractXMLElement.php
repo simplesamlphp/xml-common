@@ -96,7 +96,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
     /**
      * Get the integer value of an attribute from a given element.
      *
-     * @param \DOMElement  $xml The element where we should search for the attribute.
+     * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param string|null $default The default to return in case the attribute does not exist and it is optional.
      *

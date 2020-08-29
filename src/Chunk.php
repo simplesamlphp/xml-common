@@ -152,6 +152,79 @@ final class Chunk extends AbstractSerializableXML
     }
 
 
+    /*
+     * @param \DOMElement $xml The element where we should search for the attribute.
+     * @param string      $name The name of the attribute.
+     * @param string|null $default The default to return in case the attribute does not exist and it is optional.
+     * @return string|null
+     * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is missing from the element
+     */
+    public static function getAttribute(DOMElement $xml, string $name, ?string $default = ''): ?string
+    {
+        if (!$xml->hasAttribute($name)) {
+            Assert::nullOrStringNotEmpty(
+                $default,
+                'Missing \'' . $name . '\' attribute on ' . $xml->prefix . ':'  . $xml->localName . '.',
+                MissingAttributeException::class
+            );
+
+            return $default;
+        }
+
+        return $xml->getAttribute($name);
+    }
+
+
+    /**
+     * @param \DOMElement $xml The element where we should search for the attribute.
+     * @param string      $name The name of the attribute.
+     * @param string|null $default The default to return in case the attribute does not exist and it is optional.
+     * @return bool|null
+     * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not a boolean
+     */
+    public static function getBooleanAttribute(DOMElement $xml, string $name, ?string $default = ''): ?bool
+    {
+        $value = self::getAttribute($xml, $name, $default);
+        if ($value === null) {
+            return null;
+        }
+
+        Assert::oneOf(
+            $value,
+            ['0', '1', 'false', 'true'],
+            'The \'' . $name . '\' attribute of ' . $xml->prefix . ':'  . $xml->localName . ' must be boolean.'
+        );
+
+        return in_array($value, ['1', 'true'], true);
+    }
+
+
+    /**
+     * Get the integer value of an attribute from a given element.
+     *
+     * @param \DOMElement $xml The element where we should search for the attribute.
+     * @param string      $name The name of the attribute.
+     * @param string|null $default The default to return in case the attribute does not exist and it is optional.
+     *
+     * @return int|null
+     * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not an integer
+     */
+    public static function getIntegerAttribute(DOMElement $xml, string $name, ?string $default = ''): ?int
+    {
+        $value = self::getAttribute($xml, $name, $default);
+        if ($value === null) {
+            return null;
+        }
+
+        Assert::numeric(
+            $value,
+            'The \'' . $name . '\' attribute of ' . $xml->prefix . ':'  . $xml->localName . ' must be numerical.'
+        );
+
+        return intval($value);
+    }
+
+
     /**
      * @param \DOMElement $xml
      * @return self
