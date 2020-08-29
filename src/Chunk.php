@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMElement;
+use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\Utils;
 use SimpleSAML\Assert\Assert;
 
