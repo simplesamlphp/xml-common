@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMElement;
-//use SAML2\Constants;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use Serializable;
@@ -19,14 +18,6 @@ use SimpleSAML\Assert\Assert;
  */
 abstract class AbstractXMLElement implements Serializable
 {
-    /** @var string
-    public const NS = Constants::NS_SAML;
-    */
-
-    /** @var string
-    public const NS_PREFIX = 'saml';
-    */
-
     /**
      * Output the class as an XML-formatted string
      *
@@ -84,10 +75,10 @@ abstract class AbstractXMLElement implements Serializable
 
         if ($parent === null) {
             $doc = DOMDocumentFactory::create();
-            $e = $doc->createElementNS($this::NS, $qualifiedName);
+            $e = $doc->createElementNS(self::getNamespaceURI(), $qualifiedName);
             $doc->appendChild($e);
         } else {
-            $e = $parent->ownerDocument->createElementNS($this::NS, $qualifiedName);
+            $e = $parent->ownerDocument->createElementNS(self::getNamespaceURI(), $qualifiedName);
             $parent->appendChild($e);
         }
 
@@ -120,7 +111,7 @@ abstract class AbstractXMLElement implements Serializable
         if (!$xml->hasAttribute($name)) {
             Assert::nullOrStringNotEmpty(
                 $default,
-                'Missing \'' . $name . '\' attribute on ' . static::NS_PREFIX . ':'
+                'Missing \'' . $name . '\' attribute on ' . static::getNamespacePrefix() . ':'
                     . self::getClassName(static::class) . '.',
                 MissingAttributeException::class
             );
@@ -149,7 +140,7 @@ abstract class AbstractXMLElement implements Serializable
         Assert::oneOf(
             $value,
             ['0', '1', 'false', 'true'],
-            'The \'' . $name . '\' attribute of ' . static::NS_PREFIX . ':' . self::getClassName(static::class) .
+            'The \'' . $name . '\' attribute of ' . static::getNamespacePrefix() . ':' . self::getClassName(static::class) .
             ' must be boolean.'
         );
 
@@ -176,7 +167,7 @@ abstract class AbstractXMLElement implements Serializable
 
         Assert::numeric(
             $value,
-            'The \'' . $name . '\' attribute of ' . static::NS_PREFIX . ':' . self::getClassName(static::class)
+            'The \'' . $name . '\' attribute of ' . static::getNamespacePrefix() . ':' . self::getClassName(static::class)
                 . ' must be numerical.'
         );
 
@@ -214,7 +205,7 @@ abstract class AbstractXMLElement implements Serializable
      */
     public function getQualifiedName(): string
     {
-        return static::NS_PREFIX . ':' . $this->getLocalName();
+        return static::getNamespacePrefix() . ':' . $this->getLocalName();
     }
 
 
@@ -230,7 +221,7 @@ abstract class AbstractXMLElement implements Serializable
         $ret = [];
         foreach ($parent->childNodes as $node) {
             if (
-                $node->namespaceURI === static::NS
+                $node->namespaceURI === static::getNamespace()
                 && $node->localName === self::getClassName(static::class)
             ) {
                 /** @psalm-var \DOMElement $node */
@@ -239,6 +230,22 @@ abstract class AbstractXMLElement implements Serializable
         }
         return $ret;
     }
+
+
+    /**
+     * Get the namespace for the element.
+     *
+     * @return string|null
+     */
+    abstract public static function getNamespaceURI(): ?string;
+
+
+    /**
+     * Get the namespace-prefix for the element.
+     *
+     * @return string|null
+     */
+    abstract public static function getNamespacePrefix(): ?string;
 
 
     /**

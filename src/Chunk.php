@@ -27,7 +27,14 @@ final class Chunk extends AbstractXMLElement
      *
      * @var string|null
      */
-    protected $namespaceURI;
+    protected $namespace;
+
+    /**
+     * The prefix of this element.
+     *
+     * @var string|null
+     */
+    protected $prefix;
 
     /**
      * The \DOMElement we contain.
@@ -45,7 +52,8 @@ final class Chunk extends AbstractXMLElement
     public function __construct(DOMElement $xml)
     {
         $this->setLocalName($xml->localName);
-        $this->setNamespaceURI($xml->namespaceURI);
+        $this->setNamespace($xml->namespace);
+        $this->setPrefix($xml->prefix);
 
         $this->xml = Utils::copyElement($xml);
     }
@@ -114,20 +122,65 @@ final class Chunk extends AbstractXMLElement
      *
      * @return string|null
      */
-    public function getNamespaceURI(): ?string
+    public function getNamespace(): ?string
     {
-        return $this->namespaceURI;
+        return $this->namespace;
     }
 
 
     /**
      * Set the value of the namespaceURI-property
      *
-     * @param string|null $namespaceURI
+     * @param string|null $namespace
      * @return void
      */
-    protected function setNamespaceURI(string $namespaceURI = null): void
+    protected function setNamespace(string $namespace = null): void
     {
-        $this->namespaceURI = $namespaceURI;
+        $this->namespace = $namespace;
+    }
+
+
+    /**
+     * Collect the value of the prefix-property
+     *
+     * @return string|null
+     */
+    public function getPrefix(): ?string
+    {
+        return $this->prefix;
+    }
+
+
+    /**
+     * Set the value of the prefix-property
+     *
+     * @param string|null $prefix
+     * @return void
+     */
+    protected function setPrefix(string $prefix = null): void
+    {
+        $this->prefix = $prefix;
+    }
+
+
+    /**
+     * Get the namespace for the element.
+     *
+     * @return string|null
+     */
+    public static function getNamespaceURI(): ?string
+    {
+        return null;
+    }
+
+
+    /**
+     * Get the namespace-prefix for the element.
+     *
+     * @return string|null
+     */
+    public static function getNamespacePrefix(): string
+    {
+        return null;
     }
 }
