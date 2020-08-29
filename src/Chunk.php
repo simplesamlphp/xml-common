@@ -165,7 +165,7 @@ final class Chunk extends AbstractSerializableXML
         if (!$xml->hasAttribute($name)) {
             Assert::nullOrStringNotEmpty(
                 $default,
-                'Missing \'' . $name . '\' attribute on ' . $xml->prefix . ':'  . $xml->localName . '.',
+                'Missing \'' . $name . '\' attribute on ' . $xml->prefix . ':' . $xml->localName . '.',
                 MissingAttributeException::class
             );
 
@@ -193,7 +193,7 @@ final class Chunk extends AbstractSerializableXML
         Assert::oneOf(
             $value,
             ['0', '1', 'false', 'true'],
-            'The \'' . $name . '\' attribute of ' . $xml->prefix . ':'  . $xml->localName . ' must be boolean.'
+            'The \'' . $name . '\' attribute of ' . $xml->prefix . ':' . $xml->localName . ' must be boolean.'
         );
 
         return in_array($value, ['1', 'true'], true);
@@ -219,7 +219,7 @@ final class Chunk extends AbstractSerializableXML
 
         Assert::numeric(
             $value,
-            'The \'' . $name . '\' attribute of ' . $xml->prefix . ':'  . $xml->localName . ' must be numerical.'
+            'The \'' . $name . '\' attribute of ' . $xml->prefix . ':' . $xml->localName . ' must be numerical.'
         );
 
         return intval($value);
