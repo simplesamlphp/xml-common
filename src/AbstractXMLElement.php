@@ -16,53 +16,8 @@ use SimpleSAML\Assert\Assert;
  * @author Tim van Dijen, <tvdijen@gmail.com>
  * @package simplesamlphp/xml-common
  */
-abstract class AbstractXMLElement implements Serializable
+abstract class AbstractXMLElement extends AbstractSerializableXML
 {
-    /**
-     * Output the class as an XML-formatted string
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        $xml = $this->toXML();
-        $xml->ownerDocument->formatOutput = true;
-        return $xml->ownerDocument->saveXML($xml);
-    }
-
-
-    /**
-     * Serialize this XML chunk
-     *
-     * @return string The serialized chunk.
-     */
-    public function serialize(): string
-    {
-        $xml = $this->toXML();
-        return $xml->ownerDocument->saveXML($xml);
-    }
-
-
-    /**
-     * Un-serialize this XML chunk.
-     *
-     * @param string $serialized The serialized chunk.
-     * @return void
-     *
-     * Type hint not possible due to upstream method signature
-     */
-    public function unserialize($serialized): void
-    {
-        $doc = DOMDocumentFactory::fromString($serialized);
-        $obj = static::fromXML($doc->documentElement);
-
-        // For this to work, the properties have to be protected
-        foreach (get_object_vars($obj) as $property => $value) {
-            $this->{$property} = $value;
-        }
-    }
-
-
     /**
      * Create a document structure for this element
      *
@@ -72,28 +27,18 @@ abstract class AbstractXMLElement implements Serializable
     public function instantiateParentElement(DOMElement $parent = null): DOMElement
     {
         $qualifiedName = $this->getQualifiedName();
+        $namespace = static::getNamespaceURI();
 
         if ($parent === null) {
             $doc = DOMDocumentFactory::create();
-            $e = $doc->createElementNS(self::getNamespaceURI(), $qualifiedName);
+            $e = $doc->createElementNS($namespace, $qualifiedName);
             $doc->appendChild($e);
         } else {
-            $e = $parent->ownerDocument->createElementNS(self::getNamespaceURI(), $qualifiedName);
+            $e = $parent->ownerDocument->createElementNS($namespace, $qualifiedName);
             $parent->appendChild($e);
         }
 
         return $e;
-    }
-
-
-    /**
-     * Test if an object, at the state it's in, would produce an empty XML-element
-     *
-     * @return bool
-     */
-    public function isEmptyElement(): bool
-    {
-        return false;
     }
 
 
@@ -221,7 +166,7 @@ abstract class AbstractXMLElement implements Serializable
         $ret = [];
         foreach ($parent->childNodes as $node) {
             if (
-                $node->namespaceURI === static::getNamespace()
+                $node->namespaceURI === static::getNamespaceURI()
                 && $node->localName === self::getClassName(static::class)
             ) {
                 /** @psalm-var \DOMElement $node */
@@ -246,22 +191,4 @@ abstract class AbstractXMLElement implements Serializable
      * @return string|null
      */
     abstract public static function getNamespacePrefix(): ?string;
-
-
-    /**
-     * Create a class from XML
-     *
-     * @param \DOMElement $xml
-     * @return self
-     */
-    abstract public static function fromXML(DOMElement $xml): object;
-
-
-    /**
-     * Create XML from this class
-     *
-     * @param \DOMElement|null $parent
-     * @return \DOMElement
-     */
-    abstract public function toXML(DOMElement $parent = null): DOMElement;
 }

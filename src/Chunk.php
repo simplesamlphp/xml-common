@@ -13,7 +13,7 @@ use SimpleSAML\Assert\Assert;
  *
  * @package simplesamlphp/xml-common
  */
-final class Chunk extends AbstractXMLElement
+final class Chunk extends AbstractSerializableXML
 {
     /**
      * The localName of the element.
@@ -52,7 +52,7 @@ final class Chunk extends AbstractXMLElement
     public function __construct(DOMElement $xml)
     {
         $this->setLocalName($xml->localName);
-        $this->setNamespace($xml->namespace);
+        $this->setNamespace($xml->namespaceURI);
         $this->setPrefix($xml->prefix);
 
         $this->xml = Utils::copyElement($xml);
@@ -67,28 +67,6 @@ final class Chunk extends AbstractXMLElement
     public function getXML(): DOMElement
     {
         return $this->xml;
-    }
-
-
-    /**
-     * @param \DOMElement $xml
-     * @return self
-     */
-    public static function fromXML(DOMElement $xml): object
-    {
-        return new self($xml);
-    }
-
-
-    /**
-     * Append this XML element to a different XML element.
-     *
-     * @param  \DOMElement|null $parent The element we should append this element to.
-     * @return \DOMElement The new element.
-     */
-    public function toXML(DOMElement $parent = null): DOMElement
-    {
-        return Utils::copyElement($this->xml, $parent);
     }
 
 
@@ -164,23 +142,23 @@ final class Chunk extends AbstractXMLElement
 
 
     /**
-     * Get the namespace for the element.
-     *
-     * @return string|null
+     * @param \DOMElement $xml
+     * @return self
      */
-    public static function getNamespaceURI(): ?string
+    public static function fromXML(DOMElement $xml): object
     {
-        return null;
+        return new self($xml);
     }
 
 
     /**
-     * Get the namespace-prefix for the element.
+     * Append this XML element to a different XML element.
      *
-     * @return string|null
+     * @param  \DOMElement|null $parent The element we should append this element to.
+     * @return \DOMElement The new element.
      */
-    public static function getNamespacePrefix(): string
+    public function toXML(DOMElement $parent = null): DOMElement
     {
-        return null;
+        return Utils::copyElement($this->xml, $parent);
     }
 }
