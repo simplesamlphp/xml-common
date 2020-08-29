@@ -27,7 +27,8 @@
     },
     "require": {
         "php": ">=7.4 || ^8,0",
-        "ext-dom": "*"
+        "ext-dom": "*",
+        "simplesamlphp/assert": "~0.0.12"
     },
     "require-dev": {
         "simplesamlphp/simplesamlphp-test-framework": "^0.2.7"
