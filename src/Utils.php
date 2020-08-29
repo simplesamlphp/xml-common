@@ -36,13 +36,12 @@ class Utils
 
         if ($xpCache === null || !$xpCache->document->isSameNode($doc)) {
             $xpCache = new DOMXPath($doc);
-// @todo Create some sort of registry so that this list can be extended by users of this repo?
-//            $xpCache->registerNamespace('soap-env', Constants::NS_SOAP);
-//            $xpCache->registerNamespace('saml_protocol', Constants::NS_SAMLP);
-//            $xpCache->registerNamespace('saml_assertion', Constants::NS_SAML);
-//            $xpCache->registerNamespace('saml_metadata', Constants::NS_MD);
-//            $xpCache->registerNamespace('ds', XMLSecurityDSig::XMLDSIGNS);
-//            $xpCache->registerNamespace('xenc', XMLSecEnc::XMLENCNS);
+            $xpCache->registerNamespace('soap-env', Constants::NS_SOAP);
+            $xpCache->registerNamespace('saml_protocol', Constants::NS_SAMLP);
+            $xpCache->registerNamespace('saml_assertion', Constants::NS_SAML);
+            $xpCache->registerNamespace('saml_metadata', Constants::NS_MD);
+            $xpCache->registerNamespace('ds', Constants::NS_XDSIG);
+            $xpCache->registerNamespace('xenc', Constants::NS_XENC);
         }
 
         $results = $xpCache->query($query, $node);
