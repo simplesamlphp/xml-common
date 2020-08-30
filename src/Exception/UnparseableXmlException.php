@@ -10,7 +10,7 @@ use RuntimeException;
 final class UnparseableXmlException extends RuntimeException
 {
     /** @var array */
-    private static $levelMap = [
+    private const LEVELMAP = [
         LIBXML_ERR_WARNING => 'WARNING',
         LIBXML_ERR_ERROR   => 'ERROR',
         LIBXML_ERR_FATAL   => 'FATAL'
@@ -26,7 +26,7 @@ final class UnparseableXmlException extends RuntimeException
     {
         $message = sprintf(
             'Unable to parse XML - "%s[%d]": "%s" in "%s" at line %d on column %d"',
-            self::$levelMap[$error->level],
+            self::LEVELMAP[$error->level],
             $error->code,
             $error->message,
             $error->file ?: '(string)',
