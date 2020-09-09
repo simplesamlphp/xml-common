@@ -17,8 +17,6 @@ use SimpleSAML\XML\Exception\UnparseableXmlException;
  */
 final class DOMDocumentFactoryTest extends TestCase
 {
-    private const FRAMEWORK = 'vendor/simplesamlphp/xml-common/tests';
-
     /**
      * @group domdocument
      * @return void
@@ -62,7 +60,7 @@ final class DOMDocumentFactoryTest extends TestCase
     public function testFileThatDoesNotContainXMLCannotBeLoaded(): void
     {
         $this->expectException(RuntimeException::class);
-        DOMDocumentFactory::fromFile(self::FRAMEWORK . '/resources/xml/domdocument_invalid_xml.xml');
+        DOMDocumentFactory::fromFile('tests/resources/xml/domdocument_invalid_xml.xml');
     }
 
 
@@ -72,7 +70,7 @@ final class DOMDocumentFactoryTest extends TestCase
      */
     public function testFileWithValidXMLCanBeLoaded(): void
     {
-        $file = self::FRAMEWORK . '/resources/xml/domdocument_valid_xml.xml';
+        $file = 'tests/resources/xml/domdocument_valid_xml.xml';
         $document = DOMDocumentFactory::fromFile($file);
 
         $this->assertXmlStringEqualsXmlFile($file, $document->saveXML());
@@ -85,7 +83,7 @@ final class DOMDocumentFactoryTest extends TestCase
      */
     public function testFileThatContainsDocTypeIsNotAccepted(): void
     {
-        $file = self::FRAMEWORK . '/resources/xml/domdocument_doctype.xml';
+        $file = 'tests/resources/xml/domdocument_doctype.xml';
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(
             'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body'
@@ -115,7 +113,7 @@ final class DOMDocumentFactoryTest extends TestCase
      */
     public function testEmptyFileIsNotValid(): void
     {
-        $file = self::FRAMEWORK . '/resources/xml/domdocument_empty.xml';
+        $file = 'tests/resources/xml/domdocument_empty.xml';
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('does not have content');
         DOMDocumentFactory::fromFile($file);
