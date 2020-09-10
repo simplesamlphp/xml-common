@@ -13,7 +13,6 @@ use SimpleSAML\Assert\Assert;
 /**
  * Abstract class to be implemented by all classes
  *
- * @author Tim van Dijen, <tvdijen@gmail.com>
  * @package simplesamlphp/xml-common
  */
 abstract class AbstractXMLElement extends AbstractSerializableXML

@@ -7,7 +7,6 @@ namespace SimpleSAML\XML;
 /**
  * Various XML constants.
  *
- * @author Tim van Dijen, <tvdijen@gmail.com>
  * @package simplesamlphp/xml-common
  */
 class Constants

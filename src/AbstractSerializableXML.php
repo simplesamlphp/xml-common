@@ -11,7 +11,6 @@ use Serializable;
 /**
  * Abstract class for serialization of XML structures
  *
- * @author Tim van Dijen, <tvdijen@gmail.com>
  * @package simplesamlphp/xml-common
  */
 abstract class AbstractSerializableXML implements XMLElementInterface, Serializable

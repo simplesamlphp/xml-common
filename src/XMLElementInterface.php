@@ -9,7 +9,6 @@ use DOMElement;
 /**
  * interface class to be implemented by all the classes that represent an XML element
  *
- * @author Tim van Dijen, <tvdijen@gmail.com>
  * @package simplesamlphp/xml-common
  */
 interface XMLElementInterface

@@ -9,7 +9,6 @@ use SimpleSAML\Assert\AssertionFailedException;
 /**
  * This exception may be raised when a violation of the SAML2 schema is detected
  *
- * @author Tim van Dijen, <tvdijen@gmail.com>
  * @package simplesamlphp/saml2
  */
 class SchemaViolationException extends AssertionFailedException
