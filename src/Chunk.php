@@ -86,7 +86,6 @@ final class Chunk extends AbstractSerializableXML
      * Set the value of the localName-property
      *
      * @param string $localName
-     * @return void
      * @throws \SimpleSAML\Assert\AssertionFailedException if $localName is an empty string
      */
     public function setLocalName(string $localName): void
@@ -111,7 +110,6 @@ final class Chunk extends AbstractSerializableXML
      * Set the value of the namespaceURI-property
      *
      * @param string|null $namespaceURI
-     * @return void
      */
     protected function setNamespaceURI(string $namespaceURI = null): void
     {
@@ -134,7 +132,6 @@ final class Chunk extends AbstractSerializableXML
      * Set the value of the prefix-property
      *
      * @param string|null $prefix
-     * @return void
      */
     protected function setPrefix(string $prefix = null): void
     {

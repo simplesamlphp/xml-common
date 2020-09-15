@@ -191,7 +191,6 @@ class Utils
      * @param string $name The name of the created elements
      * @param bool $localized Whether the strings are localized, and should include the xml:lang attribute.
      * @param array $values The values we should create the elements from.
-     * @return void
      */
     public static function addStrings(
         DOMElement $parent,

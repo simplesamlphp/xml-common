@@ -46,7 +46,6 @@ abstract class AbstractSerializableXML implements XMLElementInterface, Serializa
      * Un-serialize this XML chunk.
      *
      * @param string $serialized The serialized chunk.
-     * @return void
      *
      * Type hint not possible due to upstream method signature
      */

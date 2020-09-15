@@ -19,7 +19,6 @@ final class DOMDocumentFactoryTest extends TestCase
 {
     /**
      * @group domdocument
-     * @return void
      */
     public function testNotXmlStringRaisesAnException(): void
     {
@@ -30,7 +29,6 @@ final class DOMDocumentFactoryTest extends TestCase
 
     /**
      * @group domdocument
-     * @return void
      */
     public function testXmlStringIsCorrectlyLoaded(): void
     {
@@ -43,7 +41,6 @@ final class DOMDocumentFactoryTest extends TestCase
 
 
     /**
-     * @return void
      */
     public function testFileThatDoesNotExistIsNotAccepted(): void
     {
@@ -55,7 +52,6 @@ final class DOMDocumentFactoryTest extends TestCase
 
     /**
      * @group domdocument
-     * @return void
      */
     public function testFileThatDoesNotContainXMLCannotBeLoaded(): void
     {
@@ -66,7 +62,6 @@ final class DOMDocumentFactoryTest extends TestCase
 
     /**
      * @group domdocument
-     * @return void
      */
     public function testFileWithValidXMLCanBeLoaded(): void
     {
@@ -79,7 +74,6 @@ final class DOMDocumentFactoryTest extends TestCase
 
     /**
      * @group                    domdocument
-     * @return void
      */
     public function testFileThatContainsDocTypeIsNotAccepted(): void
     {
@@ -94,7 +88,6 @@ final class DOMDocumentFactoryTest extends TestCase
 
     /**
      * @group                    domdocument
-     * @return void
      */
     public function testStringThatContainsDocTypeIsNotAccepted(): void
     {
@@ -109,7 +102,6 @@ final class DOMDocumentFactoryTest extends TestCase
 
     /**
      * @group                    domdocument
-     * @return void
      */
     public function testEmptyFileIsNotValid(): void
     {
@@ -122,7 +114,6 @@ final class DOMDocumentFactoryTest extends TestCase
 
     /**
      * @group                    domdocument
-     * @return void
      */
     public function testEmptyStringIsNotValid(): void
     {
