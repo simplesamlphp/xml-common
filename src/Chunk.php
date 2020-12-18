@@ -46,7 +46,7 @@ final class Chunk extends AbstractSerializableXML
 
 
     /**
-     * Create a XMLChunk from a copy of the given \DOMElement.
+     * Create an XML Chunk from a copy of the given \DOMElement.
      *
      * @param \DOMElement $xml The element we should copy.
      */
@@ -140,13 +140,19 @@ final class Chunk extends AbstractSerializableXML
 
 
     /**
-     * Get the XML qualified name (prefix:name) of the element represented by this class.
+     * Get the XML qualified name (prefix:name, or just name when not prefixed) of the element represented by this class.
      *
      * @return string
      */
     public function getQualifiedName(): string
     {
-        return $this->getPrefix() . ':' . $this->getLocalName();
+        $prefix = $this->getPrefix();
+
+        if (is_null($prefix)) {
+            return $this->getLocalName();
+        } else {
+            return $prefix . ':' . $this->getLocalName();
+        }
     }
 
 
