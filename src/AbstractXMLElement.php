@@ -17,6 +17,10 @@ use SimpleSAML\Assert\Assert;
  */
 abstract class AbstractXMLElement extends AbstractSerializableXML
 {
+    /** @var string */
+    protected $prefix = '';
+
+
     /**
      * Create a document structure for this element
      *
@@ -46,6 +50,32 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
 
 
     /**
+     * Get the namespace prefix for the element
+     *
+     * @return string
+     */
+    public function getPrefix(): string
+    {
+        $prefix = $this->prefix;
+        if ($prefix === '') {
+            return $prefix;
+        }
+        return $prefix ?? static::NS_PREFIX;
+    }
+
+
+    /**
+     * Set the namespace prefix for the element
+     *
+     * @param string $pfx
+     */
+    public function setPrefix(string $pfx): void
+    {
+        $this->prefix = $pfx;
+    }
+
+
+    /**
      * Get the value of an attribute from a given element.
      *
      * @param \DOMElement $xml The element where we should search for the attribute.
@@ -59,7 +89,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
         if (!$xml->hasAttribute($name)) {
             Assert::nullOrStringNotEmpty(
                 $default,
-                'Missing \'' . $name . '\' attribute on ' . static::getNamespacePrefix() . ':'
+                'Missing \'' . $name . '\' attribute on ' . ($xml->prefix ? $xml->prefix . ':' : '')
                     . self::getClassName(static::class) . '.',
                 MissingAttributeException::class
             );
@@ -88,8 +118,8 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
         Assert::oneOf(
             $value,
             ['0', '1', 'false', 'true'],
-            'The \'' . $name . '\' attribute of ' . static::getNamespacePrefix() . ':' . self::getClassName(static::class) .
-            ' must be boolean.'
+            'The \'' . $name . '\' attribute of ' . ($xml->prefix ? $xml->prefix . ':' : '')
+                . self::getClassName(static::class) . ' must be boolean.'
         );
 
         return in_array($value, ['1', 'true'], true);
@@ -115,7 +145,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
 
         Assert::numeric(
             $value,
-            'The \'' . $name . '\' attribute of ' . static::getNamespacePrefix() . ':' . self::getClassName(static::class)
+            'The \'' . $name . '\' attribute of ' . ($xml->prefix ? $xml->prefix . ':' : '') . self::getClassName(static::class)
                 . ' must be numerical.'
         );
 
@@ -153,7 +183,8 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
      */
     public function getQualifiedName(): string
     {
-        return static::getNamespacePrefix() . ':' . $this->getLocalName();
+        $prefix = $this->prefix;
+        return ($this->prefix ? $this->prefix . ':' : '') . $this->getLocalName();
     }
 
 
@@ -193,5 +224,5 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
      *
      * @return string
      */
-    abstract public static function getNamespacePrefix(): string;
+    abstract public function getNamespacePrefix(): string;
 }
