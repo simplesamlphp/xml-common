@@ -1,4 +1,4 @@
 xml-common
 ===========================
-[![Build Status](https://travis-ci.org/simplesamlphp/xml-common.svg?branch=master)](https://travis-ci.org/simplesamlphp/xml-common)
+![Build Status](https://github.com/simplesamlphp/xml-common/workflows/CI/badge.svg?branch=master)
 [![Coverage Status](https://codecov.io/gh/simplesamlphp/xml-common/branch/master/graph/badge.svg)](https://codecov.io/gh/simplesamlphp/xml-common)
