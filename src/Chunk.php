@@ -21,28 +21,28 @@ final class Chunk extends AbstractSerializableXML
      *
      * @var string
      */
-    protected $localName;
+    protected string $localName;
 
     /**
      * The namespaceURI of this element.
      *
      * @var string|null
      */
-    protected $namespaceURI;
+    protected ?string $namespaceURI;
 
     /**
      * The prefix of this element.
      *
      * @var string|null
      */
-    protected $prefix;
+    protected ?string $prefix;
 
     /**
      * The \DOMElement we contain.
      *
      * @var \DOMElement
      */
-    protected $xml;
+    protected DOMElement $xml;
 
 
     /**

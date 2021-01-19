@@ -20,7 +20,7 @@ trait ExtendableAttributesTrait
      *
      * @var array
      */
-    protected $namespacedAttributes = [];
+    protected array $namespacedAttributes = [];
 
 
     /**
