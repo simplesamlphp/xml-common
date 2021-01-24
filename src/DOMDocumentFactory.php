@@ -103,10 +103,12 @@ final class DOMDocumentFactory
 
 
     /**
+     * @param ?string $version
+     * @param ?string $encoding
      * @return \DOMDocument
      */
-    public static function create(): DOMDocument
+    public static function create(?string $version = null, ?string $encoding = null): DOMDocument
     {
-        return new DOMDocument();
+        return new DOMDocument($version ?? '1.0', $encoding ?? '');
     }
 }
