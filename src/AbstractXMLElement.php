@@ -199,10 +199,10 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
     /**
      * Create a class from an array
      *
-     * @param array $arr
+     * @param array $data
      * @return self
      */
-    abstract public static function fromArray(array $arr): object;
+    abstract public static function fromArray(array $data): object;
 
 
     /**
