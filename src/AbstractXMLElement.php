@@ -194,4 +194,21 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
      * @return string
      */
     abstract public static function getNamespacePrefix(): string;
+
+
+    /**
+     * Create a class from an array
+     *
+     * @param array $arr
+     * @return self
+     */
+    abstract public static function fromArray(array $arr): object;
+
+
+    /**
+     * Create an array from this class
+     *
+     * @return array
+     */
+    abstract public function toArray(): array;
 }
