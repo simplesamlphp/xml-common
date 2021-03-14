@@ -203,4 +203,12 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
      * @return self
      */
     abstract public static function fromArray(array $arr): object;
+
+
+    /**
+     * Create an array from this class
+     *
+     * @return array
+     */
+    abstract public function toArray(): array;
 }
