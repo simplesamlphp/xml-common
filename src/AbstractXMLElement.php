@@ -203,7 +203,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
      * @param array $data
      * @return self
      */
-    public static function fromArray(array $data): object
+    public static function fromArray(/** @scrutinizer ignore-unused */array $data): object
     {
         throw new RuntimeException('Not implemented.');
     }
