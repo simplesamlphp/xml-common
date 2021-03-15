@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMElement;
+use RuntimeException;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use Serializable;
@@ -202,7 +203,10 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
      * @param array $data
      * @return self
      */
-    abstract public static function fromArray(array $data): object;
+    public static function fromArray(array $data): object
+    {
+        throw new RuntimeException('Not implemented.');
+    }
 
 
     /**
@@ -210,5 +214,8 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
      *
      * @return array
      */
-    abstract public function toArray(): array;
+    public function toArray(): array
+    {
+        throw new RuntimeException('Not implemented');
+    }
 }
