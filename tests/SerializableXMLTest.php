@@ -8,9 +8,8 @@ use DOMDocument;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test for AbstractSerializableXML classes to perform default serialization tests.
+ * Test for SerializableXML classes to perform default serialization tests.
  *
- * @runTestsInSeparateProcesses
  * @package simplesamlphp\xml-common
  */
 abstract class SerializableXMLTest extends TestCase
@@ -19,10 +18,10 @@ abstract class SerializableXMLTest extends TestCase
     protected static string $element;
 
     /** @var \DOMDocument */
-    protected static DOMDocument $xmlDocument;
+    protected static DOMDocument $xmlRepresentation;
 
     /** @var array */
-    protected static array $arrayDocument;
+    protected static array $arrayRepresentation;
 
 
     /**
@@ -31,16 +30,22 @@ abstract class SerializableXMLTest extends TestCase
     public function testSerialization(): void
     {
         $element = static::$element;
-        $document = static::$xmlDocument;
+        $xmlRepresentation = static::$xmlRepresentation;
 
         if ($element === null || !class_exists($element)) {
-            $this->markTestSkipped('Unable to run ' . static::class . '::testSerialization(). Please set ' . static::class . ':$element to a class-string representing the XML-class being tested');
-        } elseif ($document === null) {
-            $this->markTestSkipped('Unable to run ' . static::class . '::testSerialization(). Please set ' . static::class . ':$xmlDocument to a DOMDocument representing the XML-class being tested');
+            $this->markTestSkipped(
+                'Unable to run ' . static::class . '::testSerialization(). Please set ' . static::class
+                . ':$element to a class-string representing the XML-class being tested'
+            );
+        } elseif ($xmlRepresentation === null) {
+            $this->markTestSkipped(
+                'Unable to run ' . static::class . '::testSerialization(). Please set ' . static::class
+                . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested'
+            );
         } else {
             $this->assertEquals(
-                $document->saveXML($document->documentElement),
-                strval(unserialize(serialize($element::fromXML($document->documentElement))))
+                $xmlRepresentation->saveXML($xmlRepresentation->documentElement),
+                strval(unserialize(serialize($element::fromXML($xmlRepresentation->documentElement))))
             );
         }
     }
@@ -52,16 +57,22 @@ abstract class SerializableXMLTest extends TestCase
     public function testArrayization(): void
     {
         $element = static::$element;
-        $document = static::$arrayDocument;
+        $arrayRepresentation = static::$arrayRepresentation;
 
         if ($element === null || !class_exists($element)) {
-            $this->markTestSkipped('Unable to run ' . static::class . '::testArrayization(). Please set ' . static::class . ':$element to a class-string representing the XML-class being tested');
-        } elseif ($document === null) {
-            $this->markTestSkipped('Unable to run ' . static::class . '::testArrayization(). Please set ' . static::class . ':$arrayDocument to an array representing the XML-class being tested');
+            $this->markTestSkipped(
+                'Unable to run ' . static::class . '::testArrayization(). Please set ' . static::class
+                . ':$element to a class-string representing the XML-class being tested'
+            );
+        } elseif ($arrayRepresentation === null) {
+            $this->markTestSkipped(
+                'Unable to run ' . static::class . '::testArrayization(). Please set ' . static::class
+                . ':$arrayRepresentation to an array representing the XML-class being tested'
+            );
         } else {
             $this->assertEquals(
-                $document,
-                $element::fromArray($document)->toArray(),
+                $arrayRepresentation,
+                $element::fromArray($arrayRepresentation)->toArray(),
             );
         }
     }
