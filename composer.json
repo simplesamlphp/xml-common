@@ -17,12 +17,13 @@
     ],
     "autoload": {
         "psr-4": {
-            "SimpleSAML\\XML\\": "src/"
+            "SimpleSAML\\XML\\": "src/",
+            "SimpleSAML\\Test\\XML\\": ["tests/PHPUnit/"]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SimpleSAML\\Test\\XML\\": ["tests"]
+            "SimpleSAML\\Test\\XML\\": ["tests/src", "tests/PHPUnit/"]
         }
     },
     "require": {
