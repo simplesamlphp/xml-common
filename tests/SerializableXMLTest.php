@@ -6,7 +6,6 @@ namespace SimpleSAML\Test\XML;
 
 use DOMDocument;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\XML\AbstractSerializableXML;
 
 /**
  * Test for AbstractSerializableXML classes to perform default serialization tests.
@@ -21,6 +20,10 @@ abstract class SerializableXMLTest extends TestCase
 
     /** @var \DOMDocument */
     protected static DOMDocument $xmlDocument;
+
+    /** @var array */
+    protected static array $arrayDocument;
+
 
     /**
      * Test serialization / unserialization.
@@ -38,6 +41,27 @@ abstract class SerializableXMLTest extends TestCase
             $this->assertEquals(
                 $document->saveXML($document->documentElement),
                 strval(unserialize(serialize($element::fromXML($document->documentElement))))
+            );
+        }
+    }
+
+
+    /**
+     * Test arrayization / de-arrayization
+     */
+    public function testArrayization(): void
+    {
+        $element = static::$element;
+        $document = static::$arrayDocument;
+
+        if ($element === null || !class_exists($element)) {
+            $this->markTestSkipped('Unable to run ' . static::class . '::testArrayization(). Please set ' . static::class . ':$element to a class-string representing the XML-class being tested');
+        } elseif ($document === null) {
+            $this->markTestSkipped('Unable to run ' . static::class . '::testArrayization(). Please set ' . static::class . ':$arrayDocument to an array representing the XML-class being tested');
+        } else {
+            $this->assertEquals(
+                $document,
+                $element::fromArray($document)->toArray(),
             );
         }
     }
