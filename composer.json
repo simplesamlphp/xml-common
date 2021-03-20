@@ -22,7 +22,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "SimpleSAML\\Test\\XML\\": ["tests", "tests/src"]
+            "SimpleSAML\\Test\\XML\\": ["tests"]
         }
     },
     "require": {
