@@ -24,9 +24,11 @@ abstract class ArrayizableXMLTest extends SerializableXMLTest
     public function testArrayization(): void
     {
         $element = static::$element;
+
+        /** @psalm-var array|null $arrayRepresentation */
         $arrayRepresentation = static::$arrayRepresentation;
 
-        if ($element === null || !class_exists($element)) {
+        if (!class_exists($element)) {
             $this->markTestSkipped(
                 'Unable to run ' . static::class . '::testArrayization(). Please set ' . static::class
                 . ':$element to a class-string representing the XML-class being tested'

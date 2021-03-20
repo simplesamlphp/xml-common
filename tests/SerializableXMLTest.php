@@ -27,9 +27,11 @@ abstract class SerializableXMLTest extends TestCase
     public function testSerialization(): void
     {
         $element = static::$element;
+
+        /** @psalm-var \DOMDocument|null $xmlRepresentation */
         $xmlRepresentation = static::$xmlRepresentation;
 
-        if ($element === null || !class_exists($element)) {
+        if (!class_exists($element)) {
             $this->markTestSkipped(
                 'Unable to run ' . static::class . '::testSerialization(). Please set ' . static::class
                 . ':$element to a class-string representing the XML-class being tested'
