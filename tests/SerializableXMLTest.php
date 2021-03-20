@@ -20,9 +20,6 @@ abstract class SerializableXMLTest extends TestCase
     /** @var \DOMDocument */
     protected static DOMDocument $xmlRepresentation;
 
-    /** @var array */
-    protected static array $arrayRepresentation;
-
 
     /**
      * Test serialization / unserialization.
@@ -46,33 +43,6 @@ abstract class SerializableXMLTest extends TestCase
             $this->assertEquals(
                 $xmlRepresentation->saveXML($xmlRepresentation->documentElement),
                 strval(unserialize(serialize($element::fromXML($xmlRepresentation->documentElement))))
-            );
-        }
-    }
-
-
-    /**
-     * Test arrayization / de-arrayization
-     */
-    public function testArrayization(): void
-    {
-        $element = static::$element;
-        $arrayRepresentation = static::$arrayRepresentation;
-
-        if ($element === null || !class_exists($element)) {
-            $this->markTestSkipped(
-                'Unable to run ' . static::class . '::testArrayization(). Please set ' . static::class
-                . ':$element to a class-string representing the XML-class being tested'
-            );
-        } elseif ($arrayRepresentation === null) {
-            $this->markTestSkipped(
-                'Unable to run ' . static::class . '::testArrayization(). Please set ' . static::class
-                . ':$arrayRepresentation to an array representing the XML-class being tested'
-            );
-        } else {
-            $this->assertEquals(
-                $arrayRepresentation,
-                $element::fromArray($arrayRepresentation)->toArray(),
             );
         }
     }
