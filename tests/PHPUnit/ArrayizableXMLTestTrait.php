@@ -5,17 +5,19 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use DOMDocument;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Test for ArrayizableXML classes to perform default serialization tests.
  *
  * @package simplesamlphp\xml-common
  */
-abstract class ArrayizableXMLTest extends SerializableXMLTest
+trait ArrayizableXMLTestTrait
 {
+    /** @var class-string */
+    protected string $testedClass;
+
     /** @var array */
-    protected static array $arrayRepresentation;
+    protected array $arrayRepresentation;
 
 
     /**
@@ -23,25 +25,20 @@ abstract class ArrayizableXMLTest extends SerializableXMLTest
      */
     public function testArrayization(): void
     {
-        $element = static::$element;
-
-        /** @psalm-var array|null $arrayRepresentation */
-        $arrayRepresentation = static::$arrayRepresentation;
-
-        if (!class_exists($element)) {
+        if (!class_exists($this->testedClass)) {
             $this->markTestSkipped(
-                'Unable to run ' . static::class . '::testArrayization(). Please set ' . static::class
+                'Unable to run ' . self::class . '::testArrayization(). Please set ' . self::class
                 . ':$element to a class-string representing the XML-class being tested'
             );
-        } elseif ($arrayRepresentation === null) {
+        } elseif ($this->arrayRepresentation === null) {
             $this->markTestSkipped(
-                'Unable to run ' . static::class . '::testArrayization(). Please set ' . static::class
+                'Unable to run ' . self::class . '::testArrayization(). Please set ' . self::class
                 . ':$arrayRepresentation to an array representing the XML-class being tested'
             );
         } else {
             $this->assertEquals(
-                $arrayRepresentation,
-                $element::fromArray($arrayRepresentation)->toArray(),
+                $this->arrayRepresentation,
+                $this->testedClass::fromArray($this->arrayRepresentation)->toArray(),
             );
         }
     }
