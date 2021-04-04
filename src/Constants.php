@@ -14,7 +14,7 @@ class Constants
     /**
      * The namespace fox XML.
      */
-    public const NS_XS = 'http://www.w3.org/XML/1998/namespace';
+    public const NS_XML = 'http://www.w3.org/XML/1998/namespace';
 
     /**
      * The namespace fox XML schema.
