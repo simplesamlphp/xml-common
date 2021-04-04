@@ -12,6 +12,11 @@ namespace SimpleSAML\XML;
 class Constants
 {
     /**
+     * The namespace fox XML.
+     */
+    public const NS_XS = 'http://www.w3.org/XML/1998/namespace';
+
+    /**
      * The namespace fox XML schema.
      */
     public const NS_XS = 'http://www.w3.org/2001/XMLSchema';
