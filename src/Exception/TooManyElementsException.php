@@ -7,7 +7,7 @@ namespace SimpleSAML\XML\Exception;
 /**
  * This exception may be raised when the passed DOMElement contains too much child-elements of a certain type
  *
- * @package simplesamlphp/saml2
+ * @package simplesamlphp/xml-common
  */
 class TooManyElementsException extends SchemaViolationException
 {

@@ -12,7 +12,7 @@ use InvalidArgumentException;
 use SimpleSAML\Assert\Assert;
 
 /**
- * Helper functions for the SAML2 library.
+ * Helper functions for the XML library.
  *
  * @package simplesamlphp/xml-common
  */

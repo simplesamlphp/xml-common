@@ -9,7 +9,7 @@ use InvalidArgumentException;
 /**
  * This exception may be raised when the passed DOMElement is of the wrong type
  *
- * @package simplesamlphp/saml2
+ * @package simplesamlphp/xml-common
  */
 class InvalidDOMElementException extends InvalidArgumentException
 {

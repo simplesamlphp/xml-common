@@ -7,7 +7,7 @@ namespace SimpleSAML\XML\Exception;
 /**
  * This exception may be raised when the passed DOMElement is missing a mandatory attribute
  *
- * @package simplesamlphp/saml2
+ * @package simplesamlphp/xml-common
  */
 class MissingAttributeException extends SchemaViolationException
 {
