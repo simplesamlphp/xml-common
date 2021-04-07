@@ -18,9 +18,7 @@ use SimpleSAML\XML\Exception\InvalidDOMElementException;
  */
 final class ExtendableElement extends AbstractXMLElement
 {
-    use ExtendableElementTrait {
-        ExtendableElementTrait::isEmptyElement as parentIsEmptyElement;
-    }
+    use ExtendableElementTrait;
 
     /** @var string */
     public const NS = 'urn:custom:ssp';
@@ -60,17 +58,6 @@ final class ExtendableElement extends AbstractXMLElement
 
 
     /**
-     * Test if an object, at the state it's in, would produce an empty XML-element
-     *
-     * @return bool
-     */
-    public function isEmptyElement(): bool
-    {
-        return $this->parentIsEmptyElement();
-    }
-
-
-    /**
      * Create a class from XML
      *
      * @param \DOMElement $xml
@@ -102,7 +89,9 @@ final class ExtendableElement extends AbstractXMLElement
         $e = $this->instantiateParentElement();
 
         foreach ($this->getElements() as $elt) {
-            $elt->toXML($e);
+            if (!$elt->isEmptyElement()) {
+                $elt->toXML($e);
+            }
         }
 
         return $e;

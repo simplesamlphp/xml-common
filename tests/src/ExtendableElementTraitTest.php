@@ -58,19 +58,6 @@ XML
 
     /**
      */
-    public function testEmptyElement(): void
-    {
-        $o = new ExtendableElement();
-        $o->setNamespace(Constants::XS_ANY_NS_LOCAL);
-
-        $o->setElements([$this->empty]);
-
-        $this->assertTrue($o->isEmptyElement());
-    }
-
-
-    /**
-     */
     public function testInvalidNamespaceThrowsAnException(): void
     {
         $o = new ExtendableElement();

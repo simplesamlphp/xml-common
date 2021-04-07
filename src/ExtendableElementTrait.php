@@ -114,24 +114,4 @@ trait ExtendableElementTrait
 
         $this->namespace = $namespace;
     }
-
-
-    /**
-     * Test if an object, at the state it's in, would produce an empty XML-element
-     *
-     * @return bool
-     */
-    public function isEmptyElement(): bool
-    {
-        if (empty($this->elements)) {
-            return true;
-        }
-
-        $empty = true;
-        foreach ($this->elements as $elt) {
-            $empty = $empty && $elt->isEmptyElement();
-        }
-
-        return $empty;
-    }
 }
