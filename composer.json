@@ -23,7 +23,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "SimpleSAML\\Test\\XML\\": ["tests/src", "tests/PHPUnit/"]
+            "SimpleSAML\\Test\\XML\\": ["tests/src", "tests/PHPUnit/", "tests/Utils"]
         }
     },
     "require": {
