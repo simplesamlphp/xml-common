@@ -12,7 +12,7 @@ use SimpleSAML\Assert\Assert;
  *
  * @package simplesamlphp/xml-common
  */
-trait ExtensionsTrait
+trait ExtendableElementTrait
 {
     /** @var \SimpleSAML\XML\XMLElementInterface[] */
     protected array $extensions = [];
