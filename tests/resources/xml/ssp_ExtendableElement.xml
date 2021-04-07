@@ -1,0 +1,4 @@
+<ssp:ExtendableElement xmlns:ssp="urn:custom:ssp">
+  <ssp:chunk>some</ssp:chunk>
+  <dummy:chunk xmlns:dummy="urn:custom:dummy">some</dummy:chunk>
+</ssp:ExtendableElement>

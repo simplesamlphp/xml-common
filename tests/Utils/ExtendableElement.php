@@ -7,6 +7,7 @@ namespace SimpleSAML\Test\XML;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractXMLElement;
+use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\ExtendableElementTrait;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 
@@ -78,13 +79,15 @@ final class ExtendableElement extends AbstractXMLElement
     public static function fromXML(DOMElement $xml): object
     {
         $children = [];
-        foreach ($this->childNodes as $node) {
+        foreach ($xml->childNodes as $node) {
             if ($node instanceof DOMElement) {
-                $children[] = $node;
+                $children[] = Chunk::fromXML($node);
             }
         }
 
-        return new self($children);
+        $instance = new self();
+        $instance->setElements($children);
+        return $instance;
     }
 
 
