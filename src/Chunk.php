@@ -230,6 +230,21 @@ final class Chunk extends AbstractSerializableXML
 
 
     /**
+     * Test if an object, at the state it's in, would produce an empty XML-element
+     *
+     * @return bool
+     */
+    public function isEmptyElement(): bool
+    {
+        $xml = $this->getXML();
+        return (
+            ($xml->childNodes->length === 0)
+            && ($xml->attributes->length === 0)
+        );
+    }
+
+
+    /**
      * @param \DOMElement $xml
      * @return self
      */
