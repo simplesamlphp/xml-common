@@ -65,4 +65,32 @@ class Constants
      * The namespace for the XML signing schema.
      */
     public const NS_XDSIG = 'http://www.w3.org/2000/09/xmldsig#';
+
+    /**
+     * The namespace-attribute values for xs:any elements
+     */
+    public const XS_ANY_NS_ANY = '##any';
+    public const XS_ANY_NS_LOCAL = '##local';
+    public const XS_ANY_NS_OTHER = '##other';
+    public const XS_ANY_NS_TARGET = '##targetNamespace';
+
+    public const XS_ANY_NS = [
+        self::XS_ANY_NS_ANY,
+        self::XS_ANY_NS_LOCAL,
+        self::XS_ANY_NS_OTHER,
+        self::XS_ANY_NS_TARGET,
+    ];
+
+    /**
+     * The processContents-attribute values for xs:any elements
+     */
+    public const XS_ANY_PROCESS_LAX = 'lax';
+    public const XS_ANY_PROCESS_SKIP = 'skip';
+    public const XS_ANY_PROCESS_STRICT = 'strict';
+
+    public const XS_ANY_PROCESS = [
+        self::XS_ANY_PROCESS_LAX,
+        self::XS_ANY_PROCESS_SKIP,
+        self::XS_ANY_PROCESS_STRICT,
+    ];
 }
