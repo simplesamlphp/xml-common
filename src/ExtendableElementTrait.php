@@ -6,6 +6,7 @@ namespace SimpleSAML\XML;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\XML\Constants;
 
 /**
  * Trait grouping common functionality for elements implementing the xs:any element.
@@ -15,85 +16,75 @@ use SimpleSAML\Assert\Assert;
 trait ExtendableElementTrait
 {
     /** @var \SimpleSAML\XML\XMLElementInterface[] */
-    protected array $extensions = [];
+    protected array $elements = [];
+
+    /** @var string|array */
+    protected string $namespace = Constants::XS_ANY_NS_ANY;
+
+    /** @var string */
+    //protected string $processContents = Constants::XS_ANY_PROCESS_LAX;
 
 
     /**
-     * Extensions constructor.
-     *
-     * @var \SimpleSAML\XML\XMLElementInterface[]
-     */
-    public function __construct(array $extensions)
-    {
-        $this->setList($extensions);
-    }
-
-
-    /**
-     * Set an array with all extensions present.
+     * Set an array with all elements present.
      *
      * @param array \SimpleSAML\XML\XMLElementInterface[]
      */
-    public function setList(array $extensions): void
+    public function setElements(array $elements): void
     {
-        Assert::allIsInstanceOf($extensions, XMLElementInterface::class);
+        Assert::allIsInstanceOf($elements, XMLElementInterface::class);
 
-        $this->extensions = $extensions;
-    }
-
-
-    /**
-     * Get an array with all extensions present.
-     *
-     * @return \SimpleSAML\XML\XMLElementInterface[]
-     */
-    public function getList(): array
-    {
-        return $this->extensions;
-    }
-
-
-    /**
-     * @return bool
-     */
-    public function isEmptyElement(): bool
-    {
-        if (empty($this->extensions)) {
-            return true;
+        if (!is_array($$this->namespace)) {
+            Assert::oneOf($namespace, Constants::XS_ANY_NS);
         }
 
-        $empty = false;
-        foreach ($this->extensions as $extension) {
-            $empty &= $extension->isEmptyElement();
-        }
+        // Get namespaces for all elements
+        $actual_namespaces = array_map(
+            function($elt) {
+                return $elt->getNamespaceURI();
+            },
+            $elements
+        );
 
-        return boolval($empty);
-    }
+        if ($this->namespace === Constants::XS_ANY_NS_LOCAL) {
+            Assert::allNull($actual_namespaces);
+        } elseif (is_array($this->namespace)) {
+            // Make a local copy of the property that we can edit
+            $allowed_namespaces = $this->namespace;
 
+            // Replace the ##targetedNamespace with the actual namespace
+            if ($key = array_search(Constants::XS_ANY_NS_TARGET, $allowed_namespaces)) {
+                $allowed_namespaces[$key] = static::NS;
+            }
 
-    /**
-     * Convert this object into its md:Extensions XML representation.
-     *
-     * @param \DOMElement|null $parent The element we should add this Extensions element to.
-     * @return \DOMElement The new md:Extensions XML element.
-     */
-    public function toXML(DOMElement $parent = null): DOMElement
-    {
-        $e = $this->instantiateParentElement($parent);
+            // Replace the ##local with the actual namespace
+            if ($key = array_search(Constants::XS_ANY_NS_LOCAL, $allowed_namespaces)) {
+                $allowed_namespaces[$key] = null;
+            }
 
-        foreach ($this->extensions as $extension) {
-            if (!$extension->isEmptyElement()) {
-                $extension->toXML($e);
+            $diff = array_diff($actual_namespaces, $allowed_namespaces);
+            Assert::empty($diff, 'Elements from namespaces [ ' . implode(', ', $diff) . '] are not allowed inside a ' . static::NS, ' element.');
+        } else {
+            Assert::allNotNull($actual_namespaces);
+
+            if ($this->namespace === Constants::XS_ANY_NS_OTHER) {
+                Assert::allNotSame($actual_namespaces, static::NS);
+            } elseif ($this->namespace === Constants::XS_ANY_NS_TARGET) {
+                Assert::allSame($actual_namespaces, static::NS);
             }
         }
 
-        return $e;
+        $this->elements = $elements;
     }
 
 
     /**
-     * @param \DOMElement|null $parent
-     * @return \DOMElement
+     * Get an array with all elements present.
+     *
+     * @return \SimpleSAML\XML\XMLElementInterface[]
      */
-    abstract public function instantiateParentElement(DOMElement $parent = null): DOMElement;
+    public function getElements(): array
+    {
+        return $this->elements;
+    }
 }
