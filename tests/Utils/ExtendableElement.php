@@ -8,6 +8,7 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractXMLElement;
 use SimpleSAML\XML\Chunk;
+use SimpleSAML\XML\Constants;
 use SimpleSAML\XML\ExtendableElementTrait;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 
@@ -16,7 +17,7 @@ use SimpleSAML\XML\Exception\InvalidDOMElementException;
  *
  * @package simplesaml/xml-security
  */
-final class ExtendableElement extends AbstractXMLElement
+class ExtendableElement extends AbstractXMLElement
 {
     use ExtendableElementTrait;
 
@@ -25,6 +26,9 @@ final class ExtendableElement extends AbstractXMLElement
 
     /** @var string */
     public const NS_PREFIX = 'ssp';
+
+    /** @var string|array */
+    private $namespace = Constants::XS_ANY_NS_ANY;
 
 
     /**
@@ -51,9 +55,23 @@ final class ExtendableElement extends AbstractXMLElement
 
     /**
      * Initialize element.
+     *
+     * @param \SimpleSAML\XML\AbstractXMLElement[] $elements
      */
-    public function __construct()
+    public function __construct(array $elements)
     {
+        $this->setElements($elements);
+    }
+
+
+    /**
+     * Get the namespace-attribute for xs:any elements
+     *
+     * @return string|array
+     */
+    public function getNamespace()
+    {
+        return $this->namespace;
     }
 
 
@@ -72,9 +90,7 @@ final class ExtendableElement extends AbstractXMLElement
             }
         }
 
-        $instance = new self();
-        $instance->setElements($children);
-        return $instance;
+        return new self($children);
     }
 
 

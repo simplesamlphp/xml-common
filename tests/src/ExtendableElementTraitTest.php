@@ -60,10 +60,13 @@ XML
      */
     public function testInvalidNamespaceThrowsAnException(): void
     {
-        $o = new ExtendableElement();
-
         $this->expectException(AssertionFailedException::class);
-        $o->setNamespace('wrong');
+        new class ([]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return 'wrong';
+            }
+        };
     }
 
 
@@ -71,10 +74,13 @@ XML
      */
     public function testIllegalNamespaceComboThrowsAnException(): void
     {
-        $o = new ExtendableElement();
-
         $this->expectException(AssertionFailedException::class);
-        $o->setNamespace([Constants::XS_ANY_NS_OTHER, Constants::XS_ANY_NS_ANY]);
+        new class ([]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return [Constants::XS_ANY_NS_OTHER, Constants::XS_ANY_NS_ANY];
+            }
+        };
     }
 
 
@@ -82,10 +88,13 @@ XML
      */
     public function testEmptyNamespaceArrayThrowsAnException(): void
     {
-        $o = new ExtendableElement();
-
         $this->expectException(AssertionFailedException::class);
-        $o->setNamespace([]);
+        new class ([]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return [];
+            }
+        };
     }
 
 
@@ -93,10 +102,13 @@ XML
      */
     public function testOtherNamespacePassingOtherSucceeds(): void
     {
-        $o = new ExtendableElement();
-        $o->setNamespace(Constants::XS_ANY_NS_OTHER);
+        new class ([$this->other]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return Constants::XS_ANY_NS_OTHER;
+            }
+        };
 
-        $o->setElements([$this->other]);
         $this->addToAssertionCount(1);
     }
 
@@ -105,11 +117,13 @@ XML
      */
     public function testOtherNamespacePassingLocalThrowsAnException(): void
     {
-        $o = new ExtendableElement();
-        $o->setNamespace(Constants::XS_ANY_NS_OTHER);
-
         $this->expectException(AssertionFailedException::class);
-        $o->setElements([$this->local]);
+        new class ([$this->local]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return Constants::XS_ANY_NS_OTHER;
+            }
+        };
     }
 
 
@@ -117,10 +131,13 @@ XML
      */
     public function testTargetNamespacePassingTargetSucceeds(): void
     {
-        $o = new ExtendableElement();
-        $o->setNamespace(Constants::XS_ANY_NS_TARGET);
+        new class ([$this->target]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return Constants::XS_ANY_NS_TARGET;
+            }
+        };
 
-        $o->setElements([$this->target]);
         $this->addToAssertionCount(1);
     }
 
@@ -129,10 +146,13 @@ XML
      */
     public function testTargetNamespacePassingTargetArraySucceeds(): void
     {
-        $o = new ExtendableElement();
-        $o->setNamespace([Constants::XS_ANY_NS_TARGET]);
+        new class ([$this->target]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return [Constants::XS_ANY_NS_TARGET];
+            }
+        };
 
-        $o->setElements([$this->target]);
         $this->addToAssertionCount(1);
     }
 
@@ -141,11 +161,13 @@ XML
      */
     public function testTargetNamespacePassingOtherThrowsAnException(): void
     {
-        $o = new ExtendableElement();
-        $o->setNamespace(Constants::XS_ANY_NS_TARGET);
-
         $this->expectException(AssertionFailedException::class);
-        $o->setElements([$this->other]);
+        new class ([$this->other]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return Constants::XS_ANY_NS_TARGET;
+            }
+        };
     }
 
 
@@ -153,10 +175,13 @@ XML
      */
     public function testLocalNamespacePassingLocalSucceeds(): void
     {
-        $o = new ExtendableElement();
-        $o->setNamespace(Constants::XS_ANY_NS_LOCAL);
+        $o = new class ([$this->local]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return Constants::XS_ANY_NS_LOCAL;
+            }
+        };
 
-        $o->setElements([$this->local]);
         $this->addToAssertionCount(1);
     }
 
@@ -165,10 +190,13 @@ XML
      */
     public function testLocalNamespacePassingLocalArraySucceeds(): void
     {
-        $o = new ExtendableElement();
-        $o->setNamespace([Constants::XS_ANY_NS_LOCAL]);
+        new class ([$this->local]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return Constants::XS_ANY_NS_LOCAL;
+            }
+        };
 
-        $o->setElements([$this->local]);
         $this->addToAssertionCount(1);
     }
 
@@ -177,11 +205,13 @@ XML
      */
     public function testLocalNamespacePassingTargetThrowsAnException(): void
     {
-        $o = new ExtendableElement();
-        $o->setNamespace(Constants::XS_ANY_NS_LOCAL);
-
         $this->expectException(AssertionFailedException::class);
-        $o->setElements([$this->target]);
+         new class ([$this->target]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return Constants::XS_ANY_NS_LOCAL;
+            }
+        };
     }
 
 
@@ -189,11 +219,13 @@ XML
      */
     public function testLocalNamespacePassingOtherThrowsAnException(): void
     {
-        $o = new ExtendableElement();
-        $o->setNamespace(Constants::XS_ANY_NS_LOCAL);
-
         $this->expectException(AssertionFailedException::class);
-        $o->setElements([$this->other]);
+        new class ([$this->other]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return Constants::XS_ANY_NS_LOCAL;
+            }
+        };
     }
 
 
@@ -201,10 +233,13 @@ XML
      */
     public function testAnyNamespacePassingTargetSucceeds(): void
     {
-        $o = new ExtendableElement();
-        $o->setNamespace(Constants::XS_ANY_NS_ANY);
+        $o = new class ([$this->target]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return Constants::XS_ANY_NS_ANY;
+            }
+        };
 
-        $o->setElements([$this->target]);
         $this->addToAssertionCount(1);
     }
 
@@ -213,10 +248,13 @@ XML
      */
     public function testAnyNamespacePassingOtherSucceeds(): void
     {
-        $o = new ExtendableElement();
-        $o->setNamespace(Constants::XS_ANY_NS_ANY);
+        $o = new class ([$this->other]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return Constants::XS_ANY_NS_ANY;
+            }
+        };
 
-        $o->setElements([$this->other]);
         $this->addToAssertionCount(1);
     }
 }

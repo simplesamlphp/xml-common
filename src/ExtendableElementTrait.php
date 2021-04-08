@@ -18,9 +18,6 @@ trait ExtendableElementTrait
     /** @var \SimpleSAML\XML\XMLElementInterface[] */
     protected array $elements = [];
 
-    /** @var string|array */
-    protected $namespace = Constants::XS_ANY_NS_ANY;
-
 
     /**
      * Set an array with all elements present.
@@ -30,6 +27,19 @@ trait ExtendableElementTrait
     public function setElements(array $elements): void
     {
         Assert::allIsInstanceOf($elements, XMLElementInterface::class);
+        $namespace = $this->getNamespace();
+
+        // Validate namespace value
+        Assert::true(is_array($namespace) || is_string($namespace));
+        if (!is_array($namespace)) {
+            // Must be one of the predefined values
+            Assert::oneOf($namespace, Constants::XS_ANY_NS);
+        } else {
+            // Array must be non-empty and cannot contain ##any or ##other
+            Assert::notEmpty($namespace);
+            Assert::allNotSame($namespace, Constants::XS_ANY_NS_ANY);
+            Assert::allNotSame($namespace, Constants::XS_ANY_NS_OTHER);
+        }
 
         // Get namespaces for all elements
         $actual_namespaces = array_map(
@@ -39,12 +49,12 @@ trait ExtendableElementTrait
             $elements
         );
 
-        if ($this->namespace === Constants::XS_ANY_NS_LOCAL) {
+        if ($namespace === Constants::XS_ANY_NS_LOCAL) {
             // If ##local then all namespaces must be null
             Assert::allNull($actual_namespaces);
-        } elseif (is_array($this->namespace)) {
+        } elseif (is_array($namespace)) {
             // Make a local copy of the property that we can edit
-            $allowed_namespaces = $this->namespace;
+            $allowed_namespaces = $namespace;
 
             // Replace the ##targetedNamespace with the actual namespace
             if (($key = array_search(Constants::XS_ANY_NS_TARGET, $allowed_namespaces)) !== false) {
@@ -69,10 +79,10 @@ trait ExtendableElementTrait
             // All elements must be namespaced, ergo non-null
             Assert::allNotNull($actual_namespaces);
 
-            if ($this->namespace === Constants::XS_ANY_NS_OTHER) {
+            if ($namespace === Constants::XS_ANY_NS_OTHER) {
                 // Must be any namespace other than the parent element
                 Assert::allNotSame($actual_namespaces, static::NS);
-            } elseif ($this->namespace === Constants::XS_ANY_NS_TARGET) {
+            } elseif ($namespace === Constants::XS_ANY_NS_TARGET) {
                 // Must be the same namespace as the one of the parent element
                 Assert::allSame($actual_namespaces, static::NS);
             }
@@ -94,24 +104,7 @@ trait ExtendableElementTrait
 
 
     /**
-     * Set the value of the namespace-property
-     *
-     * @param string|array $namespace
+     * @return array|string
      */
-    public function setNamespace($namespace): void
-    {
-        Assert::true(is_array($namespace) || is_string($namespace));
-
-        if (!is_array($namespace)) {
-            // Must be one of the predefined values
-            Assert::oneOf($namespace, Constants::XS_ANY_NS);
-        } else {
-            // Array must be non-empty and cannot contain ##any or ##other
-            Assert::notEmpty($namespace);
-            Assert::allNotSame($namespace, Constants::XS_ANY_NS_ANY);
-            Assert::allNotSame($namespace, Constants::XS_ANY_NS_OTHER);
-        }
-
-        $this->namespace = $namespace;
-    }
+    abstract public function getNamespace();
 }
