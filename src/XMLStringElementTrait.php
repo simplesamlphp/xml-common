@@ -20,12 +20,22 @@ trait XMLStringElementTrait
 
 
     /**
+     * @param string $content
+     * @param array $validators  An array of callbacks that may perform validations on the content
+     */
+    public function __construct(string $content, array $validators = [])
+    {
+        $this->setContent($content, $validators);
+    }
+
+
+    /**
      * Set the content of the element.
      *
      * @param string $content  The value to go in the XML textContent
      * @param array $validators  An array of callbacks that may perform validations on the content
      */
-    public function setElements(string $content, $validators = []): void
+    protected function setContent(string $content, $validators): void
     {
         if (!empty($validators)) {
             foreach ($validators as $validator) {
