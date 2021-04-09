@@ -24,7 +24,7 @@ trait ExtendableElementTrait
      *
      * @param array \SimpleSAML\XML\XMLElementInterface[]
      */
-    public function setElements(array $elements): void
+    protected function setElements(array $elements): void
     {
         Assert::allIsInstanceOf($elements, XMLElementInterface::class);
         $namespace = $this->getNamespace();
