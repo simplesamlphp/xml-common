@@ -56,7 +56,7 @@ class ExtendableElement extends AbstractXMLElement
     /**
      * Initialize element.
      *
-     * @param \SimpleSAML\XML\AbstractXMLElement[] $elements
+     * @param \SimpleSAML\XML\XMLElementInterface[] $elements
      */
     public function __construct(array $elements)
     {

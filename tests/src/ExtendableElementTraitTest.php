@@ -23,6 +23,18 @@ final class ExtendableElementTraitTest extends TestCase
 {
     use SerializableXMLTestTrait;
 
+    /** @var \SimpleSAML\XML\XMLElementInterface */
+    protected $empty;
+
+    /** @var \SimpleSAML\XML\XMLElementInterface */
+    protected $local;
+
+    /** @var \SimpleSAML\XML\XMLElementInterface */
+    protected $other;
+
+    /** @var \SimpleSAML\XML\XMLElementInterface */
+    protected $target;
+
 
     /**
      */
