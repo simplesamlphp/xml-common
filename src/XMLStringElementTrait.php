@@ -21,11 +21,10 @@ trait XMLStringElementTrait
 
     /**
      * @param string $content
-     * @param array $validators  An array of callbacks that may perform validations on the content
      */
-    public function __construct(string $content, array $validators = [])
+    public function __construct(string $content)
     {
-        $this->setContent($content, $validators);
+        $this->setContent($content);
     }
 
 
@@ -33,16 +32,10 @@ trait XMLStringElementTrait
      * Set the content of the element.
      *
      * @param string $content  The value to go in the XML textContent
-     * @param array $validators  An array of callbacks that may perform validations on the content
      */
-    protected function setContent(string $content, $validators): void
+    protected function setContent(string $content): void
     {
-        if (!empty($validators)) {
-            foreach ($validators as $validator) {
-                call_user_func($validator, $content);
-            }
-        }
-
+        $this->validateContent($content);
         $this->content = $content;
     }
 
@@ -55,6 +48,22 @@ trait XMLStringElementTrait
     public function getContent(): string
     {
         return $this->content;
+    }
+
+
+    /**
+     * Validate the content of the element.
+     *
+     * @param string $content  The value to go in the XML textContent
+     * @throws \Exception on failure
+     * @return void
+     */
+    private function validateContent(string $content): void
+    {
+        /**
+         * Perform no validation by default.
+         * Override this method on the implementing class to perform content validation.
+         */
     }
 
 
