@@ -13,11 +13,11 @@ use DOMDocument;
  */
 trait SerializableXMLTestTrait
 {
-    /** @var class-string */
-    protected string $testedClass;
+    /** @var class-string|null */
+    protected ?string $testedClass = null;
 
-    /** @var \DOMDocument */
-    protected DOMDocument $xmlRepresentation;
+    /** @var \DOMDocument|null */
+    protected ?DOMDocument $xmlRepresentation = null;
 
 
     /**
@@ -25,7 +25,7 @@ trait SerializableXMLTestTrait
      */
     public function testSerialization(): void
     {
-        if (!class_exists($this->testedClass)) {
+        if ($this->testedClass === null) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSerialization(). Please set ' . self::class
                 . ':$element to a class-string representing the XML-class being tested'
@@ -34,6 +34,11 @@ trait SerializableXMLTestTrait
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSerialization(). Please set ' . self::class
                 . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested'
+            );
+        } elseif (!class_exists($this->testedClass)) {
+            $this->markTestSkipped(
+                'Unable to run ' . self::class . '::testSerialization(). Please set ' . self::class
+                . ':$element to a class-string representing the XML-class being tested'
             );
         } else {
             $this->assertEquals(

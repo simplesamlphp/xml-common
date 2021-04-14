@@ -105,6 +105,7 @@ trait ExtendableElementTrait
 
     /**
      * @return array|string
+     * @psalm-return array|string
      */
     abstract public function getNamespace();
 }
