@@ -58,7 +58,7 @@ trait XMLStringElementTrait
      * @throws \Exception on failure
      * @return void
      */
-    protected function validateContent(string $content): void
+    protected function validateContent(/** @scrutinizer ignore-unused */ string $content): void
     {
         /**
          * Perform no validation by default.
