@@ -13,11 +13,11 @@ use DOMDocument;
  */
 trait ArrayizableXMLTestTrait
 {
-    /** @var class-string */
-    protected string $testedClass;
+    /** @var class-string|null */
+    protected ?string $testedClass = null;
 
-    /** @var array */
-    protected array $arrayRepresentation;
+    /** @var array|null */
+    protected ?array $arrayRepresentation = null;
 
 
     /**
