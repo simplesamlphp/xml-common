@@ -43,7 +43,7 @@ trait ExtendableElementTrait
 
         // Get namespaces for all elements
         $actual_namespaces = array_map(
-            function($elt) {
+            function ($elt) {
                 return $elt->getNamespaceURI();
             },
             $elements

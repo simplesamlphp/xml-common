@@ -27,6 +27,9 @@ class ExtendableElement extends AbstractXMLElement
     /** @var string */
     public const NS_PREFIX = 'ssp';
 
+    /** @var string */
+    public const LOCALNAME = 'ExtendableElement';
+
     /** @var string|array */
     private $namespace = Constants::XS_ANY_NS_ANY;
 
