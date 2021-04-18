@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMElement;
+use RuntimeException;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Constants;
 
@@ -105,7 +106,14 @@ trait ExtendableElementTrait
 
     /**
      * @return array|string
-     * @psalm-return array|string
      */
-    abstract public function getNamespace();
+    public function getNamespace()
+    {
+        Assert::true(
+            defined('static::NAMESPACE'),
+            self::getClassName(static::class) . '::NAMESPACE constant must be defined and set to the namespace for the xs:any element.',
+            RuntimeException::class
+        );
+        return static::NAMESPACE;
+    }
 }
