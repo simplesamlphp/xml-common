@@ -175,7 +175,15 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
      *
      * @return string
      */
-    abstract public static function getNamespaceURI(): string;
+    public static function getNamespaceURI(): string
+    {
+        Assert::true(
+            defined('static::NS'),
+            self::getClassName(static::class) . '::NS constant must be defined and set to the namespace for the XML-class it represents.',
+            RuntimeError::class
+        );
+        return static::NS;
+    }
 
 
     /**
@@ -183,7 +191,15 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
      *
      * @return string
      */
-    abstract public static function getNamespacePrefix(): string;
+    public static function getNamespacePrefix(): string
+    {
+        Assert::true(
+            defined('static::NS_PREFIX'),
+            self::getClassName(static::class) . '::NS_PREFIX constant must be defined and set to the namespace prefix for the XML-class it represents.',
+            RuntimeError::class
+        );
+        return static::NS_PREFIX;
+    }
 
 
     /**
