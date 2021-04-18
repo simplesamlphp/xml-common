@@ -61,7 +61,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
             Assert::nullOrStringNotEmpty(
                 $default,
                 'Missing \'' . $name . '\' attribute on ' . static::getNamespacePrefix() . ':'
-                    . self::getClassName(static::class) . '.',
+                    . self::getLocalName(static::class) . '.',
                 MissingAttributeException::class
             );
 
@@ -89,7 +89,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
         Assert::oneOf(
             $value,
             ['0', '1', 'false', 'true'],
-            'The \'' . $name . '\' attribute of ' . static::getNamespacePrefix() . ':' . self::getClassName(static::class) .
+            'The \'' . $name . '\' attribute of ' . static::getNamespacePrefix() . ':' . self::getLocalName(static::class) .
             ' must be boolean.'
         );
 
@@ -116,7 +116,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
 
         Assert::numeric(
             $value,
-            'The \'' . $name . '\' attribute of ' . static::getNamespacePrefix() . ':' . self::getClassName(static::class)
+            'The \'' . $name . '\' attribute of ' . static::getNamespacePrefix() . ':' . self::getLocalName(static::class)
                 . ' must be numerical.'
         );
 
@@ -137,24 +137,13 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
 
 
     /**
-     * Get the XML local name of the element represented by this class.
-     *
-     * @return string
-     */
-    public function getLocalName(): string
-    {
-        return self::getClassName(get_class($this));
-    }
-
-
-    /**
      * Get the XML qualified name (prefix:name) of the element represented by this class.
      *
      * @return string
      */
     public function getQualifiedName(): string
     {
-        return static::getNamespacePrefix() . ':' . $this->getLocalName();
+        return static::getNamespacePrefix() . ':' . static::getLocalName();
     }
 
 
@@ -171,7 +160,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
         foreach ($parent->childNodes as $node) {
             if (
                 $node->namespaceURI === static::getNamespaceURI()
-                && $node->localName === self::getClassName(static::class)
+                && $node->localName === self::getLocalName(static::class)
             ) {
                 /** @psalm-var \DOMElement $node */
                 $ret[] = static::fromXML($node);
@@ -195,6 +184,21 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
      * @return string
      */
     abstract public static function getNamespacePrefix(): string;
+
+
+    /**
+     * Get the local name for the element.
+     *
+     * @return string
+     */
+    public static function getLocalName(): string
+    {
+        if (defined('static::LOCALNAME')) {
+            return static::LOCALNAME;
+        }
+
+        return self::getClassName(static::class);
+    }
 
 
     /**
