@@ -63,7 +63,7 @@ trait XMLBase64ElementTrait
      */
     protected function sanitizeContent(string $content): string
     {
-        return str_replace(["\r\n", "\r", "\n", "\t", ' '], '', $content);
+        return str_replace(["\r", "\n", "\t", ' '], '', $content);
     }
 
 
