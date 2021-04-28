@@ -7,6 +7,7 @@ namespace SimpleSAML\XML;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Constants;
+use SimpleSAML\XML\Exception\InvalidDOMElementException;
 
 /**
  * Trait grouping common functionality for simple elements with just some textContent
@@ -68,6 +69,24 @@ trait XMLStringElementTrait
 
 
     /**
+     * Convert XML into a class instance
+     *
+     * @param \DOMElement $xml The XML element we should load
+     * @return self
+     *
+     * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
+     *   If the qualified name of the supplied element is wrong
+     */
+    public static function fromXML(DOMElement $xml): object
+    {
+        Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
+        Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
+
+        return new self($xml->textContent);
+    }
+
+
+    /**
      * Convert this element to XML.
      *
      * @param \DOMElement|null $parent The element we should append this element to.
@@ -80,4 +99,7 @@ trait XMLStringElementTrait
 
         return $e;
     }
+
+
+    abstract public static function getLocalName(): string;
 }
