@@ -218,12 +218,12 @@ XML
     public function testLocalNamespacePassingTargetThrowsAnException(): void
     {
         $this->expectException(AssertionFailedException::class);
-         new class ([$this->target]) extends ExtendableElement {
+        new class ([$this->target]) extends ExtendableElement {
             public function getNamespace()
             {
                 return Constants::XS_ANY_NS_LOCAL;
             }
-         };
+        };
     }
 
 
