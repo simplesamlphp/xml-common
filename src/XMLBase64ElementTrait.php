@@ -19,20 +19,6 @@ trait XMLBase64ElementTrait
 
 
     /**
-     * @param string $content
-     */
-    public function __construct(string $content)
-    {
-        // Check sanitized content against Base64 alphabet
-        $sanitized = $this->sanitizeContent($content);
-        $this->validateContent($sanitized);
-
-        // Still keep the unsanitized content as a reference
-        $this->setContent($content);
-    }
-
-
-    /**
      * Get the content of the element.
      *
      * @return string
@@ -77,6 +63,6 @@ trait XMLBase64ElementTrait
     protected function validateContent(string $content): void
     {
         // Note: content must already be sanitized before validating
-        Assert::stringPlausibleBase64($content);
+        Assert::stringPlausibleBase64($this->sanitizeContent($content));
     }
 }
