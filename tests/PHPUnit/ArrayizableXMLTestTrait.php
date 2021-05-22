@@ -13,11 +13,11 @@ use DOMDocument;
  */
 trait ArrayizableXMLTestTrait
 {
-    /** @var class-string|null */
-    protected ?string $testedClass = null;
+    /** @var class-string */
+    protected string $testedClass;
 
-    /** @var array|null */
-    protected ?array $arrayRepresentation = null;
+    /** @var array */
+    protected array $arrayRepresentation;
 
 
     /**
@@ -25,6 +25,13 @@ trait ArrayizableXMLTestTrait
      */
     public function testArrayization(): void
     {
+        /** @psalm-var class-string|null */
+        $testedClass = $this->testedClass;
+
+        /** @psalm-var array|null */
+        $arrayRepresentation = $this->arrayRepresentation;
+
+
         if (!class_exists($this->testedClass)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testArrayization(). Please set ' . self::class

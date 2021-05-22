@@ -13,11 +13,11 @@ use DOMDocument;
  */
 trait SerializableXMLTestTrait
 {
-    /** @var class-string|null */
-    protected ?string $testedClass = null;
+    /** @var class-string */
+    protected string $testedClass;
 
-    /** @var \DOMDocument|null */
-    protected ?DOMDocument $xmlRepresentation = null;
+    /** @var \DOMDocument */
+    protected DOMDocument $xmlRepresentation;
 
 
     /**
@@ -25,25 +25,34 @@ trait SerializableXMLTestTrait
      */
     public function testSerialization(): void
     {
-        if ($this->testedClass === null) {
+        /** @psalm-var class-string|null */
+        $testedClass = $this->testedClass;
+
+        /** @psalm-var \DOMElement|null */
+        $xmlRepresentation = $this->xmlRepresentation;
+
+        if ($testedClass === null) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSerialization(). Please set ' . self::class
                 . ':$element to a class-string representing the XML-class being tested'
             );
-        } elseif ($this->xmlRepresentation === null) {
+        } elseif ($xmlRepresentation === null) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSerialization(). Please set ' . self::class
                 . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested'
             );
-        } elseif (!class_exists($this->testedClass)) {
+        } elseif (!class_exists($testedClass)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSerialization(). Please set ' . self::class
                 . ':$element to a class-string representing the XML-class being tested'
             );
         } else {
+            /** @psalm-var \DOMElement */
+            $xmlRepresentationDocument = $this->xmlRepresentation->documentElement;
+
             $this->assertEquals(
-                $this->xmlRepresentation->saveXML($this->xmlRepresentation->documentElement),
-                strval(unserialize(serialize($this->testedClass::fromXML($this->xmlRepresentation->documentElement))))
+                $this->xmlRepresentation->saveXML($xmlRepresentationDocument),
+                strval(unserialize(serialize($testedClass::fromXML($xmlRepresentationDocument))))
             );
         }
     }
