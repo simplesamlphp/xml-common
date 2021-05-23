@@ -98,4 +98,13 @@ trait XMLStringElementTrait
 
     /** @return string */
     abstract public static function getLocalName(): string;
+
+
+    /**
+     * Create a document structure for this element
+     *
+     * @param \DOMElement|null $parent The element we should append to.
+     * @return \DOMElement
+     */
+    abstract public function instantiateParentElement(DOMElement $parent = null): DOMElement;
 }
