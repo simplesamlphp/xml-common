@@ -7,6 +7,7 @@ namespace SimpleSAML\XML;
 use DOMElement;
 use RuntimeException;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Constants;
 
 /**
@@ -23,7 +24,7 @@ trait ExtendableElementTrait
     /**
      * Set an array with all elements present.
      *
-     * @param array \SimpleSAML\XML\XMLElementInterface[]
+     * @param array \SimpleSAML\XML\AbstractXMLElement[]
      */
     protected function setElements(array $elements): void
     {
@@ -31,6 +32,7 @@ trait ExtendableElementTrait
         $namespace = $this->getNamespace();
 
         // Validate namespace value
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
         Assert::true(is_array($namespace) || is_string($namespace));
         if (!is_array($namespace)) {
             // Must be one of the predefined values
@@ -44,8 +46,12 @@ trait ExtendableElementTrait
 
         // Get namespaces for all elements
         $actual_namespaces = array_map(
+            /**
+             * @param \SimpleSAML\XML\AbstractXMLElement|\SimpleSAML\XML\Chunk $elt
+             * @return string|null
+             */
             function ($elt) {
-                return $elt->getNamespaceURI();
+                return ($elt instanceof Chunk) ? $elt->getNamespaceURI() : $elt::getNamespaceURI();
             },
             $elements
         );

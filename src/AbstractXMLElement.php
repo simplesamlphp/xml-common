@@ -27,6 +27,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
     public function instantiateParentElement(DOMElement $parent = null): DOMElement
     {
         $qualifiedName = $this->getQualifiedName();
+        /** @psalm-var string $namespace */
         $namespace = static::getNamespaceURI();
 
         if ($parent === null) {
