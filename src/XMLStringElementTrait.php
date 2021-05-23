@@ -21,15 +21,6 @@ trait XMLStringElementTrait
 
 
     /**
-     * @param string $content
-     */
-    public function __construct(string $content)
-    {
-        $this->setContent($content);
-    }
-
-
-    /**
      * Set the content of the element.
      *
      * @param string $content  The value to go in the XML textContent
@@ -101,5 +92,10 @@ trait XMLStringElementTrait
     }
 
 
+    /** @param string $content */
+    abstract public function __construct(string $content);
+
+
+    /** @return string */
     abstract public static function getLocalName(): string;
 }
