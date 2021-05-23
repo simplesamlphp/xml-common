@@ -65,4 +65,19 @@ trait XMLBase64ElementTrait
         // Note: content must already be sanitized before validating
         Assert::stringPlausibleBase64($this->sanitizeContent($content));
     }
+
+
+    /**
+     * Convert this element to XML.
+     *
+     * @param \DOMElement|null $parent The element we should append this element to.
+     * @return \DOMElement
+     */
+    public function toXML(DOMElement $parent = null): DOMElement
+    {
+        $e = $this->instantiateParentElement($parent);
+        $e->textContent = $this->getRawContent();
+
+        return $e;
+    }
 }
