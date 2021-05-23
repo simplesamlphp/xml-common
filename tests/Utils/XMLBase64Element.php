@@ -21,4 +21,13 @@ final class XMLBase64Element extends AbstractXMLElement
 
     /** @var string */
     public const NS_PREFIX = 'bar';
+
+
+    /**
+     * @param string $content
+     */
+    public function __construct(string $content)
+    {
+        $this->setContent($content);
+    }
 }
