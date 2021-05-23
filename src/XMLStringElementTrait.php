@@ -92,10 +92,6 @@ trait XMLStringElementTrait
     }
 
 
-    /** @param string $content */
-    abstract public function __construct(string $content);
-
-
     /** @return string */
     abstract public static function getLocalName(): string;
 
