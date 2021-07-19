@@ -16,6 +16,16 @@ use Serializable;
 abstract class AbstractSerializableXML implements XMLElementInterface, Serializable
 {
     /**
+     * Whether to format the string output of this element or not.
+     *
+     * Defaults to true. Override to disable output formatting.
+     *
+     * @var bool
+     */
+    protected bool $formatOutput = true;
+
+
+    /**
      * Output the class as an XML-formatted string
      *
      * @return string
@@ -24,7 +34,7 @@ abstract class AbstractSerializableXML implements XMLElementInterface, Serializa
     {
         $xml = $this->toXML();
         /** @psalm-var \DOMDocument $xml->ownerDocument */
-        $xml->ownerDocument->formatOutput = true;
+        $xml->ownerDocument->formatOutput = $this->formatOutput;
         return $xml->ownerDocument->saveXML($xml);
     }
 
