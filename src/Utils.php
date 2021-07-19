@@ -23,12 +23,11 @@ class Utils
      *
      * @param \DOMNode $node  The XML node.
      * @param string $query The query.
+     * @param \DOMXPath|null $xpCache The DOMXPath object or NULL to create one
      * @return \DOMNode[] Array with matching DOM nodes.
      */
-    public static function xpQuery(DOMNode $node, string $query): array
+    public static function xpQuery(DOMNode $node, string $query, ?DOMXPath $xpCache = null): array
     {
-        static $xpCache = null;
-
         if ($node instanceof DOMDocument) {
             $doc = $node;
         } else {
@@ -39,12 +38,6 @@ class Utils
 
         if ($xpCache === null || !$xpCache->document->isSameNode($doc)) {
             $xpCache = new DOMXPath($doc);
-            $xpCache->registerNamespace('soap-env', Constants::NS_SOAP);
-            $xpCache->registerNamespace('saml_protocol', Constants::NS_SAMLP);
-            $xpCache->registerNamespace('saml_assertion', Constants::NS_SAML);
-            $xpCache->registerNamespace('saml_metadata', Constants::NS_MD);
-            $xpCache->registerNamespace('ds', Constants::NS_XDSIG);
-            $xpCache->registerNamespace('xenc', Constants::NS_XENC);
         }
 
         $results = $xpCache->query($query, $node);
