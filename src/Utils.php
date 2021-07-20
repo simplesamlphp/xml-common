@@ -7,7 +7,6 @@ namespace SimpleSAML\XML;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
-use DOMXPath;
 use InvalidArgumentException;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Utils\XPath;
