@@ -7,9 +7,9 @@ namespace SimpleSAML\XML;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
-use DOMXPath;
 use InvalidArgumentException;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\XML\Utils\XPath;
 
 /**
  * Helper functions for the XML library.
@@ -18,45 +18,6 @@ use SimpleSAML\Assert\Assert;
  */
 class Utils
 {
-    /**
-     * Do an XPath query on an XML node.
-     *
-     * @param \DOMNode $node  The XML node.
-     * @param string $query The query.
-     * @return \DOMNode[] Array with matching DOM nodes.
-     */
-    public static function xpQuery(DOMNode $node, string $query): array
-    {
-        static $xpCache = null;
-
-        if ($node instanceof DOMDocument) {
-            $doc = $node;
-        } else {
-            $doc = $node->ownerDocument;
-            Assert::notNull($doc);
-            /** @psalm-var \DOMDocument $doc */
-        }
-
-        if ($xpCache === null || !$xpCache->document->isSameNode($doc)) {
-            $xpCache = new DOMXPath($doc);
-            $xpCache->registerNamespace('soap-env', Constants::NS_SOAP);
-            $xpCache->registerNamespace('saml_protocol', Constants::NS_SAMLP);
-            $xpCache->registerNamespace('saml_assertion', Constants::NS_SAML);
-            $xpCache->registerNamespace('saml_metadata', Constants::NS_MD);
-            $xpCache->registerNamespace('ds', Constants::NS_XDSIG);
-            $xpCache->registerNamespace('xenc', Constants::NS_XENC);
-        }
-
-        $results = $xpCache->query($query, $node);
-        $ret = [];
-        for ($i = 0; $i < $results->length; $i++) {
-            $ret[$i] = $results->item($i);
-        }
-
-        return $ret;
-    }
-
-
     /**
      * Make an exact copy the specific \DOMElement.
      *
@@ -76,7 +37,8 @@ class Utils
 
         $namespaces = [];
         for ($e = $element; $e instanceof DOMNode; $e = $e->parentNode) {
-            foreach (Utils::xpQuery($e, './namespace::*') as $ns) {
+            $xpCache = XPath::getXPath($e);
+            foreach (XPath::xpQuery($e, './namespace::*', $xpCache) as $ns) {
                 $prefix = $ns->localName;
                 if ($prefix === 'xml' || $prefix === 'xmlns') {
                     continue;
