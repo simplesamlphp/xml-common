@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\XMLBase64Element;
+use SimpleSAML\Test\XML\SerializableXMLTestTrait;
+use SimpleSAML\Test\XML\XMLDumper;
 use SimpleSAML\XML\AbstractXMLElement;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\XMLBase64ElementTrait;
@@ -16,11 +19,49 @@ use function strval;
  * Class \SimpleSAML\XML\XmlBase64ElementTraitTest
  *
  * @covers \SimpleSAML\XML\XmlBase64ElementTrait
+ * @covers \SimpleSAML\XML\XmlStringElementTrait
+ * @covers \SimpleSAML\XML\AbstractXmlElement
  *
  * @package simplesamlphp\xml-common
  */
 final class XmlBase64ElementTraitTest extends TestCase
 {
+    use SerializableXMLTestTrait;
+
+    /**
+     */
+    public function setup(): void
+    {
+        $this->testedClass = XMLBase64Element::class;
+
+        $this->xmlRepresentation = DOMDocumentFactory::fromFile(
+            dirname(dirname(__FILE__)) . '/resources/xml/bar_XMLBase64Element.xml'
+        );
+    }
+
+    /**
+     */
+    public function testMarshalling(): void
+    {
+        $base64Element = new XMLBase64Element('/CTj03d1DB5e2t7CTo9BEzCf5S9NRzwnBgZRlm32REI=');
+
+        $this->assertEquals(
+            XMLDumper::dumpDOMDocumentXMLWithBase64Content($this->xmlRepresentation),
+            strval($base64Element)
+        );
+    }
+
+
+    /**
+     */
+    public function testUnmarshalling(): void
+    {
+        $base64Element = XMLBase64Element::fromXML($this->xmlRepresentation->documentElement);
+
+        $this->assertEquals('/CTj03d1DB5e2t7CTo9BEzCf5S9NRzwnBgZRlm32REI=', $base64Element->getContent());
+    }
+
+
     /**
      * @dataProvider provideBase64Cases
      */
