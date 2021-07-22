@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Test\XML\XMLBase64Element;
 use SimpleSAML\Test\XML\SerializableXMLTestTrait;
+use SimpleSAML\Test\XML\XMLBase64Element;
 use SimpleSAML\Test\XML\XMLDumper;
 use SimpleSAML\XML\AbstractXMLElement;
 use SimpleSAML\XML\DOMDocumentFactory;
@@ -16,15 +16,15 @@ use function dirname;
 use function strval;
 
 /**
- * Class \SimpleSAML\XML\XmlBase64ElementTraitTest
+ * Class \SimpleSAML\XML\XMLBase64ElementTraitTest
  *
- * @covers \SimpleSAML\XML\XmlBase64ElementTrait
- * @covers \SimpleSAML\XML\XmlStringElementTrait
- * @covers \SimpleSAML\XML\AbstractXmlElement
+ * @covers \SimpleSAML\XML\XMLBase64ElementTrait
+ * @covers \SimpleSAML\XML\XMLStringElementTrait
+ * @covers \SimpleSAML\XML\AbstractXMLElement
  *
  * @package simplesamlphp\xml-common
  */
-final class XmlBase64ElementTraitTest extends TestCase
+final class XMLBase64ElementTraitTest extends TestCase
 {
     use SerializableXMLTestTrait;
 

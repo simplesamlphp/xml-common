@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Test\XML\XMLStringElement;
 use SimpleSAML\Test\XML\SerializableXMLTestTrait;
+use SimpleSAML\Test\XML\XMLStringElement;
 use SimpleSAML\XML\AbstractXMLElement;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\XMLStringElementTrait;
@@ -15,8 +15,7 @@ use SimpleSAML\XML\XMLStringElementTrait;
  * Class \SimpleSAML\XML\XMLStringElementTraitTest
  *
  * @covers \SimpleSAML\XML\XMLStringElementTrait
- * @covers \SimpleSAML\XML\XMLStringElementTrait
- * @covers \SimpleSAML\XML\AbstractXmlElement
+ * @covers \SimpleSAML\XML\AbstractXMLElement
  *
  * @package simplesamlphp\xml-common
  */
