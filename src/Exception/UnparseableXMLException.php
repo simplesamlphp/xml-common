@@ -11,7 +11,7 @@ use function sprintf;
 
 /**
  */
-final class UnparseableXmlException extends RuntimeException
+final class UnparseableXMLException extends RuntimeException
 {
     /** @var array */
     private const LEVELMAP = [
@@ -22,7 +22,7 @@ final class UnparseableXmlException extends RuntimeException
 
 
     /**
-     * Constructor for UnparseableXmlException
+     * Constructor for UnparseableXMLException
      *
      * @param \LibXMLError $error
      */
