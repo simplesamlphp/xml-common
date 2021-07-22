@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMDocument;
 use DOMElement;
 use DOMNode;
 use InvalidArgumentException;
@@ -52,10 +51,11 @@ class Utils
 
         /** @var \DOMElement $newElement */
         $newElement = $document->importNode($element, true);
-        if ($parent !== null) {
-            /* We need to append the child to the parent before we add the namespaces. */
-            $parent->appendChild($newElement);
+        if ($parent === null) {
+            $parent = $document;
         }
+        /* We need to append the child to the parent before we add the namespaces. */
+        $parent->appendChild($newElement);
 
         foreach ($namespaces as $prefix => $uri) {
             $newElement->setAttributeNS($uri, $prefix . ':__ns_workaround__', 'tmp');
