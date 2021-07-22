@@ -10,7 +10,7 @@ use SimpleSAML\XML\XMLBase64ElementTrait;
 /**
  * Empty shell class for testing XMLBase64Element.
  *
- * @package simplesaml/xml-security
+ * @package simplesaml/xml-common
  */
 final class XMLBase64Element extends AbstractXMLElement
 {
