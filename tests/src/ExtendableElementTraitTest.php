@@ -173,6 +173,21 @@ XML
 
     /**
      */
+    public function testTargetNamespacePassingTargetArraySucceedsWithLocal(): void
+    {
+        new class ([$this->target]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return [Constants::XS_ANY_NS_TARGET, Constants::XS_ANY_NS_LOCAL];
+            }
+        };
+
+        $this->addToAssertionCount(1);
+    }
+
+
+    /**
+     */
     public function testTargetNamespacePassingOtherThrowsAnException(): void
     {
         $this->expectException(AssertionFailedException::class);

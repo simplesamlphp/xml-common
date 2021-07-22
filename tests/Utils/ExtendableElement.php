@@ -31,7 +31,7 @@ class ExtendableElement extends AbstractXMLElement
     public const LOCALNAME = 'ExtendableElement';
 
     /** @var string|array */
-    private $namespace = Constants::XS_ANY_NS_ANY;
+    public const NAMESPACE = Constants::XS_ANY_NS_ANY;
 
 
     /**
@@ -64,17 +64,6 @@ class ExtendableElement extends AbstractXMLElement
     public function __construct(array $elements)
     {
         $this->setElements($elements);
-    }
-
-
-    /**
-     * Get the namespace-attribute for xs:any elements
-     *
-     * @return string|array
-     */
-    public function getNamespace()
-    {
-        return $this->namespace;
     }
 
 
