@@ -1,0 +1,59 @@
+<?php
+
+declare(strict_types=1);
+
+namespace SimpleSAML\Test\XML;
+
+use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\XMLStringElement;
+use SimpleSAML\Test\XML\SerializableXMLTestTrait;
+use SimpleSAML\XML\AbstractXMLElement;
+use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\XMLStringElementTrait;
+
+/**
+ * Class \SimpleSAML\XML\XMLStringElementTraitTest
+ *
+ * @covers \SimpleSAML\XML\XMLStringElementTrait
+ * @covers \SimpleSAML\XML\XMLStringElementTrait
+ * @covers \SimpleSAML\XML\AbstractXmlElement
+ *
+ * @package simplesamlphp\xml-common
+ */
+final class XMLStringElementTraitTest extends TestCase
+{
+    use SerializableXMLTestTrait;
+
+    /**
+     */
+    public function setup(): void
+    {
+        $this->testedClass = XMLStringElement::class;
+
+        $this->xmlRepresentation = DOMDocumentFactory::fromFile(
+            dirname(dirname(__FILE__)) . '/resources/xml/bar_XMLStringElement.xml'
+        );
+    }
+
+    /**
+     */
+    public function testMarshalling(): void
+    {
+        $stringElement = new XMLStringElement('test');
+
+        $this->assertEquals(
+            $this->xmlRepresentation->saveXML($this->xmlRepresentation->documentElement),
+            strval($stringElement)
+        );
+    }
+
+
+    /**
+     */
+    public function testUnmarshalling(): void
+    {
+        $stringElement = XMLStringElement::fromXML($this->xmlRepresentation->documentElement);
+
+        $this->assertEquals('test', $stringElement->getContent());
+    }
+}
