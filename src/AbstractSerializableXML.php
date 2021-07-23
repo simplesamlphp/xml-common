@@ -8,6 +8,8 @@ use DOMElement;
 use SimpleSAML\XML\DOMDocumentFactory;
 use Serializable;
 
+use function get_object_vars;
+
 /**
  * Abstract class for serialization of XML structures
  *

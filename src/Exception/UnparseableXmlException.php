@@ -7,6 +7,10 @@ namespace SimpleSAML\XML\Exception;
 use LibXMLError;
 use RuntimeException;
 
+use function sprintf;
+
+/**
+ */
 final class UnparseableXmlException extends RuntimeException
 {
     /** @var array */

@@ -9,6 +9,9 @@ use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\Utils;
 use SimpleSAML\Assert\Assert;
 
+use function in_array;
+use function intval;
+
 /**
  * Serializable class used to hold an XML element.
  *
@@ -140,7 +143,8 @@ final class Chunk extends AbstractSerializableXML
 
 
     /**
-     * Get the XML qualified name (prefix:name, or just name when not prefixed) of the element represented by this class.
+     * Get the XML qualified name (prefix:name, or just name when not prefixed)
+     *  of the element represented by this class.
      *
      * @return string
      */

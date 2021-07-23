@@ -9,6 +9,9 @@ use SimpleSAML\XML\AbstractXMLElement;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\XMLBase64ElementTrait;
 
+use function dirname;
+use function strval;
+
 /**
  * Class \SimpleSAML\XML\XmlBase64ElementTraitTest
  *

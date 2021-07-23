@@ -6,6 +6,8 @@ namespace SimpleSAML\Test\XML;
 
 use DOMDocument;
 
+use function class_exist;
+
 /**
  * Test for SerializableXML classes to perform default serialization tests.
  *

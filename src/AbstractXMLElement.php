@@ -11,6 +11,13 @@ use SimpleSAML\XML\Exception\MissingAttributeException;
 use Serializable;
 use SimpleSAML\Assert\Assert;
 
+use function array_slice;
+use function defined;
+use function explode;
+use function in_array;
+use function intval;
+use function join;
+
 /**
  * Abstract class to be implemented by all classes
  *
@@ -180,7 +187,8 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
     {
         Assert::true(
             defined('static::NS'),
-            self::getClassName(static::class) . '::NS constant must be defined and set to the namespace for the XML-class it represents.',
+            self::getClassName(static::class)
+            . '::NS constant must be defined and set to the namespace for the XML-class it represents.',
             RuntimeException::class
         );
         return static::NS;
@@ -196,7 +204,8 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
     {
         Assert::true(
             defined('static::NS_PREFIX'),
-            self::getClassName(static::class) . '::NS_PREFIX constant must be defined and set to the namespace prefix for the XML-class it represents.',
+            self::getClassName(static::class)
+            . '::NS_PREFIX constant must be defined and set to the namespace prefix for the XML-class it represents.',
             RuntimeException::class
         );
         return static::NS_PREFIX;

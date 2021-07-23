@@ -8,6 +8,8 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Constants;
 
+use function str_replace;
+
 /**
  * Trait grouping common functionality for simple elements with base64 textContent
  *

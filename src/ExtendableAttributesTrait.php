@@ -8,6 +8,8 @@ use DOMAttr;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 
+use function explode;
+
 /**
  * Trait for elements that can have arbitrary namespaced attributes.
  *

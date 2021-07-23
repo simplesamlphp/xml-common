@@ -10,6 +10,11 @@ use InvalidArgumentException;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Utils\XPath;
 
+use function intval;
+use function gmmktime;
+use function preg_match;
+use function trim;
+
 /**
  * Helper functions for the XML library.
  *

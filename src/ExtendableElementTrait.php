@@ -10,6 +10,16 @@ use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Constants;
 
+use function array_diff;
+use function array_map;
+use function array_search;
+use function defined;
+use function implode;
+use function is_array;
+use function is_string;
+use function rtrim;
+use function sprintf;
+
 /**
  * Trait grouping common functionality for elements implementing the xs:any element.
  *
@@ -117,7 +127,8 @@ trait ExtendableElementTrait
     {
         Assert::true(
             defined('static::NAMESPACE'),
-            self::getClassName(static::class) . '::NAMESPACE constant must be defined and set to the namespace for the xs:any element.',
+            self::getClassName(static::class)
+            . '::NAMESPACE constant must be defined and set to the namespace for the xs:any element.',
             RuntimeException::class
         );
         return static::NAMESPACE;

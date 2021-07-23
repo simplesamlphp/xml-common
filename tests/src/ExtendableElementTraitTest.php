@@ -12,6 +12,8 @@ use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Constants;
 use SimpleSAML\XML\DOMDocumentFactory;
 
+use function dirname;
+
 /**
  * Class \SimpleSAML\XML\ExtendableElementTraitTest
  *
