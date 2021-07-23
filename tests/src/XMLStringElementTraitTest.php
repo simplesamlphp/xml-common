@@ -16,6 +16,7 @@ use SimpleSAML\XML\XMLStringElementTrait;
  *
  * @covers \SimpleSAML\XML\XMLStringElementTrait
  * @covers \SimpleSAML\XML\AbstractXMLElement
+ * @covers \SimpleSAML\XML\AbstractSerializableXML
  *
  * @package simplesamlphp\xml-common
  */
