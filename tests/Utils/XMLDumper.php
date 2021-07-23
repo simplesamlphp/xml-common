@@ -6,6 +6,8 @@ namespace SimpleSAML\Test\XML;
 
 use DOMDocument;
 
+use function preg_replace;
+
 /**
  * Class \SimpleSAML\Test\XML\XMLDumper
  *

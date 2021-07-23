@@ -11,6 +11,9 @@ use SimpleSAML\XML\AbstractXMLElement;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\XMLStringElementTrait;
 
+use function dirname;
+use function strval;
+
 /**
  * Class \SimpleSAML\XML\XMLStringElementTraitTest
  *
