@@ -8,7 +8,7 @@ use DOMElement;
 use RuntimeException;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Constants;
+use SimpleSAML\XML\Constants as C;
 
 use function array_diff;
 use function array_map;
@@ -46,12 +46,12 @@ trait ExtendableElementTrait
         Assert::true(is_array($namespace) || is_string($namespace));
         if (!is_array($namespace)) {
             // Must be one of the predefined values
-            Assert::oneOf($namespace, Constants::XS_ANY_NS);
+            Assert::oneOf($namespace, C::XS_ANY_NS);
         } else {
             // Array must be non-empty and cannot contain ##any or ##other
             Assert::notEmpty($namespace);
-            Assert::allNotSame($namespace, Constants::XS_ANY_NS_ANY);
-            Assert::allNotSame($namespace, Constants::XS_ANY_NS_OTHER);
+            Assert::allNotSame($namespace, C::XS_ANY_NS_ANY);
+            Assert::allNotSame($namespace, C::XS_ANY_NS_OTHER);
         }
 
         // Get namespaces for all elements
@@ -66,7 +66,7 @@ trait ExtendableElementTrait
             $elements
         );
 
-        if ($namespace === Constants::XS_ANY_NS_LOCAL) {
+        if ($namespace === C::XS_ANY_NS_LOCAL) {
             // If ##local then all namespaces must be null
             Assert::allNull($actual_namespaces);
         } elseif (is_array($namespace)) {
@@ -74,12 +74,12 @@ trait ExtendableElementTrait
             $allowed_namespaces = $namespace;
 
             // Replace the ##targetedNamespace with the actual namespace
-            if (($key = array_search(Constants::XS_ANY_NS_TARGET, $allowed_namespaces)) !== false) {
+            if (($key = array_search(C::XS_ANY_NS_TARGET, $allowed_namespaces)) !== false) {
                 $allowed_namespaces[$key] = static::NS;
             }
 
             // Replace the ##local with null
-            if (($key = array_search(Constants::XS_ANY_NS_LOCAL, $allowed_namespaces)) !== false) {
+            if (($key = array_search(C::XS_ANY_NS_LOCAL, $allowed_namespaces)) !== false) {
                 $allowed_namespaces[$key] = null;
             }
 
@@ -96,10 +96,10 @@ trait ExtendableElementTrait
             // All elements must be namespaced, ergo non-null
             Assert::allNotNull($actual_namespaces);
 
-            if ($namespace === Constants::XS_ANY_NS_OTHER) {
+            if ($namespace === C::XS_ANY_NS_OTHER) {
                 // Must be any namespace other than the parent element
                 Assert::allNotSame($actual_namespaces, static::NS);
-            } elseif ($namespace === Constants::XS_ANY_NS_TARGET) {
+            } elseif ($namespace === C::XS_ANY_NS_TARGET) {
                 // Must be the same namespace as the one of the parent element
                 Assert::allSame($actual_namespaces, static::NS);
             }
