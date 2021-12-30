@@ -8,7 +8,7 @@ use DOMDocument;
 use InvalidArgumentException;
 use RuntimeException;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\XML\Exception\UnparseableXmlException;
+use SimpleSAML\XML\Exception\UnparseableXMLException;
 
 use function defined;
 use function file_get_contents;
@@ -68,7 +68,7 @@ final class DOMDocumentFactory
             $error = libxml_get_last_error();
             libxml_clear_errors();
 
-            throw new UnparseableXmlException($error);
+            throw new UnparseableXMLException($error);
         }
 
         libxml_clear_errors();

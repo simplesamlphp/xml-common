@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use SimpleSAML\XML\AbstractXMLElement;
-use SimpleSAML\XML\XMLBase64ElementTrait;
+use SimpleSAML\XML\XMLStringElementTrait;
 
 /**
- * Empty shell class for testing XMLBase64Element.
+ * Empty shell class for testing XMLStringElement.
  *
  * @package simplesaml/xml-common
  */
-final class XMLBase64Element extends AbstractXMLElement
+final class XMLStringElement extends AbstractXMLElement
 {
-    use XMLBase64ElementTrait;
+    use XMLStringElementTrait;
 
     /** @var string */
     public const NS = 'foo';

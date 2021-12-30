@@ -9,7 +9,7 @@ use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\Test\XML\ExtendableElement;
 use SimpleSAML\Test\XML\SerializableXMLTestTrait;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Constants;
+use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
 
 use function dirname;
@@ -92,7 +92,7 @@ XML
         new class ([]) extends ExtendableElement {
             public function getNamespace()
             {
-                return [Constants::XS_ANY_NS_OTHER, Constants::XS_ANY_NS_ANY];
+                return [C::XS_ANY_NS_OTHER, C::XS_ANY_NS_ANY];
             }
         };
     }
@@ -119,7 +119,7 @@ XML
         new class ([$this->other]) extends ExtendableElement {
             public function getNamespace()
             {
-                return Constants::XS_ANY_NS_OTHER;
+                return C::XS_ANY_NS_OTHER;
             }
         };
 
@@ -135,7 +135,7 @@ XML
         new class ([$this->local]) extends ExtendableElement {
             public function getNamespace()
             {
-                return Constants::XS_ANY_NS_OTHER;
+                return C::XS_ANY_NS_OTHER;
             }
         };
     }
@@ -148,7 +148,7 @@ XML
         new class ([$this->target]) extends ExtendableElement {
             public function getNamespace()
             {
-                return Constants::XS_ANY_NS_TARGET;
+                return C::XS_ANY_NS_TARGET;
             }
         };
 
@@ -163,7 +163,22 @@ XML
         new class ([$this->target]) extends ExtendableElement {
             public function getNamespace()
             {
-                return [Constants::XS_ANY_NS_TARGET];
+                return [C::XS_ANY_NS_TARGET];
+            }
+        };
+
+        $this->addToAssertionCount(1);
+    }
+
+
+    /**
+     */
+    public function testTargetNamespacePassingTargetArraySucceedsWithLocal(): void
+    {
+        new class ([$this->target]) extends ExtendableElement {
+            public function getNamespace()
+            {
+                return [C::XS_ANY_NS_TARGET, C::XS_ANY_NS_LOCAL];
             }
         };
 
@@ -179,7 +194,7 @@ XML
         new class ([$this->other]) extends ExtendableElement {
             public function getNamespace()
             {
-                return Constants::XS_ANY_NS_TARGET;
+                return C::XS_ANY_NS_TARGET;
             }
         };
     }
@@ -192,7 +207,7 @@ XML
         $o = new class ([$this->local]) extends ExtendableElement {
             public function getNamespace()
             {
-                return Constants::XS_ANY_NS_LOCAL;
+                return C::XS_ANY_NS_LOCAL;
             }
         };
 
@@ -207,7 +222,7 @@ XML
         new class ([$this->local]) extends ExtendableElement {
             public function getNamespace()
             {
-                return Constants::XS_ANY_NS_LOCAL;
+                return C::XS_ANY_NS_LOCAL;
             }
         };
 
@@ -223,7 +238,7 @@ XML
         new class ([$this->target]) extends ExtendableElement {
             public function getNamespace()
             {
-                return Constants::XS_ANY_NS_LOCAL;
+                return C::XS_ANY_NS_LOCAL;
             }
         };
     }
@@ -237,7 +252,7 @@ XML
         new class ([$this->other]) extends ExtendableElement {
             public function getNamespace()
             {
-                return Constants::XS_ANY_NS_LOCAL;
+                return C::XS_ANY_NS_LOCAL;
             }
         };
     }
@@ -250,7 +265,7 @@ XML
         $o = new class ([$this->target]) extends ExtendableElement {
             public function getNamespace()
             {
-                return Constants::XS_ANY_NS_ANY;
+                return C::XS_ANY_NS_ANY;
             }
         };
 
@@ -265,7 +280,7 @@ XML
         $o = new class ([$this->other]) extends ExtendableElement {
             public function getNamespace()
             {
-                return Constants::XS_ANY_NS_ANY;
+                return C::XS_ANY_NS_ANY;
             }
         };
 
