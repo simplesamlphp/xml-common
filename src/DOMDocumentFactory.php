@@ -8,6 +8,7 @@ use DOMDocument;
 use InvalidArgumentException;
 use RuntimeException;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\XML\Exception\IOException;
 use SimpleSAML\XML\Exception\UnparseableXMLException;
 
 use function defined;
@@ -92,22 +93,15 @@ final class DOMDocumentFactory
      */
     public static function fromFile(string $file): DOMDocument
     {
-        if (!is_file($file)) {
-            throw new RuntimeException(sprintf('Path "%s" is not a file', $file));
-        }
-
-        if (!is_readable($file)) {
-            throw new RuntimeException(sprintf('File "%s" is not readable', $file));
-        }
-
         // libxml_disable_entity_loader(true) disables \DOMDocument::load() method
         // so we need to read the content and use \DOMDocument::loadXML()
-        $xml = file_get_contents($file);
+        error_clear_last();
+        $xml = @file_get_contents($file);
         if ($xml === false) {
-            throw new RuntimeException(sprintf(
-                'Contents of readable file "%s" could not be gotten',
-                $file
-            ));
+            $e = error_get_last();
+            $error = $e['message'] ?: "Check that the file exists and can be read.";
+
+            throw new IOException("File '$file' was not loaded;  $error");
         }
 
         if (trim($xml) === '') {
