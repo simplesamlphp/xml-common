@@ -2,8 +2,6 @@
 
 namespace SimpleSAML\XML\Exception;
 
-use RuntimeException;
-
 /**
  * Class IOException
  *
