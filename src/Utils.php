@@ -46,10 +46,8 @@ class Utils
                 $prefix = $ns->localName;
                 if ($prefix === 'xml' || $prefix === 'xmlns') {
                     continue;
-                }
-                $uri = $ns->nodeValue;
-                if (!isset($namespaces[$prefix])) {
-                    $namespaces[$prefix] = $uri;
+                } elseif (!isset($namespaces[$prefix])) {
+                    $namespaces[$prefix] = $ns->nodeValue;
                 }
             }
         }
