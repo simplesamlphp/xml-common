@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SimpleSAML\XML\Exception;
 
 use LibXMLError;
-use RuntimeException;
 
 use function sprintf;
 
