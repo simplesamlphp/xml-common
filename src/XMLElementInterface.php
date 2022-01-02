@@ -26,7 +26,7 @@ interface XMLElementInterface
      *
      * @return bool
      */
-    public function isEmptyElement();
+    public function isEmptyElement(): bool;
 
 
     /**
