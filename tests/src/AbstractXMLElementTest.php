@@ -24,6 +24,9 @@ use function strval;
  */
 final class AbstractXMLElementTest extends TestCase
 {
+    use SerializableXMLTestTrait;
+
+
     /**
      */
     public function setup(): void
@@ -34,6 +37,7 @@ final class AbstractXMLElementTest extends TestCase
             dirname(dirname(__FILE__)) . '/resources/xml/bar_XMLElement.xml'
         );
     }
+
 
     /**
      */
