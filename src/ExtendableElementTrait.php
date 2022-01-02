@@ -42,8 +42,6 @@ trait ExtendableElementTrait
         $namespace = $this->getNamespace();
 
         // Validate namespace value
-        /** @psalm-suppress RedundantConditionGivenDocblockType */
-        Assert::true(is_array($namespace) || is_string($namespace));
         if (!is_array($namespace)) {
             // Must be one of the predefined values
             Assert::oneOf($namespace, C::XS_ANY_NS);
@@ -123,7 +121,7 @@ trait ExtendableElementTrait
     /**
      * @return array|string
      */
-    public function getNamespace()
+    public function getNamespace(): array|string
     {
         Assert::true(
             defined('static::NAMESPACE'),
