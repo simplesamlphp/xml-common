@@ -9,7 +9,7 @@ use RuntimeException;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\Exception\UnparseableXmlException;
+use SimpleSAML\XML\Exception\UnparseableXMLException;
 
 /**
  * @covers \SimpleSAML\XML\DOMDocumentFactory
@@ -22,7 +22,7 @@ final class DOMDocumentFactoryTest extends TestCase
      */
     public function testNotXmlStringRaisesAnException(): void
     {
-        $this->expectException(UnparseableXmlException::class);
+        $this->expectException(UnparseableXMLException::class);
         DOMDocumentFactory::fromString('this is not xml');
     }
 
