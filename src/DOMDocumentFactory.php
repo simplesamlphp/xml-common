@@ -98,6 +98,7 @@ final class DOMDocumentFactory
         error_clear_last();
         $xml = @file_get_contents($file);
         if ($xml === false) {
+            /** @psalm-var array $e */
             $e = error_get_last();
             $error = $e['message'] ?: "Check that the file exists and can be read.";
 
