@@ -38,5 +38,10 @@
     "support": {
         "issues": "https://github.com/simplesamlphp/xml-common/issues",
         "source": "https://github.com/simplesamlphp/xml-common"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
     }
 }
