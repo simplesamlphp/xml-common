@@ -56,9 +56,9 @@ final class XMLElement extends AbstractXMLElement
     /**
      * Collect the value of the integer-property
      *
-     * @return int
+     * @return int|null
      */
-    public function getInteger(): int
+    public function getInteger(): ?int
     {
         return $this->integer;
     }
@@ -67,9 +67,9 @@ final class XMLElement extends AbstractXMLElement
     /**
      * Collect the value of the boolean-property
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getBoolean(): bool
+    public function getBoolean(): ?bool
     {
         return $this->boolean;
     }
@@ -78,9 +78,9 @@ final class XMLElement extends AbstractXMLElement
     /**
      * Collect the value of the text-property
      *
-     * @return string
+     * @return string|null
      */
-    public function getString(): string
+    public function getString(): ?string
     {
         return $this->text;
     }
@@ -115,9 +115,17 @@ final class XMLElement extends AbstractXMLElement
     {
         $e = $this->instantiateParentElement($parent);
 
-        $e->setAttribute('integer', strval($this->integer));
-        $e->setAttribute('boolean', $this->boolean ? 'true' : 'false');
-        $e->setAttribute('text', $this->text);
+        if ($this->integer !== null) {
+            $e->setAttribute('integer', strval($this->integer));
+        }
+
+        if ($this->boolean !== null) {
+            $e->setAttribute('boolean', $this->boolean ? 'true' : 'false');
+        }
+
+        if ($this->text !== null) {
+            $e->setAttribute('text', $this->text);
+        }
 
         return $e;
     }

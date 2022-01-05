@@ -11,6 +11,7 @@ use SimpleSAML\Test\XML\SerializableXMLTestTrait;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\XMLElementInterface;
 
 use function dirname;
 
@@ -26,16 +27,16 @@ final class ExtendableElementTraitTest extends TestCase
     use SerializableXMLTestTrait;
 
     /** @var \SimpleSAML\XML\XMLElementInterface */
-    protected $empty;
+    protected XMLElementInterface $empty;
 
     /** @var \SimpleSAML\XML\XMLElementInterface */
-    protected $local;
+    protected XMLElementInterface $local;
 
     /** @var \SimpleSAML\XML\XMLElementInterface */
-    protected $other;
+    protected XMLElementInterface $other;
 
     /** @var \SimpleSAML\XML\XMLElementInterface */
-    protected $target;
+    protected XMLElementInterface $target;
 
 
     /**
