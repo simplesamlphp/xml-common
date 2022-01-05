@@ -37,12 +37,12 @@ trait ArrayizableXMLTestTrait
         if (!class_exists($this->testedClass)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testArrayization(). Please set ' . self::class
-                . ':$element to a class-string representing the XML-class being tested'
+                . ':$element to a class-string representing the XML-class being tested',
             );
         } elseif ($this->arrayRepresentation === null) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testArrayization(). Please set ' . self::class
-                . ':$arrayRepresentation to an array representing the XML-class being tested'
+                . ':$arrayRepresentation to an array representing the XML-class being tested',
             );
         } else {
             $this->assertEquals(

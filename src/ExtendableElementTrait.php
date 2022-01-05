@@ -89,8 +89,8 @@ trait ExtendableElementTrait
                 sprintf(
                     'Elements from namespaces [ %s ] are not allowed inside a %s element.',
                     rtrim(implode(', ', $diff)),
-                    static::NS
-                )
+                    static::NS,
+                ),
             );
         } else {
             // All elements must be namespaced, ergo non-null
@@ -129,7 +129,7 @@ trait ExtendableElementTrait
             defined('static::NAMESPACE'),
             self::getClassName(static::class)
             . '::NAMESPACE constant must be defined and set to the namespace for the xs:any element.',
-            RuntimeException::class
+            RuntimeException::class,
         );
         return static::NAMESPACE;
     }

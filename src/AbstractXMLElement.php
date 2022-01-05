@@ -69,7 +69,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
                 $default,
                 'Missing \'' . $name . '\' attribute on ' . static::getNamespacePrefix() . ':'
                     . self::getLocalName() . '.',
-                MissingAttributeException::class
+                MissingAttributeException::class,
             );
 
             return $default;
@@ -97,7 +97,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
             $value,
             ['0', '1', 'false', 'true'],
             'The \'' . $name . '\' attribute of ' . static::getNamespacePrefix() . ':' . self::getLocalName() .
-            ' must be boolean.'
+            ' must be boolean.',
         );
 
         return in_array($value, ['1', 'true'], true);
@@ -124,7 +124,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
         Assert::numeric(
             $value,
             'The \'' . $name . '\' attribute of ' . static::getNamespacePrefix() . ':' . self::getLocalName()
-                . ' must be numerical.'
+                . ' must be numerical.',
         );
 
         return intval($value);
@@ -187,7 +187,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
             defined('static::NS'),
             self::getClassName(static::class)
             . '::NS constant must be defined and set to the namespace for the XML-class it represents.',
-            RuntimeException::class
+            RuntimeException::class,
         );
         return static::NS;
     }
@@ -204,7 +204,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
             defined('static::NS_PREFIX'),
             self::getClassName(static::class)
             . '::NS_PREFIX constant must be defined and set to the namespace prefix for the XML-class it represents.',
-            RuntimeException::class
+            RuntimeException::class,
         );
         return static::NS_PREFIX;
     }

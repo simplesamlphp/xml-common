@@ -34,7 +34,7 @@ final class XMLStringElementTraitTest extends TestCase
         $this->testedClass = XMLStringElement::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(dirname(__FILE__)) . '/resources/xml/bar_XMLStringElement.xml'
+            dirname(dirname(__FILE__)) . '/resources/xml/bar_XMLStringElement.xml',
         );
     }
 
@@ -46,7 +46,7 @@ final class XMLStringElementTraitTest extends TestCase
 
         $this->assertEquals(
             $this->xmlRepresentation->saveXML($this->xmlRepresentation->documentElement),
-            strval($stringElement)
+            strval($stringElement),
         );
     }
 

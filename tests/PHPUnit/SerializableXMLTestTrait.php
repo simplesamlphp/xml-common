@@ -36,17 +36,17 @@ trait SerializableXMLTestTrait
         if ($testedClass === null) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSerialization(). Please set ' . self::class
-                . ':$element to a class-string representing the XML-class being tested'
+                . ':$element to a class-string representing the XML-class being tested',
             );
         } elseif ($xmlRepresentation === null) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSerialization(). Please set ' . self::class
-                . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested'
+                . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested',
             );
         } elseif (!class_exists($testedClass)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSerialization(). Please set ' . self::class
-                . ':$element to a class-string representing the XML-class being tested'
+                . ':$element to a class-string representing the XML-class being tested',
             );
         } else {
             /** @psalm-var \DOMElement */
@@ -54,7 +54,7 @@ trait SerializableXMLTestTrait
 
             $this->assertEquals(
                 $this->xmlRepresentation->saveXML($xmlRepresentationDocument),
-                strval(unserialize(serialize($testedClass::fromXML($xmlRepresentationDocument))))
+                strval(unserialize(serialize($testedClass::fromXML($xmlRepresentationDocument)))),
             );
         }
     }

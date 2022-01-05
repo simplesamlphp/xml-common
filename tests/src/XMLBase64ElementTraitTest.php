@@ -36,7 +36,7 @@ final class XMLBase64ElementTraitTest extends TestCase
         $this->testedClass = XMLBase64Element::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(dirname(__FILE__)) . '/resources/xml/bar_XMLBase64Element.xml'
+            dirname(dirname(__FILE__)) . '/resources/xml/bar_XMLBase64Element.xml',
         );
     }
 
@@ -48,7 +48,7 @@ final class XMLBase64ElementTraitTest extends TestCase
 
         $this->assertEquals(
             XMLDumper::dumpDOMDocumentXMLWithBase64Content($this->xmlRepresentation),
-            strval($base64Element)
+            strval($base64Element),
         );
     }
 

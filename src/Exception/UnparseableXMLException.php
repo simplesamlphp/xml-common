@@ -16,7 +16,7 @@ final class UnparseableXMLException extends RuntimeException
     private const LEVELMAP = [
         LIBXML_ERR_WARNING => 'WARNING',
         LIBXML_ERR_ERROR   => 'ERROR',
-        LIBXML_ERR_FATAL   => 'FATAL'
+        LIBXML_ERR_FATAL   => 'FATAL',
     ];
 
 
@@ -34,7 +34,7 @@ final class UnparseableXMLException extends RuntimeException
             $error->message,
             $error->file ?: '(string)',
             $error->line,
-            $error->column
+            $error->column,
         );
 
         parent::__construct($message);

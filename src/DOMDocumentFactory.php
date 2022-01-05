@@ -77,7 +77,7 @@ final class DOMDocumentFactory
         foreach ($domDocument->childNodes as $child) {
             if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
                 throw new RuntimeException(
-                    'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body'
+                    'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body',
                 );
             }
         }

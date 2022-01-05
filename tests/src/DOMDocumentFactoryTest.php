@@ -80,7 +80,7 @@ final class DOMDocumentFactoryTest extends TestCase
         $file = 'tests/resources/xml/domdocument_doctype.xml';
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(
-            'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body'
+            'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body',
         );
         DOMDocumentFactory::fromFile($file);
     }
@@ -94,7 +94,7 @@ final class DOMDocumentFactoryTest extends TestCase
         $xml = '<!DOCTYPE foo [<!ELEMENT foo ANY > <!ENTITY xxe SYSTEM "file:///dev/random" >]><foo />';
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(
-            'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body'
+            'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body',
         );
         DOMDocumentFactory::fromString($xml);
     }
@@ -119,7 +119,7 @@ final class DOMDocumentFactoryTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         $this->expectExceptionMessage(
-            'Expected a different value than "".'
+            'Expected a different value than "".',
         );
         DOMDocumentFactory::fromString("");
     }

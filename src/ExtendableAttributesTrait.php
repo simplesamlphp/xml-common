@@ -118,7 +118,7 @@ trait ExtendableAttributesTrait
         Assert::allIsInstanceOf(
             $attributes,
             DOMAttr::class,
-            'Arbitrary XML attributes can only be an instance of DOMAttr.'
+            'Arbitrary XML attributes can only be an instance of DOMAttr.',
         );
 
         foreach ($attributes as $attribute) {

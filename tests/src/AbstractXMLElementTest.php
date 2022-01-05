@@ -34,7 +34,7 @@ final class AbstractXMLElementTest extends TestCase
         $this->testedClass = XMLElement::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(dirname(__FILE__)) . '/resources/xml/bar_XMLElement.xml'
+            dirname(dirname(__FILE__)) . '/resources/xml/bar_XMLElement.xml',
         );
     }
 
@@ -47,7 +47,7 @@ final class AbstractXMLElementTest extends TestCase
 
         $this->assertEquals(
             $this->xmlRepresentation->saveXML($this->xmlRepresentation->documentElement),
-            strval($element)
+            strval($element),
         );
     }
 

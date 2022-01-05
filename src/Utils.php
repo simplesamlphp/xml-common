@@ -206,7 +206,7 @@ class Utils
         $regex = '/^(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d)T(\\d\\d):(\\d\\d):(\\d\\d)(?:\\.\\d{1,9})?Z$/D';
         if (preg_match($regex, $time, $matches) == 0) {
             throw new InvalidArgumentException(
-                'Invalid SAML2 timestamp passed to xsDateTimeToTimestamp: ' . $time
+                'Invalid SAML2 timestamp passed to xsDateTimeToTimestamp: ' . $time,
             );
         }
 

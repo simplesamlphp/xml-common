@@ -46,7 +46,7 @@ final class ExtendableElementTraitTest extends TestCase
         $this->testedClass = ExtendableElement::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(dirname(__FILE__)) . '/resources/xml/ssp_ExtendableElement.xml'
+            dirname(dirname(__FILE__)) . '/resources/xml/ssp_ExtendableElement.xml',
         );
 
         $this->empty = new Chunk(DOMDocumentFactory::fromString(<<<XML
