@@ -158,8 +158,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
      * Extract localized names from the children of a given element.
      *
      * @param \DOMElement $parent The element we want to search.
-     * @return static[] An array of objects of this class.
-     * @psalm-return array
+     * @return \SimpleSAML\XML\AbstractXMLElement[] An array of objects of this class.
      */
     public static function getChildrenOfClass(DOMElement $parent): array
     {
