@@ -16,4 +16,3 @@ use RuntimeException as BuiltinRuntimeException;
 class RuntimeException extends BuiltinRuntimeException
 {
 }
-
