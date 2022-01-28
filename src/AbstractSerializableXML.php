@@ -78,10 +78,7 @@ abstract class AbstractSerializableXML implements XMLElementInterface, Serializa
      *
      * @return bool
      */
-    public function isEmptyElement(): bool
-    {
-        return false;
-    }
+    abstract public function isEmptyElement(): bool;
 
 
     /**

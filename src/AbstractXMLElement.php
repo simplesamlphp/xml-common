@@ -226,6 +226,17 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
 
 
     /**
+     * Test if an object, at the state it's in, would produce an empty XML-element
+     *
+     * @return bool
+     */
+    public function isEmptyElement(): bool
+    {
+        return false;
+    }
+
+
+    /**
      * Create a class from an array
      *
      * @param array $data
