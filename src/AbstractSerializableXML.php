@@ -15,7 +15,7 @@ use function get_object_vars;
  *
  * @package simplesamlphp/xml-common
  */
-abstract class AbstractSerializableXML implements XMLElementInterface, Serializable
+abstract class AbstractSerializableXML implements XMLElementInterface
 {
     /**
      * Whether to format the string output of this element or not.
@@ -42,33 +42,30 @@ abstract class AbstractSerializableXML implements XMLElementInterface, Serializa
 
 
     /**
-     * Serialize this XML chunk
+     * Serialize this XML chunk.
      *
-     * @return string The serialized chunk.
+     * This method will be invoked by any calls to serialize().
+     *
+     * @return array The serialized representation of this XML object.
      */
-    public function serialize(): string
+    public function __serialize(): array
     {
-        $xml = $this->toXML();
-        /** @psalm-var \DOMDocument $xml->ownerDocument */
-        return $xml->ownerDocument->saveXML($xml);
+        return get_object_vars($this);
     }
 
 
     /**
-     * Un-serialize this XML chunk.
+     * Unserialize an XML object and load it..
      *
-     * @param string $serialized The serialized chunk.
+     * This method will be invoked by any calls to unserialize(), allowing us to restore any data that might not
+     * be serializable in its original form (e.g.: DOM objects).
      *
-     * Type hint not possible due to upstream method signature
+     * @param array $vars The XML object that we want to restore.
      */
-    public function unserialize($serialized): void
+    public function __unserialize(array $vars): void
     {
-        $doc = DOMDocumentFactory::fromString($serialized);
-        $obj = static::fromXML($doc->documentElement);
-
-        // For this to work, the properties have to be protected
-        foreach (get_object_vars($obj) as $property => $value) {
-            $this->{$property} = $value;
+        foreach ($vars as $k => $v) {
+            $this->$k = $v;
         }
     }
 
