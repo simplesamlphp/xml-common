@@ -50,7 +50,9 @@ abstract class AbstractSerializableXML implements XMLElementInterface
      */
     public function __serialize(): array
     {
-        return get_object_vars($this);
+        $xml = $this->toXML();
+        /** @psalm-var \DOMDocument $xml->ownerDocument */
+        return [$xml->ownerDocument->saveXML($xml)];
     }
 
 
@@ -62,8 +64,13 @@ abstract class AbstractSerializableXML implements XMLElementInterface
      *
      * @param array $vars The XML object that we want to restore.
      */
-    public function __unserialize(array $vars): void
+    public function __unserialize(array $serialized): void
     {
+        $xml = static::fromXML(
+            DOMDocumentFactory::fromString(array_pop($serialized))->documentElement,
+        );
+
+        $vars = get_object_vars($xml);
         foreach ($vars as $k => $v) {
             $this->$k = $v;
         }
