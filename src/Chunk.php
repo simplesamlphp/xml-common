@@ -65,43 +65,6 @@ final class Chunk extends AbstractSerializableXML
 
 
     /**
-     * Serialize this XML chunk.
-     *
-     * This method will be invoked by any calls to serialize().
-     *
-     * @return array The serialized representation of this XML object.
-     */
-    public function __serialize(): array
-    {
-        $vars = get_object_vars($this);
-        $vars['xml'] = $this->xml->ownerDocument->saveXML($this->xml);
-
-        return $vars;
-    }
-
-
-    /**
-     * Unserialize an XML object and load it..
-     *
-     * This method will be invoked by any calls to unserialize(), allowing us to restore any data that mi$
-     * be serializable in its original form (e.g.: DOM objects).
-     *
-     * @param array $vars The XML object that we want to restore.
-     */
-    public function __unserialize(array $vars): void
-    {
-        $xml = $vars['xml'];
-        unset($vars['xml']);
-
-        $this->xml = DOMDocumentFactory::fromString($xml)->documentElement;
-
-        foreach ($vars as $k => $v) {
-            $this->$k = $v;
-        }
-    }
-
-
-    /**
      * Get this \DOMElement.
      *
      * @return \DOMElement This element.
