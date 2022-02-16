@@ -6,7 +6,6 @@ namespace SimpleSAML\XML;
 
 use DOMElement;
 use SimpleSAML\XML\DOMDocumentFactory;
-use Serializable;
 
 use function get_object_vars;
 
