@@ -8,7 +8,6 @@ use DOMElement;
 use RuntimeException;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\MissingAttributeException;
-use Serializable;
 use SimpleSAML\Assert\Assert;
 
 use function array_slice;
