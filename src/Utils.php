@@ -77,7 +77,7 @@ class Utils
      * @param string $localName The localName of the localized strings.
      * @return array Localized strings.
      */
-    public static function extractLocalizedStrings(\DOMElement $parent, string $namespaceURI, string $localName): array
+    public static function extractLocalizedStrings(DOMElement $parent, string $namespaceURI, string $localName): array
     {
         $ret = [];
         foreach ($parent->childNodes as $node) {
