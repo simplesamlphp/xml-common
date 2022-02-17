@@ -61,7 +61,7 @@ abstract class AbstractSerializableXML implements XMLElementInterface
      * This method will be invoked by any calls to unserialize(), allowing us to restore any data that might not
      * be serializable in its original form (e.g.: DOM objects).
      *
-     * @param array $vars The XML object that we want to restore.
+     * @param array $serialized The XML object that we want to restore.
      */
     public function __unserialize(array $serialized): void
     {
