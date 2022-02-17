@@ -6,10 +6,8 @@ namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\SerializableXMLTestTrait;
-//use SimpleSAML\Test\XML\XMLElement;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\DOMDocumentFactory;
-//use SimpleSAML\XML\Exception\MissingAttributeException;
 
 use function dirname;
 use function strval;
