@@ -27,6 +27,11 @@ class Constants
     public const NS_XSI = 'http://www.w3.org/2001/XMLSchema-instance';
 
     /**
+     * The namespace for the SOAP protocol.
+     */
+    public const NS_SOAP = 'http://schemas.xmlsoap.org/soap/envelope/';
+
+    /**
      * The namespace-attribute values for xs:any elements
      */
     public const XS_ANY_NS_ANY = '##any';
