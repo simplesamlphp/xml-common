@@ -14,40 +14,6 @@ use DOMElement;
 interface ElementInterface
 {
     /**
-     * Output the class as an XML-formatted string
-     *
-     * @return string
-     */
-    public function __toString(): string;
-
-
-    /**
-     * Test if an object, at the state it's in, would produce an empty XML-element
-     *
-     * @return bool
-     */
-    public function isEmptyElement(): bool;
-
-
-    /**
-     * Create a class from XML
-     *
-     * @param \DOMElement $xml
-     * @return self
-     */
-    public static function fromXML(DOMElement $xml): self;
-
-
-    /**
-     * Create XML from this class
-     *
-     * @param \DOMElement|null $parent
-     * @return \DOMElement
-     */
-    public function toXML(DOMElement $parent = null): DOMElement;
-
-
-    /**
      * Get the value of an attribute from a given element.
      *
      * @param \DOMElement $xml The element where we should search for the attribute.

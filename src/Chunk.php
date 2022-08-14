@@ -18,22 +18,8 @@ use function intval;
  *
  * @package simplesamlphp/xml-common
  */
-final class Chunk extends AbstractSerializableElement
+final class Chunk implements ElementInterface, SerializableElementInterface
 {
-    /**
-     * The localName of the element.
-     *
-     * @var string
-     */
-    protected string $localName;
-
-    /**
-     * The namespaceURI of this element.
-     *
-     * @var string|null
-     */
-    protected ?string $namespaceURI;
-
     /**
      * The prefix of this element.
      *
@@ -61,6 +47,22 @@ final class Chunk extends AbstractSerializableElement
         $this->setPrefix($xml->prefix);
 
         $this->xml = Utils::copyElement($xml);
+    }
+
+
+    /**
+     * Output the class as an XML-formatted string
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+
+        $xml = $this->toXML();
+
+        /** @psalm-var \DOMDocument $xml->ownerDocument */
+        $xml->ownerDocument->formatOutput = $this->formatOutput;
+        return $xml->ownerDocument->saveXML($xml);
     }
 
 
@@ -268,6 +270,8 @@ final class Chunk extends AbstractSerializableElement
      */
     public function toXML(DOMElement $parent = null): DOMElement
     {
-        return Utils::copyElement($this->xml, $parent);
+          $import = $parent->ownerDocument->importNode($this->xml, true);
+          $parent->appendChild($import);
+//        return Utils::copyElement($this->xml, $parent);
     }
 }
