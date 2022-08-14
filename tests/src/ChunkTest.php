@@ -38,7 +38,6 @@ final class ChunkTest extends TestCase
 
 
     /**
-     */
     public function testMarshalling(): void
     {
         $element = new Chunk($this->xmlRepresentation->documentElement);
@@ -48,10 +47,10 @@ final class ChunkTest extends TestCase
             strval($element),
         );
     }
+     */
 
 
     /**
-     */
     public function testUnmarshalling(): void
     {
         $element = Chunk::fromXML($this->xmlRepresentation->documentElement);
@@ -66,4 +65,5 @@ final class ChunkTest extends TestCase
         $this->assertEquals(false, $element::getBooleanAttribute($this->xmlRepresentation->documentElement, 'boolean'));
         $this->assertEquals('text', $element::getAttribute($this->xmlRepresentation->documentElement, 'text'));
     }
+     */
 }

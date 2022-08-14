@@ -40,7 +40,6 @@ trait SerializableElementTestTrait
         } else {
             /** @psalm-var \DOMElement */
             $xmlRepresentationDocument = $this->xmlRepresentation->documentElement;
-
             $this->assertEquals(
                 $this->xmlRepresentation->saveXML($xmlRepresentationDocument),
                 strval(unserialize(serialize($this->testedClass::fromXML($xmlRepresentationDocument)))),
