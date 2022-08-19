@@ -7,7 +7,7 @@ namespace SimpleSAML\XML;
 use DOMAttr;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\Exception\SchemaViolationException;
+use SimpleSAML\XML\Exception\SchemaViolationException;
 
 use function explode;
 
