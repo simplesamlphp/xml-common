@@ -30,7 +30,8 @@
         "php": ">=7.4 || ^8.0",
         "ext-dom": "*",
         "ext-spl": "*",
-        "simplesamlphp/assert": "^0.3.0"
+
+        "simplesamlphp/assert": "^0.4.0"
     },
     "require-dev": {
         "simplesamlphp/simplesamlphp-test-framework": "^1.2.1",
