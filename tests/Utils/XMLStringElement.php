@@ -17,7 +17,7 @@ final class XMLStringElement extends AbstractXMLElement
     use XMLStringElementTrait;
 
     /** @var string */
-    public const NS = 'foo';
+    public const NS = 'urn:foo:bar';
 
     /** @var string */
     public const NS_PREFIX = 'bar';

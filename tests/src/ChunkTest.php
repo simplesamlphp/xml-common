@@ -57,7 +57,7 @@ final class ChunkTest extends TestCase
         $element = Chunk::fromXML($this->xmlRepresentation->documentElement);
 
         $this->assertEquals($element->getLocalName(), 'XMLElement');
-        $this->assertEquals($element->getNamespaceURI(), 'foo');
+        $this->assertEquals($element->getNamespaceURI(), 'urn:foo:bar');
         $this->assertEquals($element->getprefix(), 'bar');
         $this->assertEquals($element->getQualifiedName(), 'bar:XMLElement');
         $this->assertFalse($element->isEmptyElement());

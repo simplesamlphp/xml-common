@@ -93,7 +93,7 @@ final class Chunk extends AbstractSerializableXML
      */
     public function setLocalName(string $localName): void
     {
-        Assert::notEmpty($localName, 'A DOMElement cannot have an empty name.');
+        Assert::validNCName($localName); // Covers the empty string
         $this->localName = $localName;
     }
 
@@ -116,6 +116,7 @@ final class Chunk extends AbstractSerializableXML
      */
     protected function setNamespaceURI(string $namespaceURI = null): void
     {
+        Assert::nullOrValidURI($namespaceURI);
         $this->namespaceURI = $namespaceURI;
     }
 

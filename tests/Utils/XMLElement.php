@@ -19,7 +19,7 @@ use function strval;
 final class XMLElement extends AbstractXMLElement
 {
     /** @var string */
-    public const NS = 'foo';
+    public const NS = 'urn:foo:bar';
 
     /** @var string */
     public const NS_PREFIX = 'bar';

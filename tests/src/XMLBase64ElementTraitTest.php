@@ -80,12 +80,12 @@ final class XMLBase64ElementTraitTest extends TestCase
         return [
             'inline' => [
                 <<<XML
-<bar:XMLBase64Element xmlns:bar="foo">/CTj03d1DB5e2t7CTo9BEzCf5S9NRzwnBgZRlm32REI=</bar:XMLBase64Element>
+<bar:XMLBase64Element xmlns:bar="urn:foo:bar">/CTj03d1DB5e2t7CTo9BEzCf5S9NRzwnBgZRlm32REI=</bar:XMLBase64Element>
 XML
             ],
             'multiline' => [
                 <<<XML
-<bar:XMLBase64Element xmlns:bar="foo">
+<bar:XMLBase64Element xmlns:bar="urn:foo:bar">
 j14G9v6AnsOiEJYgkTg864DG3e/KLqoGpuybPGSGblVTn7ST6M/BsvP7YiVZjLqJEuEvWmf2mW4D
 Pb+pbArzzDcsLWEtNveMrw+FkWehDUQV9oe20iepo+W46wmj7zB/eWL+Z8MrGvlycoTndJU6CVwH
 TLsB+dq2FDa7JV4pAPjMY32JZTbiwKhzqw3nEi/eVrujJE4YRrlW28D+rXhITfoUAGGvsqPzcwGz

@@ -97,10 +97,10 @@ trait ExtendableAttributesTrait
      */
     protected function setAttributeNS(string $namespaceURI, string $qualifiedName, string $value): void
     {
-        $name = explode(':', $qualifiedName, 2);
-        Assert::minCount($name, 2, 'Not a qualified name.');
+        Assert::validURI($namespaceURI);
+        Assert::validQName($qualifiedName);
+        list(, $localName) = explode(':', $qualifiedName, 2);
 
-        $localName = $name[1];
         $this->namespacedAttributes['{' . $namespaceURI . '}' . $localName] = [
             'qualifiedName' => $qualifiedName,
             'namespaceURI' => $namespaceURI,

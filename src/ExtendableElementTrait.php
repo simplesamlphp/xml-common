@@ -131,6 +131,7 @@ trait ExtendableElementTrait
             . '::NAMESPACE constant must be defined and set to the namespace for the xs:any element.',
             RuntimeException::class,
         );
+
         return static::NAMESPACE;
     }
 }

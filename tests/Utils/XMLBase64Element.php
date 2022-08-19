@@ -17,7 +17,7 @@ final class XMLBase64Element extends AbstractXMLElement
     use XMLBase64ElementTrait;
 
     /** @var string */
-    public const NS = 'foo';
+    public const NS = 'urn:foo:bar';
 
     /** @var string */
     public const NS_PREFIX = 'bar';

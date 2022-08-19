@@ -138,7 +138,9 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
      */
     public static function getClassName(string $class): string
     {
-        return join('', array_slice(explode('\\', $class), -1));
+        $ncName = join('', array_slice(explode('\\', $class), -1));
+        Assert::validNCName($ncName);
+        return $ncName;
     }
 
 
@@ -149,7 +151,9 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
      */
     public function getQualifiedName(): string
     {
-        return static::getNamespacePrefix() . ':' . static::getLocalName();
+        $qName = static::getNamespacePrefix() . ':' . static::getLocalName();
+        Assert::validQName($qName);
+        return $qName;
     }
 
 
@@ -188,6 +192,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
             . '::NS constant must be defined and set to the namespace for the XML-class it represents.',
             RuntimeException::class,
         );
+        Assert::validURI(static::NS);
         return static::NS;
     }
 
@@ -217,10 +222,13 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
     public static function getLocalName(): string
     {
         if (defined('static::LOCALNAME')) {
-            return static::LOCALNAME;
+            $ncName = static::LOCALNAME;
+        } else {
+            $ncName = self::getClassName(static::class);
         }
 
-        return self::getClassName(static::class);
+        Assert::validNCName($ncName);
+        return $ncName;
     }
 
 
