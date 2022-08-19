@@ -6,6 +6,7 @@ namespace SimpleSAML\XML;
 
 use DOMElement;
 use SimpleSAML\XML\Exception\MissingAttributeException;
+use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Utils;
 use SimpleSAML\Assert\Assert;
 
@@ -93,7 +94,7 @@ final class Chunk extends AbstractSerializableXML
      */
     public function setLocalName(string $localName): void
     {
-        Assert::validNCName($localName); // Covers the empty string
+        Assert::validNCName($localName, SchemaViolationException::class); // Covers the empty string
         $this->localName = $localName;
     }
 
@@ -116,7 +117,7 @@ final class Chunk extends AbstractSerializableXML
      */
     protected function setNamespaceURI(string $namespaceURI = null): void
     {
-        Assert::nullOrValidURI($namespaceURI);
+        Assert::nullOrValidURI($namespaceURI, SchemaViolationException::class);
         $this->namespaceURI = $namespaceURI;
     }
 

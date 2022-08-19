@@ -8,6 +8,7 @@ use DOMElement;
 use RuntimeException;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\MissingAttributeException;
+use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\Assert\Assert;
 
 use function array_slice;
@@ -139,7 +140,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
     public static function getClassName(string $class): string
     {
         $ncName = join('', array_slice(explode('\\', $class), -1));
-        Assert::validNCName($ncName);
+        Assert::validNCName($ncName, SchemaViolationException::class);
         return $ncName;
     }
 
@@ -152,7 +153,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
     public function getQualifiedName(): string
     {
         $qName = static::getNamespacePrefix() . ':' . static::getLocalName();
-        Assert::validQName($qName);
+        Assert::validQName($qName, SchemaViolationException::class);
         return $qName;
     }
 
@@ -192,7 +193,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
             . '::NS constant must be defined and set to the namespace for the XML-class it represents.',
             RuntimeException::class,
         );
-        Assert::validURI(static::NS);
+        Assert::validURI(static::NS, SchemaViolationException::class);
         return static::NS;
     }
 
@@ -227,7 +228,7 @@ abstract class AbstractXMLElement extends AbstractSerializableXML
             $ncName = self::getClassName(static::class);
         }
 
-        Assert::validNCName($ncName);
+        Assert::validNCName($ncName, SchemaViolationException::class);
         return $ncName;
     }
 

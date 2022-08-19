@@ -7,6 +7,7 @@ namespace SimpleSAML\XML;
 use DOMAttr;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\Exception\SchemaViolationException;
 
 use function explode;
 
@@ -97,8 +98,8 @@ trait ExtendableAttributesTrait
      */
     protected function setAttributeNS(string $namespaceURI, string $qualifiedName, string $value): void
     {
-        Assert::validURI($namespaceURI);
-        Assert::validQName($qualifiedName);
+        Assert::validURI($namespaceURI, SchemaViolationException::class);
+        Assert::validQName($qualifiedName, SchemaViolationException::class);
         list(, $localName) = explode(':', $qualifiedName, 2);
 
         $this->namespacedAttributes['{' . $namespaceURI . '}' . $localName] = [
