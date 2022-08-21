@@ -27,7 +27,6 @@ use function join;
 abstract class AbstractElement implements ElementInterface, SerializableElementInterface
 {
     use SerializableElementTrait;
-    use XMLElementTrait;
 
 
     /**

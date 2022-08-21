@@ -22,8 +22,21 @@ use function intval;
 final class Chunk implements ElementInterface, SerializableElementInterface
 {
     use SerializableElementTrait;
-    use XMLElementTrait;
 
+
+    /**
+     * The localName of the element.
+     *
+     * @var string
+     */
+    protected string $localName;
+
+    /**
+     * The namespaceURI of this element.
+     *
+     * @var string|null
+     */
+    protected ?string $namespaceURI;
 
     /**
      * The prefix of this element.
