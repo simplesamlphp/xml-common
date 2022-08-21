@@ -7,6 +7,7 @@ namespace SimpleSAML\XML;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Constants;
+use SimpleSAML\XML\Exception\InvalidDOMElementException;
 
 use function str_replace;
 
@@ -17,7 +18,20 @@ use function str_replace;
  */
 trait XMLBase64ElementTrait
 {
-    use XMLStringElementTrait;
+    /** @var string */
+    protected string $content;
+
+
+    /**
+     * Set the content of the element.
+     *
+     * @param string $content  The value to go in the XML textContent
+     */
+    protected function setContent(string $content): void
+    {
+        $this->validateContent($content);
+        $this->content = $content;
+    }
 
 
     /**
@@ -70,6 +84,24 @@ trait XMLBase64ElementTrait
 
 
     /**
+     * Convert XML into a class instance
+     *
+     * @param \DOMElement $xml The XML element we should load
+     * @return self
+     *
+     * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
+     *   If the qualified name of the supplied element is wrong
+     */
+    public static function fromXML(DOMElement $xml): object
+    {
+        Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
+        Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
+
+        return new static($xml->textContent);
+    }
+
+
+    /**
      * Convert this element to XML.
      *
      * @param \DOMElement|null $parent The element we should append this element to.
@@ -82,4 +114,17 @@ trait XMLBase64ElementTrait
 
         return $e;
     }
+
+
+    /** @return string */
+    abstract public static function getLocalName(): string;
+
+
+    /**
+     * Create a document structure for this element
+     *
+     * @param \DOMElement|null $parent The element we should append to.
+     * @return \DOMElement
+     */
+    abstract public function instantiateParentElement(DOMElement $parent = null): DOMElement;
 }

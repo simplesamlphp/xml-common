@@ -16,20 +16,6 @@ use SimpleSAML\XML\Exception\InvalidDOMElementException;
  */
 trait XMLStringElementTrait
 {
-    /**
-     * The localName of the element.
-     *
-     * @var string
-     */
-    protected string $localName;
-
-    /**
-     * The namespaceURI of this element.
-     *
-     * @var string|null
-     */
-    protected ?string $namespaceURI;
-
     /** @var string */
     protected string $content;
 
