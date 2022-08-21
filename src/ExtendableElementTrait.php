@@ -34,7 +34,8 @@ trait ExtendableElementTrait
     /**
      * Set an array with all elements present.
      *
-     * @param array \SimpleSAML\XML\AbstractElement[]
+     * @param array \SimpleSAML\XML\ElementInterface[]
+     * @return void
      */
     protected function setElements(array $elements): void
     {
@@ -55,7 +56,7 @@ trait ExtendableElementTrait
         // Get namespaces for all elements
         $actual_namespaces = array_map(
             /**
-             * @param \SimpleSAML\XML\AbstractElement|\SimpleSAML\XML\Chunk $elt
+             * @param \SimpleSAML\XML\ElementInterface $elt
              * @return string|null
              */
             function ($elt) {

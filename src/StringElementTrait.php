@@ -72,7 +72,6 @@ trait StringElementTrait
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
-
         return new static($xml->textContent);
     }
 

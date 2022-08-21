@@ -11,7 +11,7 @@ use DOMElement;
  *
  * @package simplesamlphp/xml-common
  */
-interface SerializableXMLElementInterface
+interface SerializableElementInterface
 {
     /**
      * Output the class as an XML-formatted string
@@ -22,20 +22,12 @@ interface SerializableXMLElementInterface
 
 
     /**
-     * Test if an object, at the state it's in, would produce an empty XML-element
-     *
-     * @return bool
-     */
-    public function isEmptyElement(): bool;
-
-
-    /**
      * Create a class from XML
      *
      * @param \DOMElement $xml
      * @return self
      */
-    public static function fromXML(DOMElement $xml): object;
+    public static function fromXML(DOMElement $xml): self;
 
 
     /**

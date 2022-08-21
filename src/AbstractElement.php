@@ -9,12 +9,12 @@ use RuntimeException;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XML\SerializableElementTrait;
 use SimpleSAML\Assert\Assert;
 
 use function array_slice;
 use function defined;
 use function explode;
-use function get_object_vars;
 use function in_array;
 use function intval;
 use function join;
@@ -26,97 +26,8 @@ use function join;
  */
 abstract class AbstractElement implements ElementInterface, SerializableElementInterface
 {
-    /**
-     * Whether to format the string output of this element or not.
-     *
-     * Defaults to true. Override to disable output formatting.
-     *
-     * @var bool
-     */
-    protected bool $formatOutput = true;
-
-    /**
-     * The localName of the element.
-     *
-     * @var string
-     */
-    protected string $localName;
-
-    /**
-     * The namespaceURI of this element.
-     *
-     * @var string|null
-     */
-    protected ?string $namespaceURI;
-
-
-    /**
-     * Output the class as an XML-formatted string
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        $xml = $this->toXML();
-        /** @psalm-var \DOMDocument $xml->ownerDocument */
-        $xml->ownerDocument->formatOutput = $this->formatOutput;
-
-        return $xml->ownerDocument->saveXML($xml);
-    }
-
-
-    /**
-     * Serialize this XML chunk.
-     *
-     * This method will be invoked by any calls to serialize().
-     *
-     * @return array The serialized representation of this XML object.
-     */
-    public function __serialize(): array
-    {
-        $xml = $this->toXML();
-        /** @psalm-var \DOMDocument $xml->ownerDocument */
-        return [$xml->ownerDocument->saveXML($xml)];
-    }
-
-
-    /**
-     * Unserialize an XML object and load it..
-     *
-     * This method will be invoked by any calls to unserialize(), allowing us to restore any data that might not
-     * be serializable in its original form (e.g.: DOM objects).
-     *
-     * @param array $serialized The XML object that we want to restore.
-     */
-    public function __unserialize(array $serialized): void
-    {
-        $xml = static::fromXML(
-            DOMDocumentFactory::fromString(array_pop($serialized))->documentElement,
-        );
-
-        $vars = get_object_vars($xml);
-        foreach ($vars as $k => $v) {
-            $this->$k = $v;
-        }
-    }
-
-
-    /**
-     * Create a class from XML
-     *
-     * @param \DOMElement $xml
-     * @return self
-     */
-    abstract public static function fromXML(DOMElement $xml): object;
-
-
-    /**
-     * Create XML from this class
-     *
-     * @param \DOMElement|null $parent
-     * @return \DOMElement
-     */
-    abstract public function toXML(DOMElement $parent = null): DOMElement;
+    use SerializableElementTrait;
+    use XMLElementTrait;
 
 
     /**
@@ -341,25 +252,5 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
     }
 
 
-    /**
-     * Create a class from an array
-     *
-     * @param array $data
-     * @return self
-     */
-    public static function fromArray(/** @scrutinizer ignore-unused */array $data): self
-    {
-        throw new RuntimeException('Not implemented.');
-    }
-
-
-    /**
-     * Create an array from this class
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        throw new RuntimeException('Not implemented');
-    }
+    abstract public static function fromXML(DOMElement $xml): self;
 }

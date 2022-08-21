@@ -11,6 +11,7 @@ use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\ExtendableElementTrait;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\XML\SerializableElementTrait;
 
 /**
  * Empty shell class for testing ExtendableElementTrait.
@@ -20,6 +21,8 @@ use SimpleSAML\XML\Exception\InvalidDOMElementException;
 class ExtendableElement extends AbstractElement
 {
     use ExtendableElementTrait;
+    use SerializableElementTrait;
+
 
 
     /** @var string */

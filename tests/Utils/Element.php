@@ -8,7 +8,7 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\Test\XML\SerializableElementTestTrait;
+use SimpleSAML\XML\SerializableElementTrait;
 
 use function strval;
 
@@ -19,6 +19,9 @@ use function strval;
  */
 final class Element extends AbstractElement
 {
+    use SerializableElementTrait;
+
+
     /** @var string */
     public const NS = 'urn:x-simplesamlphp:namespace';
 

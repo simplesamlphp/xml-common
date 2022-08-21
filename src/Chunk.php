@@ -7,6 +7,7 @@ namespace SimpleSAML\XML;
 use DOMElement;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XML\SerializableElementTrait;
 use SimpleSAML\XML\Utils;
 use SimpleSAML\Assert\Assert;
 
@@ -20,14 +21,9 @@ use function intval;
  */
 final class Chunk implements ElementInterface, SerializableElementInterface
 {
-    /**
-     * Whether to format the string output of this element or not.
-     *
-     * Defaults to true. Override to disable output formatting.
-     *
-     * @var bool
-     */
-    protected bool $formatOutput = true;
+    use SerializableElementTrait;
+    use XMLElementTrait;
+
 
     /**
      * The prefix of this element.
@@ -56,69 +52,6 @@ final class Chunk implements ElementInterface, SerializableElementInterface
         $this->setPrefix($xml->prefix);
 
         $this->xml = Utils::copyElement($xml);
-    }
-
-
-    /**
-     * Output the class as an XML-formatted string
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-
-        $xml = $this->toXML();
-
-        /** @psalm-var \DOMDocument $xml->ownerDocument */
-        $xml->ownerDocument->formatOutput = $this->formatOutput;
-        return $xml->ownerDocument->saveXML($xml);
-    }
-
-
-    /**
-     * Serialize this XML chunk.
-     *
-     * This method will be invoked by any calls to serialize().
-     *
-     * @return array The serialized representation of this XML object.
-     */
-    public function __serialize(): array
-    {
-        $xml = $this->toXML();
-        /** @psalm-var \DOMDocument $xml->ownerDocument */
-        return [$xml->ownerDocument->saveXML($xml)];
-    }
-
-
-    /**
-     * Unserialize an XML object and load it..
-     *
-     * This method will be invoked by any calls to unserialize(), allowing us to restore any data that might not
-     * be serializable in its original form (e.g.: DOM objects).
-     *
-     * @param array $serialized The XML object that we want to restore.
-     */
-    public function __unserialize(array $serialized): void
-    {
-        $xml = static::fromXML(
-            DOMDocumentFactory::fromString(array_pop($serialized))->documentElement,
-        );
-
-        $vars = get_object_vars($xml);
-        foreach ($vars as $k => $v) {
-            $this->$k = $v;
-        }
-    }
-
-
-    /**
-     * Get this \DOMElement.
-     *
-     * @return \DOMElement This element.
-     */
-    public function getXML(): DOMElement
-    {
-        return $this->xml;
     }
 
 
@@ -166,6 +99,17 @@ final class Chunk implements ElementInterface, SerializableElementInterface
     {
         Assert::nullOrValidURI($namespaceURI, SchemaViolationException::class);
         $this->namespaceURI = $namespaceURI;
+    }
+
+
+    /**
+     * Get this \DOMElement.
+     *
+     * @return \DOMElement This element.
+     */
+    public function getXML(): DOMElement
+    {
+        return $this->xml;
     }
 
 
