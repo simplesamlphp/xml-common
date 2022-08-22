@@ -256,9 +256,9 @@ final class Chunk implements ElementInterface, SerializableElementInterface
 
     /**
      * @param \DOMElement $xml
-     * @return self
+     * @return static
      */
-    public static function fromXML(DOMElement $xml): self
+    public static function fromXML(DOMElement $xml): static
     {
         return new self($xml);
     }

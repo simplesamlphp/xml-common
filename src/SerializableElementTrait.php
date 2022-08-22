@@ -83,9 +83,9 @@ trait SerializableElementTrait
      * Create a class from an array
      *
      * @param array $data
-     * @return self
+     * @return static
      */
-    public static function fromArray(/** @scrutinizer ignore-unused */array $data): self
+    public static function fromArray(/** @scrutinizer ignore-unused */array $data): static
     {
         throw new RuntimeException('Not implemented.');
     }

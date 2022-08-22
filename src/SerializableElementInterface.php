@@ -25,9 +25,9 @@ interface SerializableElementInterface
      * Create a class from XML
      *
      * @param \DOMElement $xml
-     * @return self
+     * @return static
      */
-    public static function fromXML(DOMElement $xml): self;
+    public static function fromXML(DOMElement $xml): static;
 
 
     /**

@@ -75,9 +75,9 @@ class ExtendableElement extends AbstractElement
      * Create a class from XML
      *
      * @param \DOMElement $xml
-     * @return self
+     * @return static
      */
-    public static function fromXML(DOMElement $xml): self
+    public static function fromXML(DOMElement $xml): static
     {
         $children = [];
         foreach ($xml->childNodes as $node) {
@@ -86,7 +86,7 @@ class ExtendableElement extends AbstractElement
             }
         }
 
-        return new self($children);
+        return new static($children);
     }
 
 

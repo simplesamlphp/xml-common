@@ -251,5 +251,11 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
     }
 
 
-    abstract public static function fromXML(DOMElement $xml): self;
+    /**
+     * Create a class from XML
+     *
+     * @param \DOMElement $xml
+     * @return static
+     */
+    abstract public static function fromXML(DOMElement $xml): static;
 }

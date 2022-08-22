@@ -90,9 +90,9 @@ final class Element extends AbstractElement
      * Create a class from XML
      *
      * @param \DOMElement $xml
-     * @return self
+     * @return static
      */
-    public static function fromXML(DOMElement $xml): self
+    public static function fromXML(DOMElement $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
