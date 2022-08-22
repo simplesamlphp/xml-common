@@ -8,6 +8,7 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Constants;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\XML\Exception\SchemaViolationException;
 
 use function str_replace;
 
@@ -79,7 +80,7 @@ trait XMLBase64ElementTrait
     protected function validateContent(string $content): void
     {
         // Note: content must already be sanitized before validating
-        Assert::stringPlausibleBase64($this->sanitizeContent($content));
+        Assert::stringPlausibleBase64($this->sanitizeContent($content), SchemaViolationException::class);
     }
 
 
