@@ -21,6 +21,7 @@ class ExtendableElement extends AbstractXMLElement
 {
     use ExtendableElementTrait;
 
+
     /** @var string */
     public const NS = 'urn:custom:ssp';
 
@@ -61,7 +62,7 @@ class ExtendableElement extends AbstractXMLElement
      *
      * @param \SimpleSAML\XML\XMLElementInterface[] $elements
      */
-    public function __construct(array $elements)
+    final public function __construct(array $elements)
     {
         $this->setElements($elements);
     }
