@@ -33,7 +33,7 @@ trait SchemaValidationTestTrait
         if ($this->testedClass === null || !class_exists($this->testedClass)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSchemaValidation(). Please set ' . self::class
-                . ':$element to a class-string representing the XML-class being tested',
+                . ':$testedClass to a class-string representing the XML-class being tested',
             );
         } elseif ($this->schema === null) {
             $this->markTestSkipped(
