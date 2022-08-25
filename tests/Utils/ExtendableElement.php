@@ -23,7 +23,7 @@ class ExtendableElement extends AbstractXMLElement
 
 
     /** @var string */
-    public const NS = 'urn:custom:ssp';
+    public const NS = 'urn:x-simplesamlphp:namespace';
 
     /** @var string */
     public const NS_PREFIX = 'ssp';
