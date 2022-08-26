@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DateTime;
+use DateTimeImmutable;
 use DOMElement;
 use DOMNode;
 use SimpleSAML\Assert\Assert;
@@ -197,7 +197,10 @@ class Utils
     {
         Assert::validDateTimeZulu($time);
 
-        $dateTime = DateTime::createFromFormat(DateTime::ISO8601, $time);
+        $dateTime1 = DateTimeImmutable::createFromFormat(DateTimeImmutable::ISO8601, $time);
+        $dateTime2 = DateTimeImmutable::createFromFormat(DateTimeImmutable::RFC3339_EXTENDED, $time);
+
+        $dateTime = $dateTime1 ?: $dateTime2;
         return $dateTime->getTimestamp();
     }
 }
