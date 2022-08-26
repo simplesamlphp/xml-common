@@ -5,8 +5,16 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use DOMDocument;
+use libXMLError;
+use SimpleSAML\XML\Exception\SchemaViolationException;
+use XMLReader;
 
+use function array_unique;
 use function class_exists;
+use function implode;
+use function libxml_get_last_error;
+use function libxml_use_internal_errors;
+use function trim;
 
 /**
  * Test for AbstractXMLElement classes to perform schema validation tests.
@@ -46,14 +54,46 @@ trait SchemaValidationTestTrait
                 . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested',
             );
         } else {
-            $pre = $this->xmlRepresentation->schemaValidate($this->schema);
+            $predoc = XMLReader::XML($this->xmlRepresentation->saveXML());
+            $pre = $this->validateDocument($predoc);
             $this->assertTrue($pre);
 
             $class = $this->testedClass::fromXML($this->xmlRepresentation->documentElement);
             $serializedClass = $class->toXML();
 
-            $post = $serializedClass->ownerDocument->schemaValidate($this->schema);
+            $postdoc = XMLReader::XML($serializedClass->ownerDocument->saveXML());
+            $post = $this->validateDocument($postdoc);
             $this->assertTrue($post);
         }
+    }
+
+
+    /**
+     * @param \XMLReader $doc
+     * @return boolean
+     */
+    private function validateDocument(XMLReader $xmlReader): bool
+    {
+        $xmlReader->setParserProperty(XMLReader::VALIDATE, true);
+        $xmlReader->setSchema($this->schema);
+
+        libxml_use_internal_errors(true);
+
+        $msgs = [];
+
+        while ($xmlReader->read()) {
+            if (!$xmlReader->isValid()) {
+                $err = libxml_get_last_error();
+                if ($err && $err instanceof libXMLError) {
+                    $msgs[] = trim($err->message) . ' on line ' . $err->line;
+                }
+            }
+        }
+
+        if ($msgs) {
+            throw new SchemaViolationException("XML schema validation errors:\n - " . implode("\n - ", array_unique($msgs)));
+        }
+
+        return true;
     }
 }
