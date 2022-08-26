@@ -31,7 +31,7 @@
         "ext-dom": "*",
         "ext-spl": "*",
 
-        "simplesamlphp/assert": "^0.5.1"
+        "simplesamlphp/assert": "^0.6.0"
     },
     "require-dev": {
         "simplesamlphp/simplesamlphp-test-framework": "^1.2.1",
