@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
+use DateTime;
 use DOMElement;
 use DOMNode;
-use InvalidArgumentException;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Utils\XPath;
 
@@ -184,11 +184,6 @@ class Utils
      * yyyy-mm-ddThh:mm:ss(\.s+)?Z to a UNIX timestamp. The sub-second
      * part is ignored.
      *
-     * Andreas comments:
-     *  I got this timestamp from Shibboleth 1.3 IdP: 2008-01-17T11:28:03.577Z
-     *  Therefore I added to possibility to have microseconds to the format.
-     * Added: (\.\\d{1,3})? to the regex.
-     *
      * Note that we always require a 'Z' timezone for the dateTime to be valid.
      * This is not in the SAML spec but that's considered to be a bug in the
      * spec. See https://github.com/simplesamlphp/saml2/pull/36 for some
@@ -200,29 +195,9 @@ class Utils
      */
     public static function xsDateTimeToTimestamp(string $time): int
     {
-        $matches = [];
+        Assert::validDateTimeZulu($time);
 
-        // We use a very strict regex to parse the timestamp.
-        $regex = '/^(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d)T(\\d\\d):(\\d\\d):(\\d\\d)(?:\\.\\d{1,9})?Z$/D';
-        if (preg_match($regex, $time, $matches) == 0) {
-            throw new InvalidArgumentException(
-                'Invalid SAML2 timestamp passed to xsDateTimeToTimestamp: ' . $time,
-            );
-        }
-
-        // Extract the different components of the time from the  matches in the regex.
-        // intval will ignore leading zeroes in the string.
-        $year   = intval($matches[1]);
-        $month  = intval($matches[2]);
-        $day    = intval($matches[3]);
-        $hour   = intval($matches[4]);
-        $minute = intval($matches[5]);
-        $second = intval($matches[6]);
-
-        // We use gmmktime because the timestamp will always be given
-        //in UTC.
-        $ts = gmmktime($hour, $minute, $second, $month, $day, $year);
-
-        return $ts;
+        $dateTime = DateTime::createFromFormat(DateTime::ISO8601, $time);
+        return $dateTime->getTimestamp();
     }
 }
