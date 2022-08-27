@@ -74,7 +74,6 @@ trait SchemaValidationTestTrait
      */
     private function validateDocument(XMLReader $xmlReader): bool
     {
-        $xmlReader->setParserProperty(XMLReader::VALIDATE, true);
         $xmlReader->setSchema($this->schema);
 
         libxml_use_internal_errors(true);
