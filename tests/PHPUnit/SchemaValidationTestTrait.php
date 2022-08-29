@@ -54,14 +54,17 @@ trait SchemaValidationTestTrait
                 . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested',
             );
         } else {
-            $predoc = XMLReader::XML($this->xmlRepresentation->saveXML());
+            $predoc = new XMLReader();
+            $predoc->XML($this->xmlRepresentation->saveXML());
+
             $pre = $this->validateDocument($predoc);
             $this->assertTrue($pre);
 
             $class = $this->testedClass::fromXML($this->xmlRepresentation->documentElement);
             $serializedClass = $class->toXML();
 
-            $postdoc = XMLReader::XML($serializedClass->ownerDocument->saveXML());
+            $postdoc = new XMLReader();
+            $postdoc->XML($serializedClass->ownerDocument->saveXML());
             $post = $this->validateDocument($postdoc);
             $this->assertTrue($post);
         }
