@@ -6,23 +6,24 @@ namespace SimpleSAML\Test\XML;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\XML\AbstractXMLElement;
+use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\Test\XML\SerializableElementTestTrait;
 
 use function strval;
 
 /**
- * Empty shell class for testing AbstractXMLElement.
+ * Empty shell class for testing AbstractElement.
  *
  * @package simplesaml/xml-common
  */
-final class XMLElement extends AbstractXMLElement
+final class Element extends AbstractElement
 {
     /** @var string */
-    public const NS = 'urn:foo:bar';
+    public const NS = 'urn:x-simplesamlphp:namespace';
 
     /** @var string */
-    public const NS_PREFIX = 'bar';
+    public const NS_PREFIX = 'ssp';
 
     /**
      * @var bool

@@ -8,11 +8,11 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\Test\XML\ExtendableElement;
 use SimpleSAML\Test\XML\SchemaViolationTestTrait;
-use SimpleSAML\Test\XML\SerializableXMLTestTrait;
+use SimpleSAML\Test\XML\SerializableElementTestTrait;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\XMLElementInterface;
+use SimpleSAML\XML\ElementInterface;
 
 use function dirname;
 
@@ -25,20 +25,20 @@ use function dirname;
  */
 final class ExtendableElementTraitTest extends TestCase
 {
-    use SerializableXMLTestTrait;
+    use SerializableElementTestTrait;
     use SchemaValidationTestTrait;
 
-    /** @var \SimpleSAML\XML\XMLElementInterface */
-    protected XMLElementInterface $empty;
+    /** @var \SimpleSAML\XML\ElementInterface */
+    protected ElementInterface $empty;
 
-    /** @var \SimpleSAML\XML\XMLElementInterface */
-    protected XMLElementInterface $local;
+    /** @var \SimpleSAML\XML\ElementInterface */
+    protected ElementInterface $local;
 
-    /** @var \SimpleSAML\XML\XMLElementInterface */
-    protected XMLElementInterface $other;
+    /** @var \SimpleSAML\XML\ElementInterface */
+    protected ElementInterface $other;
 
-    /** @var \SimpleSAML\XML\XMLElementInterface */
-    protected XMLElementInterface $target;
+    /** @var \SimpleSAML\XML\ElementInterface */
+    protected ElementInterface $target;
 
 
     /**

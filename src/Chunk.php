@@ -18,7 +18,7 @@ use function intval;
  *
  * @package simplesamlphp/xml-common
  */
-final class Chunk extends AbstractSerializableXML
+final class Chunk extends AbstractSerializableElement
 {
     /**
      * The localName of the element.

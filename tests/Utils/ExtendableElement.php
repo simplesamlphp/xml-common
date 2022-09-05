@@ -6,7 +6,7 @@ namespace SimpleSAML\Test\XML;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\XML\AbstractXMLElement;
+use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\ExtendableElementTrait;
@@ -17,7 +17,7 @@ use SimpleSAML\XML\Exception\InvalidDOMElementException;
  *
  * @package simplesaml/xml-security
  */
-class ExtendableElement extends AbstractXMLElement
+class ExtendableElement extends AbstractElement
 {
     use ExtendableElementTrait;
 
@@ -60,7 +60,7 @@ class ExtendableElement extends AbstractXMLElement
     /**
      * Initialize element.
      *
-     * @param \SimpleSAML\XML\XMLElementInterface[] $elements
+     * @param \SimpleSAML\XML\ElementInterface[] $elements
      */
     final public function __construct(array $elements)
     {

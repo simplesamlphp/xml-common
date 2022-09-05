@@ -23,7 +23,7 @@ use function join;
  *
  * @package simplesamlphp/xml-common
  */
-abstract class AbstractXMLElement extends AbstractSerializableXML
+abstract class AbstractElement extends AbstractSerializableElement
 {
     /**
      * Create a document structure for this element

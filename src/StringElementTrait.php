@@ -14,7 +14,7 @@ use SimpleSAML\XML\Exception\InvalidDOMElementException;
  *
  * @package simplesamlphp/xml-common
  */
-trait XMLStringElementTrait
+trait StringElementTrait
 {
     /** @var string */
     protected string $content;
