@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Test\XML\SerializableXMLTestTrait;
-use SimpleSAML\Test\XML\XMLElement;
-use SimpleSAML\XML\AbstractXMLElement;
+use SimpleSAML\Test\XML\SerializableTestTrait;
+use SimpleSAML\Test\XML\Element;
+use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 
@@ -15,26 +15,26 @@ use function dirname;
 use function strval;
 
 /**
- * Class \SimpleSAML\XML\AbstractXMLElementTest
+ * Class \SimpleSAML\XML\AbstractElementTest
  *
- * @covers \SimpleSAML\XML\AbstractXMLElement
- * @covers \SimpleSAML\XML\AbstractSerializableXML
+ * @covers \SimpleSAML\XML\AbstractElement
+ * @covers \SimpleSAML\XML\AbstractSerializableElement
  *
  * @package simplesamlphp\xml-common
  */
-final class AbstractXMLElementTest extends TestCase
+final class AbstractElementTest extends TestCase
 {
-    use SerializableXMLTestTrait;
+    use SerializableElementTestTrait;
 
 
     /**
      */
     public function setup(): void
     {
-        $this->testedClass = XMLElement::class;
+        $this->testedClass = Element::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(dirname(__FILE__)) . '/resources/xml/bar_XMLElement.xml',
+            dirname(dirname(__FILE__)) . '/resources/xml/ssp_Element.xml',
         );
     }
 
@@ -43,7 +43,7 @@ final class AbstractXMLElementTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $element = new XMLElement(2, false, 'text');
+        $element = new Element(2, false, 'text');
 
         $this->assertEquals(
             $this->xmlRepresentation->saveXML($this->xmlRepresentation->documentElement),
@@ -56,7 +56,7 @@ final class AbstractXMLElementTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        $element = XMLElement::fromXML($this->xmlRepresentation->documentElement);
+        $element = Element::fromXML($this->xmlRepresentation->documentElement);
 
         $this->assertEquals(2, $element->getInteger());
         $this->assertEquals(false, $element->getBoolean());
@@ -72,7 +72,7 @@ final class AbstractXMLElementTest extends TestCase
         $doc->removeAttribute('text');
 
         $this->expectException(MissingAttributeException::class);
-        XMLElement::fromXML($doc);
+        Element::fromXML($doc);
     }
 
 
@@ -84,7 +84,7 @@ final class AbstractXMLElementTest extends TestCase
         $doc->removeAttribute('boolean');
 
         $this->expectException(MissingAttributeException::class);
-        XMLElement::fromXML($doc);
+        Element::fromXML($doc);
     }
 
 
@@ -96,6 +96,6 @@ final class AbstractXMLElementTest extends TestCase
         $doc->removeAttribute('integer');
 
         $this->expectException(MissingAttributeException::class);
-        XMLElement::fromXML($doc);
+        Element::fromXML($doc);
     }
 }

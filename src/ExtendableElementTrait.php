@@ -27,18 +27,18 @@ use function sprintf;
  */
 trait ExtendableElementTrait
 {
-    /** @var \SimpleSAML\XML\XMLElementInterface[] */
+    /** @var \SimpleSAML\XML\ElementInterface[] */
     protected array $elements = [];
 
 
     /**
      * Set an array with all elements present.
      *
-     * @param array \SimpleSAML\XML\AbstractXMLElement[]
+     * @param array \SimpleSAML\XML\AbstractElement[]
      */
     protected function setElements(array $elements): void
     {
-        Assert::allIsInstanceOf($elements, XMLElementInterface::class);
+        Assert::allIsInstanceOf($elements, ElementInterface::class);
         $namespace = $this->getNamespace();
 
         // Validate namespace value
@@ -57,7 +57,7 @@ trait ExtendableElementTrait
         // Get namespaces for all elements
         $actual_namespaces = array_map(
             /**
-             * @param \SimpleSAML\XML\AbstractXMLElement|\SimpleSAML\XML\Chunk $elt
+             * @param \SimpleSAML\XML\AbstractElement|\SimpleSAML\XML\Chunk $elt
              * @return string|null
              */
             function ($elt) {
@@ -112,7 +112,7 @@ trait ExtendableElementTrait
     /**
      * Get an array with all elements present.
      *
-     * @return \SimpleSAML\XML\XMLElementInterface[]
+     * @return \SimpleSAML\XML\ElementInterface[]
      */
     public function getElements(): array
     {

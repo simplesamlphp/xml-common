@@ -9,11 +9,11 @@ use DOMDocument;
 use function class_exists;
 
 /**
- * Test for SerializableXML classes to perform default serialization tests.
+ * Test for Serializable XML classes to perform default serialization tests.
  *
  * @package simplesamlphp\xml-common
  */
-trait SerializableXMLTestTrait
+trait SerializableElementTestTrait
 {
     /** @var class-string */
     protected string $testedClass;

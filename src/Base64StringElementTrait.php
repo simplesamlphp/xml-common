@@ -17,7 +17,7 @@ use function str_replace;
  *
  * @package simplesamlphp/xml-common
  */
-trait XMLBase64ElementTrait
+trait Base64StringElementTrait
 {
     /** @var string */
     protected string $content;

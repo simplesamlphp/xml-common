@@ -14,7 +14,7 @@ use function get_object_vars;
  *
  * @package simplesamlphp/xml-common
  */
-abstract class AbstractSerializableXML implements XMLElementInterface
+abstract class AbstractSerializableElement implements ElementInterface
 {
     /**
      * Whether to format the string output of this element or not.

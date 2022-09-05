@@ -17,7 +17,7 @@ use SimpleSAML\XML\Exception\MissingAttributeException;
  */
 trait LocalizedStringElementTrait
 {
-    use XMLStringElementTrait;
+    use StringElementTrait;
 
     /**
      * The language this string is on.

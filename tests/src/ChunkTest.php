@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Test\XML\SerializableXMLTestTrait;
+use SimpleSAML\Test\XML\SerializableElementTestTrait;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\DOMDocumentFactory;
 
@@ -15,14 +15,14 @@ use function strval;
 /**
  * Class \SimpleSAML\XML\ChunkTest
  *
- * @covers \SimpleSAML\XML\AbstractSerializableXML
+ * @covers \SimpleSAML\XML\AbstractSerializableElement
  * @covers \SimpleSAML\XML\Chunk
  *
  * @package simplesamlphp\xml-common
  */
 final class ChunkTest extends TestCase
 {
-    use SerializableXMLTestTrait;
+    use SerializableElementTestTrait;
 
 
     /**
@@ -32,7 +32,7 @@ final class ChunkTest extends TestCase
         $this->testedClass = Chunk::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(dirname(__FILE__)) . '/resources/xml/bar_XMLElement.xml',
+            dirname(dirname(__FILE__)) . '/resources/xml/ssp_Element.xml',
         );
     }
 
@@ -56,10 +56,10 @@ final class ChunkTest extends TestCase
     {
         $element = Chunk::fromXML($this->xmlRepresentation->documentElement);
 
-        $this->assertEquals($element->getLocalName(), 'XMLElement');
-        $this->assertEquals($element->getNamespaceURI(), 'urn:foo:bar');
-        $this->assertEquals($element->getprefix(), 'bar');
-        $this->assertEquals($element->getQualifiedName(), 'bar:XMLElement');
+        $this->assertEquals($element->getLocalName(), 'Element');
+        $this->assertEquals($element->getNamespaceURI(), 'urn:x-simplesamlphp:namespace');
+        $this->assertEquals($element->getprefix(), 'ssp');
+        $this->assertEquals($element->getQualifiedName(), 'ssp:Element');
         $this->assertFalse($element->isEmptyElement());
 
         $this->assertEquals(2, $element::getIntegerAttribute($this->xmlRepresentation->documentElement, 'integer'));

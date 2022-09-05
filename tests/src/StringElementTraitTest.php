@@ -5,36 +5,36 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Test\XML\SerializableXMLTestTrait;
-use SimpleSAML\Test\XML\XMLStringElement;
-use SimpleSAML\XML\AbstractXMLElement;
+use SimpleSAML\Test\XML\SerializableElementTestTrait;
+use SimpleSAML\Test\XML\StringElement;
+use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\XMLStringElementTrait;
+use SimpleSAML\XML\StringElementTrait;
 
 use function dirname;
 use function strval;
 
 /**
- * Class \SimpleSAML\XML\XMLStringElementTraitTest
+ * Class \SimpleSAML\XML\StringElementTraitTest
  *
- * @covers \SimpleSAML\XML\XMLStringElementTrait
- * @covers \SimpleSAML\XML\AbstractXMLElement
- * @covers \SimpleSAML\XML\AbstractSerializableXML
+ * @covers \SimpleSAML\XML\StringElementTrait
+ * @covers \SimpleSAML\XML\AbstractElement
+ * @covers \SimpleSAML\XML\AbstractSerializableElement
  *
  * @package simplesamlphp\xml-common
  */
-final class XMLStringElementTraitTest extends TestCase
+final class StringElementTraitTest extends TestCase
 {
-    use SerializableXMLTestTrait;
+    use SerializableElementTestTrait;
 
     /**
      */
     public function setup(): void
     {
-        $this->testedClass = XMLStringElement::class;
+        $this->testedClass = StringElement::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(dirname(__FILE__)) . '/resources/xml/bar_XMLStringElement.xml',
+            dirname(dirname(__FILE__)) . '/resources/xml/ssp_StringElement.xml',
         );
     }
 
@@ -42,7 +42,7 @@ final class XMLStringElementTraitTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $stringElement = new XMLStringElement('test');
+        $stringElement = new StringElement('test');
 
         $this->assertEquals(
             $this->xmlRepresentation->saveXML($this->xmlRepresentation->documentElement),
@@ -55,7 +55,7 @@ final class XMLStringElementTraitTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        $stringElement = XMLStringElement::fromXML($this->xmlRepresentation->documentElement);
+        $stringElement = StringElement::fromXML($this->xmlRepresentation->documentElement);
 
         $this->assertEquals('test', $stringElement->getContent());
     }

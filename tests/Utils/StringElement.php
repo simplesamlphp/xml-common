@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
-use SimpleSAML\XML\AbstractXMLElement;
-use SimpleSAML\XML\XMLStringElementTrait;
+use SimpleSAML\XML\AbstractElement;
+use SimpleSAML\XML\StringElementTrait;
 
 /**
- * Empty shell class for testing XMLStringElement.
+ * Empty shell class for testing String elements.
  *
  * @package simplesaml/xml-common
  */
-final class XMLStringElement extends AbstractXMLElement
+final class StringElement extends AbstractElement
 {
-    use XMLStringElementTrait;
+    use StringElementTrait;
 
     /** @var string */
-    public const NS = 'urn:foo:bar';
+    public const NS = 'urn:x-simplesamlphp:namespace';
 
     /** @var string */
-    public const NS_PREFIX = 'bar';
+    public const NS_PREFIX = 'ssp';
 
 
     /**
