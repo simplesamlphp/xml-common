@@ -28,17 +28,6 @@ trait LocalizedStringElementTrait
 
 
     /**
-     * @param string $language The language this string is localized in.
-     * @param string $value The localized string.
-     */
-    final public function __construct(string $language, string $value)
-    {
-        $this->setLanguage($language);
-        $this->setContent($value);
-    }
-
-
-    /**
      * Validate the content of the element.
      *
      * @param string $content  The value to go in the XML textContent
