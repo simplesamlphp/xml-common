@@ -27,18 +27,12 @@ trait SerializableElementTestTrait
      */
     public function testSerialization(): void
     {
-        /** @psalm-var class-string|null */
-        $testedClass = $this->testedClass;
-
-        /** @psalm-var \DOMElement|null */
-        $xmlRepresentation = $this->xmlRepresentation;
-
-        if ($testedClass === null || !class_exists($testedClass)) {
+        if (!class_exists($this->testedClass)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSerialization(). Please set ' . self::class
                 . ':$testedClass to a class-string representing the XML-class being tested',
             );
-        } elseif ($xmlRepresentation === null) {
+        } elseif (empty($this->xmlRepresentation)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSerialization(). Please set ' . self::class
                 . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested',
@@ -49,7 +43,7 @@ trait SerializableElementTestTrait
 
             $this->assertEquals(
                 $this->xmlRepresentation->saveXML($xmlRepresentationDocument),
-                strval(unserialize(serialize($testedClass::fromXML($xmlRepresentationDocument)))),
+                strval(unserialize(serialize($this->testedClass::fromXML($xmlRepresentationDocument)))),
             );
         }
     }

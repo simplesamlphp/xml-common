@@ -38,17 +38,17 @@ trait SchemaValidationTestTrait
      */
     public function testSchemaValidation(): void
     {
-        if ($this->testedClass === null || !class_exists($this->testedClass)) {
+        if (!class_exists($this->testedClass)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSchemaValidation(). Please set ' . self::class
                 . ':$testedClass to a class-string representing the XML-class being tested',
             );
-        } elseif ($this->schema === null) {
+        } elseif (empty($this->schema)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSchemaValidation(). Please set ' . self::class
                 . ':$schema to point to a schema file',
             );
-        } elseif ($this->xmlRepresentation === null) {
+        } elseif (empty($this->xmlRepresentation)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSchemaValidation(). Please set ' . self::class
                 . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested',
@@ -83,8 +83,9 @@ trait SchemaValidationTestTrait
 
         while ($xmlReader->read()) {
             if (!$xmlReader->isValid()) {
+                /** @psalm-var \libXMLError|false $err */
                 $err = libxml_get_last_error();
-                if ($err && $err instanceof libXMLError) {
+                if ($err instanceof libXMLError) {
                     $msgs[] = trim($err->message) . ' on line ' . $err->line;
                 }
             }
