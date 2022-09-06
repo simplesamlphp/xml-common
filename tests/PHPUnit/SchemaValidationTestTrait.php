@@ -91,7 +91,9 @@ trait SchemaValidationTestTrait
         }
 
         if ($msgs) {
-            throw new SchemaViolationException("XML schema validation errors:\n - " . implode("\n - ", array_unique($msgs)));
+            throw new SchemaViolationException(
+                "XML schema validation errors:\n - " . implode("\n - ", array_unique($msgs))
+            );
         }
 
         return true;
