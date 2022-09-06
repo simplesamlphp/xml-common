@@ -56,13 +56,11 @@ trait SchemaValidationTestTrait
         } else {
             $predoc = new XMLReader();
             $predoc->XML($this->xmlRepresentation->saveXML());
-
             $pre = $this->validateDocument($predoc);
             $this->assertTrue($pre);
 
             $class = $this->testedClass::fromXML($this->xmlRepresentation->documentElement);
             $serializedClass = $class->toXML();
-
             $postdoc = new XMLReader();
             $postdoc->XML($serializedClass->ownerDocument->saveXML());
             $post = $this->validateDocument($postdoc);

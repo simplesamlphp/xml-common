@@ -35,4 +35,13 @@
 
 <!-- End Chunk -->
 
+<!-- Start ExtendableAttributesElement -->
+
+<element name="ExtendableAttributesElement" type="ssp:ExtendableAttributesElementType"/>
+<complexType name="ExtendableAttributesElementType">
+  <anyAttribute namespace="##any" processContents="lax"/>
+</complexType>
+
+<!-- End ExtendableAttributesElement -->
+
 </schema>
