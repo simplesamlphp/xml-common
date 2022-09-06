@@ -9,6 +9,7 @@ use RuntimeException;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XML\SerializableElementTrait;
 use SimpleSAML\Assert\Assert;
 
 use function array_slice;
@@ -23,8 +24,11 @@ use function join;
  *
  * @package simplesamlphp/xml-common
  */
-abstract class AbstractElement extends AbstractSerializableElement
+abstract class AbstractElement implements ElementInterface, SerializableElementInterface
 {
+    use SerializableElementTrait;
+
+
     /**
      * Create a document structure for this element
      *
@@ -176,6 +180,7 @@ abstract class AbstractElement extends AbstractSerializableElement
                 $ret[] = static::fromXML($node);
             }
         }
+
         return $ret;
     }
 
@@ -194,6 +199,7 @@ abstract class AbstractElement extends AbstractSerializableElement
             RuntimeException::class,
         );
         Assert::validURI(static::NS, SchemaViolationException::class);
+
         return static::NS;
     }
 
@@ -211,6 +217,7 @@ abstract class AbstractElement extends AbstractSerializableElement
             . '::NS_PREFIX constant must be defined and set to the namespace prefix for the XML-class it represents.',
             RuntimeException::class,
         );
+
         return static::NS_PREFIX;
     }
 
@@ -245,24 +252,10 @@ abstract class AbstractElement extends AbstractSerializableElement
 
 
     /**
-     * Create a class from an array
+     * Create a class from XML
      *
-     * @param array $data
-     * @return self
+     * @param \DOMElement $xml
+     * @return static
      */
-    public static function fromArray(/** @scrutinizer ignore-unused */array $data): self
-    {
-        throw new RuntimeException('Not implemented.');
-    }
-
-
-    /**
-     * Create an array from this class
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        throw new RuntimeException('Not implemented');
-    }
+    abstract public static function fromXML(DOMElement $xml): static;
 }

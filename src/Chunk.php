@@ -7,6 +7,7 @@ namespace SimpleSAML\XML;
 use DOMElement;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XML\SerializableElementTrait;
 use SimpleSAML\XML\Utils;
 use SimpleSAML\Assert\Assert;
 
@@ -18,8 +19,11 @@ use function intval;
  *
  * @package simplesamlphp/xml-common
  */
-final class Chunk extends AbstractSerializableElement
+final class Chunk implements ElementInterface, SerializableElementInterface
 {
+    use SerializableElementTrait;
+
+
     /**
      * The localName of the element.
      *
@@ -61,17 +65,6 @@ final class Chunk extends AbstractSerializableElement
         $this->setPrefix($xml->prefix);
 
         $this->xml = Utils::copyElement($xml);
-    }
-
-
-    /**
-     * Get this \DOMElement.
-     *
-     * @return \DOMElement This element.
-     */
-    public function getXML(): DOMElement
-    {
-        return $this->xml;
     }
 
 
@@ -119,6 +112,17 @@ final class Chunk extends AbstractSerializableElement
     {
         Assert::nullOrValidURI($namespaceURI, SchemaViolationException::class);
         $this->namespaceURI = $namespaceURI;
+    }
+
+
+    /**
+     * Get this \DOMElement.
+     *
+     * @return \DOMElement This element.
+     */
+    public function getXML(): DOMElement
+    {
+        return $this->xml;
     }
 
 
@@ -252,9 +256,9 @@ final class Chunk extends AbstractSerializableElement
 
     /**
      * @param \DOMElement $xml
-     * @return self
+     * @return static
      */
-    public static function fromXML(DOMElement $xml): self
+    public static function fromXML(DOMElement $xml): static
     {
         return new self($xml);
     }

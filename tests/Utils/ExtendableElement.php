@@ -11,6 +11,7 @@ use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\ExtendableElementTrait;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\XML\SerializableElementTrait;
 
 /**
  * Empty shell class for testing ExtendableElementTrait.
@@ -20,6 +21,8 @@ use SimpleSAML\XML\Exception\InvalidDOMElementException;
 class ExtendableElement extends AbstractElement
 {
     use ExtendableElementTrait;
+    use SerializableElementTrait;
+
 
 
     /** @var string */
@@ -72,9 +75,9 @@ class ExtendableElement extends AbstractElement
      * Create a class from XML
      *
      * @param \DOMElement $xml
-     * @return self
+     * @return static
      */
-    public static function fromXML(DOMElement $xml): self
+    public static function fromXML(DOMElement $xml): static
     {
         $children = [];
         foreach ($xml->childNodes as $node) {
@@ -83,7 +86,7 @@ class ExtendableElement extends AbstractElement
             }
         }
 
-        return new self($children);
+        return new static($children);
     }
 
 

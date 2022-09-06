@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMElement;
+use RuntimeException;
 use SimpleSAML\XML\DOMDocumentFactory;
 
+use function array_pop;
 use function get_object_vars;
 
 /**
- * Abstract class for serialization of XML structures
+ * Trait grouping common functionality for elements implementing the SerializableElement element.
  *
  * @package simplesamlphp/xml-common
  */
-abstract class AbstractSerializableElement implements ElementInterface
+trait SerializableElementTrait
 {
     /**
      * Whether to format the string output of this element or not.
@@ -36,6 +38,7 @@ abstract class AbstractSerializableElement implements ElementInterface
         $xml = $this->toXML();
         /** @psalm-var \DOMDocument $xml->ownerDocument */
         $xml->ownerDocument->formatOutput = $this->formatOutput;
+
         return $xml->ownerDocument->saveXML($xml);
     }
 
@@ -77,20 +80,26 @@ abstract class AbstractSerializableElement implements ElementInterface
 
 
     /**
-     * Test if an object, at the state it's in, would produce an empty XML-element
+     * Create a class from an array
      *
-     * @return bool
+     * @param array $data
+     * @return static
      */
-    abstract public function isEmptyElement(): bool;
+    public static function fromArray(/** @scrutinizer ignore-unused */array $data): static
+    {
+        throw new RuntimeException('Not implemented.');
+    }
 
 
     /**
-     * Create a class from XML
+     * Create an array from this class
      *
-     * @param \DOMElement $xml
-     * @return self
+     * @return array
      */
-    abstract public static function fromXML(DOMElement $xml): self;
+    public function toArray(): array
+    {
+        throw new RuntimeException('Not implemented');
+    }
 
 
     /**

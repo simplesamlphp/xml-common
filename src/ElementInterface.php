@@ -14,11 +14,11 @@ use DOMElement;
 interface ElementInterface
 {
     /**
-     * Output the class as an XML-formatted string
+     * Get the XML qualified name (prefix:name) of the element represented by this class.
      *
      * @return string
      */
-    public function __toString(): string;
+    public function getQualifiedName(): string;
 
 
     /**
@@ -27,24 +27,6 @@ interface ElementInterface
      * @return bool
      */
     public function isEmptyElement(): bool;
-
-
-    /**
-     * Create a class from XML
-     *
-     * @param \DOMElement $xml
-     * @return self
-     */
-    public static function fromXML(DOMElement $xml): self;
-
-
-    /**
-     * Create XML from this class
-     *
-     * @param \DOMElement|null $parent
-     * @return \DOMElement
-     */
-    public function toXML(DOMElement $parent = null): DOMElement;
 
 
     /**
