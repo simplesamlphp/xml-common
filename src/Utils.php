@@ -134,7 +134,7 @@ class Utils
         DOMElement $parent,
         string $namespace,
         string $name,
-        string $value
+        string $value,
     ): DOMElement {
         $doc = $parent->ownerDocument;
         Assert::notNull($doc);
@@ -162,7 +162,7 @@ class Utils
         string $namespace,
         string $name,
         bool $localized,
-        array $values
+        array $values,
     ): void {
         $doc = $parent->ownerDocument;
         Assert::notNull($doc);

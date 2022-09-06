@@ -74,7 +74,7 @@ class ExtendableElement extends AbstractElement
      * @param \DOMElement $xml
      * @return self
      */
-    public static function fromXML(DOMElement $xml): object
+    public static function fromXML(DOMElement $xml): self
     {
         $children = [];
         foreach ($xml->childNodes as $node) {

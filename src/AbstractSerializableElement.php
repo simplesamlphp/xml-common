@@ -90,7 +90,7 @@ abstract class AbstractSerializableElement implements ElementInterface
      * @param \DOMElement $xml
      * @return self
      */
-    abstract public static function fromXML(DOMElement $xml): object;
+    abstract public static function fromXML(DOMElement $xml): self;
 
 
     /**

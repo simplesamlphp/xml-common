@@ -81,7 +81,7 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return 'wrong';
             }
@@ -95,7 +95,7 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return [C::XS_ANY_NS_OTHER, C::XS_ANY_NS_ANY];
             }
@@ -109,7 +109,7 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return [];
             }
@@ -122,7 +122,7 @@ XML
     public function testOtherNamespacePassingOtherSucceeds(): void
     {
         new class ([$this->other]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return C::XS_ANY_NS_OTHER;
             }
@@ -138,7 +138,7 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([$this->local]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return C::XS_ANY_NS_OTHER;
             }
@@ -151,7 +151,7 @@ XML
     public function testTargetNamespacePassingTargetSucceeds(): void
     {
         new class ([$this->target]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return C::XS_ANY_NS_TARGET;
             }
@@ -166,7 +166,7 @@ XML
     public function testTargetNamespacePassingTargetArraySucceeds(): void
     {
         new class ([$this->target]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return [C::XS_ANY_NS_TARGET];
             }
@@ -181,7 +181,7 @@ XML
     public function testTargetNamespacePassingTargetArraySucceedsWithLocal(): void
     {
         new class ([$this->target]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return [C::XS_ANY_NS_TARGET, C::XS_ANY_NS_LOCAL];
             }
@@ -197,7 +197,7 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([$this->other]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return C::XS_ANY_NS_TARGET;
             }
@@ -210,7 +210,7 @@ XML
     public function testLocalNamespacePassingLocalSucceeds(): void
     {
         $o = new class ([$this->local]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return C::XS_ANY_NS_LOCAL;
             }
@@ -225,7 +225,7 @@ XML
     public function testLocalNamespacePassingLocalArraySucceeds(): void
     {
         new class ([$this->local]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return C::XS_ANY_NS_LOCAL;
             }
@@ -241,7 +241,7 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([$this->target]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return C::XS_ANY_NS_LOCAL;
             }
@@ -255,7 +255,7 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([$this->other]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return C::XS_ANY_NS_LOCAL;
             }
@@ -268,7 +268,7 @@ XML
     public function testAnyNamespacePassingTargetSucceeds(): void
     {
         $o = new class ([$this->target]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return C::XS_ANY_NS_ANY;
             }
@@ -283,7 +283,7 @@ XML
     public function testAnyNamespacePassingOtherSucceeds(): void
     {
         $o = new class ([$this->other]) extends ExtendableElement {
-            public function getNamespace()
+            public function getNamespace(): array|string
             {
                 return C::XS_ANY_NS_ANY;
             }

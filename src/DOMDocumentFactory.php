@@ -45,9 +45,6 @@ final class DOMDocumentFactory
     {
         Assert::stringNotEmpty(trim($xml));
 
-        if (PHP_VERSION_ID < 80000) {
-            $entityLoader = libxml_disable_entity_loader(true);
-        }
         $internalErrors = libxml_use_internal_errors(true);
         libxml_clear_errors();
 
@@ -60,10 +57,6 @@ final class DOMDocumentFactory
         $loaded = $domDocument->loadXML($xml, $options);
 
         libxml_use_internal_errors($internalErrors);
-        if (PHP_VERSION_ID < 80000) {
-            /** @psalm-suppress PossiblyUndefinedVariable */
-            libxml_disable_entity_loader($entityLoader);
-        }
 
         if (!$loaded) {
             $error = libxml_get_last_error();

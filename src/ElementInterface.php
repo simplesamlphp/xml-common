@@ -35,7 +35,7 @@ interface ElementInterface
      * @param \DOMElement $xml
      * @return self
      */
-    public static function fromXML(DOMElement $xml): object;
+    public static function fromXML(DOMElement $xml): self;
 
 
     /**

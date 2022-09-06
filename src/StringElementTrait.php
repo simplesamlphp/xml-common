@@ -68,7 +68,7 @@ trait StringElementTrait
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   If the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): object
+    public static function fromXML(DOMElement $xml): self
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -92,7 +92,9 @@ trait StringElementTrait
     }
 
 
-    /** @return string */
+    /**
+     * @return string
+     */
     abstract public static function getLocalName(): string;
 
 

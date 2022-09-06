@@ -250,7 +250,7 @@ abstract class AbstractElement extends AbstractSerializableElement
      * @param array $data
      * @return self
      */
-    public static function fromArray(/** @scrutinizer ignore-unused */array $data): object
+    public static function fromArray(/** @scrutinizer ignore-unused */array $data): self
     {
         throw new RuntimeException('Not implemented.');
     }
