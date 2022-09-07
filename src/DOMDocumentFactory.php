@@ -20,7 +20,6 @@ use function libxml_disable_entity_loader;
 use function libxml_get_last_error;
 use function libxml_use_internal_errors;
 use function sprintf;
-use function trim;
 
 /**
  * @package simplesamlphp/xml-common
@@ -43,7 +42,7 @@ final class DOMDocumentFactory
      */
     public static function fromString(string $xml): DOMDocument
     {
-        Assert::stringNotEmpty(trim($xml));
+        Assert::notWhitespaceOnly($xml);
 
         $internalErrors = libxml_use_internal_errors(true);
         libxml_clear_errors();
@@ -98,10 +97,7 @@ final class DOMDocumentFactory
             throw new IOException("File '$file' was not loaded;  $error");
         }
 
-        if (trim($xml) === '') {
-            throw new RuntimeException(sprintf('File "%s" does not have content', $file));
-        }
-
+        Assert::notWhitespaceOnly($xml, sprintf('File "%s" does not have content', $file), RuntimeException::class);
         return static::fromString($xml);
     }
 

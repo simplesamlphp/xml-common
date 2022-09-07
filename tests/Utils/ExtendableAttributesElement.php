@@ -75,7 +75,7 @@ class ExtendableAttributesElement extends AbstractElement
         Assert::same($xml->localName, 'ExtendableAttributesElement', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, 'urn:x-simplesamlphp:namespace', InvalidDOMElementException::class);
 
-        return new self(self::getAttributesNSFromXML($xml));
+        return new static(self::getAttributesNSFromXML($xml));
     }
 
 

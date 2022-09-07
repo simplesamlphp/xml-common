@@ -73,7 +73,7 @@ final class DOMDocumentFactoryTest extends TestCase
 
 
     /**
-     * @group                    domdocument
+     * @group domdocument
      */
     public function testFileThatContainsDocTypeIsNotAccepted(): void
     {
@@ -87,7 +87,7 @@ final class DOMDocumentFactoryTest extends TestCase
 
 
     /**
-     * @group                    domdocument
+     * @group domdocument
      */
     public function testStringThatContainsDocTypeIsNotAccepted(): void
     {
@@ -101,7 +101,7 @@ final class DOMDocumentFactoryTest extends TestCase
 
 
     /**
-     * @group                    domdocument
+     * @group domdocument
      */
     public function testEmptyFileIsNotValid(): void
     {
@@ -119,8 +119,8 @@ final class DOMDocumentFactoryTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         $this->expectExceptionMessage(
-            'Expected a different value than "".',
+            'Expected a non-whitespace string. Got: ""',
         );
-        DOMDocumentFactory::fromString("");
+        DOMDocumentFactory::fromString('');
     }
 }
