@@ -243,6 +243,7 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
     /**
      * Test if an object, at the state it's in, would produce an empty XML-element
      *
+     * @codeCoverageIgnore
      * @return bool
      */
     public function isEmptyElement(): bool

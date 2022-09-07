@@ -82,6 +82,7 @@ trait SerializableElementTrait
     /**
      * Create a class from an array
      *
+     * @codeCoverageIgnore
      * @param array $data
      * @return static
      */
@@ -94,6 +95,7 @@ trait SerializableElementTrait
     /**
      * Create an array from this class
      *
+     * @codeCoverageIgnore
      * @return array
      */
     public function toArray(): array
