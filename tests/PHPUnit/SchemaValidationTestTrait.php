@@ -17,7 +17,7 @@ use function libxml_use_internal_errors;
 use function trim;
 
 /**
- * Test for AbstractXMLElement classes to perform schema validation tests.
+ * Test for AbstractElement classes to perform schema validation tests.
  *
  * @package simplesamlphp\xml-common
  */
