@@ -34,7 +34,7 @@ trait ExtendableElementTrait
     /**
      * Set an array with all elements present.
      *
-     * @param array \SimpleSAML\XML\ElementInterface[]
+     * @param \SimpleSAML\XML\ElementInterface[] $elements
      * @return void
      */
     protected function setElements(array $elements): void
@@ -59,7 +59,8 @@ trait ExtendableElementTrait
              * @param \SimpleSAML\XML\ElementInterface $elt
              * @return string|null
              */
-            function ($elt) {
+            function (ElementInterface $elt) {
+                /** @psalm-var \SimpleSAML\XML\Chunk|\SimpleSAML\XML\AbstractElement $elt */
                 return ($elt instanceof Chunk) ? $elt->getNamespaceURI() : $elt::getNamespaceURI();
             },
             $elements

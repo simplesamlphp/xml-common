@@ -61,7 +61,9 @@ class Utils
         $parent->appendChild($newElement);
 
         foreach ($namespaces as $prefix => $uri) {
+            /** @psalm-suppress PossiblyNullArgument  */
             $newElement->setAttributeNS($uri, $prefix . ':__ns_workaround__', 'tmp');
+            /** @psalm-suppress PossiblyNullArgument  */
             $newElement->removeAttributeNS($uri, '__ns_workaround__');
         }
 
@@ -201,6 +203,8 @@ class Utils
         $dateTime2 = DateTimeImmutable::createFromFormat(DateTimeImmutable::RFC3339_EXTENDED, $time);
 
         $dateTime = $dateTime1 ?: $dateTime2;
+        Assert::isInstanceOf($dateTime, DateTimeImmutable::class);
+        /** @psalm-var \DateTimeImmutable $dateTime */
         return $dateTime->getTimestamp();
     }
 }

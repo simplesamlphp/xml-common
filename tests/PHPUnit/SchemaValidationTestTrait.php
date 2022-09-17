@@ -6,6 +6,7 @@ namespace SimpleSAML\Test\XML;
 
 use DOMDocument;
 use libXMLError;
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use XMLReader;
 
@@ -55,7 +56,9 @@ trait SchemaValidationTestTrait
             );
         } else {
             $predoc = XMLReader::XML($this->xmlRepresentation->saveXML());
+            Assert::notFalse($predoc);
 
+            /** @psalm-var \XMLReader $predoc */
             $pre = $this->validateDocument($predoc);
             $this->assertTrue($pre);
 
@@ -63,6 +66,8 @@ trait SchemaValidationTestTrait
             $serializedClass = $class->toXML();
 
             $postdoc = XMLReader::XML($serializedClass->ownerDocument->saveXML());
+            Assert::notFalse($postdoc);
+            /** @psalm-var \XMLReader $postdoc */
             $post = $this->validateDocument($postdoc);
             $this->assertTrue($post);
         }

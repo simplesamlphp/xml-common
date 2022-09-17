@@ -121,6 +121,7 @@ final class DOMDocumentFactoryTest extends TestCase
         $this->expectExceptionMessage(
             'Expected a non-whitespace string. Got: ""',
         );
+        /** @psalm-suppress InvalidArgument */
         DOMDocumentFactory::fromString('');
     }
 }

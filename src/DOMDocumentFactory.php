@@ -36,7 +36,7 @@ final class DOMDocumentFactory
 
 
     /**
-     * @param string $xml
+     * @param non-empty-string $xml
      *
      * @return \DOMDocument
      */
@@ -98,6 +98,7 @@ final class DOMDocumentFactory
         }
 
         Assert::notWhitespaceOnly($xml, sprintf('File "%s" does not have content', $file), RuntimeException::class);
+        /** @psalm-var non-empty-string $xml */
         return static::fromString($xml);
     }
 

@@ -100,6 +100,7 @@ class ExtendableElement extends AbstractElement
     {
         $e = $this->instantiateParentElement();
 
+        /** @psalm-var \SimpleSAML\XML\SerializableElementInterface $elt */
         foreach ($this->getElements() as $elt) {
             if (!$elt->isEmptyElement()) {
                 $elt->toXML($e);

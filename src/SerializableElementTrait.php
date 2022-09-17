@@ -85,6 +85,7 @@ trait SerializableElementTrait
      * @codeCoverageIgnore
      * @param array $data
      * @return static
+     * @psalm-suppress MethodSignatureMismatch
      */
     public static function fromArray(/** @scrutinizer ignore-unused */array $data): static
     {

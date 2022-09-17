@@ -12,7 +12,7 @@ use function sprintf;
  */
 final class UnparseableXMLException extends RuntimeException
 {
-    /** @var array */
+    /** @var string[] */
     private const LEVELMAP = [
         LIBXML_ERR_WARNING => 'WARNING',
         LIBXML_ERR_ERROR   => 'ERROR',

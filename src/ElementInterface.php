@@ -22,14 +22,6 @@ interface ElementInterface
 
 
     /**
-     * Test if an object, at the state it's in, would produce an empty XML-element
-     *
-     * @return bool
-     */
-    public function isEmptyElement(): bool;
-
-
-    /**
      * Get the value of an attribute from a given element.
      *
      * @param \DOMElement $xml The element where we should search for the attribute.

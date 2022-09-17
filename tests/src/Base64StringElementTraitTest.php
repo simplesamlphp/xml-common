@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\Test\XML\SerializableElementTestTrait;
 use SimpleSAML\Test\XML\Base64EStringlement;
 use SimpleSAML\Test\XML\XMLDumper;
@@ -64,6 +65,7 @@ final class Base64StringElementTraitTest extends TestCase
 
 
     /**
+     * @param non-empty-string $xml
      * @dataProvider provideBase64Cases
      */
     public function testBase64Cases(string $xml): void
