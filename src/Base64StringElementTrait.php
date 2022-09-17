@@ -80,7 +80,10 @@ trait Base64StringElementTrait
     protected function validateContent(string $content): void
     {
         // Note: content must already be sanitized before validating
-        Assert::stringPlausibleBase64($this->sanitizeContent($content), SchemaViolationException::class);
+        Assert::stringPlausibleBase64(
+            $this->sanitizeContent($content),
+            SchemaViolationException::class
+        );
     }
 
 
