@@ -197,7 +197,7 @@ jobs:
           path: ${{ github.workspace }}/build
 
       - name: Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
 
       - name: PHP Code Sniffer
         continue-on-error: true
