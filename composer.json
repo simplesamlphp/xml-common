@@ -31,7 +31,7 @@
         "ext-dom": "*",
         "ext-spl": "*",
 
-        "simplesamlphp/assert": "^0.8.0"
+        "simplesamlphp/assert": "^1.0.0"
     },
     "require-dev": {
         "ext-xmlreader": "*",
