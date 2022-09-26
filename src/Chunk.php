@@ -260,7 +260,7 @@ final class Chunk implements ElementInterface, SerializableElementInterface
      */
     public static function fromXML(DOMElement $xml): static
     {
-        return new self($xml);
+        return new static($xml);
     }
 
 
