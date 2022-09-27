@@ -27,15 +27,6 @@ use function sprintf;
 final class DOMDocumentFactory
 {
     /**
-     * Constructor for DOMDocumentFactory.
-     * This class should never be instantiated
-     */
-    private function __construct()
-    {
-    }
-
-
-    /**
      * @param non-empty-string $xml
      *
      * @return \DOMDocument
@@ -48,7 +39,7 @@ final class DOMDocumentFactory
         libxml_clear_errors();
 
         $domDocument = self::create();
-        $options = LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_NONET | LIBXML_PARSEHUGE;
+        $options = LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_NONET | LIBXML_PARSEHUGE | LIBXML_NSCLEAN;
         if (defined('LIBXML_COMPACT')) {
             $options |= LIBXML_COMPACT;
         }
