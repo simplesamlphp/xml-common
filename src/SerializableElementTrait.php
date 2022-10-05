@@ -112,4 +112,14 @@ trait SerializableElementTrait
      * @return \DOMElement
      */
     abstract public function toXML(DOMElement $parent = null): DOMElement;
+
+
+    /**
+     * Create a class from XML
+     *
+     * @param \DOMElement $xml
+     * @return static
+     * @psalm-suppress MethodSignatureMismatch
+     */
+    abstract public static function fromXML(DOMElement $xml): static;
 }
