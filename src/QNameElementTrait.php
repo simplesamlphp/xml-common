@@ -76,7 +76,7 @@ trait QNameElementTrait
      * Splits a QName into an array holding the prefix (or null if no prefix is available) and the localName
      *
      * @param string $qName  The qualified name
-     * @return string[]
+     * @return array{null|string, string}
      */
     private static function parseQName(string $qName): array
     {
@@ -110,12 +110,7 @@ trait QNameElementTrait
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
         list($prefix, $localName) = self::parseQName($xml->textContent);
-        if ($prefix === null) {
-            // We don't have a prefixed value here; use target namespace
-            $namespace = $xml->lookupNamespaceUri(null);
-        } else {
-            $namespace = $xml->lookupNamespaceUri($prefix);
-        }
+        $namespace = $xml->lookupNamespaceUri($prefix);
 
         return new static($xml->textContent, $namespace);
     }
