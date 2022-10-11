@@ -36,10 +36,11 @@ trait SerializableElementTrait
     public function __toString(): string
     {
         $xml = $this->toXML();
-        /** @psalm-var \DOMDocument $xml->ownerDocument */
-        $xml->ownerDocument->formatOutput = $this->formatOutput;
 
-        return $xml->ownerDocument->saveXML($xml);
+        $doc = DOMDocumentFactory::fromString($xml->ownerDocument->saveXML());
+        $doc->formatOutput = $this->formatOutput;
+
+        return $doc->saveXML($doc->firstChild);
     }
 
 
@@ -112,14 +113,4 @@ trait SerializableElementTrait
      * @return \DOMElement
      */
     abstract public function toXML(DOMElement $parent = null): DOMElement;
-
-
-    /**
-     * Create a class from XML
-     *
-     * @param \DOMElement $xml
-     * @return static
-     * @psalm-suppress MethodSignatureMismatch
-     */
-    abstract public static function fromXML(DOMElement $xml): static;
 }
