@@ -53,6 +53,19 @@ final class QNameElementTraitTest extends TestCase
 
     /**
      */
+    public function testMarshallingNonNamespacedQualifiedName(): void
+    {
+        $qnameElement = new QNameElement('Sender', null);
+
+        $this->assertEquals(
+            '<ssp:QNameElement xmlns:ssp="urn:x-simplesamlphp:namespace">Sender</ssp:QNameElement>',
+            strval($qnameElement)
+        );
+    }
+
+
+    /**
+     */
     public function testMarshallingInvalidQualifiedNameThrowsException(): void
     {
         $this->expectException(SchemaViolationException::class);
