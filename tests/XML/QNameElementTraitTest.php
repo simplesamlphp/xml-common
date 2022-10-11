@@ -83,4 +83,17 @@ final class QNameElementTraitTest extends TestCase
         $this->assertEquals('env:Sender', $qnameElement->getContent());
         $this->assertEquals('http://www.w3.org/2003/05/soap-envelope', $qnameElement->getContentNamespaceUri());
     }
+
+
+    /**
+     */
+    public function testUnmarshallingNonNamepacedQualifiedName(): void
+    {
+        $qnameElement = QNameElement::fromXML(DOMDocumentFactory::fromString(
+            '<ssp:QNameElement xmlns:ssp="urn:x-simplesamlphp:namespace">Sender</ssp:QNameElement>'
+        )->documentElement);
+
+        $this->assertEquals('Sender', $qnameElement->getContent());
+        $this->assertNull($qnameElement->getContentNamespaceUri());
+    }
 }

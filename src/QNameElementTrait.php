@@ -110,7 +110,7 @@ trait QNameElementTrait
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
         list($prefix, $localName) = self::parseQName($xml->textContent);
-        if ($localName === null) {
+        if ($prefix === null) {
             // We don't have a prefixed value here; use target namespace
             $namespace = $xml->lookupNamespaceUri(null);
         } else {
