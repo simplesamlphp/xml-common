@@ -6,6 +6,7 @@ namespace SimpleSAML\XML;
 
 use DOMElement;
 use RuntimeException;
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\DOMDocumentFactory;
 
 use function array_pop;
@@ -37,7 +38,11 @@ trait SerializableElementTrait
     {
         $xml = $this->toXML();
 
-        $doc = DOMDocumentFactory::fromString($xml->ownerDocument->saveXML());
+        /** @psalm-var \DOMDocument $xml->ownerDocument */
+        $xmlString = $xml->ownerDocument->saveXML();
+
+        /** @psalm-var non-empty-string $xmlString */
+        $doc = DOMDocumentFactory::fromString($xmlString);
         $doc->formatOutput = $this->formatOutput;
 
         return $doc->saveXML($doc->firstChild);

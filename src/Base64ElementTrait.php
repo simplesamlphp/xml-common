@@ -7,6 +7,7 @@ namespace SimpleSAML\XML;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Constants;
+use SimpleSAML\XML\StringElementTrait;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 
@@ -19,42 +20,7 @@ use function str_replace;
  */
 trait Base64ElementTrait
 {
-    /** @var string */
-    protected string $content;
-
-
-    /**
-     * Set the content of the element.
-     *
-     * @param string $content  The value to go in the XML textContent
-     */
-    protected function setContent(string $content): void
-    {
-        $this->validateContent($content);
-        $this->content = $content;
-    }
-
-
-    /**
-     * Get the content of the element.
-     *
-     * @return string
-     */
-    public function getContent(): string
-    {
-        return $this->sanitizeContent($this->getRawContent());
-    }
-
-
-    /**
-     * Get the raw and unsanitized content of the element.
-     *
-     * @return string
-     */
-    public function getRawContent(): string
-    {
-        return $this->content;
-    }
+    use StringElementTrait;
 
 
     /**
@@ -114,7 +80,7 @@ trait Base64ElementTrait
     public function toXML(DOMElement $parent = null): DOMElement
     {
         $e = $this->instantiateParentElement($parent);
-        $e->textContent = $this->getRawContent();
+        $e->textContent = $this->getContent();
 
         return $e;
     }

@@ -9,6 +9,7 @@ use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Constants;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XML\StringElementTrait;
 
 use function preg_split;
 
@@ -19,33 +20,22 @@ use function preg_split;
  */
 trait QNameElementTrait
 {
-    /** @var string */
-    protected string $content;
+    use StringElementTrait;
 
     /** @var string|null */
-    protected ?string $namespaceUri;
+    protected ?string $contentNamespaceUri;
 
 
     /**
-     * Set the content of the element.
+     * Validate the content of the element.
      *
      * @param string $content  The value to go in the XML textContent
+     * @throws \Exception on failure
+     * @return void
      */
-    protected function setContent(string $content): void
+    protected function validateContent(string $content): void
     {
         Assert::validQName($content, SchemaViolationException::class);
-        $this->content = $content;
-    }
-
-
-    /**
-     * Get the content of the element.
-     *
-     * @return string
-     */
-    public function getContent(): string
-    {
-        return $this->content;
     }
 
 
@@ -57,7 +47,7 @@ trait QNameElementTrait
     protected function setContentNamespaceUri(?string $namespaceUri): void
     {
         Assert::nullOrValidURI($namespaceUri, SchemaViolationException::class);
-        $this->namespaceUri = $namespaceUri;
+        $this->contentNamespaceUri = $namespaceUri;
     }
 
 
@@ -68,7 +58,7 @@ trait QNameElementTrait
      */
     public function getContentNamespaceUri(): ?string
     {
-        return $this->namespaceUri;
+        return $this->contentNamespaceUri;
     }
 
 
@@ -126,11 +116,12 @@ trait QNameElementTrait
     {
         $e = $this->instantiateParentElement($parent);
 
-        list($prefix, $localName) = self::parseQName($this->content);
-        if ($this->namespaceUri !== null && $prefix !== null) {
-            if ($e->lookupNamespaceUri($prefix) === null && $e->lookupPrefix($this->namespaceUri) === null) {
+        list($prefix, $localName) = self::parseQName($this->getContent());
+        $namespaceUri = $this->getContentNamespaceUri();
+        if ($namespaceUri !== null && $prefix !== null) {
+            if ($e->lookupNamespaceUri($prefix) === null && $e->lookupPrefix($namespaceUri) === null) {
                 // The namespace is not yet available in the document - insert it
-                $e->setAttribute('xmlns:' . $prefix, $this->namespaceUri);
+                $e->setAttribute('xmlns:' . $prefix, $namespaceUri);
             }
         }
 
