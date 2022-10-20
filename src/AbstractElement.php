@@ -69,10 +69,12 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
     public static function getAttribute(DOMElement $xml, string $name, ?string $default = ''): ?string
     {
         if (!$xml->hasAttribute($name)) {
+            $prefix = static::getNamespacePrefix();
+            $localName = static::getLocalName();
+            $qName = $prefix ? ($prefix . ':' . $localName) : $localName;
             Assert::nullOrStringNotEmpty(
                 $default,
-                'Missing \'' . $name . '\' attribute on ' . static::getNamespacePrefix() . ':'
-                    . self::getLocalName() . '.',
+                sprintf('Missing \'%s\' attribute on %s.', $name, $qName),
                 MissingAttributeException::class,
             );
 
@@ -97,11 +99,13 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
             return null;
         }
 
+        $prefix = static::getNamespacePrefix();
+        $localName = static::getLocalName();
+        $qName = $prefix ? ($prefix . ':' . $localName) : $localName;
         Assert::oneOf(
             $value,
             ['0', '1', 'false', 'true'],
-            'The \'' . $name . '\' attribute of ' . static::getNamespacePrefix() . ':' . self::getLocalName() .
-            ' must be boolean.',
+            sprintf('The \'%s\' attribute of %s must be a boolean.', $name, $qName),
         );
 
         return in_array($value, ['1', 'true'], true);
@@ -125,10 +129,12 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
             return null;
         }
 
+        $prefix = static::getNamespacePrefix();
+        $localName = static::getLocalName();
+        $qName = $prefix ? ($prefix . ':' . $localName) : $localName;
         Assert::numeric(
             $value,
-            'The \'' . $name . '\' attribute of ' . static::getNamespacePrefix() . ':' . self::getLocalName()
-                . ' must be numerical.',
+            sprintf('The \'%s\' attribute of %s must be numerical.', $name, $qName),
         );
 
         return intval($value);
@@ -156,7 +162,8 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
      */
     public function getQualifiedName(): string
     {
-        $qName = static::getNamespacePrefix() . ':' . static::getLocalName();
+        $prefix = static::getNamespacePrefix();
+        $qName = $prefix ? ($prefix. ':' . static::getLocalName()) : static::getLocalName();
         Assert::validQName($qName, SchemaViolationException::class);
         return $qName;
     }
@@ -188,9 +195,9 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
     /**
      * Get the namespace for the element.
      *
-     * @return string
+     * @return string|null
      */
-    public static function getNamespaceURI(): string
+    public static function getNamespaceURI(): ?string
     {
         Assert::true(
             defined('static::NS'),
@@ -198,7 +205,7 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
             . '::NS constant must be defined and set to the namespace for the XML-class it represents.',
             RuntimeException::class,
         );
-        Assert::validURI(static::NS, SchemaViolationException::class);
+        Assert::nullOrValidURI(static::NS, SchemaViolationException::class);
 
         return static::NS;
     }
@@ -207,9 +214,9 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
     /**
      * Get the namespace-prefix for the element.
      *
-     * @return string
+     * @return string|null
      */
-    public static function getNamespacePrefix(): string
+    public static function getNamespacePrefix(): ?string
     {
         Assert::true(
             defined('static::NS_PREFIX'),
