@@ -163,7 +163,7 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
     public function getQualifiedName(): string
     {
         $prefix = static::getNamespacePrefix();
-        $qName = $prefix ? ($prefix. ':' . static::getLocalName()) : static::getLocalName();
+        $qName = $prefix ? ($prefix . ':' . static::getLocalName()) : static::getLocalName();
         Assert::validQName($qName, SchemaViolationException::class);
         return $qName;
     }
