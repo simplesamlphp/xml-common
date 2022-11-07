@@ -6,13 +6,8 @@ namespace SimpleSAML\XML;
 
 use DateTimeImmutable;
 use DOMElement;
-use DOMNode;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\XML\Utils\XPath;
 
-use function intval;
-use function gmmktime;
-use function preg_match;
 use function trim;
 
 /**
@@ -22,55 +17,6 @@ use function trim;
  */
 class Utils
 {
-    /**
-     * Make an exact copy the specific \DOMElement.
-     *
-     * @param \DOMElement $element The element we should copy.
-     * @param \DOMElement|null $parent The target parent element.
-     * @return \DOMElement The copied element.
-     */
-    public static function copyElement(DOMElement $element, DOMElement $parent = null): DOMElement
-    {
-        if ($parent === null) {
-            $document = DOMDocumentFactory::create();
-        } else {
-            $document = $parent->ownerDocument;
-            Assert::notNull($document);
-            /** @psalm-var \DOMDocument $document */
-        }
-
-        $namespaces = [];
-        for ($e = $element; $e instanceof DOMNode; $e = $e->parentNode) {
-            $xpCache = XPath::getXPath($e);
-            foreach (XPath::xpQuery($e, './namespace::*', $xpCache) as $ns) {
-                $prefix = $ns->localName;
-                if ($prefix === 'xml' || $prefix === 'xmlns') {
-                    continue;
-                } elseif (!isset($namespaces[$prefix])) {
-                    $namespaces[$prefix] = $ns->nodeValue;
-                }
-            }
-        }
-
-        /** @var \DOMElement $newElement */
-        $newElement = $document->importNode($element, true);
-        if ($parent === null) {
-            $parent = $document;
-        }
-        /* We need to append the child to the parent before we add the namespaces. */
-        $parent->appendChild($newElement);
-
-        foreach ($namespaces as $prefix => $uri) {
-            /** @psalm-suppress PossiblyNullArgument  */
-            $newElement->setAttributeNS($uri, $prefix . ':__ns_workaround__', 'tmp');
-            /** @psalm-suppress PossiblyNullArgument  */
-            $newElement->removeAttributeNS($uri, '__ns_workaround__');
-        }
-
-        return $newElement;
-    }
-
-
     /**
      * Extract localized strings from a set of nodes.
      *

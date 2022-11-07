@@ -63,8 +63,7 @@ final class Chunk implements ElementInterface, SerializableElementInterface
         $this->setLocalName($xml->localName);
         $this->setNamespaceURI($xml->namespaceURI);
         $this->setPrefix($xml->prefix);
-
-        $this->xml = Utils::copyElement($xml);
+        $this->xml = $xml;
     }
 
 
@@ -272,6 +271,20 @@ final class Chunk implements ElementInterface, SerializableElementInterface
      */
     public function toXML(DOMElement $parent = null): DOMElement
     {
-        return Utils::copyElement($this->xml, $parent);
+        if ($parent === null) {
+            $doc = DOMDocumentFactory::create();
+        } else {
+            $doc = $parent->ownerDocument;
+            Assert::notNull($doc);
+        }
+
+        if ($parent === null) {
+            $parent = $doc;
+        }
+
+        /** @psalm-var \DOMDocument $doc */
+        $parent->appendChild($doc->importNode($this->getXML(), true));
+
+        return $doc->documentElement;
     }
 }
