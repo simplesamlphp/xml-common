@@ -37,7 +37,7 @@ final class Base64ElementTraitTest extends TestCase
         $this->testedClass = Base64Element::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(dirname(__FILE__)) . '/resources/xml/ssp_Base64Element.xml',
+            dirname(__FILE__, 2) . '/resources/xml/ssp_Base64Element.xml',
         );
     }
 

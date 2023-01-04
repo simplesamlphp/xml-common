@@ -34,7 +34,7 @@ final class StringElementTraitTest extends TestCase
         $this->testedClass = StringElement::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(dirname(__FILE__)) . '/resources/xml/ssp_StringElement.xml',
+            dirname(__FILE__, 2) . '/resources/xml/ssp_StringElement.xml',
         );
     }
 

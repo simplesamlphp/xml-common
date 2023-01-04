@@ -33,7 +33,7 @@ final class QNameElementTraitTest extends TestCase
         $this->testedClass = QNameElement::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(dirname(__FILE__)) . '/resources/xml/ssp_QNameElement.xml',
+            dirname(__FILE__, 2) . '/resources/xml/ssp_QNameElement.xml',
         );
     }
 

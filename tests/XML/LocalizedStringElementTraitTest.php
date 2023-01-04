@@ -34,7 +34,7 @@ final class LocalizedStringElementTraitTest extends TestCase
         $this->testedClass = LocalizedStringElement::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(dirname(__FILE__)) . '/resources/xml/ssp_LocalizedStringElement.xml',
+            dirname(__FILE__, 2) . '/resources/xml/ssp_LocalizedStringElement.xml',
         );
     }
 

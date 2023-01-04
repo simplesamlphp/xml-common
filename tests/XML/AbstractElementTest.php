@@ -34,7 +34,7 @@ final class AbstractElementTest extends TestCase
         $this->testedClass = Element::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(dirname(__FILE__)) . '/resources/xml/ssp_Element.xml',
+            dirname(__FILE__, 2) . '/resources/xml/ssp_Element.xml',
         );
     }
 
