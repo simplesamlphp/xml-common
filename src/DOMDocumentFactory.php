@@ -16,7 +16,6 @@ use function file_get_contents;
 use function is_file;
 use function is_readable;
 use function libxml_clear_errors;
-use function libxml_disable_entity_loader;
 use function libxml_get_last_error;
 use function libxml_use_internal_errors;
 use function sprintf;
@@ -76,8 +75,6 @@ final class DOMDocumentFactory
      */
     public static function fromFile(string $file): DOMDocument
     {
-        // libxml_disable_entity_loader(true) disables \DOMDocument::load() method
-        // so we need to read the content and use \DOMDocument::loadXML()
         error_clear_last();
         $xml = @file_get_contents($file);
         if ($xml === false) {
