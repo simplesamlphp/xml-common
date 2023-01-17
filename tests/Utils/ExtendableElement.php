@@ -24,7 +24,6 @@ class ExtendableElement extends AbstractElement
     use SerializableElementTrait;
 
 
-
     /** @var string */
     public const NS = 'urn:x-simplesamlphp:namespace';
 

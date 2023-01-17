@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMElement;
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\SerializableElementTrait;
 use SimpleSAML\XML\Utils;
-use SimpleSAML\Assert\Assert;
 
 use function in_array;
 use function intval;
@@ -45,25 +45,18 @@ final class Chunk implements ElementInterface, SerializableElementInterface
      */
     protected ?string $prefix;
 
-    /**
-     * The \DOMElement we contain.
-     *
-     * @var \DOMElement
-     */
-    protected DOMElement $xml;
-
 
     /**
      * Create an XML Chunk from a copy of the given \DOMElement.
      *
      * @param \DOMElement $xml The element we should copy.
      */
-    public function __construct(DOMElement $xml)
-    {
+    public function __construct(
+        protected DOMElement $xml
+    ) {
         $this->setLocalName($xml->localName);
         $this->setNamespaceURI($xml->namespaceURI);
         $this->setPrefix($xml->prefix);
-        $this->xml = $xml;
     }
 
 

@@ -24,32 +24,17 @@ final class Element extends AbstractElement
     /** @var string */
     public const NS_PREFIX = 'ssp';
 
-    /**
-     * @var bool
-     */
-    protected ?bool $boolean;
-
-    /**
-     * @var int
-     */
-    protected ?int $integer;
-
-    /**
-     * @var string
-     */
-    protected ?string $text;
-
 
     /**
      * @param int|null $integer
      * @param bool|null $boolean
      * @param string|null $text
      */
-    public function __construct(?int $integer = null, ?bool $boolean = null, ?string $text = null)
-    {
-        $this->integer = $integer;
-        $this->boolean = $boolean;
-        $this->text = $text;
+    public function __construct(
+        protected ?int $integer = null,
+        protected ?bool $boolean = null,
+        protected ?string $text = null
+    ) {
     }
 
 
