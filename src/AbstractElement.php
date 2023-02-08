@@ -15,6 +15,7 @@ use SimpleSAML\Assert\Assert;
 use function array_slice;
 use function defined;
 use function explode;
+use function func_num_args;
 use function in_array;
 use function intval;
 use function join;
@@ -64,16 +65,18 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
      * @param string      $name The name of the attribute.
      * @param string|null $default The default to return in case the attribute does not exist and it is optional.
      * @return string|null
+     *
+     * @psalm-return ($default is string ? string : string|null)
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is missing from the element
      */
-    public static function getAttribute(DOMElement $xml, string $name, ?string $default = ''): ?string
+    public static function getAttribute(DOMElement $xml, string $name, ?string $default = null): ?string
     {
         if (!$xml->hasAttribute($name)) {
             $prefix = static::getNamespacePrefix();
             $localName = static::getLocalName();
             $qName = $prefix ? ($prefix . ':' . $localName) : $localName;
-            Assert::nullOrStringNotEmpty(
-                $default,
+            Assert::true(
+                func_num_args() === 3,
                 sprintf('Missing \'%s\' attribute on %s.', $name, $qName),
                 MissingAttributeException::class,
             );
@@ -88,15 +91,21 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
     /**
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
-     * @param string|null $default The default to return in case the attribute does not exist and it is optional.
+     * @param bool|null   $default The default to return in case the attribute does not exist and it is optional.
      * @return bool|null
+     *
+     * @psalm-return ($default is bool ? bool : bool|null)
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not a boolean
      */
-    public static function getBooleanAttribute(DOMElement $xml, string $name, ?string $default = ''): ?bool
+    public static function getBooleanAttribute(DOMElement $xml, string $name, ?bool $default = null): ?bool
     {
-        $value = self::getAttribute($xml, $name, $default);
-        if ($value === null) {
-            return null;
+        try {
+            $value = self::getAttribute($xml, $name);
+        } catch (MissingAttributeException $e) {
+            if (func_num_args() === 3) {
+                return $default;
+            }
+            throw $e;
         }
 
         $prefix = static::getNamespacePrefix();
@@ -117,16 +126,21 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
      *
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
-     * @param string|null $default The default to return in case the attribute does not exist and it is optional.
-     *
+     * @param int|null $default The default to return in case the attribute does not exist and it is optional.
      * @return int|null
+     *
+     * @psalm-return ($default is int ? int : int|null)
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not an integer
      */
-    public static function getIntegerAttribute(DOMElement $xml, string $name, ?string $default = ''): ?int
+    public static function getIntegerAttribute(DOMElement $xml, string $name, ?int $default = null): ?int
     {
-        $value = self::getAttribute($xml, $name, $default);
-        if ($value === null) {
-            return null;
+        try {
+            $value = self::getAttribute($xml, $name);
+        } catch (MissingAttributeException $e) {
+            if (func_num_args() === 3) {
+                return $default;
+            }
+            throw $e;
         }
 
         $prefix = static::getNamespacePrefix();

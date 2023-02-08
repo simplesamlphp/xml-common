@@ -11,6 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\SerializableElementTrait;
 use SimpleSAML\XML\Utils;
 
+use function func_num_args;
 use function in_array;
 use function intval;
 
@@ -163,13 +164,15 @@ final class Chunk implements ElementInterface, SerializableElementInterface
      * @param string      $name The name of the attribute.
      * @param string|null $default The default to return in case the attribute does not exist and it is optional.
      * @return string|null
+     *
+     * @psalm-return ($default is string ? string : string|null)
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is missing from the element
      */
-    public static function getAttribute(DOMElement $xml, string $name, ?string $default = ''): ?string
+    public static function getAttribute(DOMElement $xml, string $name, ?string $default = null): ?string
     {
         if (!$xml->hasAttribute($name)) {
-            Assert::nullOrStringNotEmpty(
-                $default,
+            Assert::true(
+                func_num_args() === 3,
                 'Missing \'' . $name . '\' attribute on ' . $xml->prefix . ':' . $xml->localName . '.',
                 MissingAttributeException::class,
             );
@@ -184,15 +187,21 @@ final class Chunk implements ElementInterface, SerializableElementInterface
     /**
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
-     * @param string|null $default The default to return in case the attribute does not exist and it is optional.
+     * @param bool|null $default The default to return in case the attribute does not exist and it is optional.
      * @return bool|null
+     *
+     * @psalm-return ($default is sbool ? bool : bool|null)
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not a boolean
      */
-    public static function getBooleanAttribute(DOMElement $xml, string $name, ?string $default = ''): ?bool
+    public static function getBooleanAttribute(DOMElement $xml, string $name, ?bool $default = null): ?bool
     {
-        $value = self::getAttribute($xml, $name, $default);
-        if ($value === null) {
-            return null;
+         try {
+            $value = self::getAttribute($xml, $name);
+        } catch (MissingAttributeException $e) {
+            if (func_num_args() === 3) {
+                return $default;
+            }
+            throw $e;
         }
 
         Assert::oneOf(
@@ -210,16 +219,21 @@ final class Chunk implements ElementInterface, SerializableElementInterface
      *
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
-     * @param string|null $default The default to return in case the attribute does not exist and it is optional.
-     *
+     * @param int|null $default The default to return in case the attribute does not exist and it is optional.
      * @return int|null
+     *
+     * @psalm-return ($default is int ? int : int|null)
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not an integer
      */
-    public static function getIntegerAttribute(DOMElement $xml, string $name, ?string $default = ''): ?int
+    public static function getIntegerAttribute(DOMElement $xml, string $name, ?int $default = null): ?int
     {
-        $value = self::getAttribute($xml, $name, $default);
-        if ($value === null) {
-            return null;
+        try {
+            $value = self::getAttribute($xml, $name);
+        } catch (MissingAttributeException $e) {
+            if (func_num_args() === 3) {
+                return $default;
+            }
+            throw $e;
         }
 
         Assert::numeric(
