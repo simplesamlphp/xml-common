@@ -89,15 +89,4 @@ final class DOMDocumentFactory
         /** @psalm-var non-empty-string $xml */
         return static::fromString($xml);
     }
-
-
-    /**
-     * @param ?string $version
-     * @param ?string $encoding
-     * @return \DOMDocument
-     */
-    public static function create(?string $version = null, ?string $encoding = null): DOMDocument
-    {
-        return new DOMDocument($version ?? '1.0', $encoding ?? '');
-    }
 }
