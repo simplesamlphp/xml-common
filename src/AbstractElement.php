@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
+use DOMDocument;
 use DOMElement;
 use RuntimeException;
-use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\SerializableElementTrait;
@@ -42,7 +42,7 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
         $namespace = static::getNamespaceURI();
 
         if ($parent === null) {
-            $doc = DOMDocumentFactory::create();
+            $doc = new DOMDocument();
             $e = $doc->createElementNS($namespace, $qualifiedName);
             $doc->appendChild($e);
         } else {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
+use DOMDocument;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\MissingAttributeException;
@@ -195,7 +196,7 @@ final class Chunk implements ElementInterface, SerializableElementInterface
      */
     public static function getBooleanAttribute(DOMElement $xml, string $name, ?bool $default = null): ?bool
     {
-         try {
+        try {
             $value = self::getAttribute($xml, $name);
         } catch (MissingAttributeException $e) {
             if (func_num_args() === 3) {
@@ -279,7 +280,7 @@ final class Chunk implements ElementInterface, SerializableElementInterface
     public function toXML(DOMElement $parent = null): DOMElement
     {
         if ($parent === null) {
-            $doc = DOMDocumentFactory::create();
+            $doc = new DOMDocument();
         } else {
             $doc = $parent->ownerDocument;
             Assert::notNull($doc);
@@ -289,7 +290,10 @@ final class Chunk implements ElementInterface, SerializableElementInterface
             $parent = $doc;
         }
 
-        /** @psalm-var \DOMDocument $doc */
+        /**
+         * @psalm-var \DOMDocument $parent
+         * @psalm-var \DOMDocument $doc
+         */
         $parent->appendChild($doc->importNode($this->getXML(), true));
 
         return $doc->documentElement;
