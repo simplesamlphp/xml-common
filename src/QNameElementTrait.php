@@ -66,7 +66,8 @@ trait QNameElementTrait
      * Splits a QName into an array holding the prefix (or null if no prefix is available) and the localName
      *
      * @param string $qName  The qualified name
-     * @return array{null|string, string}
+     * @return array
+     * @psalm-return array{null|string, string}
      */
     private static function parseQName(string $qName): array
     {

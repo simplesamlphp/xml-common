@@ -26,7 +26,8 @@ use function sprintf;
 final class DOMDocumentFactory
 {
     /**
-     * @param non-empty-string $xml
+     * @param string $xml
+     * @psalm-param non-empty-string $xml
      *
      * @return \DOMDocument
      */
