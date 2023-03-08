@@ -31,7 +31,6 @@
         "ext-dom": "*",
         "ext-spl": "*",
 
-        "ramsey/uuid": "^4.7.3",
         "simplesamlphp/assert": "^1.0.1"
     },
     "require-dev": {
