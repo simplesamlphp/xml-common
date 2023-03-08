@@ -38,7 +38,7 @@ final class DOMDocumentFactory
         $internalErrors = libxml_use_internal_errors(true);
         libxml_clear_errors();
 
-        $domDocument = new DOMDocument();
+        $domDocument = new DOMDocument('1.0', 'UTF-8');
         $options = LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_NONET | LIBXML_PARSEHUGE | LIBXML_NSCLEAN;
         if (defined('LIBXML_COMPACT')) {
             $options |= LIBXML_COMPACT;
