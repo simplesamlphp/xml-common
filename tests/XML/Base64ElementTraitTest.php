@@ -22,7 +22,6 @@ use function strval;
  * @covers \SimpleSAML\XML\Base64ElementTrait
  * @covers \SimpleSAML\XML\StringElementTrait
  * @covers \SimpleSAML\XML\AbstractElement
- * @covers \SimpleSAML\XML\AbstractSerializableElement
  *
  * @package simplesamlphp\xml-common
  */

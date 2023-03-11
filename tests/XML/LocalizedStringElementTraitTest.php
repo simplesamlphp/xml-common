@@ -19,7 +19,6 @@ use function strval;
  *
  * @covers \SimpleSAML\XML\LocalizedStringElementTrait
  * @covers \SimpleSAML\XML\AbstractElement
- * @covers \SimpleSAML\XML\AbstractSerializableElement
  *
  * @package simplesamlphp\xml-common
  */

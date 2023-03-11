@@ -18,7 +18,6 @@ use function strval;
  * Class \SimpleSAML\XML\AbstractElementTest
  *
  * @covers \SimpleSAML\XML\AbstractElement
- * @covers \SimpleSAML\XML\AbstractSerializableElement
  *
  * @package simplesamlphp\xml-common
  */

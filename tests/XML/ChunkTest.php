@@ -15,7 +15,6 @@ use function strval;
 /**
  * Class \SimpleSAML\XML\ChunkTest
  *
- * @covers \SimpleSAML\XML\AbstractSerializableElement
  * @covers \SimpleSAML\XML\Chunk
  *
  * @package simplesamlphp\xml-common
