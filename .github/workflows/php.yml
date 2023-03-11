@@ -26,6 +26,7 @@ jobs:
         uses: github/super-linter/slim@v4
         env:
           VALIDATE_ALL_CODEBASE: true
+          FILTER_REGEX_EXCLUDE: .*/tests/resources/xml/domdocument_(invalid_xml|empty).xml
           LINTER_RULES_PATH: 'tools/linters'
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_JSON: true
@@ -72,7 +73,6 @@ jobs:
         run: php vendor/simplesamlphp/simplesamlphp-test-framework/tools/phpcs
 
       - name: Psalm
-        continue-on-error: true
         run: |
           php vendor/simplesamlphp/simplesamlphp-test-framework/tools/psalm \
           -c psalm.xml \
@@ -81,6 +81,7 @@ jobs:
           --php-version=${{ steps.setup-php.outputs.php-version }}
 
       - name: Psalm (testsuite)
+        continue-on-error: true
         run: |
           php vendor/simplesamlphp/simplesamlphp-test-framework/tools/psalm \
           -c psalm-dev.xml \
