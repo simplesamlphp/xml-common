@@ -6,12 +6,12 @@ namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\Test\XML\SerializableElementTestTrait;
 use SimpleSAML\Test\XML\Base64EStringlement;
 use SimpleSAML\Test\XML\XMLDumper;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Base64ElementTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
 use function dirname;
 use function strval;
@@ -36,7 +36,7 @@ final class Base64ElementTraitTest extends TestCase
         $this->testedClass = Base64Element::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(__FILE__, 2) . '/resources/xml/ssp_Base64Element.xml',
+            dirname(__FILE__, 3) . '/resources/xml/ssp_Base64Element.xml',
         );
     }
 

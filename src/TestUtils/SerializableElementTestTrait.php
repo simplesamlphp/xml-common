@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SimpleSAML\Test\XML;
+namespace SimpleSAML\XML\TestUtils;
 
 use DOMDocument;
 

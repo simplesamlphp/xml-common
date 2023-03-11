@@ -7,12 +7,12 @@ namespace SimpleSAML\Test\XML;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\Test\XML\ExtendableElement;
-use SimpleSAML\Test\XML\SchemaViolationTestTrait;
-use SimpleSAML\Test\XML\SerializableElementTestTrait;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\ElementInterface;
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
 use function dirname;
 
@@ -45,12 +45,12 @@ final class ExtendableElementTraitTest extends TestCase
      */
     public function setup(): void
     {
-        $this->schema = dirname(__FILE__, 2) . '/resources/schemas/simplesamlphp.xsd';
+        $this->schema = dirname(__FILE__, 3) . '/resources/schemas/simplesamlphp.xsd';
 
         $this->testedClass = ExtendableElement::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(__FILE__, 2) . '/resources/xml/ssp_ExtendableElement.xml',
+            dirname(__FILE__, 3) . '/resources/xml/ssp_ExtendableElement.xml',
         );
 
         $this->empty = new Chunk(DOMDocumentFactory::fromString(<<<XML

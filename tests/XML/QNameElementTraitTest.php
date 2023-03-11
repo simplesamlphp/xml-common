@@ -7,10 +7,10 @@ namespace SimpleSAML\Test\XML;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Test\XML\QNamelement;
-use SimpleSAML\Test\XML\SerializableElementTestTrait;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
 use function dirname;
 use function strval;
@@ -33,7 +33,7 @@ final class QNameElementTraitTest extends TestCase
         $this->testedClass = QNameElement::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(__FILE__, 2) . '/resources/xml/ssp_QNameElement.xml',
+            dirname(__FILE__, 3) . '/resources/xml/ssp_QNameElement.xml',
         );
     }
 

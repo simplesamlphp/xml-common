@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Test\XML\SerializableElementTestTrait;
 use SimpleSAML\Test\XML\StringElement;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\StringElementTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
 use function dirname;
 use function strval;
@@ -33,7 +33,7 @@ final class StringElementTraitTest extends TestCase
         $this->testedClass = StringElement::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(__FILE__, 2) . '/resources/xml/ssp_StringElement.xml',
+            dirname(__FILE__, 3) . '/resources/xml/ssp_StringElement.xml',
         );
     }
 

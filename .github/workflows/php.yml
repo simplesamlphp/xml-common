@@ -26,7 +26,7 @@ jobs:
         uses: github/super-linter/slim@v4
         env:
           VALIDATE_ALL_CODEBASE: true
-          FILTER_REGEX_EXCLUDE: .*/tests/resources/xml/domdocument_(invalid_xml|empty).xml
+          FILTER_REGEX_EXCLUDE: .*/resources/xml/domdocument_(invalid_xml|empty).xml
           LINTER_RULES_PATH: 'tools/linters'
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_JSON: true
