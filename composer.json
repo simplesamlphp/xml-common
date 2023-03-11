@@ -28,7 +28,9 @@
     },
     "require": {
         "php": "^8.0",
+        "ext-date": "*",
         "ext-dom": "*",
+        "ext-pcre": "*",
         "ext-spl": "*",
         "ext-xml": "*",
 
