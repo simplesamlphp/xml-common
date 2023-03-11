@@ -30,6 +30,7 @@
         "php": "^8.0",
         "ext-dom": "*",
         "ext-spl": "*",
+        "ext-xml": "*",
 
         "simplesamlphp/assert": "^1.0.1"
     },

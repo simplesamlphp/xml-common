@@ -77,7 +77,7 @@ final class Base64ElementTraitTest extends TestCase
         $this->assertStringContainsString($xmlElement->getRawContent(), $xml);
     }
 
-    public function provideBase64Cases(): array
+    public static function provideBase64Cases(): array
     {
         return [
             'inline' => [
