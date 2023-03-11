@@ -30,8 +30,8 @@ trait SchemaValidationTestTrait
     /** @var string */
     protected string $schema;
 
-    /** @var \DOMDocument */
-    protected DOMDocument $xmlRepresentation;
+    /** @var \DOMDocument|null */
+    protected ?DOMDocument $xmlRepresentation = null;
 
 
     /**

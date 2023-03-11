@@ -18,8 +18,8 @@ trait SerializableElementTestTrait
     /** @var class-string */
     protected string $testedClass;
 
-    /** @var \DOMDocument */
-    protected DOMDocument $xmlRepresentation;
+    /** @var \DOMDocument|null */
+    protected ?DOMDocument $xmlRepresentation = null;
 
 
     /**
