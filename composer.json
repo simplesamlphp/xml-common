@@ -33,12 +33,11 @@
         "ext-spl": "*",
         "ext-xml": "*",
 
-        "simplesamlphp/assert": "^1.0.2"
+        "simplesamlphp/assert": "^1.0.3"
     },
     "require-dev": {
-        "ext-xmlreader": "*",
-
-        "simplesamlphp/simplesamlphp-test-framework": "^1.4.1"
+        "simplesamlphp/simplesamlphp-test-framework": "^1.5.1",
+        "simplesamlphp/xml-common-devtools": "^1.0.2"
     },
     "support": {
         "issues": "https://github.com/simplesamlphp/xml-common/issues",
