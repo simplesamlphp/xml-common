@@ -160,7 +160,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: ctype, date, dom, filter, libxml, pcre, spl, xml, xmlreader
-          tools: composer, phpunit:9.6
+          tools: composer
           ini-values: error_reporting=E_ALL
           coverage: pcov
 
@@ -192,11 +192,11 @@ jobs:
 
       - name: Run unit tests with coverage
         if: ${{ matrix.php-versions == '8.2' }}
-        run: phpunit
+        run: vendor/bin/phpunit
 
       - name: Run unit tests (no coverage)
         if: ${{ matrix.php-versions != '8.2' }}
-        run: phpunit --no-coverage
+        run: vendor/bin/phpunit --no-coverage
 
       - name: Save coverage data
         if: ${{ matrix.php-versions == '8.2' }}
@@ -222,7 +222,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: ctype, date, dom, filter, libxml, pcre, spl, xml, xmlreader
-          tools: composer, phpunit:9.6
+          tools: composer
           ini-values: error_reporting=E_ALL
           coverage: none
 
@@ -253,7 +253,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Run unit tests
-        run: phpunit --no-coverage
+        run: vendor/bin/phpunit --no-coverage
 
   coverage:
     name: Code coverage
