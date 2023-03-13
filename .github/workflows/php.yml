@@ -48,7 +48,7 @@ jobs:
           php-version: '8.2'
           tools: composer, composer-require-checker, composer-unused, phpcs, psalm
           # optional performance gain for psalm: opcache
-          extensions: ctype, date, dom, filter, opcache, pcre, spl, xml
+          extensions: ctype, date, dom, filter, libxml, opcache, pcre, spl, xml
           coverage: none
 
       - name: Setup problem matchers for PHP
@@ -112,7 +112,7 @@ jobs:
         with:
           # Should be the lowest supported version
           php-version: '8.0'
-          extensions: ctype, date, dom, filter, pcre, spl, xml
+          extensions: ctype, date, dom, filter, libxml, pcre, spl, xml
           tools: composer
           coverage: none
 

@@ -29,9 +29,9 @@
         "php": "^8.0",
         "ext-date": "*",
         "ext-dom": "*",
+        "ext-libxml": "*",
         "ext-pcre": "*",
         "ext-spl": "*",
-        "ext-xml": "*",
 
         "simplesamlphp/assert": "^1.0.3"
     },
