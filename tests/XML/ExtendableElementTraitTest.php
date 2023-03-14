@@ -45,12 +45,12 @@ final class ExtendableElementTraitTest extends TestCase
      */
     public function setup(): void
     {
-        $this->schema = dirname(__FILE__, 3) . '/resources/schemas/simplesamlphp.xsd';
+        $this->schema = dirname(__FILE__, 2) . '/resources/schemas/simplesamlphp.xsd';
 
         $this->testedClass = ExtendableElement::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(__FILE__, 3) . '/resources/xml/ssp_ExtendableElement.xml',
+            dirname(__FILE__, 2) . '/resources/xml/ssp_ExtendableElement.xml',
         );
 
         $this->empty = new Chunk(DOMDocumentFactory::fromString(<<<XML

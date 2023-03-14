@@ -30,12 +30,12 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function setup(): void
     {
-        $this->schema = dirname(__FILE__, 3) . '/resources/schemas/simplesamlphp.xsd';
+        $this->schema = dirname(__FILE__, 2) . '/resources/schemas/simplesamlphp.xsd';
 
         $this->testedClass = ExtendableAttributesElement::class;
 
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(__FILE__, 3) . '/resources/xml/ssp_ExtendableAttributesElement.xml',
+            dirname(__FILE__, 2) . '/resources/xml/ssp_ExtendableAttributesElement.xml',
         );
     }
 

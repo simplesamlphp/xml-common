@@ -1,7 +1,9 @@
 /.github/ export-ignore
 /.phpunit.cache/ export-ignore
 /tools/ export-ignore
-/tests/ export-ignore
+/tests/bootstrap.php export-ignore
+/tests/Utils/ export-ignore
+/tests/XML/ export-ignore
 codecov.yml export-ignore
 .editorconfig export-ignore
 .gitattributes export-ignore

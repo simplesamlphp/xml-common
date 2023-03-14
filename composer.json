@@ -32,12 +32,12 @@
         "ext-libxml": "*",
         "ext-pcre": "*",
         "ext-spl": "*",
+        "ext-xmlreader": "*",
 
         "simplesamlphp/assert": "^1.0.3"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp-test-framework": "^1.5.1",
-        "simplesamlphp/xml-common-devtools": "^1.0.2"
+        "phpunit/phpunit": "^9.6 || ^10.0"
     },
     "support": {
         "issues": "https://github.com/simplesamlphp/xml-common/issues",
