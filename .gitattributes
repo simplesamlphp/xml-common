@@ -2,6 +2,7 @@
 /.phpunit.cache/ export-ignore
 /tools/ export-ignore
 /tests/bootstrap.php export-ignore
+/tests/resources/xml export-ignore
 /tests/Utils/ export-ignore
 /tests/XML/ export-ignore
 codecov.yml export-ignore
