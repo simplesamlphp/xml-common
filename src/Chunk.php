@@ -254,10 +254,7 @@ final class Chunk implements ElementInterface, SerializableElementInterface
     public function isEmptyElement(): bool
     {
         $xml = $this->getXML();
-        return (
-            ($xml->childNodes->length === 0)
-            && ($xml->attributes->length === 0)
-        );
+        return ($xml->childNodes->length === 0) && ($xml->attributes->length === 0);
     }
 
 
