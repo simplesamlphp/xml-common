@@ -37,7 +37,7 @@
         "simplesamlphp/assert": "^1.0.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.6 || ^10.0"
+        "simplesamlphp/simplesamlphp-test-framework": "^1.5.2"
     },
     "support": {
         "issues": "https://github.com/simplesamlphp/xml-common/issues",
