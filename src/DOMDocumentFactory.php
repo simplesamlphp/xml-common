@@ -38,7 +38,7 @@ final class DOMDocumentFactory
         $internalErrors = libxml_use_internal_errors(true);
         libxml_clear_errors();
 
-        $domDocument = new DOMDocument('1.0', 'UTF-8');
+        $domDocument = self::create();
         $options = LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_NONET | LIBXML_PARSEHUGE | LIBXML_NSCLEAN;
         if (defined('LIBXML_COMPACT')) {
             $options |= LIBXML_COMPACT;
@@ -89,5 +89,16 @@ final class DOMDocumentFactory
         Assert::notWhitespaceOnly($xml, sprintf('File "%s" does not have content', $file), RuntimeException::class);
         /** @psalm-var non-empty-string $xml */
         return static::fromString($xml);
+    }
+
+
+    /**
+     * @param string $version
+     * @param string $encoding
+     * @return \DOMDocument
+     */
+    public static function create(string $version = '1.0', string $encoding = 'UTF-8'): DOMDocument
+    {
+        return new DOMDocument($version, $encoding);
     }
 }
