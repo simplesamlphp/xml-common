@@ -11,6 +11,7 @@ use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\XMLAttribute;
 
 use function dirname;
 
@@ -46,11 +47,8 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $doc = DOMDocumentFactory::fromString('<root/>');
-        $attr1 = $doc->createAttributeNS('urn:x-simplesamlphp:namespace', 'test:attr1');
-        $attr1->value = 'testval1';
-        $attr2 = $doc->createAttributeNS('urn:x-simplesamlphp:namespace', 'test:attr2');
-        $attr2->value = 'testval2';
+        $attr1 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'test', 'attr1', 'testval1');
+        $attr2 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'test', 'attr2', 'testval2');
 
         $extendableAttributesElement = new ExtendableAttributesElement([$attr1, $attr2]);
 
@@ -67,9 +65,11 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $extendableAttributesElement = ExtendableAttributesElement::fromXML($this->xmlRepresentation->documentElement);
         $this->assertTrue($extendableAttributesElement->hasAttributeNS('urn:x-simplesamlphp:namespace', 'attr1'));
+
+        $attr = $extendableAttributesElement->getAttributeNS('urn:x-simplesamlphp:namespace', 'attr1');
         $this->assertEquals(
             'testval1',
-            $extendableAttributesElement->getAttributeNS('urn:x-simplesamlphp:namespace', 'attr1')
+            $attr->getAttrValue(),
         );
 
         $attributes = $extendableAttributesElement->getAttributesNS();

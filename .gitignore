@@ -1,7 +1,7 @@
+.phpunit.result.cache
 /.phpunit.cache/
 /build/
 /vendor/
-/.phpunit.result.cache
 composer.phar
 composer.lock
 

@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMAttr;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\XML\Exception\SchemaViolationException;
-
-use function explode;
 
 /**
  * Trait for elements that can have arbitrary namespaced attributes.
@@ -21,7 +17,7 @@ trait ExtendableAttributesTrait
     /**
      * Extra (namespace qualified) attributes.
      *
-     * @var array<string, array>
+     * @var list{\SimpleSAML\XML\XMLAttribute}
      */
     protected array $namespacedAttributes = [];
 
@@ -35,7 +31,12 @@ trait ExtendableAttributesTrait
      */
     public function hasAttributeNS(string $namespaceURI, string $localName): bool
     {
-        return isset($this->namespacedAttributes['{' . $namespaceURI . '}' . $localName]);
+        foreach ($this->getAttributesNS() as $attr) {
+            if ($attr->getNamespaceURI() === $namespaceURI && $attr->getAttrName() === $localName) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -44,20 +45,23 @@ trait ExtendableAttributesTrait
      *
      * @param string $namespaceURI The namespace URI.
      * @param string $localName The local name.
-     * @return string|null The value of the attribute, or null if the attribute does not exist.
+     * @return \SimpleSAML\XML\XMLAttribute|null The value of the attribute, or null if the attribute does not exist.
      */
-    public function getAttributeNS(string $namespaceURI, string $localName): ?string
+    public function getAttributeNS(string $namespaceURI, string $localName): ?XMLAttribute
     {
-        return isset($this->namespacedAttributes['{' . $namespaceURI . '}' . $localName])
-            ? $this->namespacedAttributes['{' . $namespaceURI . '}' . $localName]['value']
-            : null;
+        foreach ($this->getAttributesNS() as $attr) {
+            if ($attr->getNamespaceURI() === $namespaceURI && $attr->getAttrName() === $localName) {
+                return $attr;
+            }
+        }
+        return null;
     }
 
 
     /**
-     * Get the namespaced attributes in this endpoint.
+     * Get the namespaced attributes in this element.
      *
-     * @return array<string, array>
+     * @return list{\SimpleSAML\XML\XMLAttribute}
      */
     public function getAttributesNS(): array
     {
@@ -66,22 +70,20 @@ trait ExtendableAttributesTrait
 
 
     /**
-     * Parse an XML document representing an EndpointType and get the namespaced attributes.
+     * Parse an XML document and get the namespaced attributes.
      *
      * @param \DOMElement $xml
      *
-     * @return array
+     * @return list{\SimpleSAML\XML\XMLAttribute} $attributes
      */
     protected static function getAttributesNSFromXML(DOMElement $xml): array
     {
         $attributes = [];
 
         foreach ($xml->attributes as $a) {
-            if ($a->namespaceURI === null) {
-                // Not namespace-qualified -- skip.
-                continue;
+            if ($a->namespaceURI !== null) {
+                $attributes[] = new XMLAttribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
             }
-            $attributes[] = $a;
         }
 
         return $attributes;
@@ -89,44 +91,16 @@ trait ExtendableAttributesTrait
 
 
     /**
-     * Get a namespace-qualified attribute.
-     *
-     * @param string $namespaceURI  The namespace URI.
-     * @param string $qualifiedName The local name.
-     * @param string $value The attribute value.
-     * @throws \SimpleSAML\Assert\AssertionFailedException if a non-qualified name is being passed
-     */
-    protected function setAttributeNS(string $namespaceURI, string $qualifiedName, string $value): void
-    {
-        Assert::validURI($namespaceURI, SchemaViolationException::class);
-        Assert::validQName($qualifiedName, SchemaViolationException::class);
-        list(, $localName) = explode(':', $qualifiedName, 2);
-
-        $this->namespacedAttributes['{' . $namespaceURI . '}' . $localName] = [
-            'qualifiedName' => $qualifiedName,
-            'namespaceURI' => $namespaceURI,
-            'value' => $value,
-        ];
-    }
-
-
-    /**
-     * @param \DOMAttr[] $attributes
-     * @throws \SimpleSAML\Assert\AssertionFailedException if $attributes contains anything other than \DOMAttr objects
+     * @param list{\SimpleSAML\XML\XMLAttribute} $attributes
+     * @throws \SimpleSAML\Assert\AssertionFailedException if $attributes contains anything other than XMLAttribute objects
      */
     protected function setAttributesNS(array $attributes): void
     {
         Assert::allIsInstanceOf(
             $attributes,
-            DOMAttr::class,
-            'Arbitrary XML attributes can only be an instance of DOMAttr.',
+            XMLAttribute::class,
+            'Arbitrary XML attributes can only be an instance of XMLAttribute.',
         );
-
-        foreach ($attributes as $attribute) {
-            Assert::stringNotEmpty($attribute->namespaceURI, 'Arbitrary XML attributes must be namespaced.');
-
-            /** @psalm-suppress PossiblyNullArgument */
-            $this->setAttributeNS($attribute->namespaceURI, $attribute->nodeName, $attribute->value);
-        }
+        $this->namespacedAttributes = $attributes;
     }
 }

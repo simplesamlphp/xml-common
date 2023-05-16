@@ -91,7 +91,11 @@ class ExtendableAttributesElement extends AbstractElement
         $e = $this->instantiateParentElement($parent);
 
         foreach ($this->getAttributesNS() as $attr) {
-            $e->setAttributeNS($attr['namespaceURI'], $attr['qualifiedName'], $attr['value']);
+            $e->setAttributeNS(
+                $attr->getNamespaceURI(),
+                $attr->getNamespacePrefix() . ':' . $attr->getAttrName(),
+                $attr->getAttrValue(),
+            );
         }
 
         return $e;
