@@ -86,32 +86,6 @@ trait SerializableElementTrait
 
 
     /**
-     * Create a class from an array
-     *
-     * @codeCoverageIgnore
-     * @param array $data
-     * @return static
-     * @psalm-suppress MethodSignatureMismatch
-     */
-    public static function fromArray(/** @scrutinizer ignore-unused */array $data): static
-    {
-        throw new RuntimeException('Not implemented.');
-    }
-
-
-    /**
-     * Create an array from this class
-     *
-     * @codeCoverageIgnore
-     * @return array
-     */
-    public function toArray(): array
-    {
-        throw new RuntimeException('Not implemented');
-    }
-
-
-    /**
      * Create XML from this class
      *
      * @param \DOMElement|null $parent
