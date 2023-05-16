@@ -21,7 +21,7 @@ trait ExtendableAttributesTrait
     /**
      * Extra (namespace qualified) attributes.
      *
-     * @var array
+     * @var array<string, array>
      */
     protected array $namespacedAttributes = [];
 
@@ -57,7 +57,7 @@ trait ExtendableAttributesTrait
     /**
      * Get the namespaced attributes in this endpoint.
      *
-     * @return array
+     * @return array<string, array>
      */
     public function getAttributesNS(): array
     {
