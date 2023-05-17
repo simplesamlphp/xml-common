@@ -19,6 +19,7 @@ use function strval;
 /**
  * Class \SimpleSAML\XML\Base64ElementTraitTest
  *
+ * @covers \SimpleSAML\XML\TestUtils\SerializableElementTestTrait
  * @covers \SimpleSAML\XML\Base64ElementTrait
  * @covers \SimpleSAML\XML\StringElementTrait
  * @covers \SimpleSAML\XML\AbstractElement

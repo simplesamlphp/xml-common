@@ -17,6 +17,8 @@ use function dirname;
 /**
  * Class \SimpleSAML\XML\ExtendableAttributesTraitTest
  *
+ * @covers \SimpleSAML\XML\TestUtils\SchemaValidationTestTrait
+ * @covers \SimpleSAML\XML\TestUtils\SerializableElementTestTrait
  * @covers \SimpleSAML\XML\ExtendableAttributesTrait
  *
  * @package simplesamlphp\xml-common

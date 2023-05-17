@@ -17,6 +17,7 @@ use function strval;
 /**
  * Class \SimpleSAML\XML\LocalizedStringElementTraitTest
  *
+ * @covers \SimpleSAML\XML\TestUtils\SerializableElementTestTrait
  * @covers \SimpleSAML\XML\LocalizedStringElementTrait
  * @covers \SimpleSAML\XML\AbstractElement
  *

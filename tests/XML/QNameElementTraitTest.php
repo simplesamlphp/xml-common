@@ -18,6 +18,7 @@ use function strval;
 /**
  * Class \SimpleSAML\Test\XML\QNameElementTraitTest
  *
+ * @covers \SimpleSAML\XML\TestUtils\SerializableElementTestTrait
  * @covers \SimpleSAML\XML\QNameElementTrait
  *
  * @package simplesamlphp\xml-common
