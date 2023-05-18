@@ -160,24 +160,34 @@ final class Chunk implements ElementInterface, SerializableElementInterface
     }
 
 
-    /*
+    /**
+     * @param \DOMElement $xml The element where we should search for the attribute.
+     * @param string      $name The name of the attribute.
+     * @return string
+     *
+     * @throws \SimpleSAML\XML\Exception\MissingAttributeException if the attribute is missing from the element
+     */
+    public static function getAttribute(DOMElement $xml, string $name): string
+    {
+        Assert::true(
+            $xml->hasAttribute($name),
+            'Missing \'' . $name . '\' attribute on ' . $xml->prefix . ':' . $xml->localName . '.',
+            MissingAttributeException::class,
+        );
+
+        return $xml->getAttribute($name);
+    }
+
+
+    /**
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param string|null $default The default to return in case the attribute does not exist and it is optional.
      * @return string|null
-     *
-     * @psalm-return ($default is string ? string : string|null)
-     * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is missing from the element
      */
-    public static function getAttribute(DOMElement $xml, string $name, ?string $default = null): ?string
+    public static function getOptionalAttribute(DOMElement $xml, string $name, ?string $default = null): ?string
     {
         if (!$xml->hasAttribute($name)) {
-            Assert::true(
-                func_num_args() === 3,
-                'Missing \'' . $name . '\' attribute on ' . $xml->prefix . ':' . $xml->localName . '.',
-                MissingAttributeException::class,
-            );
-
             return $default;
         }
 
