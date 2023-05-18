@@ -17,7 +17,7 @@ trait ExtendableAttributesTrait
     /**
      * Extra (namespace qualified) attributes.
      *
-     * @var list{\SimpleSAML\XML\XMLAttribute}
+     * @var list{\SimpleSAML\XML\Attribute}
      */
     protected array $namespacedAttributes = [];
 
@@ -45,9 +45,9 @@ trait ExtendableAttributesTrait
      *
      * @param string $namespaceURI The namespace URI.
      * @param string $localName The local name.
-     * @return \SimpleSAML\XML\XMLAttribute|null The value of the attribute, or null if the attribute does not exist.
+     * @return \SimpleSAML\XML\Attribute|null The value of the attribute, or null if the attribute does not exist.
      */
-    public function getAttributeNS(string $namespaceURI, string $localName): ?XMLAttribute
+    public function getAttributeNS(string $namespaceURI, string $localName): ?Attribute
     {
         foreach ($this->getAttributesNS() as $attr) {
             if ($attr->getNamespaceURI() === $namespaceURI && $attr->getAttrName() === $localName) {
@@ -61,7 +61,7 @@ trait ExtendableAttributesTrait
     /**
      * Get the namespaced attributes in this element.
      *
-     * @return list{\SimpleSAML\XML\XMLAttribute}
+     * @return list{\SimpleSAML\XML\Attribute}
      */
     public function getAttributesNS(): array
     {
@@ -74,7 +74,7 @@ trait ExtendableAttributesTrait
      *
      * @param \DOMElement $xml
      *
-     * @return list{\SimpleSAML\XML\XMLAttribute} $attributes
+     * @return list{\SimpleSAML\XML\Attribute} $attributes
      */
     protected static function getAttributesNSFromXML(DOMElement $xml): array
     {
@@ -82,7 +82,7 @@ trait ExtendableAttributesTrait
 
         foreach ($xml->attributes as $a) {
             if ($a->namespaceURI !== null) {
-                $attributes[] = new XMLAttribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
+                $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
             }
         }
 
@@ -91,15 +91,15 @@ trait ExtendableAttributesTrait
 
 
     /**
-     * @param list{\SimpleSAML\XML\XMLAttribute} $attributes
-     * @throws \SimpleSAML\Assert\AssertionFailedException if $attributes contains anything other than XMLAttribute objects
+     * @param list{\SimpleSAML\XML\Attribute} $attributes
+     * @throws \SimpleSAML\Assert\AssertionFailedException if $attributes contains anything other than Attribute objects
      */
     protected function setAttributesNS(array $attributes): void
     {
         Assert::allIsInstanceOf(
             $attributes,
-            XMLAttribute::class,
-            'Arbitrary XML attributes can only be an instance of XMLAttribute.',
+            Attribute::class,
+            'Arbitrary XML attributes can only be an instance of Attribute.',
         );
         $this->namespacedAttributes = $attributes;
     }

@@ -11,7 +11,7 @@ use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
-use SimpleSAML\XML\XMLAttribute;
+use SimpleSAML\XML\Attribute;
 
 use function dirname;
 
@@ -47,8 +47,8 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $attr1 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'test', 'attr1', 'testval1');
-        $attr2 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'test', 'attr2', 'testval2');
+        $attr1 = new Attribute('urn:x-simplesamlphp:namespace', 'test', 'attr1', 'testval1');
+        $attr2 = new Attribute('urn:x-simplesamlphp:namespace', 'test', 'attr2', 'testval2');
 
         $extendableAttributesElement = new ExtendableAttributesElement([$attr1, $attr2]);
 

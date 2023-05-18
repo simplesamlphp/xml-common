@@ -13,10 +13,10 @@ use SimpleSAML\Assert\Assert;
  *
  * @package simplesamlphp/xml-common
  */
-final class XMLAttribute implements ArrayizableElementInterface
+final class Attribute implements ArrayizableElementInterface
 {
     /**
-     * Create na XMLAttribute element.
+     * Create an Attribute class
      *
      * @param string|null $namespaceURI
      * @param string $namespacePrefix

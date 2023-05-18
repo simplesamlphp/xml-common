@@ -7,19 +7,19 @@ namespace SimpleSAML\Test\XML;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\XMLAttribute;
+use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\TestUtils\ArrayizableElementTestTrait;
 
 use function dirname;
 
 /**
- * Class \SimpleSAML\XML\XMLAttributeTest
+ * Class \SimpleSAML\XML\AttributeTest
  *
- * @covers \SimpleSAML\XML\XMLAttribute
+ * @covers \SimpleSAML\XML\Attribute
  *
  * @package simplesamlphp\xml-common
  */
-final class XMLAttributeTest extends TestCase
+final class AttributeTest extends TestCase
 {
     use ArrayizableElementTestTrait;
 
@@ -27,7 +27,7 @@ final class XMLAttributeTest extends TestCase
      */
     public function setup(): void
     {
-        $this->testedClass = XMLAttribute::class;
+        $this->testedClass = Attribute::class;
 
         $this->arrayRepresentation = [
             'namespaceURI' => 'urn:x-simplesamlphp:phpunit',
@@ -42,7 +42,7 @@ final class XMLAttributeTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $extendableAttribute = new XMLAttribute(
+        $extendableAttribute = new Attribute(
             'urn:x-simplesamlphp:phpunit',
             'ssp',
             'test1',
@@ -60,7 +60,7 @@ final class XMLAttributeTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        $extendableAttribute = XMLAttribute::fromArray($this->arrayRepresentation);
+        $extendableAttribute = Attribute::fromArray($this->arrayRepresentation);
         $this->assertEquals(
             $this->arrayRepresentation,
             $extendableAttribute->toArray(),
