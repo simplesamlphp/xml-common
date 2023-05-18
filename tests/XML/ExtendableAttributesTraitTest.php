@@ -31,6 +31,16 @@ final class ExtendableAttributesTraitTest extends TestCase
     use SerializableElementTestTrait;
     use SchemaValidationTestTrait;
 
+    /** @var \SimpleSAML\XML\Attribute */
+    protected Attribute $local;
+
+    /** @var \SimpleSAML\XML\Attribute */
+    protected Attribute $other;
+
+    /** @var \SimpleSAML\XML\Attribute */
+    protected Attribute $target;
+
+
     /**
      */
     public function setup(): void

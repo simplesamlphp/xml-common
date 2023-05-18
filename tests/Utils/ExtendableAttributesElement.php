@@ -60,7 +60,7 @@ class ExtendableAttributesElement extends AbstractElement
     /**
      * Initialize element.
      *
-     * @param \DOMAttr[] $attributes
+     * @param \SimpleSAML\XML\Attribute[] $attributes
      */
     final public function __construct(array $attributes)
     {
