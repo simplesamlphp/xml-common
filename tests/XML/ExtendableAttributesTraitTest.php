@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Assert\Assert;
+use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\Test\XML\ExtendableAttributesElement;
 use SimpleSAML\Test\XML\ExtendableAttributesTestTrait;
 use SimpleSAML\XML\Constants as C;
@@ -40,39 +42,228 @@ final class ExtendableAttributesTraitTest extends TestCase
         $this->xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_ExtendableAttributesElement.xml',
         );
+
+        $this->local = new Attribute(null, '', 'some', 'localValue');
+
+        $this->target = new Attribute('urn:x-simplesamlphp:namespace', '', 'some', 'targetValue');
+
+        $this->other = new Attribute('urn:custom:dummy', 'dummy', 'some', 'dummyValue');
     }
 
 
     /**
      */
-    public function testMarshalling(): void
+    public function testInvalidNamespaceThrowsAnException(): void
     {
-        $attr1 = new Attribute('urn:x-simplesamlphp:namespace', 'test', 'attr1', 'testval1');
-        $attr2 = new Attribute('urn:x-simplesamlphp:namespace', 'test', 'attr2', 'testval2');
-
-        $extendableAttributesElement = new ExtendableAttributesElement([$attr1, $attr2]);
-
-        $this->assertEquals(
-            $this->xmlRepresentation->saveXML($this->xmlRepresentation->documentElement),
-            strval($extendableAttributesElement),
-        );
+        $this->expectException(AssertionFailedException::class);
+        new class ([$this->target]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return 'wrong';
+            }
+        };
     }
 
 
     /**
      */
-    public function testUnmarshalling(): void
+    public function testIllegalNamespaceComboThrowsAnException(): void
     {
-        $extendableAttributesElement = ExtendableAttributesElement::fromXML($this->xmlRepresentation->documentElement);
-        $this->assertTrue($extendableAttributesElement->hasAttributeNS('urn:x-simplesamlphp:namespace', 'attr1'));
+        $this->expectException(AssertionFailedException::class);
+        new class ([$this->target]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return [C::XS_ANY_NS_OTHER, C::XS_ANY_NS_ANY];
+            }
+        };
+    }
 
-        $attr = $extendableAttributesElement->getAttributeNS('urn:x-simplesamlphp:namespace', 'attr1');
-        $this->assertEquals(
-            'testval1',
-            $attr->getAttrValue(),
-        );
 
-        $attributes = $extendableAttributesElement->getAttributesNS();
-        $this->assertCount(2, $attributes);
+    public function testEmptyNamespaceArrayThrowsAnException(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        new class ([]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return [];
+            }
+        };
+    }
+
+
+    /**
+     */
+    public function testOtherNamespacePassingOtherSucceeds(): void
+    {
+        new class ([$this->other]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return C::XS_ANY_NS_OTHER;
+            }
+        };
+
+        $this->addToAssertionCount(1);
+    }
+
+
+    /**
+     */
+    public function testOtherNamespacePassingLocalThrowsAnException(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        new class ([$this->local]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return C::XS_ANY_NS_OTHER;
+            }
+        };
+    }
+
+
+    /**
+     */
+    public function testTargetNamespacePassingTargetSucceeds(): void
+    {
+        new class ([$this->target]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return C::XS_ANY_NS_TARGET;
+            }
+        };
+
+        $this->addToAssertionCount(1);
+    }
+
+
+    /**
+     */
+    public function testTargetNamespacePassingTargetArraySucceeds(): void
+    {
+        new class ([$this->target]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return [C::XS_ANY_NS_TARGET];
+            }
+        };
+
+        $this->addToAssertionCount(1);
+    }
+
+
+    /**
+     */
+    public function testTargetNamespacePassingTargetArraySucceedsWithLocal(): void
+    {
+        new class ([$this->target]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return [C::XS_ANY_NS_TARGET, C::XS_ANY_NS_LOCAL];
+            }
+        };
+
+        $this->addToAssertionCount(1);
+    }
+
+
+    /**
+     */
+    public function testTargetNamespacePassingOtherThrowsAnException(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        new class ([$this->other]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return C::XS_ANY_NS_TARGET;
+            }
+        };
+    }
+
+
+    /**
+     */
+    public function testLocalNamespacePassingLocalSucceeds(): void
+    {
+        $o = new class ([$this->local]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return C::XS_ANY_NS_LOCAL;
+            }
+        };
+
+        $this->addToAssertionCount(1);
+    }
+
+
+    /**
+     */
+    public function testLocalNamespacePassingLocalArraySucceeds(): void
+    {
+        new class ([$this->local]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return C::XS_ANY_NS_LOCAL;
+            }
+        };
+
+        $this->addToAssertionCount(1);
+    }
+
+
+    /**
+     */
+    public function testLocalNamespacePassingTargetThrowsAnException(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        new class ([$this->target]) extends ExtendableAttributesElement {
+            public function getAtributeNamespace(): array|string
+            {
+                return C::XS_ANY_NS_LOCAL;
+            }
+        };
+    }
+
+
+
+    /**
+     */
+    public function testLocalNamespacePassingOtherThrowsAnException(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        new class ([$this->other]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return C::XS_ANY_NS_LOCAL;
+            }
+        };
+    }
+
+
+    /**
+     */
+    public function testAnyNamespacePassingTargetSucceeds(): void
+    {
+        $o = new class ([$this->target]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return C::XS_ANY_NS_ANY;
+            }
+        };
+
+        $this->addToAssertionCount(1);
+    }
+
+
+    /**
+     */
+    public function testAnyNamespacePassingOtherSucceeds(): void
+    {
+        $o = new class ([$this->other]) extends ExtendableAttributesElement {
+            public function getAttributeNamespace(): array|string
+            {
+                return C::XS_ANY_NS_ANY;
+            }
+        };
+
+        $this->addToAssertionCount(1);
     }
 }

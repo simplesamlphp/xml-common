@@ -16,7 +16,6 @@ use function array_search;
 use function defined;
 use function implode;
 use function is_array;
-use function is_string;
 use function rtrim;
 use function sprintf;
 

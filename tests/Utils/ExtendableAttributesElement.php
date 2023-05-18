@@ -6,6 +6,7 @@ namespace SimpleSAML\Test\XML;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\ExtendableAttributesTrait;
@@ -29,6 +30,9 @@ class ExtendableAttributesElement extends AbstractElement
 
     /** @var string */
     public const LOCALNAME = 'ExtendableAttributesElement';
+
+    /** @var string|array */
+    public const XS_ANY_ATTR_NAMESPACE = C::XS_ANY_NS_ANY;
 
 
     /**
