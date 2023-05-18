@@ -63,6 +63,28 @@ final class ExtendableAttributesTraitTest extends TestCase
 
     /**
      */
+    public function testHasAttributeNS(): void
+    {
+        $c = new ExtendableAttributesElement([$this->other]);
+
+        $this->assertTrue($c->hasAttributeNS('urn:custom:dummy', 'some'));
+        $this->assertFalse($c->hasAttributeNS('urn:x-simplesamlphp:namespace', 'some'));
+    }
+
+
+    /**
+     */
+    public function testGetAttributeNS(): void
+    {
+        $c = new ExtendableAttributesElement([$this->other]);
+
+        $this->assertInstanceOf(Attribute::class, $c->getAttributeNS('urn:custom:dummy', 'some'));
+        $this->assertNull($c->getAttributeNS('urn:x-simplesamlphp:namespace', 'some'));
+    }
+
+
+    /**
+     */
     public function testInvalidNamespaceThrowsAnException(): void
     {
         $this->expectException(AssertionFailedException::class);

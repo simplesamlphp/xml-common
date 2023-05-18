@@ -91,8 +91,8 @@ final class AttributeTest extends TestCase
         $elt = $extendableAttribute->toXML($doc->documentElement);
 
         $this->assertStringContainsString(
-           $this->xmlRepresentation->saveXML(),
-           $elt->ownerDocument->saveXML(),
+            $this->xmlRepresentation->saveXML(),
+            $elt->ownerDocument->saveXML(),
         );
     }
 

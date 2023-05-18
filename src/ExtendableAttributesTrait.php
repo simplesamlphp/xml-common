@@ -37,11 +37,11 @@ trait ExtendableAttributesTrait
     /**
      * Check if a namespace-qualified attribute exists.
      *
-     * @param string $namespaceURI The namespace URI.
+     * @param string|null $namespaceURI The namespace URI.
      * @param string $localName The local name.
      * @return bool true if the attribute exists, false if not.
      */
-    public function hasAttributeNS(string $namespaceURI, string $localName): bool
+    public function hasAttributeNS(?string $namespaceURI, string $localName): bool
     {
         foreach ($this->getAttributesNS() as $attr) {
             if ($attr->getNamespaceURI() === $namespaceURI && $attr->getAttrName() === $localName) {
@@ -55,11 +55,11 @@ trait ExtendableAttributesTrait
     /**
      * Get a namespace-qualified attribute.
      *
-     * @param string $namespaceURI The namespace URI.
+     * @param string|null $namespaceURI The namespace URI.
      * @param string $localName The local name.
      * @return \SimpleSAML\XML\Attribute|null The value of the attribute, or null if the attribute does not exist.
      */
-    public function getAttributeNS(string $namespaceURI, string $localName): ?Attribute
+    public function getAttributeNS(?string $namespaceURI, string $localName): ?Attribute
     {
         foreach ($this->getAttributesNS() as $attr) {
             if ($attr->getNamespaceURI() === $namespaceURI && $attr->getAttrName() === $localName) {
