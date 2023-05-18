@@ -66,6 +66,40 @@ final class AbstractElementTest extends TestCase
 
     /**
      */
+    public function testGetAttribute(): void
+    {
+        $xml = $this->xmlRepresentation->documentElement;
+
+        // Get mandatory attributes
+        $this->assertEquals('text', Element::getAttribute($xml, 'text'));
+        $this->assertFalse(Element::getBooleanAttribute($xml, 'boolean'));
+        $this->assertEquals(2, Element::getIntegerAttribute($xml, 'integer'));
+
+        // Get optional attributes
+        $this->assertEquals('text', Element::getOptionalAttribute($xml, 'text'));
+        $this->assertFalse(Element::getOptionalBooleanAttribute($xml, 'boolean'));
+        $this->assertEquals(2, Element::getOptionalIntegerAttribute($xml, 'integer'));
+
+        // Get optional non-existing attributes
+        $this->assertNull(Element::getOptionalAttribute($xml, 'non-existing'));
+        $this->assertNull(Element::getOptionalBooleanAttribute($xml, 'non-existing'));
+        $this->assertNull(Element::getOptionalIntegerAttribute($xml, 'non-existing'));
+
+        // Get optional non-existing attributes with default
+        $this->assertEquals('other text', Element::getOptionalAttribute($xml, 'non-existing', 'other text'));
+        $this->assertTrue(Element::getOptionalBooleanAttribute($xml, 'non-existing', true));
+        $this->assertEquals(3, Element::getOptionalIntegerAttribute($xml, 'non-existing', 3));
+
+        // Get mandatory non-existing attributes
+        $this->expectException(MissingAttributeException::class);
+        Element::getAttribute($xml, 'non-existing');
+        Element::getBooleanAttribute($xml, 'non-existing');
+        Element::getIntegerAttribute($xml, 'non-existing');
+    }
+
+
+    /**
+     */
     public function testGetAttributeThrowsExceptionOnMissingAttribute(): void
     {
         $doc = $this->xmlRepresentation->documentElement;
