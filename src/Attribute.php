@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMAttr;
-use DOMDocument;
+use DOMElement;
 use SimpleSAML\Assert\Assert;
 
 /**
@@ -93,21 +93,17 @@ final class Attribute implements ArrayizableElementInterface
     }
 
 
+
     /**
      * Create XML from this class
      *
-     * @return \DOMAttr
+     * @param \DOMElement $parent
+     * @return \DOMElement
      */
-    public function toXML(): DOMAttr
+    public function toXML(DOMElement $parent): DOMElement
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-
-        $elt = $doc->createElement("placeholder");
-        $elt->setAttributeNS($this->getNamespaceURI(), $this->getAttrName(), $this->getAttrValue());
-
-        /** @psalm-var \DOMAttr $ret */
-        $ret = $elt->getAttributeNode($this->getAttrName());
-        return $ret;
+        $parent->setAttributeNS($this->getNamespaceURI(), $this->getNamespacePrefix() . ':' . $this->getAttrName(), $this->getAttrValue());
+        return $parent;
     }
 
 
