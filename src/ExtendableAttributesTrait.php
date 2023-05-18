@@ -29,7 +29,7 @@ trait ExtendableAttributesTrait
     /**
      * Extra (namespace qualified) attributes.
      *
-     * @var list{\SimpleSAML\XML\Attribute}
+     * @var list<\SimpleSAML\XML\Attribute>
      */
     protected array $namespacedAttributes = [];
 
@@ -73,7 +73,7 @@ trait ExtendableAttributesTrait
     /**
      * Get the namespaced attributes in this element.
      *
-     * @return list{\SimpleSAML\XML\Attribute}
+     * @return list<\SimpleSAML\XML\Attribute>
      */
     public function getAttributesNS(): array
     {
@@ -86,7 +86,7 @@ trait ExtendableAttributesTrait
      *
      * @param \DOMElement $xml
      *
-     * @return list{\SimpleSAML\XML\Attribute} $attributes
+     * @return list<\SimpleSAML\XML\Attribute> $attributes
      */
     protected static function getAttributesNSFromXML(DOMElement $xml): array
     {
@@ -103,7 +103,7 @@ trait ExtendableAttributesTrait
 
 
     /**
-     * @param list{\SimpleSAML\XML\Attribute} $attributes
+     * @param list<\SimpleSAML\XML\Attribute> $attributes
      * @throws \SimpleSAML\Assert\AssertionFailedException if $attributes contains anything other than Attribute objects
      */
     protected function setAttributesNS(array $attributes): void
