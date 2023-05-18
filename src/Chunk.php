@@ -183,7 +183,7 @@ final class Chunk implements ElementInterface, SerializableElementInterface
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param string|null $default The default to return in case the attribute does not exist and it is optional.
-     * @return string|null
+     * @return ($default is null ? null : string)
      */
     public static function getOptionalAttribute(DOMElement $xml, string $name, ?string $default = null): ?string
     {
@@ -221,7 +221,7 @@ final class Chunk implements ElementInterface, SerializableElementInterface
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param bool|null   $default The default to return in case the attribute does not exist and it is optional.
-     * @return bool|null
+     * @return ($default is null ? null : bool)
      *
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not a boolean
      */
@@ -265,7 +265,7 @@ final class Chunk implements ElementInterface, SerializableElementInterface
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param int|null    $default The default to return in case the attribute does not exist and it is optional.
-     * @return int|null
+     * @return ($default is null ? null : int)
      *
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not an integer
      */
