@@ -103,4 +103,21 @@ trait ExtendableAttributesTrait
         );
         $this->namespacedAttributes = $attributes;
     }
+
+
+
+    /**
+     * @return array|string
+     */
+    public function getAttributeNamespace(): array|string
+    {
+        Assert::true(
+            defined('static::XS_ANY_ATTR_NAMESPACE'),
+            self::getClassName(static::class)
+            . '::XS_ANY_ATTR_NAMESPACE constant must be defined and set to the namespace for the xs:any element.',
+            RuntimeException::class,
+        );
+
+        return static::NS_ANY_ATTR_NAMESPACE;
+    }
 }

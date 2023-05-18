@@ -34,7 +34,7 @@ class ExtendableElement extends AbstractElement
     public const LOCALNAME = 'ExtendableElement';
 
     /** @var string|array */
-    public const NAMESPACE = C::XS_ANY_NS_ANY;
+    public const XS_ANY_ELT_NAMESPACE = C::XS_ANY_NS_ANY;
 
 
     /**

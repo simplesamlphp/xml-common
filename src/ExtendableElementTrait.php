@@ -40,7 +40,7 @@ trait ExtendableElementTrait
     protected function setElements(array $elements): void
     {
         Assert::allIsInstanceOf($elements, ElementInterface::class);
-        $namespace = $this->getNamespace();
+        $namespace = $this->getElementNamespace();
 
         // Validate namespace value
         if (!is_array($namespace)) {
@@ -123,15 +123,15 @@ trait ExtendableElementTrait
     /**
      * @return array|string
      */
-    public function getNamespace(): array|string
+    public function getElementNamespace(): array|string
     {
         Assert::true(
-            defined('static::NAMESPACE'),
+            defined('static::XS_ANY_ELT_NAMESPACE'),
             self::getClassName(static::class)
-            . '::NAMESPACE constant must be defined and set to the namespace for the xs:any element.',
+            . '::XS_ANY_ELT_NAMESPACE constant must be defined and set to the namespace for the xs:any element.',
             RuntimeException::class,
         );
 
-        return static::NAMESPACE;
+        return static::XS_ANY_ELT_NAMESPACE;
     }
 }
