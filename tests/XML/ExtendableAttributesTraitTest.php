@@ -105,14 +105,14 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function testOtherNamespacePassingOtherSucceeds(): void
     {
-        new class ([$this->other]) extends ExtendableAttributesElement {
+        $c = new class ([$this->other]) extends ExtendableAttributesElement {
             public function getAttributeNamespace(): array|string
             {
                 return C::XS_ANY_NS_OTHER;
             }
         };
 
-        $this->addToAssertionCount(1);
+        $this->assertEquals(C::XS_ANY_NS_OTHER, $c->getAttributeNamespace());
     }
 
 
@@ -134,14 +134,14 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function testTargetNamespacePassingTargetSucceeds(): void
     {
-        new class ([$this->target]) extends ExtendableAttributesElement {
+        $c = new class ([$this->target]) extends ExtendableAttributesElement {
             public function getAttributeNamespace(): array|string
             {
                 return C::XS_ANY_NS_TARGET;
             }
         };
 
-        $this->addToAssertionCount(1);
+        $this->assertEquals(C::XS_ANY_NS_TARGET, $c->getAttributeNamespace());
     }
 
 
@@ -149,14 +149,14 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function testTargetNamespacePassingTargetArraySucceeds(): void
     {
-        new class ([$this->target]) extends ExtendableAttributesElement {
+        $c = new class ([$this->target]) extends ExtendableAttributesElement {
             public function getAttributeNamespace(): array|string
             {
                 return [C::XS_ANY_NS_TARGET];
             }
         };
 
-        $this->addToAssertionCount(1);
+        $this->assertEquals([C::XS_ANY_NS_TARGET], $c->getAttributeNamespace());
     }
 
 
@@ -164,14 +164,14 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function testTargetNamespacePassingTargetArraySucceedsWithLocal(): void
     {
-        new class ([$this->target]) extends ExtendableAttributesElement {
+        $c = new class ([$this->target]) extends ExtendableAttributesElement {
             public function getAttributeNamespace(): array|string
             {
                 return [C::XS_ANY_NS_TARGET, C::XS_ANY_NS_LOCAL];
             }
         };
 
-        $this->addToAssertionCount(1);
+        $this->assertEquals([C::XS_ANY_NS_TARGET, C::XS_ANY_NS_LOCAL], $c->getAttributeNamespace());
     }
 
 
@@ -193,14 +193,14 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function testLocalNamespacePassingLocalSucceeds(): void
     {
-        $o = new class ([$this->local]) extends ExtendableAttributesElement {
+        $c = new class ([$this->local]) extends ExtendableAttributesElement {
             public function getAttributeNamespace(): array|string
             {
                 return C::XS_ANY_NS_LOCAL;
             }
         };
 
-        $this->addToAssertionCount(1);
+        $this->assertEquals(C::XS_ANY_NS_LOCAL, $c->getAttributeNamespace());
     }
 
 
@@ -208,14 +208,14 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function testLocalNamespacePassingLocalArraySucceeds(): void
     {
-        new class ([$this->local]) extends ExtendableAttributesElement {
+        $c = new class ([$this->local]) extends ExtendableAttributesElement {
             public function getAttributeNamespace(): array|string
             {
-                return C::XS_ANY_NS_LOCAL;
+                return [C::XS_ANY_NS_LOCAL];
             }
         };
 
-        $this->addToAssertionCount(1);
+        $this->assertEquals([C::XS_ANY_NS_LOCAL], $c->getAttributeNamespace());
     }
 
 
@@ -252,14 +252,14 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function testAnyNamespacePassingTargetSucceeds(): void
     {
-        $o = new class ([$this->target]) extends ExtendableAttributesElement {
+        $c = new class ([$this->target]) extends ExtendableAttributesElement {
             public function getAttributeNamespace(): array|string
             {
                 return C::XS_ANY_NS_ANY;
             }
         };
 
-        $this->addToAssertionCount(1);
+        $this->assertEquals(C::XS_ANY_NS_ANY, $c->getAttributeNamespace());
     }
 
 
@@ -267,13 +267,13 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function testAnyNamespacePassingOtherSucceeds(): void
     {
-        $o = new class ([$this->other]) extends ExtendableAttributesElement {
+        $c = new class ([$this->other]) extends ExtendableAttributesElement {
             public function getAttributeNamespace(): array|string
             {
                 return C::XS_ANY_NS_ANY;
             }
         };
 
-        $this->addToAssertionCount(1);
+        $this->assertEquals(C::XS_ANY_NS_ANY, $c->getAttributeNamespace());
     }
 }

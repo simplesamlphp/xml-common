@@ -23,11 +23,5 @@
                 <file name="tests/bootstrap.php" />
             </errorLevel>
         </UnresolvableInclude>
-        <InternalMethod>
-            <errorLevel type="suppress">
-                <file name="tests/XML/ExtendableAttributesTraitTest.php" />
-                <file name="tests/XML/ExtendableElementTraitTest.php" />
-            </errorLevel>
-        </InternalMethod>
     </issueHandlers>
 </psalm>
