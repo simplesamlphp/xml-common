@@ -17,6 +17,7 @@ use function dirname;
  * Class \SimpleSAML\XML\AttributeTest
  *
  * @covers \SimpleSAML\XML\Attribute
+ * @covers \SimpleSAML\XML\TestUtils\ArrayizableElementTestTrait
  *
  * @package simplesamlphp\xml-common
  */
