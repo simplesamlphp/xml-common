@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMDocument;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\MissingAttributeException;
@@ -310,7 +309,7 @@ final class Chunk implements ElementInterface, SerializableElementInterface
     public function toXML(DOMElement $parent = null): DOMElement
     {
         if ($parent === null) {
-            $doc = new DOMDocument();
+            $doc = DOMDocumentFactory::create();
         } else {
             $doc = $parent->ownerDocument;
             Assert::notNull($doc);

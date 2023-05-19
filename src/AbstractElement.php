@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMDocument;
 use DOMElement;
 use RuntimeException;
 use SimpleSAML\XML\Exception\MissingAttributeException;
@@ -43,17 +42,16 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
         $namespace = static::getNamespaceURI();
 
         if ($parent === null) {
-            $doc = new DOMDocument();
-            $e = $doc->createElementNS($namespace, $qualifiedName);
-            $doc->appendChild($e);
+            $parent = DOMDocumentFactory::create();
+            $e = $parent->createElementNS($namespace, $qualifiedName);
         } else {
+            /** @psalm-var \DOMDocument $doc */
             $doc = $parent->ownerDocument;
             Assert::notNull($doc);
-
-            /** @psalm-var \DOMDocument $doc */
             $e = $doc->createElementNS($namespace, $qualifiedName);
-            $parent->appendChild($e);
         }
+
+        $parent->appendChild($e);
 
         return $e;
     }
