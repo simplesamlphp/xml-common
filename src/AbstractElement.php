@@ -19,6 +19,7 @@ use function func_num_args;
 use function in_array;
 use function intval;
 use function join;
+use function strval;
 
 /**
  * Abstract class to be implemented by all classes
@@ -262,9 +263,9 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
     /**
      * Get the namespace-prefix for the element.
      *
-     * @return string|null
+     * @return string
      */
-    public static function getNamespacePrefix(): ?string
+    public static function getNamespacePrefix(): string
     {
         Assert::true(
             defined('static::NS_PREFIX'),
@@ -273,7 +274,7 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
             RuntimeException::class,
         );
 
-        return static::NS_PREFIX;
+        return strval(static::NS_PREFIX);
     }
 
 

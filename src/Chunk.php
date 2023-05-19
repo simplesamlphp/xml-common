@@ -43,9 +43,9 @@ final class Chunk implements ElementInterface, SerializableElementInterface
     /**
      * The prefix of this element.
      *
-     * @var string|null
+     * @var string
      */
-    protected ?string $prefix;
+    protected string $prefix;
 
 
     /**
@@ -123,9 +123,9 @@ final class Chunk implements ElementInterface, SerializableElementInterface
     /**
      * Collect the value of the prefix-property
      *
-     * @return string|null
+     * @return string
      */
-    public function getPrefix(): ?string
+    public function getPrefix(): string
     {
         return $this->prefix;
     }
@@ -138,7 +138,7 @@ final class Chunk implements ElementInterface, SerializableElementInterface
      */
     protected function setPrefix(string $prefix = null): void
     {
-        $this->prefix = $prefix;
+        $this->prefix = strval($prefix);
     }
 
 
@@ -152,7 +152,7 @@ final class Chunk implements ElementInterface, SerializableElementInterface
     {
         $prefix = $this->getPrefix();
 
-        if (is_null($prefix)) {
+        if (empty($prefix)) {
             return $this->getLocalName();
         } else {
             return $prefix . ':' . $this->getLocalName();
