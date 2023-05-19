@@ -87,7 +87,7 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param string|null $default The default to return in case the attribute does not exist and it is optional.
-     * @return ($default is null ? null : string)
+     * @psalm-return ($default is string ? string : string|null)
      */
     public static function getOptionalAttribute(DOMElement $xml, string $name, ?string $default = null): ?string
     {
@@ -128,7 +128,7 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param bool|null   $default The default to return in case the attribute does not exist and it is optional.
-     * @return ($default is null ? null : bool)
+     * @psalm-return ($default is bool ? bool : bool|null)
      *
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not a boolean
      */
@@ -174,7 +174,7 @@ abstract class AbstractElement implements ElementInterface, SerializableElementI
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param int|null    $default The default to return in case the attribute does not exist and it is optional.
-     * @return ($default is null ? null : int)
+     * @psalm-return ($default is int ? int : int|null)
      *
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not an integer
      */
