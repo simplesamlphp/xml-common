@@ -219,7 +219,7 @@ final class Chunk implements ElementInterface, SerializableElementInterface
     /**
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
-     * @param bool|int    $default The default to return in case the attribute does not exist and it is optional.
+     * @param bool|null   $default The default to return in case the attribute does not exist and it is optional.
      * @psalm-return ($default is bool ? bool : null)
      *
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not a boolean
