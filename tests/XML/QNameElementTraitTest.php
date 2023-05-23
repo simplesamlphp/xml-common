@@ -27,13 +27,14 @@ final class QNameElementTraitTest extends TestCase
 {
     use SerializableElementTestTrait;
 
+
     /**
      */
-    public function setup(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->testedClass = QNameElement::class;
+        self::$testedClass = QNameElement::class;
 
-        $this->xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_QNameElement.xml',
         );
     }
@@ -46,7 +47,7 @@ final class QNameElementTraitTest extends TestCase
         $qnameElement = new QNameElement('env:Sender', 'http://www.w3.org/2003/05/soap-envelope');
 
         $this->assertEquals(
-            $this->xmlRepresentation->saveXML($this->xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
             strval($qnameElement)
         );
     }
@@ -79,7 +80,7 @@ final class QNameElementTraitTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        $qnameElement = QNameElement::fromXML($this->xmlRepresentation->documentElement);
+        $qnameElement = QNameElement::fromXML(self::$xmlRepresentation->documentElement);
 
         $this->assertEquals('env:Sender', $qnameElement->getContent());
         $this->assertEquals('http://www.w3.org/2003/05/soap-envelope', $qnameElement->getContentNamespaceUri());

@@ -28,11 +28,11 @@ final class ChunkTest extends TestCase
 
     /**
      */
-    public function setup(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->testedClass = Chunk::class;
+        self::$testedClass = Chunk::class;
 
-        $this->xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_Element.xml',
         );
     }
@@ -42,10 +42,10 @@ final class ChunkTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $element = new Chunk($this->xmlRepresentation->documentElement);
+        $element = new Chunk(self::$xmlRepresentation->documentElement);
 
         $this->assertEquals(
-            $this->xmlRepresentation->saveXML($this->xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
             strval($element),
         );
     }
@@ -55,7 +55,7 @@ final class ChunkTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        $element = Chunk::fromXML($this->xmlRepresentation->documentElement);
+        $element = Chunk::fromXML(self::$xmlRepresentation->documentElement);
 
         $this->assertEquals($element->getLocalName(), 'Element');
         $this->assertEquals($element->getNamespaceURI(), 'urn:x-simplesamlphp:namespace');
@@ -63,7 +63,7 @@ final class ChunkTest extends TestCase
         $this->assertEquals($element->getQualifiedName(), 'ssp:Element');
         $this->assertFalse($element->isEmptyElement());
 
-        $xml = $this->xmlRepresentation->documentElement;
+        $xml = self::$xmlRepresentation->documentElement;
 
         // Get mandatory attributes
         $this->assertEquals(2, $element::getIntegerAttribute($xml, 'integer'));

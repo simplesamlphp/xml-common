@@ -24,14 +24,14 @@ use function trim;
  */
 trait SchemaValidationTestTrait
 {
-    /** @var class-string */
-    protected string $testedClass;
+    /** @var class-string|null */
+    protected static ?string $testedClass;
 
-    /** @var string */
-    protected string $schema;
+    /** @var string|null */
+    protected static ?string $schemaFile;
 
     /** @var \DOMDocument|null */
-    protected ?DOMDocument $xmlRepresentation = null;
+    protected static ?DOMDocument $xmlRepresentation;
 
 
     /**
@@ -39,30 +39,30 @@ trait SchemaValidationTestTrait
      */
     public function testSchemaValidation(): void
     {
-        if (!class_exists($this->testedClass)) {
+        if (!class_exists(self::$testedClass)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSchemaValidation(). Please set ' . self::class
                 . ':$testedClass to a class-string representing the XML-class being tested',
             );
-        } elseif (empty($this->schema)) {
+        } elseif (empty(self::$schemaFile)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSchemaValidation(). Please set ' . self::class
                 . ':$schema to point to a schema file',
             );
-        } elseif (empty($this->xmlRepresentation)) {
+        } elseif (empty(self::$xmlRepresentation)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSchemaValidation(). Please set ' . self::class
                 . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested',
             );
         } else {
-            $predoc = XMLReader::XML($this->xmlRepresentation->saveXML());
+            $predoc = XMLReader::XML(self::$xmlRepresentation->saveXML());
             Assert::notFalse($predoc);
 
             /** @psalm-var \XMLReader $predoc */
             $pre = $this->validateDocument($predoc);
             $this->assertTrue($pre);
 
-            $class = $this->testedClass::fromXML($this->xmlRepresentation->documentElement);
+            $class = self::$testedClass::fromXML(self::$xmlRepresentation->documentElement);
             $serializedClass = $class->toXML();
 
             $postdoc = XMLReader::XML($serializedClass->ownerDocument->saveXML());
@@ -80,7 +80,7 @@ trait SchemaValidationTestTrait
      */
     private function validateDocument(XMLReader $xmlReader): bool
     {
-        $xmlReader->setSchema($this->schema);
+        $xmlReader->setSchema(self::$schemaFile);
 
         libxml_use_internal_errors(true);
 
@@ -97,9 +97,10 @@ trait SchemaValidationTestTrait
         }
 
         if ($msgs) {
-            throw new SchemaViolationException(
-                "XML schema validation errors:\n - " . implode("\n - ", array_unique($msgs))
-            );
+            throw new SchemaViolationException(sprintf(
+                "XML schema validation errors:\n - %s",
+                implode("\n - ", array_unique($msgs))
+            ));
         }
 
         return true;

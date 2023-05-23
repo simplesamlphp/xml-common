@@ -31,46 +31,46 @@ final class ExtendableElementTraitTest extends TestCase
     use SchemaValidationTestTrait;
 
     /** @var \SimpleSAML\XML\ElementInterface */
-    protected ElementInterface $empty;
+    protected static ElementInterface $empty;
 
     /** @var \SimpleSAML\XML\ElementInterface */
-    protected ElementInterface $local;
+    protected static ElementInterface $local;
 
     /** @var \SimpleSAML\XML\ElementInterface */
-    protected ElementInterface $other;
+    protected static ElementInterface $other;
 
     /** @var \SimpleSAML\XML\ElementInterface */
-    protected ElementInterface $target;
+    protected static ElementInterface $target;
 
 
     /**
      */
-    public function setup(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->schema = dirname(__FILE__, 2) . '/resources/schemas/simplesamlphp.xsd';
+        self::$schemaFile = dirname(__FILE__, 2) . '/resources/schemas/simplesamlphp.xsd';
 
-        $this->testedClass = ExtendableElement::class;
+        self::$testedClass = ExtendableElement::class;
 
-        $this->xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_ExtendableElement.xml',
         );
 
-        $this->empty = new Chunk(DOMDocumentFactory::fromString(<<<XML
+        self::$empty = new Chunk(DOMDocumentFactory::fromString(<<<XML
             <chunk/>
 XML
         )->documentElement);
 
-        $this->local = new Chunk(DOMDocumentFactory::fromString(<<<XML
+        self::$local = new Chunk(DOMDocumentFactory::fromString(<<<XML
             <chunk>some</chunk>
 XML
         )->documentElement);
 
-        $this->target = new Chunk(DOMDocumentFactory::fromString(<<<XML
+        self::$target = new Chunk(DOMDocumentFactory::fromString(<<<XML
             <ssp:chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:chunk>
 XML
         )->documentElement);
 
-        $this->other = new Chunk(DOMDocumentFactory::fromString(<<<XML
+        self::$other = new Chunk(DOMDocumentFactory::fromString(<<<XML
             <dummy:chunk xmlns:dummy="urn:custom:dummy">some</dummy:chunk>
 XML
         )->documentElement);
@@ -123,7 +123,7 @@ XML
      */
     public function testOtherNamespacePassingOtherSucceeds(): void
     {
-        $c = new class ([$this->other]) extends ExtendableElement {
+        $c = new class ([self::$other]) extends ExtendableElement {
             public function getElementNamespace(): array|string
             {
                 return C::XS_ANY_NS_OTHER;
@@ -139,7 +139,7 @@ XML
     public function testOtherNamespacePassingLocalThrowsAnException(): void
     {
         $this->expectException(AssertionFailedException::class);
-        new class ([$this->local]) extends ExtendableElement {
+        new class ([self::$local]) extends ExtendableElement {
             public function getElementNamespace(): array|string
             {
                 return C::XS_ANY_NS_OTHER;
@@ -152,7 +152,7 @@ XML
      */
     public function testTargetNamespacePassingTargetSucceeds(): void
     {
-        $c = new class ([$this->target]) extends ExtendableElement {
+        $c = new class ([self::$target]) extends ExtendableElement {
             public function getElementNamespace(): array|string
             {
                 return C::XS_ANY_NS_TARGET;
@@ -167,7 +167,7 @@ XML
      */
     public function testTargetNamespacePassingTargetArraySucceeds(): void
     {
-        $c = new class ([$this->target]) extends ExtendableElement {
+        $c = new class ([self::$target]) extends ExtendableElement {
             public function getElementNamespace(): array|string
             {
                 return [C::XS_ANY_NS_TARGET];
@@ -182,7 +182,7 @@ XML
      */
     public function testTargetNamespacePassingTargetArraySucceedsWithLocal(): void
     {
-        $c = new class ([$this->target]) extends ExtendableElement {
+        $c = new class ([self::$target]) extends ExtendableElement {
             public function getElementNamespace(): array|string
             {
                 return [C::XS_ANY_NS_TARGET, C::XS_ANY_NS_LOCAL];
@@ -198,7 +198,7 @@ XML
     public function testTargetNamespacePassingOtherThrowsAnException(): void
     {
         $this->expectException(AssertionFailedException::class);
-        new class ([$this->other]) extends ExtendableElement {
+        new class ([self::$other]) extends ExtendableElement {
             public function getElementNamespace(): array|string
             {
                 return C::XS_ANY_NS_TARGET;
@@ -211,7 +211,7 @@ XML
      */
     public function testLocalNamespacePassingLocalSucceeds(): void
     {
-        $c = new class ([$this->local]) extends ExtendableElement {
+        $c = new class ([self::$local]) extends ExtendableElement {
             public function getElementNamespace(): array|string
             {
                 return C::XS_ANY_NS_LOCAL;
@@ -226,7 +226,7 @@ XML
      */
     public function testLocalNamespacePassingLocalArraySucceeds(): void
     {
-        $c = new class ([$this->local]) extends ExtendableElement {
+        $c = new class ([self::$local]) extends ExtendableElement {
             public function getElementNamespace(): array|string
             {
                 return [C::XS_ANY_NS_LOCAL];
@@ -242,7 +242,7 @@ XML
     public function testLocalNamespacePassingTargetThrowsAnException(): void
     {
         $this->expectException(AssertionFailedException::class);
-        new class ([$this->target]) extends ExtendableElement {
+        new class ([self::$target]) extends ExtendableElement {
             public function getElementNamespace(): array|string
             {
                 return C::XS_ANY_NS_LOCAL;
@@ -256,7 +256,7 @@ XML
     public function testLocalNamespacePassingOtherThrowsAnException(): void
     {
         $this->expectException(AssertionFailedException::class);
-        new class ([$this->other]) extends ExtendableElement {
+        new class ([self::$other]) extends ExtendableElement {
             public function getElementNamespace(): array|string
             {
                 return C::XS_ANY_NS_LOCAL;
@@ -269,7 +269,7 @@ XML
      */
     public function testAnyNamespacePassingTargetSucceeds(): void
     {
-        $c = new class ([$this->target]) extends ExtendableElement {
+        $c = new class ([self::$target]) extends ExtendableElement {
             public function getElementNamespace(): array|string
             {
                 return C::XS_ANY_NS_ANY;
@@ -284,7 +284,7 @@ XML
      */
     public function testAnyNamespacePassingOtherSucceeds(): void
     {
-        $c = new class ([$this->other]) extends ExtendableElement {
+        $c = new class ([self::$other]) extends ExtendableElement {
             public function getElementNamespace(): array|string
             {
                 return C::XS_ANY_NS_ANY;

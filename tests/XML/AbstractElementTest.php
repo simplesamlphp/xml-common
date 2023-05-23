@@ -29,11 +29,11 @@ final class AbstractElementTest extends TestCase
 
     /**
      */
-    public function setup(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->testedClass = Element::class;
+        self::$testedClass = Element::class;
 
-        $this->xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_Element.xml',
         );
     }
@@ -46,7 +46,7 @@ final class AbstractElementTest extends TestCase
         $element = new Element(2, false, 'text');
 
         $this->assertEquals(
-            $this->xmlRepresentation->saveXML($this->xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
             strval($element),
         );
     }
@@ -56,7 +56,7 @@ final class AbstractElementTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        $element = Element::fromXML($this->xmlRepresentation->documentElement);
+        $element = Element::fromXML(self::$xmlRepresentation->documentElement);
 
         $this->assertEquals(2, $element->getInteger());
         $this->assertEquals(false, $element->getBoolean());
@@ -68,7 +68,7 @@ final class AbstractElementTest extends TestCase
      */
     public function testGetAttribute(): void
     {
-        $xml = $this->xmlRepresentation->documentElement;
+        $xml = self::$xmlRepresentation->documentElement;
 
         // Get mandatory attributes
         $this->assertEquals('text', Element::getAttribute($xml, 'text'));
@@ -102,11 +102,11 @@ final class AbstractElementTest extends TestCase
      */
     public function testGetAttributeThrowsExceptionOnMissingAttribute(): void
     {
-        $doc = $this->xmlRepresentation->documentElement;
-        $doc->removeAttribute('text');
+        $xml = clone self::$xmlRepresentation->documentElement;
+        $xml->removeAttribute('text');
 
         $this->expectException(MissingAttributeException::class);
-        Element::fromXML($doc);
+        Element::fromXML($xml);
     }
 
 
@@ -114,11 +114,11 @@ final class AbstractElementTest extends TestCase
      */
     public function testGetBooleanAttributeThrowsExceptionOnMissingAttribute(): void
     {
-        $doc = $this->xmlRepresentation->documentElement;
-        $doc->removeAttribute('boolean');
+        $xml = clone self::$xmlRepresentation->documentElement;
+        $xml->removeAttribute('boolean');
 
         $this->expectException(MissingAttributeException::class);
-        Element::fromXML($doc);
+        Element::fromXML($xml);
     }
 
 
@@ -126,10 +126,10 @@ final class AbstractElementTest extends TestCase
      */
     public function testGetIntegerAttributeThrowsExceptionOnMissingAttribute(): void
     {
-        $doc = $this->xmlRepresentation->documentElement;
-        $doc->removeAttribute('integer');
+        $xml = clone self::$xmlRepresentation->documentElement;
+        $xml->removeAttribute('integer');
 
         $this->expectException(MissingAttributeException::class);
-        Element::fromXML($doc);
+        Element::fromXML($xml);
     }
 }

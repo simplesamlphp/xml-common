@@ -15,11 +15,11 @@ use function class_exists;
  */
 trait ArrayizableElementTestTrait
 {
-    /** @var class-string */
-    protected string $testedClass;
+    /** @var class-string|null */
+    protected static ?string $testedClass;
 
-    /** @var array */
-    protected array $arrayRepresentation;
+    /** @var array|null */
+    protected static ?array $arrayRepresentation;
 
 
     /**
@@ -27,27 +27,20 @@ trait ArrayizableElementTestTrait
      */
     public function testArrayization(): void
     {
-        /** @psalm-var class-string|null */
-        $testedClass = $this->testedClass;
-
-        /** @psalm-var array|null */
-        $arrayRepresentation = $this->arrayRepresentation;
-
-
-        if (!class_exists($this->testedClass)) {
+        if (!class_exists(self::$testedClass)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testArrayization(). Please set ' . self::class
                 . ':$element to a class-string representing the XML-class being tested',
             );
-        } elseif ($this->arrayRepresentation === null) {
+        } elseif (self::$arrayRepresentation === null) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testArrayization(). Please set ' . self::class
                 . ':$arrayRepresentation to an array representing the XML-class being tested',
             );
         } else {
             $this->assertEquals(
-                $this->arrayRepresentation,
-                $this->testedClass::fromArray($this->arrayRepresentation)->toArray(),
+                self::$arrayRepresentation,
+                self::$testedClass::fromArray(self::$arrayRepresentation)->toArray(),
             );
         }
     }

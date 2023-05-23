@@ -30,13 +30,14 @@ final class Base64ElementTraitTest extends TestCase
 {
     use SerializableElementTestTrait;
 
+
     /**
      */
-    public function setup(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->testedClass = Base64Element::class;
+        self::$testedClass = Base64Element::class;
 
-        $this->xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_Base64Element.xml',
         );
     }
@@ -48,7 +49,7 @@ final class Base64ElementTraitTest extends TestCase
         $base64Element = new Base64Element('/CTj03d1DB5e2t7CTo9BEzCf5S9NRzwnBgZRlm32REI=');
 
         $this->assertEquals(
-            XMLDumper::dumpDOMDocumentXMLWithBase64Content($this->xmlRepresentation),
+            XMLDumper::dumpDOMDocumentXMLWithBase64Content(self::$xmlRepresentation),
             strval($base64Element),
         );
     }
@@ -58,7 +59,7 @@ final class Base64ElementTraitTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        $base64Element = Base64Element::fromXML($this->xmlRepresentation->documentElement);
+        $base64Element = Base64Element::fromXML(self::$xmlRepresentation->documentElement);
 
         $this->assertEquals('/CTj03d1DB5e2t7CTo9BEzCf5S9NRzwnBgZRlm32REI=', $base64Element->getContent());
     }

@@ -15,11 +15,11 @@ use function class_exists;
  */
 trait SerializableElementTestTrait
 {
-    /** @var class-string */
-    protected string $testedClass;
+    /** @var class-string|null */
+    protected static ?string $testedClass;
 
     /** @var \DOMDocument|null */
-    protected ?DOMDocument $xmlRepresentation = null;
+    protected static ?DOMDocument $xmlRepresentation;
 
 
     /**
@@ -27,22 +27,20 @@ trait SerializableElementTestTrait
      */
     public function testSerialization(): void
     {
-        if (!class_exists($this->testedClass)) {
+        if (!class_exists(self::$testedClass)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSerialization(). Please set ' . self::class
                 . ':$testedClass to a class-string representing the XML-class being tested',
             );
-        } elseif (empty($this->xmlRepresentation)) {
+        } elseif (empty(self::$xmlRepresentation)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSerialization(). Please set ' . self::class
                 . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested',
             );
         } else {
-            /** @psalm-var \DOMElement */
-            $xmlRepresentationDocument = $this->xmlRepresentation->documentElement;
             $this->assertEquals(
-                $this->xmlRepresentation->saveXML($xmlRepresentationDocument),
-                strval(unserialize(serialize($this->testedClass::fromXML($xmlRepresentationDocument)))),
+                self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+                strval(unserialize(serialize(self::$testedClass::fromXML(self::$xmlRepresentation->documentElement)))),
             );
         }
     }

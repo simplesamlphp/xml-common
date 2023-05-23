@@ -27,13 +27,14 @@ final class StringElementTraitTest extends TestCase
 {
     use SerializableElementTestTrait;
 
+
     /**
      */
-    public function setup(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->testedClass = StringElement::class;
+        self::$testedClass = StringElement::class;
 
-        $this->xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_StringElement.xml',
         );
     }
@@ -45,7 +46,7 @@ final class StringElementTraitTest extends TestCase
         $stringElement = new StringElement('test');
 
         $this->assertEquals(
-            $this->xmlRepresentation->saveXML($this->xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
             strval($stringElement),
         );
     }
@@ -55,7 +56,7 @@ final class StringElementTraitTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        $stringElement = StringElement::fromXML($this->xmlRepresentation->documentElement);
+        $stringElement = StringElement::fromXML(self::$xmlRepresentation->documentElement);
 
         $this->assertEquals('test', $stringElement->getContent());
     }

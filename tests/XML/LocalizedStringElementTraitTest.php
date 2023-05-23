@@ -27,13 +27,14 @@ final class LocalizedStringElementTraitTest extends TestCase
 {
     use SerializableElementTestTrait;
 
+
     /**
      */
-    public function setup(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->testedClass = LocalizedStringElement::class;
+        self::$testedClass = LocalizedStringElement::class;
 
-        $this->xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_LocalizedStringElement.xml',
         );
     }
@@ -45,7 +46,7 @@ final class LocalizedStringElementTraitTest extends TestCase
         $localizedStringElement = new LocalizedStringElement('en', 'test');
 
         $this->assertEquals(
-            $this->xmlRepresentation->saveXML($this->xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
             strval($localizedStringElement),
         );
     }
@@ -55,7 +56,7 @@ final class LocalizedStringElementTraitTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        $localizedStringElement = LocalizedStringElement::fromXML($this->xmlRepresentation->documentElement);
+        $localizedStringElement = LocalizedStringElement::fromXML(self::$xmlRepresentation->documentElement);
 
         $this->assertEquals('en', $localizedStringElement->getLanguage());
         $this->assertEquals('test', $localizedStringElement->getContent());

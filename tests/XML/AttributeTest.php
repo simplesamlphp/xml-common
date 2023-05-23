@@ -26,19 +26,20 @@ final class AttributeTest extends TestCase
     use ArrayizableElementTestTrait;
 
     /** @var \DOMDocument */
-    protected DOMDocument $xmlRepresentation;
+    protected static DOMDocument $xmlRepresentation;
+
 
     /**
      */
-    public function setup(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->testedClass = Attribute::class;
+        self::$testedClass = Attribute::class;
 
-        $this->xmlRepresentation = DOMDocumentFactory::fromString(
+        self::$xmlRepresentation = DOMDocumentFactory::fromString(
             '<root xmlns:ssp="urn:x-simplesamlphp:phpunit" ssp:test1="testvalue1"/>',
         );
 
-        $this->arrayRepresentation = [
+        self::$arrayRepresentation = [
             'namespaceURI' => 'urn:x-simplesamlphp:phpunit',
             'namespacePrefix' => 'ssp',
             'attrName' => 'test1',
@@ -59,7 +60,7 @@ final class AttributeTest extends TestCase
         );
 
         $this->assertEquals(
-            $this->arrayRepresentation,
+            self::$arrayRepresentation,
             $extendableAttribute->toArray(),
         );
     }
@@ -69,9 +70,9 @@ final class AttributeTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        $extendableAttribute = Attribute::fromArray($this->arrayRepresentation);
+        $extendableAttribute = Attribute::fromArray(self::$arrayRepresentation);
         $this->assertEquals(
-            $this->arrayRepresentation,
+            self::$arrayRepresentation,
             $extendableAttribute->toArray(),
         );
     }
@@ -92,7 +93,7 @@ final class AttributeTest extends TestCase
         $elt = $extendableAttribute->toXML($doc->documentElement);
 
         $this->assertStringContainsString(
-            $this->xmlRepresentation->saveXML(),
+            self::$xmlRepresentation->saveXML(),
             $elt->ownerDocument->saveXML(),
         );
     }
@@ -102,9 +103,9 @@ final class AttributeTest extends TestCase
      */
     public function testUnmarshallingXML(): void
     {
-        $attr = $this->xmlRepresentation->documentElement->getAttributeNodeNS('urn:x-simplesamlphp:phpunit', 'test1');
+        $attr = self::$xmlRepresentation->documentElement->getAttributeNodeNS('urn:x-simplesamlphp:phpunit', 'test1');
         $extendableAttribute = Attribute::fromXML($attr);
 
-        $this->assertEquals($extendableAttribute->toArray(), $this->arrayRepresentation);
+        $this->assertEquals($extendableAttribute->toArray(), self::$arrayRepresentation);
     }
 }
