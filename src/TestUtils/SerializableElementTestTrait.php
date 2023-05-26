@@ -24,6 +24,9 @@ trait SerializableElementTestTrait
 
     /**
      * Test serialization / unserialization.
+     *
+     * @depends testMarshalling
+     * @depends testUnmarshalling
      */
     public function testSerialization(): void
     {
@@ -44,4 +47,10 @@ trait SerializableElementTestTrait
             );
         }
     }
+
+
+    abstract public function testMarshalling(): void;
+
+
+    abstract public function testUnmarshalling(): void;
 }

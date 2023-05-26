@@ -36,6 +36,8 @@ trait SchemaValidationTestTrait
 
     /**
      * Test schema validation.
+     *
+     * @depends testSerialization
      */
     public function testSchemaValidation(): void
     {
@@ -105,4 +107,7 @@ trait SchemaValidationTestTrait
 
         return true;
     }
+
+
+    abstract public function testSerialization(): void;
 }
