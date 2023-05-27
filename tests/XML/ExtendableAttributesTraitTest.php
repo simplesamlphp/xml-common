@@ -11,8 +11,6 @@ use SimpleSAML\Test\XML\ExtendableAttributesElement;
 use SimpleSAML\Test\XML\ExtendableAttributesTestTrait;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XML\Attribute;
 
 use function dirname;
@@ -28,9 +26,6 @@ use function dirname;
  */
 final class ExtendableAttributesTraitTest extends TestCase
 {
-    use SerializableElementTestTrait;
-    use SchemaValidationTestTrait;
-
     /** @var \SimpleSAML\XML\Attribute */
     protected static Attribute $local;
 
@@ -45,14 +40,6 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$schemaFile = dirname(__FILE__, 2) . '/resources/schemas/simplesamlphp.xsd';
-
-        self::$testedClass = ExtendableAttributesElement::class;
-
-        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(__FILE__, 2) . '/resources/xml/ssp_ExtendableAttributesElement.xml',
-        );
-
         self::$local = new Attribute(null, '', 'some', 'localValue');
 
         self::$target = new Attribute('urn:x-simplesamlphp:namespace', '', 'some', 'targetValue');

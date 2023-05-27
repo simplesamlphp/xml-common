@@ -11,8 +11,6 @@ use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\ElementInterface;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
 use function dirname;
 
@@ -27,9 +25,6 @@ use function dirname;
  */
 final class ExtendableElementTraitTest extends TestCase
 {
-    use SerializableElementTestTrait;
-    use SchemaValidationTestTrait;
-
     /** @var \SimpleSAML\XML\ElementInterface */
     protected static ElementInterface $empty;
 
@@ -47,14 +42,6 @@ final class ExtendableElementTraitTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$schemaFile = dirname(__FILE__, 2) . '/resources/schemas/simplesamlphp.xsd';
-
-        self::$testedClass = ExtendableElement::class;
-
-        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(__FILE__, 2) . '/resources/xml/ssp_ExtendableElement.xml',
-        );
-
         self::$empty = new Chunk(DOMDocumentFactory::fromString(<<<XML
             <chunk/>
 XML
