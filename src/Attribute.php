@@ -122,7 +122,7 @@ final class Attribute implements ArrayizableElementInterface
      */
     public static function fromArray(array $data): static
     {
-        self::validateArray($data);
+        $data = self::processArrayContents($data);
 
         return new static(
             $data['namespaceURI'],
@@ -134,27 +134,36 @@ final class Attribute implements ArrayizableElementInterface
 
 
     /**
-     * Validate an array
+     * Validates an array representation of this object and returns the same array with rationalized keys
      *
      * @param array $data
-     * @return void
+     * @return array
      */
-    public static function validateArray(array $data): void
+    private static function processArrayContents(array $data): array
     {
+        $data = array_change_key_case($data, CASE_LOWER);
+
         Assert::allOneOf(
             array_keys($data),
-            ['namespaceURI', 'namespacePrefix', 'attrName', 'attrValue'],
+            ['namespaceuri', 'namespaceprefix', 'attrname', 'attrvalue'],
         );
 
-        Assert::keyExists($data, 'namespaceURI');
-        Assert::keyExists($data, 'namespacePrefix');
-        Assert::keyExists($data, 'attrName');
-        Assert::keyExists($data, 'attrValue');
+        Assert::keyExists($data, 'namespaceuri');
+        Assert::keyExists($data, 'namespaceprefix');
+        Assert::keyExists($data, 'attrname');
+        Assert::keyExists($data, 'attrvalue');
 
-        Assert::nullOrStringNotEmpty($data['namespaceURI']);
-        Assert::string($data['namespacePrefix']);
-        Assert::stringNotEmpty($data['attrName']);
-        Assert::string($data['attrValue']);
+        Assert::nullOrStringNotEmpty($data['namespaceuri']);
+        Assert::string($data['namespaceprefix']);
+        Assert::stringNotEmpty($data['attrname']);
+        Assert::string($data['attrvalue']);
+
+        return [
+            'namespaceURI' => $data['namespaceuri'],
+            'namespacePrefix' => $data['namespaceprefix'],
+            'attrName' => $data['attrname'],
+            'attrValue' => $data['attrvalue'],
+        ];
     }
 
 
