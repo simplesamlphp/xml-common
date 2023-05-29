@@ -18,6 +18,8 @@ use function trim;
 class Utils
 {
     /**
+     * @deprecated Create elements that extend AbstractElement and use it's interface to retrieve attributes instead.
+     *
      * Extract localized strings from a set of nodes.
      *
      * @param \DOMElement $parent The element that contains the localized strings.
@@ -48,6 +50,8 @@ class Utils
 
 
     /**
+     * @deprecated Create elements that extend AbstractElement and use <element>::getChildrenOfClass() instead.
+     *
      * Extract strings from a set of nodes.
      *
      * @param \DOMElement $parent The element that contains the localized strings.
@@ -70,6 +74,8 @@ class Utils
 
 
     /**
+     * @deprecated Create elements that extend AbstractElement and use <element>::toXML() instead.
+     *
      * Append string element.
      *
      * @param \DOMElement $parent The parent element we should append the new nodes to.
@@ -97,6 +103,8 @@ class Utils
 
 
     /**
+     * @deprecated Create elements that extend AbstractElement and use <element>::toXML() instead.
+     *
      * Append string elements.
      *
      * @param \DOMElement $parent The parent element we should append the new nodes to.
@@ -128,6 +136,8 @@ class Utils
 
 
     /**
+     * @deprecated Use DateTime objects instead
+     *
      * This function converts a SAML2 timestamp on the form
      * yyyy-mm-ddThh:mm:ss(\.s+)?Z to a UNIX timestamp. The sub-second
      * part is ignored.
