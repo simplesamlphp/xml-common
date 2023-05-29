@@ -8,6 +8,8 @@ use DOMAttr;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 
+use function array_keys;
+
 /**
  * Class to represent an arbitrary namespaced attribute.
  *
@@ -33,7 +35,7 @@ final class Attribute implements ArrayizableElementInterface
         Assert::string($namespacePrefix);
         Assert::notSame('xmlns', $namespacePrefix);
         Assert::stringNotEmpty($attrName);
-        Assert::stringNotEmpty($attrValue);
+        Assert::string($attrValue);
     }
 
 
@@ -102,7 +104,12 @@ final class Attribute implements ArrayizableElementInterface
      */
     public function toXML(DOMElement $parent): DOMElement
     {
-        $parent->setAttributeNS($this->getNamespaceURI(), $this->getNamespacePrefix() . ':' . $this->getAttrName(), $this->getAttrValue());
+        $parent->setAttributeNS(
+            $this->getNamespaceURI(),
+            $this->getNamespacePrefix() . ':' . $this->getAttrName(),
+            $this->getAttrValue(),
+        );
+
         return $parent;
     }
 
@@ -115,15 +122,7 @@ final class Attribute implements ArrayizableElementInterface
      */
     public static function fromArray(array $data): static
     {
-        Assert::keyExists($data, 'namespaceURI');
-        Assert::keyExists($data, 'namespacePrefix');
-        Assert::keyExists($data, 'attrName');
-        Assert::keyExists($data, 'attrValue');
-
-        Assert::string($data['namespaceURI']);
-        Assert::string($data['namespacePrefix']);
-        Assert::string($data['attrName']);
-        Assert::string($data['attrValue']);
+        self::validateArray($data);
 
         return new static(
             $data['namespaceURI'],
@@ -131,6 +130,31 @@ final class Attribute implements ArrayizableElementInterface
             $data['attrName'],
             $data['attrValue'],
         );
+    }
+
+
+    /**
+     * Validate an array
+     *
+     * @param array $data
+     * @return void
+     */
+    public static function validateArray(array $data): void
+    {
+        Assert::allOneOf(
+            array_keys($data),
+            ['namespaceURI', 'namespacePrefix', 'attrName', 'attrValue'],
+        );
+
+        Assert::keyExists($data, 'namespaceURI');
+        Assert::keyExists($data, 'namespacePrefix');
+        Assert::keyExists($data, 'attrName');
+        Assert::keyExists($data, 'attrValue');
+
+        Assert::nullOrStringNotEmpty($data['namespaceURI']);
+        Assert::string($data['namespacePrefix']);
+        Assert::stringNotEmpty($data['attrName']);
+        Assert::string($data['attrValue']);
     }
 
 
