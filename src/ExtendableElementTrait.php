@@ -91,17 +91,15 @@ trait ExtendableElementTrait
                     static::NS,
                 ),
             );
+        } elseif ($namespace === C::XS_ANY_NS_OTHER) {
+            // Must be any namespace other than the parent element, excluding elements with no namespace
+            Assert::notInArray(null, $actual_namespaces);
+            Assert::allNotSame($actual_namespaces, static::NS);
+        } elseif ($namespace === C::XS_ANY_NS_TARGET) {
+            // Must be the same namespace as the one of the parent element
+            Assert::allSame($actual_namespaces, static::NS);
         } else {
-            // All elements must be namespaced, ergo non-null
-            Assert::allNotNull($actual_namespaces);
-
-            if ($namespace === C::XS_ANY_NS_OTHER) {
-                // Must be any namespace other than the parent element
-                Assert::allNotSame($actual_namespaces, static::NS);
-            } elseif ($namespace === C::XS_ANY_NS_TARGET) {
-                // Must be the same namespace as the one of the parent element
-                Assert::allSame($actual_namespaces, static::NS);
-            }
+            // XS_ANY_NS_ANY
         }
 
         $this->elements = $elements;

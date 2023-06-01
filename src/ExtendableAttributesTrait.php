@@ -165,7 +165,7 @@ trait ExtendableAttributesTrait
                 ),
             );
         } else {
-            // All elements must be namespaced, ergo non-null
+            // All attributes must be namespaced, ergo non-null
             Assert::allNotNull($actual_namespaces);
 
             if ($namespace === C::XS_ANY_NS_OTHER) {

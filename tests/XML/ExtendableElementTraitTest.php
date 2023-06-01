@@ -254,6 +254,21 @@ XML
 
     /**
      */
+    public function testAnyNamespacePassingLocalSucceeds(): void
+    {
+        $c = new class ([self::$local]) extends ExtendableElement {
+            public function getElementNamespace(): array|string
+            {
+                return C::XS_ANY_NS_ANY;
+            }
+        };
+
+        $this->assertEquals(C::XS_ANY_NS_ANY, $c->getElementNamespace());
+    }
+
+
+    /**
+     */
     public function testAnyNamespacePassingTargetSucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableElement {
