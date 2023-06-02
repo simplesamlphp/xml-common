@@ -11,7 +11,7 @@ use DOMElement;
  *
  * @package simplesamlphp/xml-common
  */
-interface SerializableElementInterface
+interface SerializableElementInterface extends ElementInterface
 {
     /**
      * Output the class as an XML-formatted string

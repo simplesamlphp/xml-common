@@ -25,7 +25,7 @@ use function strval;
  *
  * @package simplesamlphp/xml-common
  */
-abstract class AbstractElement implements ElementInterface, SerializableElementInterface
+abstract class AbstractElement implements SerializableElementInterface
 {
     use SerializableElementTrait;
 

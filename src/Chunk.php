@@ -20,7 +20,7 @@ use function intval;
  *
  * @package simplesamlphp/xml-common
  */
-final class Chunk implements ElementInterface, SerializableElementInterface
+final class Chunk implements SerializableElementInterface
 {
     use SerializableElementTrait;
 
