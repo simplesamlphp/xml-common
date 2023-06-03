@@ -108,6 +108,7 @@ trait ExtendableAttributesTrait
      */
     protected function setAttributesNS(array $attributes): void
     {
+        Assert::maxCount($attributes, C::UNBOUNDED_LIMIT);
         Assert::allIsInstanceOf(
             $attributes,
             Attribute::class,

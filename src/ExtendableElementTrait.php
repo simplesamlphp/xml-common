@@ -38,6 +38,7 @@ trait ExtendableElementTrait
      */
     protected function setElements(array $elements): void
     {
+        Assert::maxCount($elements, C::UNBOUNDED_LIMIT);
         Assert::allIsInstanceOf($elements, ElementInterface::class);
         $namespace = $this->getElementNamespace();
 
