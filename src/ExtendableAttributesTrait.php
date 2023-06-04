@@ -15,6 +15,7 @@ use function array_map;
 use function array_search;
 use function defined;
 use function implode;
+use function in_array;
 use function is_array;
 use function rtrim;
 use function sprintf;
@@ -113,7 +114,7 @@ trait ExtendableAttributesTrait
                 }
             } elseif ($namespace === C::XS_ANY_NS_OTHER) {
                 foreach ($xml->attributes as $a) {
-                    if ($a->namespaceURI !== static::NS) {
+                    if (!in_array($a->namespaceURI, [static::NS, null], true)) {
                         $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
                     }
                 }
