@@ -54,5 +54,5 @@ class Constants
         self::XS_ANY_PROCESS_STRICT,
     ];
 
-    public const UNBOUNDED_LIMIT = 2500;
+    public const UNBOUNDED_LIMIT = 10000;
 }
