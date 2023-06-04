@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\XML\TestUtils;
 
 use DOMDocument;
+use Exception;
 use LibXMLError; // Officially spelled with a lower-case `l`, but that breaks composer-require-checker
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\SchemaViolationException;
@@ -82,12 +83,16 @@ trait SchemaValidationTestTrait
      */
     private function validateDocument(XMLReader $xmlReader): bool
     {
-        $xmlReader->setSchema(self::$schemaFile);
-
         libxml_use_internal_errors(true);
 
-        $msgs = [];
+        try {
+            $xmlReader->setSchema(self::$schemaFile);
+        } catch (Exception) {
+            $err = libxml_get_last_error();
+            throw new SchemaViolationException(trim($err->message) . ' on line ' . $err->line);
+        }
 
+        $msgs = [];
         while ($xmlReader->read()) {
             if (!$xmlReader->isValid()) {
                 /** @psalm-var \libXMLError|false $err */
