@@ -42,7 +42,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         self::$local = new Attribute(null, '', 'some', 'localValue');
 
-        self::$target = new Attribute('urn:x-simplesamlphp:namespace', '', 'some', 'targetValue');
+        self::$target = new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'some', 'targetValue');
 
         self::$other = new Attribute('urn:custom:dummy', 'dummy', 'some', 'dummyValue');
     }
