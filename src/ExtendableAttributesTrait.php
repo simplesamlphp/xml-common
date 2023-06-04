@@ -82,19 +82,69 @@ trait ExtendableAttributesTrait
 
 
     /**
-     * Parse an XML document and get the namespaced attributes.
+     * Parse an XML document and get the namespaced attributes from the specified namespace(s).
+     * The namespace defaults to the XS_ANY_ATTR_NAMESPACE constant on the element.
+     * NOTE: In case the namespace is ##any, this method will also return local non-namespaced attributes!
      *
      * @param \DOMElement $xml
+     * @param string|array|null $namespace
      *
      * @return list<\SimpleSAML\XML\Attribute> $attributes
      */
-    protected static function getAttributesNSFromXML(DOMElement $xml): array
+    protected static function getAttributesNSFromXML(DOMElement $xml, string|array $namespace = null): array
     {
+        $namespace = $namespace ?? static::XS_ANY_ATTR_NAMESPACE;
         $attributes = [];
 
-        foreach ($xml->attributes as $a) {
-            if ($a->namespaceURI !== null) {
-                $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
+        // Validate namespace value
+        if (!is_array($namespace)) {
+            // Must be one of the predefined values
+            Assert::oneOf($namespace, C::XS_ANY_NS);
+
+            if ($namespace === C::XS_ANY_NS_ANY) {
+                foreach ($xml->attributes as $a) {
+                    $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
+                }
+            } elseif ($namespace === C::XS_ANY_NS_LOCAL) {
+                foreach ($xml->attributes as $a) {
+                    if ($a->namespaceURI === null) {
+                        $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
+                    }
+                }
+            } elseif ($namespace === C::XS_ANY_NS_OTHER) {
+                foreach ($xml->attributes as $a) {
+                    if ($a->namespaceURI !== static::NS) {
+                        $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
+                    }
+                }
+            } elseif ($namespace === C::XS_ANY_NS_TARGET) {
+                foreach ($xml->attributes as $a) {
+                    if ($a->namespaceURI === static::NS) {
+                        $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
+                    }
+                }
+            }
+        } else {
+            // Array must be non-empty and cannot contain ##any or ##other
+            Assert::notEmpty($namespace);
+            Assert::allStringNotEmpty($namespace);
+            Assert::allNotSame($namespace, C::XS_ANY_NS_ANY);
+            Assert::allNotSame($namespace, C::XS_ANY_NS_OTHER);
+
+            // Replace the ##targetedNamespace with the actual namespace
+            if (($key = array_search(C::XS_ANY_NS_TARGET, $namespace)) !== false) {
+                $namespace[$key] = static::NS;
+            }
+
+            // Replace the ##local with null
+            if (($key = array_search(C::XS_ANY_NS_LOCAL, $namespace)) !== false) {
+                $namespace[$key] = null;
+            }
+
+            foreach ($xml->attributes as $a) {
+                if (in_array($a->namespaceURI, $namespace, true)) {
+                    $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
+                }
             }
         }
 
@@ -123,6 +173,7 @@ trait ExtendableAttributesTrait
         } else {
             // Array must be non-empty and cannot contain ##any or ##other
             Assert::notEmpty($namespace);
+            Assert::allStringNotEmpty($namespace);
             Assert::allNotSame($namespace, C::XS_ANY_NS_ANY);
             Assert::allNotSame($namespace, C::XS_ANY_NS_OTHER);
         }
