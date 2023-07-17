@@ -32,7 +32,7 @@ trait Base64ElementTrait
      */
     protected function sanitizeContent(string $content): string
     {
-        return str_replace(["\r", "\n", "\t", ' '], '', $content);
+        return str_replace(["\f", "\r", "\n", "\t", "\v", ' '], '', $content);
     }
 
 
