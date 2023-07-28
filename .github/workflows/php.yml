@@ -25,6 +25,7 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter/slim@v4
         env:
+          LOG_LEVEL: NOTICE
           VALIDATE_ALL_CODEBASE: true
           FILTER_REGEX_EXCLUDE: .*/resources/xml/domdocument_(invalid_xml|empty).xml
           LINTER_RULES_PATH: 'tools/linters'
