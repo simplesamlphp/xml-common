@@ -15,11 +15,11 @@ use function class_exists;
  */
 trait SerializableElementTestTrait
 {
-    /** @var class-string|null */
-    protected static ?string $testedClass;
+    /** @var class-string */
+    protected static string $testedClass;
 
-    /** @var \DOMDocument|null */
-    protected static ?DOMDocument $xmlRepresentation;
+    /** @var \DOMDocument */
+    protected static DOMDocument $xmlRepresentation;
 
 
     /**

@@ -25,14 +25,14 @@ use function trim;
  */
 trait SchemaValidationTestTrait
 {
-    /** @var class-string|null */
-    protected static ?string $testedClass;
+    /** @var class-string */
+    protected static string $testedClass;
 
-    /** @var string|null */
-    protected static ?string $schemaFile;
+    /** @var string */
+    protected static string $schemaFile;
 
-    /** @var \DOMDocument|null */
-    protected static ?DOMDocument $xmlRepresentation;
+    /** @var \DOMDocument */
+    protected static DOMDocument $xmlRepresentation;
 
 
     /**

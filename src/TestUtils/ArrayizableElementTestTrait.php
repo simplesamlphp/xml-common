@@ -15,11 +15,11 @@ use function class_exists;
  */
 trait ArrayizableElementTestTrait
 {
-    /** @var class-string|null */
-    protected static ?string $testedClass;
+    /** @var class-string */
+    protected static string $testedClass;
 
-    /** @var array|null */
-    protected static ?array $arrayRepresentation;
+    /** @var array */
+    protected static array $arrayRepresentation;
 
 
     /**
