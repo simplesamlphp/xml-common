@@ -89,11 +89,11 @@ trait ExtendableAttributesTrait
      * NOTE: In case the namespace is ##any, this method will also return local non-namespaced attributes!
      *
      * @param \DOMElement $xml
-     * @param string|array|null $namespace
+     * @param \SimpleSAML\XML\XsNamespace|array|null $namespace
      *
      * @return list<\SimpleSAML\XML\Attribute> $attributes
      */
-    protected static function getAttributesNSFromXML(DOMElement $xml, string|array $namespace = null): array
+    protected static function getAttributesNSFromXML(DOMElement $xml, NS|array $namespace = null): array
     {
         $namespace = $namespace ?? static::XS_ANY_ATTR_NAMESPACE;
         $attributes = [];

@@ -49,7 +49,7 @@ class XPath
      * @param \DOMNode $node  The XML node.
      * @param string $query The query.
      * @param \DOMXPath $xpCache The DOMXPath object
-     * @return \DOMNode[] Array with matching DOM nodes.
+     * @return array<int<0, max>, \DOMNameSpaceNode|\DOMNode|null> Array with matching DOM nodes.
      */
     public static function xpQuery(DOMNode $node, string $query, DOMXPath $xpCache): array
     {

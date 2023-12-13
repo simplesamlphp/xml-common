@@ -31,7 +31,7 @@ class ExtendableAttributesElement extends AbstractElement
     /** @var string */
     public const LOCALNAME = 'ExtendableAttributesElement';
 
-    /** @var string|array */
+    /** @var string|\SimpleSAML\XML\XsNamespace */
     public const XS_ANY_ATTR_NAMESPACE = NS::ANY;
 
 
