@@ -27,32 +27,7 @@ class Constants
     public const NS_XSI = 'http://www.w3.org/2001/XMLSchema-instance';
 
     /**
-     * The namespace-attribute values for xs:any elements
+     * The maximum amount of child nodes this library is willing to handle.
      */
-    public const XS_ANY_NS_ANY = '##any';
-    public const XS_ANY_NS_LOCAL = '##local';
-    public const XS_ANY_NS_OTHER = '##other';
-    public const XS_ANY_NS_TARGET = '##targetNamespace';
-
-    public const XS_ANY_NS = [
-        self::XS_ANY_NS_ANY,
-        self::XS_ANY_NS_LOCAL,
-        self::XS_ANY_NS_OTHER,
-        self::XS_ANY_NS_TARGET,
-    ];
-
-    /**
-     * The processContents-attribute values for xs:any elements
-     */
-    public const XS_ANY_PROCESS_LAX = 'lax';
-    public const XS_ANY_PROCESS_SKIP = 'skip';
-    public const XS_ANY_PROCESS_STRICT = 'strict';
-
-    public const XS_ANY_PROCESS = [
-        self::XS_ANY_PROCESS_LAX,
-        self::XS_ANY_PROCESS_SKIP,
-        self::XS_ANY_PROCESS_STRICT,
-    ];
-
     public const UNBOUNDED_LIMIT = 10000;
 }

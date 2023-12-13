@@ -8,9 +8,9 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\Test\XML\ExtendableElement;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\ElementInterface;
+use SimpleSAML\XML\XsNamespace as NS;
 
 use function dirname;
 
@@ -66,27 +66,13 @@ XML
 
     /**
      */
-    public function testInvalidNamespaceThrowsAnException(): void
-    {
-        $this->expectException(AssertionFailedException::class);
-        new class ([]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
-            {
-                return 'wrong';
-            }
-        };
-    }
-
-
-    /**
-     */
     public function testIllegalNamespaceComboThrowsAnException(): void
     {
         $this->expectException(AssertionFailedException::class);
         new class ([]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return [C::XS_ANY_NS_OTHER, C::XS_ANY_NS_ANY];
+                return [NS::OTHER, NS::ANY];
             }
         };
     }
@@ -98,7 +84,7 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
                 return [];
             }
@@ -111,13 +97,13 @@ XML
     public function testOtherNamespacePassingOtherSucceeds(): void
     {
         $c = new class ([self::$other]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return C::XS_ANY_NS_OTHER;
+                return NS::OTHER;
             }
         };
 
-        $this->assertEquals(C::XS_ANY_NS_OTHER, $c->getElementNamespace());
+        $this->assertEquals(NS::OTHER, $c->getElementNamespace());
     }
 
 
@@ -127,9 +113,9 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$local]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return C::XS_ANY_NS_OTHER;
+                return NS::OTHER;
             }
         };
     }
@@ -140,13 +126,13 @@ XML
     public function testTargetNamespacePassingTargetSucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return C::XS_ANY_NS_TARGET;
+                return NS::TARGET;
             }
         };
 
-        $this->assertEquals(C::XS_ANY_NS_TARGET, $c->getElementNamespace());
+        $this->assertEquals(NS::TARGET, $c->getElementNamespace());
     }
 
 
@@ -155,13 +141,13 @@ XML
     public function testTargetNamespacePassingTargetArraySucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return [C::XS_ANY_NS_TARGET];
+                return [NS::TARGET];
             }
         };
 
-        $this->assertEquals([C::XS_ANY_NS_TARGET], $c->getElementNamespace());
+        $this->assertEquals([NS::TARGET], $c->getElementNamespace());
     }
 
 
@@ -170,13 +156,13 @@ XML
     public function testTargetNamespacePassingTargetArraySucceedsWithLocal(): void
     {
         $c = new class ([self::$target]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return [C::XS_ANY_NS_TARGET, C::XS_ANY_NS_LOCAL];
+                return [NS::TARGET, NS::LOCAL];
             }
         };
 
-        $this->assertEquals([C::XS_ANY_NS_TARGET, C::XS_ANY_NS_LOCAL], $c->getElementNamespace());
+        $this->assertEquals([NS::TARGET, NS::LOCAL], $c->getElementNamespace());
     }
 
 
@@ -186,9 +172,9 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$other]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return C::XS_ANY_NS_TARGET;
+                return NS::TARGET;
             }
         };
     }
@@ -199,13 +185,13 @@ XML
     public function testLocalNamespacePassingLocalSucceeds(): void
     {
         $c = new class ([self::$local]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return C::XS_ANY_NS_LOCAL;
+                return NS::LOCAL;
             }
         };
 
-        $this->assertEquals(C::XS_ANY_NS_LOCAL, $c->getElementNamespace());
+        $this->assertEquals(NS::LOCAL, $c->getElementNamespace());
     }
 
 
@@ -214,13 +200,13 @@ XML
     public function testLocalNamespacePassingLocalArraySucceeds(): void
     {
         $c = new class ([self::$local]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return [C::XS_ANY_NS_LOCAL];
+                return [NS::LOCAL];
             }
         };
 
-        $this->assertEquals([C::XS_ANY_NS_LOCAL], $c->getElementNamespace());
+        $this->assertEquals([NS::LOCAL], $c->getElementNamespace());
     }
 
 
@@ -230,9 +216,9 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$target]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return C::XS_ANY_NS_LOCAL;
+                return NS::LOCAL;
             }
         };
     }
@@ -244,9 +230,9 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$other]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return C::XS_ANY_NS_LOCAL;
+                return NS::LOCAL;
             }
         };
     }
@@ -257,13 +243,13 @@ XML
     public function testAnyNamespacePassingLocalSucceeds(): void
     {
         $c = new class ([self::$local]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return C::XS_ANY_NS_ANY;
+                return NS::ANY;
             }
         };
 
-        $this->assertEquals(C::XS_ANY_NS_ANY, $c->getElementNamespace());
+        $this->assertEquals(NS::ANY, $c->getElementNamespace());
     }
 
 
@@ -272,13 +258,13 @@ XML
     public function testAnyNamespacePassingTargetSucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return C::XS_ANY_NS_ANY;
+                return NS::ANY;
             }
         };
 
-        $this->assertEquals(C::XS_ANY_NS_ANY, $c->getElementNamespace());
+        $this->assertEquals(NS::ANY, $c->getElementNamespace());
     }
 
 
@@ -287,12 +273,12 @@ XML
     public function testAnyNamespacePassingOtherSucceeds(): void
     {
         $c = new class ([self::$other]) extends ExtendableElement {
-            public function getElementNamespace(): array|string
+            public function getElementNamespace(): array|NS
             {
-                return C::XS_ANY_NS_ANY;
+                return NS::ANY;
             }
         };
 
-        $this->assertEquals(C::XS_ANY_NS_ANY, $c->getElementNamespace());
+        $this->assertEquals(NS::ANY, $c->getElementNamespace());
     }
 }

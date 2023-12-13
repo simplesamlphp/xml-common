@@ -8,7 +8,7 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\AbstractElement;
-use SimpleSAML\XML\Constants as C;
+use SimpleSAML\XML\XsNamespace as NS;
 use SimpleSAML\XML\ExtendableAttributesTrait;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 
@@ -32,7 +32,7 @@ class ExtendableAttributesElement extends AbstractElement
     public const LOCALNAME = 'ExtendableAttributesElement';
 
     /** @var string|array */
-    public const XS_ANY_ATTR_NAMESPACE = C::XS_ANY_NS_ANY;
+    public const XS_ANY_ATTR_NAMESPACE = NS::ANY;
 
 
     /**

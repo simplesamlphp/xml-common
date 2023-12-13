@@ -8,7 +8,7 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Constants as C;
+use SimpleSAML\XML\XsNamespace as NS;
 use SimpleSAML\XML\ExtendableElementTrait;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\SerializableElementTrait;
@@ -33,8 +33,8 @@ class ExtendableElement extends AbstractElement
     /** @var string */
     public const LOCALNAME = 'ExtendableElement';
 
-    /** @var string|array */
-    public const XS_ANY_ELT_NAMESPACE = C::XS_ANY_NS_ANY;
+    /** @var \SimpleSAML\XML\XsNamespace|array */
+    public const XS_ANY_ELT_NAMESPACE = NS::ANY;
 
 
     /**

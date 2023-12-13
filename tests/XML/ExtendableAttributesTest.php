@@ -6,10 +6,10 @@ namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\ExtendableAttributesElement;
+use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
-use SimpleSAML\XML\Attribute;
 
 use function dirname;
 
