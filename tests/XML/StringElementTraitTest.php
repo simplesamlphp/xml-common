@@ -50,14 +50,4 @@ final class StringElementTraitTest extends TestCase
             strval($stringElement),
         );
     }
-
-
-    /**
-     */
-    public function testUnmarshalling(): void
-    {
-        $stringElement = StringElement::fromXML(self::$xmlRepresentation->documentElement);
-
-        $this->assertEquals('test', $stringElement->getContent());
-    }
 }

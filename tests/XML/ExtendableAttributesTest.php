@@ -57,17 +57,4 @@ final class ExtendableAttributesTest extends TestCase
             strval($extendableElement),
         );
     }
-
-
-    /**
-     */
-    public function testUnmarshalling(): void
-    {
-        $extendableElement = ExtendableAttributesElement::fromXML(self::$xmlRepresentation->documentElement);
-
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($extendableElement),
-        );
-    }
 }

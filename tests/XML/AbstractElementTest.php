@@ -54,6 +54,7 @@ final class AbstractElementTest extends TestCase
 
     /**
      */
+    #[Override]
     public function testUnmarshalling(): void
     {
         $element = Element::fromXML(self::$xmlRepresentation->documentElement);

@@ -23,6 +23,38 @@ trait SerializableElementTestTrait
 
 
     /**
+     * Test creating XML from a class.
+     */
+    abstract public function testMarshalling(): void;
+
+
+    /**
+     * Test creating a class from XML.
+     */
+    public function testUnmarshalling(): void
+    {
+        if (!class_exists(self::$testedClass)) {
+            $this->markTestSkipped(
+                'Unable to run ' . self::class . '::testUnmarshalling(). Please set ' . self::class
+                . ':$testedClass to a class-string representing the XML-class being tested',
+            );
+        } elseif (empty(self::$xmlRepresentation)) {
+            $this->markTestSkipped(
+                'Unable to run ' . self::class . '::testUnmarshalling(). Please set ' . self::class
+                . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested',
+            );
+        } else {
+            $elt = self::$testedClass::fromXML(self::$xmlRepresentation->documentElement);
+
+            $this->assertEquals(
+                self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+                strval($elt),
+            );
+        }
+    }
+
+
+    /**
      * Test serialization / unserialization.
      *
      * @depends testMarshalling
@@ -47,10 +79,4 @@ trait SerializableElementTestTrait
             );
         }
     }
-
-
-    abstract public function testMarshalling(): void;
-
-
-    abstract public function testUnmarshalling(): void;
 }

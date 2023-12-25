@@ -50,15 +50,4 @@ final class LocalizedStringElementTraitTest extends TestCase
             strval($localizedStringElement),
         );
     }
-
-
-    /**
-     */
-    public function testUnmarshalling(): void
-    {
-        $localizedStringElement = LocalizedStringElement::fromXML(self::$xmlRepresentation->documentElement);
-
-        $this->assertEquals('en', $localizedStringElement->getLanguage());
-        $this->assertEquals('test', $localizedStringElement->getContent());
-    }
 }

@@ -78,17 +78,6 @@ final class QNameElementTraitTest extends TestCase
 
     /**
      */
-    public function testUnmarshalling(): void
-    {
-        $qnameElement = QNameElement::fromXML(self::$xmlRepresentation->documentElement);
-
-        $this->assertEquals('env:Sender', $qnameElement->getContent());
-        $this->assertEquals('http://www.w3.org/2003/05/soap-envelope', $qnameElement->getContentNamespaceUri());
-    }
-
-
-    /**
-     */
     public function testUnmarshallingNonNamepacedQualifiedName(): void
     {
         $qnameElement = QNameElement::fromXML(DOMDocumentFactory::fromString(
