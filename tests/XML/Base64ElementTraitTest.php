@@ -57,7 +57,7 @@ final class Base64ElementTraitTest extends TestCase
 
     /**
      */
-    #[Override]
+    #[\Override]
     public function testUnmarshalling(): void
     {
         $base64Element = Base64Element::fromXML(self::$xmlRepresentation->documentElement);

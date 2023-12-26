@@ -53,7 +53,7 @@ final class ChunkTest extends TestCase
 
     /**
      */
-    #[Override]
+    #[\Override]
     public function testUnmarshalling(): void
     {
         $element = Chunk::fromXML(self::$xmlRepresentation->documentElement);
