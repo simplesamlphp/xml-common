@@ -53,39 +53,6 @@ trait Base64ElementTrait
     }
 
 
-    /**
-     * Convert XML into a class instance
-     *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
-     *
-     * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
-     *   If the qualified name of the supplied element is wrong
-     */
-    public static function fromXML(DOMElement $xml): static
-    {
-        Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
-        Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
-
-        return new static($xml->textContent);
-    }
-
-
-    /**
-     * Convert this element to XML.
-     *
-     * @param \DOMElement|null $parent The element we should append this element to.
-     * @return \DOMElement
-     */
-    public function toXML(DOMElement $parent = null): DOMElement
-    {
-        $e = $this->instantiateParentElement($parent);
-        $e->textContent = $this->getContent();
-
-        return $e;
-    }
-
-
     /** @return string */
     abstract public static function getLocalName(): string;
 
