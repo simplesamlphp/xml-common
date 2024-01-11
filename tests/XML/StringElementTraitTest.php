@@ -6,9 +6,7 @@ namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\StringElement;
-use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\StringElementTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
 use function dirname;

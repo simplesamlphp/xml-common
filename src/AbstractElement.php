@@ -6,10 +6,10 @@ namespace SimpleSAML\XML;
 
 use DOMElement;
 use RuntimeException;
+use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\SerializableElementTrait;
-use SimpleSAML\Assert\Assert;
 
 use function array_slice;
 use function defined;

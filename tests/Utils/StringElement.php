@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use SimpleSAML\XML\AbstractElement;
-use SimpleSAML\XML\SerializableElementTrait;
 use SimpleSAML\XML\StringElementTrait;
 
 /**

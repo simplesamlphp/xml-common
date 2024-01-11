@@ -6,7 +6,6 @@ namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\Element;
-use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;

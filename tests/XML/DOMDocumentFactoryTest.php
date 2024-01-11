@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
-use InvalidArgumentException;
-use RuntimeException;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\UnparseableXMLException;

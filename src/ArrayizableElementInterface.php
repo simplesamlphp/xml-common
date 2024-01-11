@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMElement;
-
 /**
  * interface class to be implemented by all the classes that represent an arrayizable XML element
  *

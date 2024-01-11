@@ -5,12 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Assert\Assert;
-use SimpleSAML\Test\XML\Base64EStringlement;
 use SimpleSAML\Test\XML\XMLDumper;
-use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\Base64ElementTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
 use function dirname;

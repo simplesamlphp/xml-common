@@ -9,9 +9,7 @@ use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\SerializableElementTrait;
-use SimpleSAML\XML\Utils;
 
-use function func_num_args;
 use function in_array;
 use function intval;
 

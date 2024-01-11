@@ -5,15 +5,10 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Assert\Assert;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\Test\XML\ExtendableAttributesElement;
-use SimpleSAML\Test\XML\ExtendableAttributesTestTrait;
 use SimpleSAML\XML\Attribute;
-use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\XsNamespace as NS;
-
-use function dirname;
 
 /**
  * Class \SimpleSAML\XML\ExtendableAttributesTraitTest

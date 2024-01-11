@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMElement;
-use RuntimeException;
-use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\DOMDocumentFactory;
 
 use function array_pop;

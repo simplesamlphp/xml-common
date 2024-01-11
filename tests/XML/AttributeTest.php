@@ -6,12 +6,9 @@ namespace SimpleSAML\Test\XML;
 
 use DOMDocument;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\XML\Constants as C;
-use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Attribute;
+use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\ArrayizableElementTestTrait;
-
-use function dirname;
 
 /**
  * Class \SimpleSAML\XML\AttributeTest

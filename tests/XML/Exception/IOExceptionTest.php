@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
-use LibXMLError;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Exception\IOException;
 

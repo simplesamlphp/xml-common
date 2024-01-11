@@ -6,11 +6,10 @@ namespace SimpleSAML\Test\XML;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\AbstractElement;
-use SimpleSAML\XML\XsNamespace as NS;
-use SimpleSAML\XML\ExtendableAttributesTrait;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\XML\ExtendableAttributesTrait;
+use SimpleSAML\XML\XsNamespace as NS;
 
 /**
  * Empty shell class for testing ExtendableAttributesTrait.

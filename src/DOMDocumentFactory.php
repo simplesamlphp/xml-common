@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMDocument;
-use InvalidArgumentException;
 use RuntimeException;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\IOException;
@@ -13,8 +12,6 @@ use SimpleSAML\XML\Exception\UnparseableXMLException;
 
 use function defined;
 use function file_get_contents;
-use function is_file;
-use function is_readable;
 use function libxml_clear_errors;
 use function libxml_get_last_error;
 use function libxml_use_internal_errors;

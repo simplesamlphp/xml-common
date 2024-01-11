@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use LibXMLError;
-use LIBXML_ERR_ERROR;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Exception\UnparseableXMLException;
 

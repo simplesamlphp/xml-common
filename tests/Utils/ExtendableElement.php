@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use DOMElement;
-use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\XsNamespace as NS;
 use SimpleSAML\XML\ExtendableElementTrait;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\SerializableElementTrait;
+use SimpleSAML\XML\XsNamespace as NS;
 
 /**
  * Empty shell class for testing ExtendableElementTrait.

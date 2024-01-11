@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
-use SimpleSAML\XML\QNameElementTrait;
 use SimpleSAML\XML\AbstractElement;
+use SimpleSAML\XML\QNameElementTrait;
 
 /**
  * Empty shell class for testing QNameElement.

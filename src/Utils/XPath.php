@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\XML\Utils;
 
 use DOMDocument;
-use DOMElement;
 use DOMNode;
 use DOMXPath;
-use InvalidArgumentException;
 use SimpleSAML\Assert\Assert;
 
 /**

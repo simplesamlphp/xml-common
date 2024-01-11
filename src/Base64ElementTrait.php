@@ -6,10 +6,8 @@ namespace SimpleSAML\XML;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\XML\Constants;
-use SimpleSAML\XML\StringElementTrait;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XML\StringElementTrait;
 
 use function str_replace;
 

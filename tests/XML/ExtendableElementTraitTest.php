@@ -12,8 +12,6 @@ use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\ElementInterface;
 use SimpleSAML\XML\XsNamespace as NS;
 
-use function dirname;
-
 /**
  * Class \SimpleSAML\XML\ExtendableElementTraitTest
  *
