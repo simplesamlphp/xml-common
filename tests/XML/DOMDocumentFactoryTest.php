@@ -10,6 +10,8 @@ use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\UnparseableXMLException;
 
+use function strval;
+
 /**
  * @covers \SimpleSAML\XML\DOMDocumentFactory
  * @package simplesamlphp\xml-common
@@ -35,7 +37,7 @@ final class DOMDocumentFactoryTest extends TestCase
 
         $document = DOMDocumentFactory::fromString($xml);
 
-        $this->assertXmlStringEqualsXmlString($xml, $document->saveXML());
+        $this->assertXmlStringEqualsXmlString($xml, strval($document->saveXML()));
     }
 
 
@@ -67,7 +69,7 @@ final class DOMDocumentFactoryTest extends TestCase
         $file = 'resources/xml/domdocument_valid_xml.xml';
         $document = DOMDocumentFactory::fromFile($file);
 
-        $this->assertXmlStringEqualsXmlFile($file, $document->saveXML());
+        $this->assertXmlStringEqualsXmlFile($file, strval($document->saveXML()));
     }
 
 
@@ -120,7 +122,7 @@ final class DOMDocumentFactoryTest extends TestCase
         $this->expectExceptionMessage(
             'Expected a non-whitespace string. Got: ""',
         );
-        /** @psalm-suppress InvalidArgument */
+        /** @phpstan-ignore-next-line */
         DOMDocumentFactory::fromString('');
     }
 }

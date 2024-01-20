@@ -67,7 +67,9 @@ final class AttributeTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        $extendableAttribute = Attribute::fromArray(self::$arrayRepresentation);
+        /** @var array{namespaceURI: string, namespacePrefix: string|null, attrName: string, attrValue: mixed} $arrayRepresentation */
+        $arrayRepresentation = self::$arrayRepresentation;
+        $extendableAttribute = Attribute::fromArray($arrayRepresentation);
         $this->assertEquals(
             self::$arrayRepresentation,
             $extendableAttribute->toArray(),
@@ -87,11 +89,14 @@ final class AttributeTest extends TestCase
         );
 
         $doc = DOMDocumentFactory::fromString('<root />');
-        $elt = $extendableAttribute->toXML($doc->documentElement);
+        /** @var \DOMElement $docElement */
+        $docElement = $doc->documentElement;
+
+        $elt = $extendableAttribute->toXML($docElement);
 
         $this->assertStringContainsString(
-            self::$xmlRepresentation->saveXML(),
-            $elt->ownerDocument->saveXML(),
+            strval(self::$xmlRepresentation->saveXML()),
+            strval($elt->ownerDocument?->saveXML()),
         );
     }
 
@@ -100,7 +105,9 @@ final class AttributeTest extends TestCase
      */
     public function testUnmarshallingXML(): void
     {
-        $attr = self::$xmlRepresentation->documentElement->getAttributeNodeNS('urn:x-simplesamlphp:phpunit', 'test1');
+        /** @var \DOMElement $elt */
+        $elt = self::$xmlRepresentation->documentElement;
+        $attr = $elt->getAttributeNodeNS('urn:x-simplesamlphp:phpunit', 'test1');
         $extendableAttribute = Attribute::fromXML($attr);
 
         $this->assertEquals($extendableAttribute->toArray(), self::$arrayRepresentation);

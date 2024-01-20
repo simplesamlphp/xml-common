@@ -26,20 +26,20 @@ use function sprintf;
  */
 trait ExtendableElementTrait
 {
-    /** @var \SimpleSAML\XML\ElementInterface[] */
+    /** @var \SimpleSAML\XML\SerializableElementInterface[] */
     protected array $elements = [];
 
 
     /**
      * Set an array with all elements present.
      *
-     * @param \SimpleSAML\XML\ElementInterface[] $elements
+     * @param \SimpleSAML\XML\SerializableElementInterface[] $elements
      * @return void
      */
     protected function setElements(array $elements): void
     {
         Assert::maxCount($elements, C::UNBOUNDED_LIMIT);
-        Assert::allIsInstanceOf($elements, ElementInterface::class);
+        Assert::allIsInstanceOf($elements, SerializableElementInterface::class);
         $namespace = $this->getElementNamespace();
 
         // Validate namespace value
@@ -56,11 +56,10 @@ trait ExtendableElementTrait
         // Get namespaces for all elements
         $actual_namespaces = array_map(
             /**
-             * @param \SimpleSAML\XML\ElementInterface $elt
+             * @param \SimpleSAML\XML\SerializableElementInterface $elt
              * @return string|null
              */
-            function (ElementInterface $elt) {
-                /** @psalm-var \SimpleSAML\XML\Chunk|\SimpleSAML\XML\AbstractElement $elt */
+            function (SerializableElementInterface $elt) {
                 return ($elt instanceof Chunk) ? $elt->getNamespaceURI() : $elt::getNamespaceURI();
             },
             $elements
@@ -110,7 +109,7 @@ trait ExtendableElementTrait
     /**
      * Get an array with all elements present.
      *
-     * @return \SimpleSAML\XML\ElementInterface[]
+     * @return \SimpleSAML\XML\SerializableElementInterface[]
      */
     public function getElements(): array
     {

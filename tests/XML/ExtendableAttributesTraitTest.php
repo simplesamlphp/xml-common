@@ -71,6 +71,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$target]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAttributeNamespace(): array|NS
             {
                 return [NS::OTHER, NS::ANY];
@@ -83,6 +84,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAttributeNamespace(): array|NS
             {
                 return [];
@@ -96,6 +98,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testOtherNamespacePassingOtherSucceeds(): void
     {
         $c = new class ([self::$other]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAttributeNamespace(): array|NS
             {
                 return NS::OTHER;
@@ -112,6 +115,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$local]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAttributeNamespace(): array|NS
             {
                 return NS::OTHER;
@@ -125,6 +129,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testTargetNamespacePassingTargetSucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAttributeNamespace(): array|NS
             {
                 return NS::TARGET;
@@ -140,6 +145,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testTargetNamespacePassingTargetArraySucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAttributeNamespace(): array|NS
             {
                 return [NS::TARGET];
@@ -155,6 +161,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testTargetNamespacePassingTargetArraySucceedsWithLocal(): void
     {
         $c = new class ([self::$target]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAttributeNamespace(): array|NS
             {
                 return [NS::TARGET, NS::LOCAL];
@@ -171,6 +178,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$other]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAttributeNamespace(): array|NS
             {
                 return NS::TARGET;
@@ -184,6 +192,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testLocalNamespacePassingLocalSucceeds(): void
     {
         $c = new class ([self::$local]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAttributeNamespace(): array|NS
             {
                 return NS::LOCAL;
@@ -199,6 +208,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testLocalNamespacePassingLocalArraySucceeds(): void
     {
         $c = new class ([self::$local]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAttributeNamespace(): array|NS
             {
                 return [NS::LOCAL];
@@ -215,6 +225,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$target]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAtributeNamespace(): array|NS
             {
                 return NS::LOCAL;
@@ -230,6 +241,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$other]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAttributeNamespace(): array|NS
             {
                 return NS::LOCAL;
@@ -243,6 +255,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testAnyNamespacePassingTargetSucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAttributeNamespace(): array|NS
             {
                 return NS::ANY;
@@ -258,6 +271,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testAnyNamespacePassingOtherSucceeds(): void
     {
         $c = new class ([self::$other]) extends ExtendableAttributesElement {
+            /** @return array<int, NS>|NS */
             public function getAttributeNamespace(): array|NS
             {
                 return NS::ANY;

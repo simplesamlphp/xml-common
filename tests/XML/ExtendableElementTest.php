@@ -45,10 +45,18 @@ final class ExtendableElementTest extends TestCase
      */
     public function testMarshalling(): void
     {
+        $dummyDocument1 = DOMDocumentFactory::fromString('<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>');
+        $dummyDocument2 = DOMDocumentFactory::fromString('<dummy:Chunk xmlns:dummy="urn:custom:dummy">some</dummy:Chunk>');
+
+        /** @var \DOMElement $dummyElement1 */
+        $dummyElement1 = $dummyDocument1->documentElement;
+        /** @var \DOMElement $dummyElement2 */
+        $dummyElement2 = $dummyDocument2->documentElement;
+
         $extendableElement = new ExtendableElement(
             [
-                new Chunk(DOMDocumentFactory::fromString('<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>')->documentElement),
-                new Chunk(DOMDocumentFactory::fromString('<dummy:Chunk xmlns:dummy="urn:custom:dummy">some</dummy:Chunk>')->documentElement),
+                new Chunk($dummyElement1),
+                new Chunk($dummyElement2),
             ],
         );
 

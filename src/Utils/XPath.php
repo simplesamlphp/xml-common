@@ -31,7 +31,6 @@ class XPath
         } else {
             $doc = $node->ownerDocument;
             Assert::notNull($doc);
-            /** @psalm-var \DOMDocument $doc */
         }
 
         if ($xpCache === null || !$xpCache->document->isSameNode($doc)) {

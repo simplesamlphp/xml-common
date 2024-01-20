@@ -55,7 +55,9 @@ final class AbstractElementTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        $element = Element::fromXML(self::$xmlRepresentation->documentElement);
+        /** @var \DOMElement $elt */
+        $elt = self::$xmlRepresentation->documentElement;
+        $element = Element::fromXML($elt);
 
         $this->assertEquals(2, $element->getInteger());
         $this->assertEquals(false, $element->getBoolean());
@@ -67,6 +69,7 @@ final class AbstractElementTest extends TestCase
      */
     public function testGetAttribute(): void
     {
+        /** @var \DOMElement $xml */
         $xml = self::$xmlRepresentation->documentElement;
 
         // Get mandatory attributes
@@ -101,7 +104,9 @@ final class AbstractElementTest extends TestCase
      */
     public function testGetAttributeThrowsExceptionOnMissingAttribute(): void
     {
-        $xml = clone self::$xmlRepresentation->documentElement;
+        /** @var \DOMElement $xml */
+        $xml = self::$xmlRepresentation->documentElement;
+        $xml = clone $xml;
         $xml->removeAttribute('text');
 
         $this->expectException(MissingAttributeException::class);
@@ -113,7 +118,9 @@ final class AbstractElementTest extends TestCase
      */
     public function testGetBooleanAttributeThrowsExceptionOnMissingAttribute(): void
     {
-        $xml = clone self::$xmlRepresentation->documentElement;
+        /** @var \DOMElement $xml */
+        $xml = self::$xmlRepresentation->documentElement;
+        $xml = clone $xml;
         $xml->removeAttribute('boolean');
 
         $this->expectException(MissingAttributeException::class);
@@ -125,7 +132,9 @@ final class AbstractElementTest extends TestCase
      */
     public function testGetIntegerAttributeThrowsExceptionOnMissingAttribute(): void
     {
-        $xml = clone self::$xmlRepresentation->documentElement;
+        /** @var \DOMElement $xml */
+        $xml = self::$xmlRepresentation->documentElement;
+        $xml = clone $xml;
         $xml->removeAttribute('integer');
 
         $this->expectException(MissingAttributeException::class);

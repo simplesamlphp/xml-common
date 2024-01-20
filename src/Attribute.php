@@ -21,18 +21,17 @@ final class Attribute implements ArrayizableElementInterface
      * Create an Attribute class
      *
      * @param string|null $namespaceURI
-     * @param string $namespacePrefix
+     * @param string|null $namespacePrefix
      * @param string $attrName
      * @param string $attrValue
      */
     public function __construct(
         protected ?string $namespaceURI,
-        protected string $namespacePrefix,
+        protected ?string $namespacePrefix,
         protected string $attrName,
         protected string $attrValue,
     ) {
         Assert::nullOrStringNotEmpty($namespaceURI);
-        Assert::string($namespacePrefix);
         Assert::notSame('xmlns', $namespacePrefix);
         if ($namespaceURI !== null) {
             Assert::stringNotEmpty($namespacePrefix);
@@ -89,7 +88,7 @@ final class Attribute implements ArrayizableElementInterface
     /**
      * Create a class from XML
      *
-     * @param \DOMAttr $xml
+     * @param \DOMAttr $attr
      * @return static
      */
     public static function fromXML(DOMAttr $attr): static
@@ -120,7 +119,7 @@ final class Attribute implements ArrayizableElementInterface
     /**
      * Create a class from an array
      *
-     * @param array $data
+     * @param array{namespaceURI: string, namespacePrefix: string|null, attrName: string, attrValue: mixed} $data
      * @return static
      */
     public static function fromArray(array $data): static
@@ -139,13 +138,14 @@ final class Attribute implements ArrayizableElementInterface
     /**
      * Validates an array representation of this object and returns the same array with rationalized keys
      *
-     * @param array $data
-     * @return array
+     * @param array{namespaceURI: string, namespacePrefix: string|null, attrName: string, attrValue: mixed} $data
+     * @return array{namespaceURI: string, namespacePrefix: string|null, attrName: string, attrValue: mixed}
      */
     private static function processArrayContents(array $data): array
     {
         $data = array_change_key_case($data, CASE_LOWER);
 
+        /** @var array{namespaceuri: string, namespaceprefix: string|null, attrname: string, attrvalue: mixed} $data */
         Assert::allOneOf(
             array_keys($data),
             ['namespaceuri', 'namespaceprefix', 'attrname', 'attrvalue'],

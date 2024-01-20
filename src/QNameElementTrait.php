@@ -66,7 +66,6 @@ trait QNameElementTrait
      *
      * @param string $qName  The qualified name
      * @return array
-     * @psalm-return array{null|string, string}
      */
     private static function parseQName(string $qName): array
     {

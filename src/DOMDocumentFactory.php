@@ -24,7 +24,7 @@ final class DOMDocumentFactory
 {
     /**
      * @param string $xml
-     * @psalm-param non-empty-string $xml
+     * @param non-empty-string $xml
      *
      * @return \DOMDocument
      */
@@ -76,7 +76,6 @@ final class DOMDocumentFactory
         error_clear_last();
         $xml = @file_get_contents($file);
         if ($xml === false) {
-            /** @psalm-var array $e */
             $e = error_get_last();
             $error = $e['message'] ?: "Check that the file exists and can be read.";
 
@@ -84,7 +83,6 @@ final class DOMDocumentFactory
         }
 
         Assert::notWhitespaceOnly($xml, sprintf('File "%s" does not have content', $file), RuntimeException::class);
-        /** @psalm-var non-empty-string $xml */
         return static::fromString($xml);
     }
 

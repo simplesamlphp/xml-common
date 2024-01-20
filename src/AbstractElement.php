@@ -45,7 +45,6 @@ abstract class AbstractElement implements SerializableElementInterface
             $parent = DOMDocumentFactory::create();
             $e = $parent->createElementNS($namespace, $qualifiedName);
         } else {
-            /** @psalm-var \DOMDocument $doc */
             $doc = $parent->ownerDocument;
             Assert::notNull($doc);
             $e = $doc->createElementNS($namespace, $qualifiedName);
@@ -87,7 +86,7 @@ abstract class AbstractElement implements SerializableElementInterface
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param string|null $default The default to return in case the attribute does not exist and it is optional.
-     * @psalm-return ($default is string ? string : string|null)
+     * @return ($default is string ? string : string|null)
      */
     public static function getOptionalAttribute(DOMElement $xml, string $name, ?string $default = null): ?string
     {
@@ -128,7 +127,7 @@ abstract class AbstractElement implements SerializableElementInterface
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param bool|null   $default The default to return in case the attribute does not exist and it is optional.
-     * @psalm-return ($default is bool ? bool : bool|null)
+     * @return ($default is bool ? bool : bool|null)
      *
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not a boolean
      */
@@ -174,7 +173,7 @@ abstract class AbstractElement implements SerializableElementInterface
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param int|null    $default The default to return in case the attribute does not exist and it is optional.
-     * @psalm-return ($default is int ? int : int|null)
+     * @return ($default is int ? int : int|null)
      *
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not an integer
      */
@@ -227,10 +226,10 @@ abstract class AbstractElement implements SerializableElementInterface
         $ret = [];
         foreach ($parent->childNodes as $node) {
             if (
-                $node->namespaceURI === static::getNamespaceURI()
+                $node instanceof DOMElement
+                && $node->namespaceURI === static::getNamespaceURI()
                 && $node->localName === static::getLocalName()
             ) {
-                /** @psalm-var \DOMElement $node */
                 $ret[] = static::fromXML($node);
             }
         }
@@ -252,9 +251,11 @@ abstract class AbstractElement implements SerializableElementInterface
             . '::NS constant must be defined and set to the namespace for the XML-class it represents.',
             RuntimeException::class,
         );
-        Assert::nullOrValidURI(static::NS, SchemaViolationException::class);
+        // @phpstan-ignore classConstant.notFound
+        Assert::nullOrValidURI(static::NS, SchemaViolationException::class); // @phpstan-ignore-line
 
-        return static::NS;
+        // @phpstan-ignore classConstant.notFound
+        return static::NS; // @phpstan-ignore-line
     }
 
 
@@ -272,7 +273,8 @@ abstract class AbstractElement implements SerializableElementInterface
             RuntimeException::class,
         );
 
-        return strval(static::NS_PREFIX);
+        // @phpstan-ignore classConstant.notFound
+        return strval(static::NS_PREFIX); // @phpstan-ignore-line
     }
 
 

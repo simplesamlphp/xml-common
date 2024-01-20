@@ -55,7 +55,9 @@ final class Base64ElementTraitTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        $base64Element = Base64Element::fromXML(self::$xmlRepresentation->documentElement);
+        /** @var \DOMElement $xml */
+        $xml = self::$xmlRepresentation->documentElement;
+        $base64Element = Base64Element::fromXML($xml);
 
         $this->assertEquals('/CTj03d1DB5e2t7CTo9BEzCf5S9NRzwnBgZRlm32REI=', $base64Element->getContent());
     }
@@ -68,12 +70,17 @@ final class Base64ElementTraitTest extends TestCase
     public function testBase64Cases(string $xml): void
     {
         $xmlRepresentation = DOMDocumentFactory::fromString($xml);
+        /** @var \DOMElement $xmlElement */
+        $xmlElement = $xmlRepresentation->documentElement;
 
-        $xmlElement = Base64Element::fromXML($xmlRepresentation->documentElement);
+        $base64 = Base64Element::fromXML($xmlElement);
 
-        $this->assertStringContainsString($xmlElement->getRawContent(), $xml);
+        $this->assertStringContainsString($base64->getRawContent(), $xml);
     }
 
+    /**
+     * @return array<string, array{0: string}>
+     */
     public static function provideBase64Cases(): array
     {
         return [

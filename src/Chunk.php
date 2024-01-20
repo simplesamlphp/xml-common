@@ -180,7 +180,7 @@ final class Chunk implements SerializableElementInterface
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param string|null $default The default to return in case the attribute does not exist and it is optional.
-     * @psalm-return ($default is string ? string : null)
+     * @return ($default is string ? string : null)
      */
     public static function getOptionalAttribute(DOMElement $xml, string $name, ?string $default = null): ?string
     {
@@ -218,7 +218,7 @@ final class Chunk implements SerializableElementInterface
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param bool|null   $default The default to return in case the attribute does not exist and it is optional.
-     * @psalm-return ($default is bool ? bool : null)
+     * @return ($default is bool ? bool : null)
      *
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not a boolean
      */
@@ -237,7 +237,6 @@ final class Chunk implements SerializableElementInterface
      *
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
-     * @param int         $default The default to return in case the attribute does not exist and it is optional.
      * @return int
      *
      * @throws \SimpleSAML\XML\Exception\MissingAttributeException if the attribute is missing from the element
@@ -262,7 +261,7 @@ final class Chunk implements SerializableElementInterface
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param int|null    $default The default to return in case the attribute does not exist and it is optional.
-     * @psalm-return ($default is int ? int : null)
+     * @return ($default is int ? int : null)
      *
      * @throws \SimpleSAML\Assert\AssertionFailedException if the attribute is not an integer
      */
@@ -283,8 +282,9 @@ final class Chunk implements SerializableElementInterface
      */
     public function isEmptyElement(): bool
     {
+        /** @var \DOMElement $xml */
         $xml = $this->getXML();
-        return ($xml->childNodes->length === 0) && ($xml->attributes->length === 0);
+        return ($xml->childNodes->length === 0) && ($xml->attributes->count() === 0);
     }
 
 
@@ -317,10 +317,6 @@ final class Chunk implements SerializableElementInterface
             $parent = $doc;
         }
 
-        /**
-         * @psalm-var \DOMDocument $parent
-         * @psalm-var \DOMDocument $doc
-         */
         $parent->appendChild($doc->importNode($this->getXML(), true));
 
         return $doc->documentElement;

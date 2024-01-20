@@ -61,7 +61,6 @@ trait SchemaValidationTestTrait
             $predoc = XMLReader::XML(self::$xmlRepresentation->saveXML());
             Assert::notFalse($predoc);
 
-            /** @psalm-var \XMLReader $predoc */
             $pre = $this->validateDocument($predoc);
             $this->assertTrue($pre);
 
@@ -70,7 +69,6 @@ trait SchemaValidationTestTrait
 
             $postdoc = XMLReader::XML($serializedClass->ownerDocument->saveXML());
             Assert::notFalse($postdoc);
-            /** @psalm-var \XMLReader $postdoc */
             $post = $this->validateDocument($postdoc);
             $this->assertTrue($post);
         }
@@ -95,7 +93,6 @@ trait SchemaValidationTestTrait
         $msgs = [];
         while ($xmlReader->read()) {
             if (!$xmlReader->isValid()) {
-                /** @psalm-var \libXMLError|false $err */
                 $err = libxml_get_last_error();
                 if ($err instanceof LibXMLError) {
                     $msgs[] = trim($err->message) . ' on line ' . $err->line;

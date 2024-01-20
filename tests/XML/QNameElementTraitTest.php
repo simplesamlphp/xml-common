@@ -77,9 +77,13 @@ final class QNameElementTraitTest extends TestCase
      */
     public function testUnmarshallingNonNamepacedQualifiedName(): void
     {
-        $qnameElement = QNameElement::fromXML(DOMDocumentFactory::fromString(
+        $doc = DOMDocumentFactory::fromString(
             '<ssp:QNameElement xmlns:ssp="urn:x-simplesamlphp:namespace">Sender</ssp:QNameElement>'
-        )->documentElement);
+        );
+
+        /** @var \DOMElement $element */
+        $element = $doc->documentElement;
+        $qnameElement = QNameElement::fromXML($element);
 
         $this->assertEquals('Sender', $qnameElement->getContent());
         $this->assertNull($qnameElement->getContentNamespaceUri());

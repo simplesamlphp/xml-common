@@ -31,7 +31,7 @@ class ExtendableElement extends AbstractElement
     /** @var string */
     public const LOCALNAME = 'ExtendableElement';
 
-    /** @var \SimpleSAML\XML\XsNamespace|array */
+    /** @var \SimpleSAML\XML\XsNamespace|array<int, \SimpleSAML\XML\XsNamespace> */
     public const XS_ANY_ELT_NAMESPACE = NS::ANY;
 
 
@@ -60,7 +60,7 @@ class ExtendableElement extends AbstractElement
     /**
      * Initialize element.
      *
-     * @param \SimpleSAML\XML\ElementInterface[] $elements
+     * @param \SimpleSAML\XML\SerializableElementInterface[] $elements
      */
     final public function __construct(array $elements)
     {
@@ -97,7 +97,6 @@ class ExtendableElement extends AbstractElement
     {
         $e = $this->instantiateParentElement();
 
-        /** @psalm-var \SimpleSAML\XML\SerializableElementInterface $elt */
         foreach ($this->getElements() as $elt) {
             if (!$elt->isEmptyElement()) {
                 $elt->toXML($e);

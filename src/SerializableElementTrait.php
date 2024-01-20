@@ -36,10 +36,8 @@ trait SerializableElementTrait
     {
         $xml = $this->toXML();
 
-        /** @psalm-var \DOMDocument $xml->ownerDocument */
         $xmlString = $xml->ownerDocument->saveXML();
 
-        /** @psalm-var non-empty-string $xmlString */
         $doc = DOMDocumentFactory::fromString($xmlString);
         $doc->formatOutput = $this->formatOutput;
 
@@ -52,12 +50,11 @@ trait SerializableElementTrait
      *
      * This method will be invoked by any calls to serialize().
      *
-     * @return array The serialized representation of this XML object.
+     * @return array{0: string} The serialized representation of this XML object.
      */
     public function __serialize(): array
     {
         $xml = $this->toXML();
-        /** @psalm-var \DOMDocument $xml->ownerDocument */
         return [$xml->ownerDocument->saveXML($xml)];
     }
 
@@ -68,7 +65,7 @@ trait SerializableElementTrait
      * This method will be invoked by any calls to unserialize(), allowing us to restore any data that might not
      * be serializable in its original form (e.g.: DOM objects).
      *
-     * @param array $serialized The XML object that we want to restore.
+     * @param array{0: string} $serialized The XML object that we want to restore.
      */
     public function __unserialize(array $serialized): void
     {

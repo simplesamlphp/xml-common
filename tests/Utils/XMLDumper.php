@@ -17,7 +17,10 @@ final class XMLDumper
 {
     public static function dumpDOMDocumentXMLWithBase64Content(DOMDocument $document): string
     {
+        /** @var string $dump */
         $dump = $document->saveXML($document->documentElement);
-        return preg_replace('/ *[\\r\\n] */', '', $dump);
+        /** @var string $result */
+        $result = preg_replace('/ *[\\r\\n] */', '', $dump);
+        return $result;
     }
 }

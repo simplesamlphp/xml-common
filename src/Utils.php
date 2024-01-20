@@ -25,7 +25,7 @@ class Utils
      * @param \DOMElement $parent The element that contains the localized strings.
      * @param string $namespaceURI The namespace URI the localized strings should have.
      * @param string $localName The localName of the localized strings.
-     * @return array Localized strings.
+     * @return array<string, string> Localized strings.
      */
     public static function extractLocalizedStrings(DOMElement $parent, string $namespaceURI, string $localName): array
     {
@@ -57,7 +57,7 @@ class Utils
      * @param \DOMElement $parent The element that contains the localized strings.
      * @param string $namespaceURI The namespace URI the string elements should have.
      * @param string $localName The localName of the string elements.
-     * @return array The string values of the various nodes.
+     * @return string[] The string values of the various nodes.
      */
     public static function extractStrings(DOMElement $parent, string $namespaceURI, string $localName): array
     {
@@ -92,7 +92,6 @@ class Utils
     ): DOMElement {
         $doc = $parent->ownerDocument;
         Assert::notNull($doc);
-        /** @psalm-var \DOMDocument $doc */
 
         $n = $doc->createElementNS($namespace, $name);
         $n->appendChild($doc->createTextNode($value));
@@ -111,7 +110,7 @@ class Utils
      * @param string $namespace The namespace of the created elements
      * @param string $name The name of the created elements
      * @param bool $localized Whether the strings are localized, and should include the xml:lang attribute.
-     * @param array $values The values we should create the elements from.
+     * @param string[] $values The values we should create the elements from.
      */
     public static function addStrings(
         DOMElement $parent,
@@ -122,7 +121,6 @@ class Utils
     ): void {
         $doc = $parent->ownerDocument;
         Assert::notNull($doc);
-        /** @psalm-var \DOMDocument $doc */
 
         foreach ($values as $index => $value) {
             $n = $doc->createElementNS($namespace, $name);
@@ -160,7 +158,6 @@ class Utils
 
         $dateTime = $dateTime1 ?: $dateTime2;
         Assert::isInstanceOf($dateTime, DateTimeImmutable::class);
-        /** @psalm-var \DateTimeImmutable $dateTime */
         return $dateTime->getTimestamp();
     }
 }
