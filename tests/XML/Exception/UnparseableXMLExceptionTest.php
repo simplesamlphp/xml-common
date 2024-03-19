@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use LibXMLError;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Exception\UnparseableXMLException;
 
@@ -12,9 +13,8 @@ use SimpleSAML\XML\Exception\UnparseableXMLException;
  * Empty shell class for testing UnparseableXMLException.
  *
  * @package simplesaml/xml-security
- *
- * @covers \SimpleSAML\XML\Exception\UnparseableXMLException
  */
+#[CoversClass(UnparseableXMLException::class)]
 final class UnparseableXMLExceptionTest extends TestCase
 {
     /** @var \LibXMLError $libxmlerror */

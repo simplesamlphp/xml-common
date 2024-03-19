@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\ExtendableAttributesElement;
 use SimpleSAML\XML\Attribute;
@@ -16,11 +17,10 @@ use function dirname;
 /**
  * Class \SimpleSAML\XML\ExtendableAttributesTest
  *
- * @covers \SimpleSAML\XML\TestUtils\SchemaValidationTestTrait
- * @covers \SimpleSAML\XML\TestUtils\SerializableElementTestTrait
- *
  * @package simplesamlphp\xml-common
  */
+#[CoversClass(SchemaValidationTestTrait::class)]
+#[CoversClass(SerializableElementTestTrait::class)]
 final class ExtendableAttributesTest extends TestCase
 {
     use SchemaValidationTestTrait;

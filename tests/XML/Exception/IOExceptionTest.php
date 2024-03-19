@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Exception\IOException;
 
@@ -11,9 +12,8 @@ use SimpleSAML\XML\Exception\IOException;
  * Empty shell class for testing IOException.
  *
  * @package simplesaml/xml-security
- *
- * @covers \SimpleSAML\XML\Exception\IOException
  */
+#[CoversClass(IOException::class)]
 final class IOExceptionTest extends TestCase
 {
     /**

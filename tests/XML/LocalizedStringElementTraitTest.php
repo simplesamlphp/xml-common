@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\LocalizedStringElement;
+use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\LocalizedStringElementTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
 use function dirname;
@@ -15,12 +18,11 @@ use function strval;
 /**
  * Class \SimpleSAML\XML\LocalizedStringElementTraitTest
  *
- * @covers \SimpleSAML\XML\TestUtils\SerializableElementTestTrait
- * @covers \SimpleSAML\XML\LocalizedStringElementTrait
- * @covers \SimpleSAML\XML\AbstractElement
- *
  * @package simplesamlphp\xml-common
  */
+#[CoversClass(SerializableElementTestTrait::class)]
+#[CoversClass(LocalizedStringElementTrait::class)]
+#[CoversClass(AbstractElement::class)]
 final class LocalizedStringElementTraitTest extends TestCase
 {
     use SerializableElementTestTrait;

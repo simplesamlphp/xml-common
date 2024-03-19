@@ -1,0 +1,5 @@
+{
+  "symbol-whitelist": [
+    "PHPUnit\\Framework\\Attributes\\Depends"
+  ]
+}

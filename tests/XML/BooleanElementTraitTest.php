@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\BooleanElement;
+use SimpleSAML\XML\AbstractElement;
+use SimpleSAML\XML\BooleanElementTrait;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
@@ -15,12 +18,11 @@ use function strval;
 /**
  * Class \SimpleSAML\XML\BooleanElementTraitTest
  *
- * @covers \SimpleSAML\XML\TestUtils\SerializableElementTestTrait
- * @covers \SimpleSAML\XML\BooleanElementTrait
- * @covers \SimpleSAML\XML\AbstractElement
- *
  * @package simplesamlphp\xml-common
  */
+#[CoversClass(SerializableElementTestTrait::class)]
+#[CoversClass(BooleanElementTrait::class)]
+#[CoversClass(AbstractElement::class)]
 final class BooleanElementTraitTest extends TestCase
 {
     use SerializableElementTestTrait;

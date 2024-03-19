@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XML\QNameElementTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
 use function dirname;
@@ -15,11 +17,10 @@ use function strval;
 /**
  * Class \SimpleSAML\Test\XML\QNameElementTraitTest
  *
- * @covers \SimpleSAML\XML\TestUtils\SerializableElementTestTrait
- * @covers \SimpleSAML\XML\QNameElementTrait
- *
  * @package simplesamlphp\xml-common
  */
+#[CoversClass(SerializableElementTestTrait::class)]
+#[CoversClass(QNameElementTrait::class)]
 final class QNameElementTraitTest extends TestCase
 {
     use SerializableElementTestTrait;

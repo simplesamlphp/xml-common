@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\XMLDumper;
+use SimpleSAML\XML\AbstractElement;
+use SimpleSAML\XML\Base64ElementTrait;
 use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\StringElementTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
 use function dirname;
@@ -15,13 +20,12 @@ use function strval;
 /**
  * Class \SimpleSAML\XML\Base64ElementTraitTest
  *
- * @covers \SimpleSAML\XML\TestUtils\SerializableElementTestTrait
- * @covers \SimpleSAML\XML\Base64ElementTrait
- * @covers \SimpleSAML\XML\StringElementTrait
- * @covers \SimpleSAML\XML\AbstractElement
- *
  * @package simplesamlphp\xml-common
  */
+#[CoversClass(SerializableElementTestTrait::class)]
+#[CoversClass(Base64ElementTrait::class)]
+#[CoversClass(StringElementTrait::class)]
+#[CoversClass(AbstractElement::class)]
 final class Base64ElementTraitTest extends TestCase
 {
     use SerializableElementTestTrait;
@@ -65,8 +69,8 @@ final class Base64ElementTraitTest extends TestCase
 
     /**
      * @param non-empty-string $xml
-     * @dataProvider provideBase64Cases
      */
+    #[DataProvider('provideBase64Cases')]
     public function testBase64Cases(string $xml): void
     {
         $xmlRepresentation = DOMDocumentFactory::fromString($xml);

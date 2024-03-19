@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use DOMDocument;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\DOMDocumentFactory;
@@ -13,11 +14,10 @@ use SimpleSAML\XML\TestUtils\ArrayizableElementTestTrait;
 /**
  * Class \SimpleSAML\XML\AttributeTest
  *
- * @covers \SimpleSAML\XML\Attribute
- * @covers \SimpleSAML\XML\TestUtils\ArrayizableElementTestTrait
- *
  * @package simplesamlphp\xml-common
  */
+#[CoversClass(ArrayizableElementTestTrait::class)]
+#[CoversClass(Attribute::class)]
 final class AttributeTest extends TestCase
 {
     use ArrayizableElementTestTrait;

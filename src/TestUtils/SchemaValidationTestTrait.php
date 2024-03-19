@@ -7,6 +7,7 @@ namespace SimpleSAML\XML\TestUtils;
 use DOMDocument;
 use Exception;
 use LibXMLError; // Officially spelled with a lower-case `l`, but that breaks composer-require-checker
+use PHPUnit\Framework\Attributes\Depends;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use XMLReader;
@@ -37,9 +38,8 @@ trait SchemaValidationTestTrait
 
     /**
      * Test schema validation.
-     *
-     * @depends testSerialization
      */
+    #[Depends('testSerialization')]
     public function testSchemaValidation(): void
     {
         if (!class_exists(self::$testedClass)) {

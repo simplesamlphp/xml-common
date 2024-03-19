@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\XML\TestUtils;
 
 use DOMDocument;
+use PHPUnit\Framework\Attributes\Depends;
 
 use function class_exists;
 
@@ -56,10 +57,9 @@ trait SerializableElementTestTrait
 
     /**
      * Test serialization / unserialization.
-     *
-     * @depends testMarshalling
-     * @depends testUnmarshalling
      */
+    #[Depends('testMarshalling')]
+    #[Depends('testUnmarshalling')]
     public function testSerialization(): void
     {
         if (!class_exists(self::$testedClass)) {

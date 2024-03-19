@@ -4,23 +4,26 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\Test\XML\ExtendableElement;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\ElementInterface;
+use SimpleSAML\XML\ExtendableElementTrait;
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XML\XsNamespace as NS;
 
 /**
  * Class \SimpleSAML\XML\ExtendableElementTraitTest
  *
- * @covers \SimpleSAML\XML\TestUtils\SchemaValidationTestTrait
- * @covers \SimpleSAML\XML\TestUtils\SerializableElementTestTrait
- * @covers \SimpleSAML\XML\ExtendableElementTrait
- *
  * @package simplesamlphp\xml-common
  */
+#[CoversClass(SchemaValidationTestTrait::class)]
+#[CoversClass(SerializableElementTestTrait::class)]
+#[CoversClass(ExtendableElementTrait::class)]
 final class ExtendableElementTraitTest extends TestCase
 {
     /** @var \SimpleSAML\XML\SerializableElementInterface */

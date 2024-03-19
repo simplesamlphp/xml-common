@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Utils;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Utils\Random;
 
@@ -11,9 +12,8 @@ use function strlen;
 
 /**
  * Tests for SimpleSAML\XML\Utils\Random.
- *
- * @covers \SimpleSAML\XML\Utils\Random
  */
+#[CoversClass(Random::class)]
 class RandomTest extends TestCase
 {
     /**

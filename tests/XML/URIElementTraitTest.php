@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\URIElement;
+use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\URIElementTrait;
 
 use function dirname;
 use function strval;
@@ -15,12 +18,11 @@ use function strval;
 /**
  * Class \SimpleSAML\XML\URIElementTraitTest
  *
- * @covers \SimpleSAML\XML\TestUtils\SerializableElementTestTrait
- * @covers \SimpleSAML\XML\URIElementTrait
- * @covers \SimpleSAML\XML\AbstractElement
- *
  * @package simplesamlphp\xml-common
  */
+#[CoversClass(SerializableElementTestTrait::class)]
+#[CoversClass(URIElementTrait::class)]
+#[CoversClass(AbstractElement::class)]
 final class URIElementTraitTest extends TestCase
 {
     use SerializableElementTestTrait;
