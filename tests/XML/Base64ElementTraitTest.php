@@ -92,6 +92,7 @@ final class Base64ElementTraitTest extends TestCase
                 <<<XML
 <ssp:Base64Element xmlns:ssp="urn:x-simplesamlphp:namespace">/CTj03d1DB5e2t7CTo9BEzCf5S9NRzwnBgZRlm32REI=</ssp:Base64Element>
 XML
+                ,
             ],
             'multiline' => [
                 <<<XML
@@ -103,6 +104,7 @@ p02lnMe2SmXADY1u9lbVjOhUrJpgvWfn9YuiCR+wjvaGMwIwzfJxChLJZOBV+1ad1CyNTiu6qAbl
 xZ4F8cWlMWJ7f0KkWvtw66HOf2VNR6Qan2Ra7Q==
 </ssp:Base64Element>
 XML
+                ,
             ],
         ];
     }

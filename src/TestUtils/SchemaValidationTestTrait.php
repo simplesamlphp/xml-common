@@ -103,7 +103,7 @@ trait SchemaValidationTestTrait
         if ($msgs) {
             throw new SchemaViolationException(sprintf(
                 "XML schema validation errors:\n - %s",
-                implode("\n - ", array_unique($msgs))
+                implode("\n - ", array_unique($msgs)),
             ));
         }
 

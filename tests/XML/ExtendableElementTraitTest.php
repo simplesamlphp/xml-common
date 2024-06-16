@@ -43,24 +43,32 @@ final class ExtendableElementTraitTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        $emptyDocument = DOMDocumentFactory::fromString(<<<XML
+        $emptyDocument = DOMDocumentFactory::fromString(
+            <<<XML
             <chunk/>
 XML
+            ,
         );
 
-        $localDocument = DOMDocumentFactory::fromString(<<<XML
+        $localDocument = DOMDocumentFactory::fromString(
+            <<<XML
             <chunk>some</chunk>
 XML
+            ,
         );
 
-        $targetDocument = DOMDocumentFactory::fromString(<<<XML
+        $targetDocument = DOMDocumentFactory::fromString(
+            <<<XML
             <ssp:chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:chunk>
 XML
+            ,
         );
 
-        $otherDocument = DOMDocumentFactory::fromString(<<<XML
+        $otherDocument = DOMDocumentFactory::fromString(
+            <<<XML
             <dummy:chunk xmlns:dummy="urn:custom:dummy">some</dummy:chunk>
 XML
+            ,
         );
 
         /** @var \DOMElement $emptyElement */

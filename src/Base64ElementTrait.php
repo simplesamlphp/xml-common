@@ -46,7 +46,7 @@ trait Base64ElementTrait
         // Note: content must already be sanitized before validating
         Assert::stringPlausibleBase64(
             $this->sanitizeContent($content),
-            SchemaViolationException::class
+            SchemaViolationException::class,
         );
     }
 

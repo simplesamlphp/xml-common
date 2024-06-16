@@ -51,7 +51,7 @@ final class Chunk implements SerializableElementInterface
      * @param \DOMElement $xml The element we should copy.
      */
     public function __construct(
-        protected DOMElement $xml
+        protected DOMElement $xml,
     ) {
         $this->setLocalName($xml->localName);
         $this->setNamespaceURI($xml->namespaceURI);

@@ -62,7 +62,7 @@ trait ExtendableElementTrait
             function (SerializableElementInterface $elt) {
                 return ($elt instanceof Chunk) ? $elt->getNamespaceURI() : $elt::getNamespaceURI();
             },
-            $elements
+            $elements,
         );
 
         if ($namespace === NS::LOCAL) {

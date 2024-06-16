@@ -33,7 +33,7 @@ final class Element extends AbstractElement
     public function __construct(
         protected ?int $integer = null,
         protected ?bool $boolean = null,
-        protected ?string $text = null
+        protected ?string $text = null,
     ) {
     }
 
