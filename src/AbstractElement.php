@@ -230,6 +230,10 @@ abstract class AbstractElement implements SerializableElementInterface
                 && $node->namespaceURI === static::getNamespaceURI()
                 && $node->localName === static::getLocalName()
             ) {
+                // Normalize the DOMElement by importing it into a clean empty document
+                $newDoc = DOMDocumentFactory::create();
+                $node = $newDoc->appendChild($newDoc->importNode($node, true));
+
                 $ret[] = static::fromXML($node);
             }
         }
