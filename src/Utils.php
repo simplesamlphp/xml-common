@@ -152,13 +152,15 @@ class Utils
      */
     public static function xsDateTimeToTimestamp(string $time): int
     {
-        Assert::validDateTimeZulu($time);
+        Assert::validDateTime($time);
 
         $dateTime1 = DateTimeImmutable::createFromFormat(DateTimeInterface::ISO8601, $time);
         $dateTime2 = DateTimeImmutable::createFromFormat(DateTimeInterface::RFC3339_EXTENDED, $time);
 
         $dateTime = $dateTime1 ?: $dateTime2;
         Assert::isInstanceOf($dateTime, DateTimeImmutable::class);
+        Assert::same($dateTime->getTimeZone()->getName(), 'Z');
+
         return $dateTime->getTimestamp();
     }
 }
