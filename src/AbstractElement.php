@@ -232,6 +232,7 @@ abstract class AbstractElement implements SerializableElementInterface
             ) {
                 // Normalize the DOMElement by importing it into a clean empty document
                 $newDoc = DOMDocumentFactory::create();
+                /** @var \DOMElement $node */
                 $node = $newDoc->appendChild($newDoc->importNode($node, true));
 
                 $ret[] = static::fromXML($node);
