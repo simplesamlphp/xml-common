@@ -1,6 +1,7 @@
 .phpunit.result.cache
 /.phpunit.cache/
 /build/
+/super-linter-output/
 /vendor/
 phpunit.xml.bak
 composer.phar
