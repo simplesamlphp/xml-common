@@ -219,7 +219,7 @@ abstract class AbstractElement implements SerializableElementInterface
      * Extract localized names from the children of a given element.
      *
      * @param \DOMElement $parent The element we want to search.
-     * @return static[] An array of objects of this class.
+     * @return array<static> An array of objects of this class.
      */
     public static function getChildrenOfClass(DOMElement $parent): array
     {
