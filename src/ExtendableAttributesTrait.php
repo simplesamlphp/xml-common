@@ -218,10 +218,10 @@ trait ExtendableAttributesTrait
                 ),
             );
         } else {
-            // All attributes must be namespaced, ergo non-null
-            Assert::allNotNull($actual_namespaces);
-
             if ($namespace === NS::OTHER) {
+                // All attributes must be namespaced, ergo non-null
+                Assert::allNotNull($actual_namespaces);
+
                 // Must be any namespace other than the parent element
                 Assert::allNotSame($actual_namespaces, static::NS);
             } elseif ($namespace === NS::TARGET) {
