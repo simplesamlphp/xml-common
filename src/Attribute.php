@@ -55,9 +55,9 @@ final class Attribute implements ArrayizableElementInterface
     /**
      * Collect the value of the namespacePrefix-property
      *
-     * @return string
+     * @return string|null
      */
-    public function getNamespacePrefix(): string
+    public function getNamespacePrefix(): ?string
     {
         return $this->namespacePrefix;
     }
@@ -108,7 +108,9 @@ final class Attribute implements ArrayizableElementInterface
     {
         $parent->setAttributeNS(
             $this->getNamespaceURI(),
-            $this->getNamespacePrefix() . ':' . $this->getAttrName(),
+            ($this->getNamespacePrefix() !== null)
+                ? ($this->getNamespacePrefix() . ':' . $this->getAttrName())
+                : $this->getAttrName(),
             $this->getAttrValue(),
         );
 
