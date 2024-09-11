@@ -1,7 +1,7 @@
 {
     "name": "simplesamlphp/xml-common",
     "description": "A library with classes and utilities for handling XML structures.",
-    "type": "project",
+    "type": "simplesamlphp-xmlprovider",
     "keywords": ["saml", "xml"],
     "homepage": "http://simplesamlphp.org",
     "license": "LGPL-2.1-or-later",
@@ -34,7 +34,8 @@
         "ext-spl": "*",
         "ext-xmlreader": "*",
 
-        "simplesamlphp/assert": "^1.2"
+        "simplesamlphp/assert": "^1.2",
+        "symfony/finder": "^6.4"
     },
     "require-dev": {
         "simplesamlphp/simplesamlphp-test-framework": "^1.7"
@@ -47,7 +48,8 @@
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "simplesamlphp/composer-xmlprovider-installer": true
         }
     }
 }
