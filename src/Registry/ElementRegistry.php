@@ -9,18 +9,16 @@ use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use Symfony\Component\Finder\Finder;
 
-use function array_key_exists;
 use function array_merge_recursive;
 use function dirname;
-use function implode;
 
-class ElementRegistry
+final class ElementRegistry
 {
-    /** @var \SimpleSAML\XML\Registry\AbstractElementRegistry|null $instance */
-    protected static ?AbstractElementRegistry $instance = null;
+    /** @var \SimpleSAML\XML\Registry\ElementRegistry|null $instance */
+    private static ?ElementRegistry $instance = null;
 
-    /** @var array<string, string> */
-    protected array $registry = [];
+    /** @var array<string, array<string, string>> */
+    private array $registry = [];
 
 
     final private function __construct()
@@ -38,7 +36,7 @@ class ElementRegistry
     }
 
 
-    public static function getInstance(): AbstractElementRegistry
+    public static function getInstance(): ElementRegistry
     {
         if (self::$instance === null) {
             self::$instance = new static();
@@ -56,10 +54,10 @@ class ElementRegistry
     public function registerElementHandler(string $class): void
     {
         Assert::subclassOf($class, AbstractElement::class);
-        $namespace = class::NS;
         $className = AbstractElement::getClassName($class);
+        $namespace = $class::NS;
 
-        $this->registry[$namespace][$key] = $class;
+        $this->registry[$namespace][$className] = $class;
     }
 
 
