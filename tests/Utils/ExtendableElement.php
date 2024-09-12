@@ -34,6 +34,11 @@ class ExtendableElement extends AbstractElement
     /** @var \SimpleSAML\XML\XsNamespace|array<int, \SimpleSAML\XML\XsNamespace> */
     public const XS_ANY_ELT_NAMESPACE = NS::ANY;
 
+    /** @var array{array{string, string}} */
+    public const XS_ANY_ELT_EXCLUSIONS = [
+        ['urn:custom:other', 'Chunk'],
+    ];
+
 
     /**
      * Get the namespace for the element.
