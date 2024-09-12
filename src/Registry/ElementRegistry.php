@@ -10,7 +10,7 @@ use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use Symfony\Component\Finder\Finder;
 
 use function array_key_exists;
-use function array_merge;
+use function array_merge_recursive;
 use function dirname;
 use function implode;
 
@@ -32,7 +32,7 @@ class ElementRegistry
         if ($finder->hasResults()) {
             foreach ($finder as $file) {
                 $elements = include($file);
-                $this->registry = array_merge($this->registry, $elements);
+                $this->registry = array_merge_recursive($this->registry, $elements);
             }
         }
     }
