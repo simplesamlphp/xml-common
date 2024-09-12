@@ -56,9 +56,10 @@ class ElementRegistry
     public function registerElementHandler(string $class): void
     {
         Assert::subclassOf($class, AbstractElement::class);
+        $namespace = class::NS;
         $className = AbstractElement::getClassName($class);
-        $key = ($class::NS === null) ? $className : implode(':', [$class::NS, $className]);
-        $this->registry[$key] = $class;
+
+        $this->registry[$namespace][$key] = $class;
     }
 
 
@@ -79,11 +80,6 @@ class ElementRegistry
         Assert::nullOrValidURI($namespace, InvalidDOMElementException::class);
         Assert::validNCName($element, InvalidDOMElementException::class);
 
-        $key = ($namespace === null) ? $element : implode(':', [$namespace, $element]);
-        if (array_key_exists($key, $this->registry) === true) {
-            return $this->registry[$key];
-        }
-
-        return null;
+        return $this->registry[$namespace][$element] ?? null;
     }
 }
