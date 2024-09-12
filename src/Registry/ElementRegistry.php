@@ -14,14 +14,14 @@ use function array_merge;
 use function dirname;
 use function implode;
 
-abstract class AbstractElementRegistry
+class ElementRegistry
 {
     /** @var \SimpleSAML\XML\Registry\AbstractElementRegistry|null $instance */
     protected static ?AbstractElementRegistry $instance = null;
 
-
     /** @var array<string, string> */
     protected array $registry = [];
+
 
     final private function __construct()
     {
