@@ -11,6 +11,7 @@ use Symfony\Component\Finder\Finder;
 
 use function array_merge_recursive;
 use function dirname;
+use function file_exists;
 
 final class ElementRegistry
 {
@@ -26,11 +27,13 @@ final class ElementRegistry
         // Initialize the registry with all the elements we know
         $classesDir = dirname(__FILE__, 3) . '/vendor/simplesamlphp/composer-xmlprovider-installer/classes';
 
-        $finder = Finder::create()->files()->name('element.registry.*.php')->in($classesDir);
-        if ($finder->hasResults()) {
-            foreach ($finder as $file) {
-                $elements = include($file);
-                $this->registry = array_merge_recursive($this->registry, $elements);
+        if (file_exists($classesDir) === true) {
+            $finder = Finder::create()->files()->name('element.registry.*.php')->in($classesDir);
+            if ($finder->hasResults()) {
+                foreach ($finder as $file) {
+                    $elements = include($file);
+                    $this->registry = array_merge_recursive($this->registry, $elements);
+                }
             }
         }
     }
