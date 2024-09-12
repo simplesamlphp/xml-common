@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
+use DOMElement;
 use RuntimeException;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Constants as C;
+use SimpleSAML\XML\Registry\ElementRegistry;
 use SimpleSAML\XML\XsNamespace as NS;
 
 use function array_diff;
