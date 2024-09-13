@@ -7,6 +7,7 @@ namespace SimpleSAML\XML\Registry;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\XML\Exception\IOException;
 use Symfony\Component\Finder\Finder;
 
 use function array_merge_recursive;
@@ -22,7 +23,7 @@ final class ElementRegistry
     private array $registry = [];
 
 
-    final private function __construct()
+    private function __construct()
     {
         // Initialize the registry with all the elements we know
         $classesDir = dirname(__FILE__, 6) . '/vendor/simplesamlphp/composer-xmlprovider-installer/classes';
@@ -31,10 +32,20 @@ final class ElementRegistry
             $finder = Finder::create()->files()->name('element.registry.*.php')->in($classesDir);
             if ($finder->hasResults()) {
                 foreach ($finder as $file) {
-                    $elements = include($file);
-                    $this->registry = array_merge_recursive($this->registry, $elements);
+                    $this->importFromFile($file);
                 }
             }
+        }
+    }
+
+
+    public function importFromFile(string $file): void
+    {
+        if (file_exists($file) === true) {
+            $elements = include($file);
+            $this->registry = array_merge_recursive($this->registry, $elements);
+        } else {
+            throw new IOException('File not found.');
         }
     }
 
