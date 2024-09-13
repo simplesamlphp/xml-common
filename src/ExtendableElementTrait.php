@@ -40,7 +40,7 @@ trait ExtendableElementTrait
      * @param \DOMElement $xml
      * @param \SimpleSAML\XML\XsNamespace|array|null $namespace
      *
-     * @return array<int, \SimpleSAML\XML\AbstractElement> $elements
+     * @return list<\SimpleSAML\XML\SerializableElementInterface> $elements
      */
     protected static function getChildElementsFromXML(DOMElement $xml, NS|array $namespace = null): array
     {
