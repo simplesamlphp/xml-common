@@ -49,6 +49,7 @@ final class ExtendableAttributesTest extends TestCase
             [
                 new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr1', 'testval1'),
                 new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr2', 'testval2'),
+                new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr3', 'testval3'),
             ],
         );
 
@@ -56,5 +57,28 @@ final class ExtendableAttributesTest extends TestCase
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
             strval($extendableElement),
         );
+    }
+
+
+    /**
+     */
+    public function testGetAttributesNSFromXML(): void
+    {
+        /** @var \DOMElement $element */
+        $element = self::$xmlRepresentation->documentElement;
+
+        $elt = ExtendableAttributesElement::fromXML($element);
+        $attributes = $elt->getAttributesNS();
+
+        $this->assertCount(2, $attributes);
+        $this->assertEquals($attributes[0]->getNamespaceURI(), 'urn:x-simplesamlphp:namespace');
+        $this->assertEquals($attributes[0]->getNamespacePrefix(), 'ssp');
+        $this->assertEquals($attributes[0]->getAttrName(), 'attr1');
+        $this->assertEquals($attributes[0]->getAttrValue(), 'testval1');
+
+        $this->assertEquals($attributes[1]->getNamespaceURI(), 'urn:x-simplesamlphp:namespace');
+        $this->assertEquals($attributes[1]->getNamespacePrefix(), 'ssp');
+        $this->assertEquals($attributes[1]->getAttrName(), 'attr2');
+        $this->assertEquals($attributes[1]->getAttrValue(), 'testval2');
     }
 }

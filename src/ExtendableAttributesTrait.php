@@ -96,6 +96,7 @@ trait ExtendableAttributesTrait
     protected static function getAttributesNSFromXML(DOMElement $xml, NS|array $namespace = null): array
     {
         $namespace = $namespace ?? static::XS_ANY_ATTR_NAMESPACE;
+        $exclusionList = static::getAttributeExclusions();
         $attributes = [];
 
         // Validate namespace value
@@ -103,28 +104,18 @@ trait ExtendableAttributesTrait
             // Must be one of the predefined values
             Assert::oneOf($namespace, NS::cases());
 
-            if ($namespace === NS::ANY) {
-                foreach ($xml->attributes as $a) {
-                    $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
+            foreach ($xml->attributes as $a) {
+                if (in_array([$a->namespaceURI, $a->localName], $exclusionList, true)) {
+                    continue;
+                } elseif ($namespace === NS::OTHER && in_array($a->namespaceURI, [static::NS, null], true)) {
+                    continue;
+                } elseif ($namespace === NS::TARGET && $a->namespaceURI !== static::NS) {
+                    continue;
+                } elseif ($namespace === NS::LOCAL && $a->namespaceURI !== null) {
+                    continue;
                 }
-            } elseif ($namespace === NS::LOCAL) {
-                foreach ($xml->attributes as $a) {
-                    if ($a->namespaceURI === null) {
-                        $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
-                    }
-                }
-            } elseif ($namespace === NS::OTHER) {
-                foreach ($xml->attributes as $a) {
-                    if (!in_array($a->namespaceURI, [static::NS, null], true)) {
-                        $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
-                    }
-                }
-            } elseif ($namespace === NS::TARGET) {
-                foreach ($xml->attributes as $a) {
-                    if ($a->namespaceURI === static::NS) {
-                        $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
-                    }
-                }
+
+                $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
             }
         } else {
             // Array must be non-empty and cannot contain ##any or ##other
@@ -144,9 +135,13 @@ trait ExtendableAttributesTrait
             }
 
             foreach ($xml->attributes as $a) {
-                if (in_array($a->namespaceURI, $namespace, true)) {
-                    $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
+                if (in_array([$a->namespaceURI, $a->localName], $exclusionList, true)) {
+                    continue;
+                } elseif (!in_array($a->namespaceURI, $namespace, true)) {
+                    continue;
                 }
+
+                $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
             }
         }
 
@@ -230,6 +225,13 @@ trait ExtendableAttributesTrait
             }
         }
 
+        $exclusionList = static::getAttributeExclusions();
+        foreach ($attributes as $i => $attr) {
+            if (in_array([$attr->getNamespaceURI(), $attr->getAttrName()], $exclusionList, true)) {
+                unset($attributes[$i]);
+            }
+        }
+
         $this->namespacedAttributes = $attributes;
     }
 
@@ -248,5 +250,20 @@ trait ExtendableAttributesTrait
         );
 
         return static::XS_ANY_ATTR_NAMESPACE;
+    }
+
+
+    /**
+     * Get the exclusions list for getAttributeNSFromXML.
+     *
+     * @return array<string, string>
+     */
+    public static function getAttributeExclusions(): array
+    {
+        if (defined('static::XS_ANY_ATTR_EXCLUSIONS')) {
+            return static::XS_ANY_ATTR_EXCLUSIONS;
+        }
+
+        return [];
     }
 }
