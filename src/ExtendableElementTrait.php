@@ -87,10 +87,10 @@ trait ExtendableElementTrait
                 $namespace[$key] = null;
             }
 
-            foreach ($xml->childElements as $elt) {
+            foreach ($xml->childNodes as $elt) {
                 if (!($elt instanceof DOMElement)) {
                     continue;
-                } elseif (in_array([$elt->namespaceURI, $ely->localName], $exclusionList, true)) {
+                } elseif (in_array([$elt->namespaceURI, $elt->localName], $exclusionList, true)) {
                     continue;
                 } elseif (!in_array($elt->namespaceURI, $namespace, true)) {
                     continue;
