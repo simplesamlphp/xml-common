@@ -35,6 +35,7 @@
         "ext-xmlreader": "*",
 
         "simplesamlphp/assert": "^1.2",
+        "simplesamlphp/composer-xmlprovider-installer": "dev-master",
         "symfony/finder": "^6.4"
     },
     "require-dev": {
