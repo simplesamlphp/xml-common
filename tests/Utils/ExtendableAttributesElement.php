@@ -33,6 +33,11 @@ class ExtendableAttributesElement extends AbstractElement
     /** @var string|\SimpleSAML\XML\XsNamespace */
     public const XS_ANY_ATTR_NAMESPACE = NS::ANY;
 
+    /** @var array{array{string, string}} */
+    public const XS_ANY_ATTR_EXCLUSIONS = [
+        ['urn:x-simplesamlphp:namespace', 'attr3'],
+    ];
+
 
     /**
      * Get the namespace for the element.
