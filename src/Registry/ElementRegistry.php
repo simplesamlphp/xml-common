@@ -25,7 +25,7 @@ final class ElementRegistry
     final private function __construct()
     {
         // Initialize the registry with all the elements we know
-        $classesDir = dirname(__FILE__, 3) . '/vendor/simplesamlphp/composer-xmlprovider-installer/classes';
+        $classesDir = dirname(__FILE__, 6) . '/vendor/simplesamlphp/composer-xmlprovider-installer/classes';
 
         if (file_exists($classesDir) === true) {
             $finder = Finder::create()->files()->name('element.registry.*.php')->in($classesDir);
