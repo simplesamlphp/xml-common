@@ -68,7 +68,7 @@ trait ExtendableElementTrait
                 }
 
                 $handler = $registry->getElementHandler($elt->namespaceURI, $elt->localName);
-                $elements[] = ($handler === null) ? Chunk::fromXML($xml) : $handler::fromXML($xml);
+                $elements[] = ($handler === null) ? Chunk::fromXML($elt) : $handler::fromXML($elt);
             }
         } else {
             // Array must be non-empty and cannot contain ##any or ##other
@@ -97,7 +97,7 @@ trait ExtendableElementTrait
                 }
 
                 $handler = $registry->getElementHandler($elt->namespaceURI, $elt->localName);
-                $elements[] = ($handler === null) ? Chunk::fromXML($xml) : $handler::fromXML($xml);
+                $elements[] = ($handler === null) ? Chunk::fromXML($elt) : $handler::fromXML($elt);
             }
         }
 
