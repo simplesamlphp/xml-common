@@ -22,7 +22,7 @@
 <complexType name="ExtendableElementType">
   <sequence> 
     <element ref="ssp:Chunk"/> 
-    <any namespace="##other" processContents="lax"/>
+    <any namespace="##any" processContents="lax"/>
     <!-- (1,1) elements from (1,1) external namespace -->
   </sequence>  
 </complexType>
