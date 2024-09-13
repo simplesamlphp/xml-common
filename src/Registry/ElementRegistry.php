@@ -32,7 +32,7 @@ final class ElementRegistry
             $finder = Finder::create()->files()->name('element.registry.*.php')->in($classesDir);
             if ($finder->hasResults()) {
                 foreach ($finder as $file) {
-                    $this->importFromFile($file);
+                    $this->importFromFile($file->getPathName());
                 }
             }
         }
