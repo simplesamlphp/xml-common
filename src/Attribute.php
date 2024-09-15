@@ -108,7 +108,7 @@ final class Attribute implements ArrayizableElementInterface
     {
         $parent->setAttributeNS(
             $this->getNamespaceURI(),
-            ($this->getNamespacePrefix() !== null)
+            ($this->getNamespacePrefix() !== '')
                 ? ($this->getNamespacePrefix() . ':' . $this->getAttrName())
                 : $this->getAttrName(),
             $this->getAttrValue(),
