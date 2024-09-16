@@ -6,7 +6,6 @@ namespace SimpleSAML\Test\XML;
 
 use DOMElement;
 use SimpleSAML\XML\AbstractElement;
-use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\ExtendableElementTrait;
 use SimpleSAML\XML\SerializableElementTrait;
 use SimpleSAML\XML\XsNamespace as NS;
@@ -21,7 +20,6 @@ class ExtendableElement extends AbstractElement
     use ExtendableElementTrait;
     use SerializableElementTrait;
 
-
     /** @var string */
     public const NS = 'urn:x-simplesamlphp:namespace';
 
@@ -32,34 +30,12 @@ class ExtendableElement extends AbstractElement
     public const LOCALNAME = 'ExtendableElement';
 
     /** @var \SimpleSAML\XML\XsNamespace|array<int, \SimpleSAML\XML\XsNamespace> */
-    public const XS_ANY_ELT_NAMESPACE = NS::ANY;
+    final public const XS_ANY_ELT_NAMESPACE = NS::ANY;
 
     /** @var array{array{string, string}} */
-    public const XS_ANY_ELT_EXCLUSIONS = [
+    final public const XS_ANY_ELT_EXCLUSIONS = [
         ['urn:custom:other', 'Chunk'],
     ];
-
-
-    /**
-     * Get the namespace for the element.
-     *
-     * @return string
-     */
-    public static function getNamespaceURI(): string
-    {
-        return static::NS;
-    }
-
-
-    /**
-     * Get the namespace-prefix for the element.
-     *
-     * @return string
-     */
-    public static function getNamespacePrefix(): string
-    {
-        return static::NS_PREFIX;
-    }
 
 
     /**
@@ -81,14 +57,7 @@ class ExtendableElement extends AbstractElement
      */
     public static function fromXML(DOMElement $xml): static
     {
-        $children = [];
-        foreach ($xml->childNodes as $node) {
-            if ($node instanceof DOMElement) {
-                $children[] = Chunk::fromXML($node);
-            }
-        }
-
-        return new static($children);
+        return new static(self::getChildElementsFromXML($xml));
     }
 
 

@@ -44,8 +44,8 @@ trait ExtendableElementTrait
      */
     protected static function getChildElementsFromXML(DOMElement $xml, NS|array $namespace = null): array
     {
-        $namespace = $namespace ?? static::XS_ANY_ELT_NAMESPACE;
-        $exclusionList = static::getElementExclusions();
+        $namespace = $namespace ?? self::XS_ANY_ELT_NAMESPACE;
+        $exclusionList = self::getElementExclusions();
         $registry = ElementRegistry::getInstance();
         $elements = [];
 
@@ -59,9 +59,9 @@ trait ExtendableElementTrait
                     continue;
                 } elseif (in_array([$elt->namespaceURI, $elt->localName], $exclusionList, true)) {
                     continue;
-                } elseif ($namespace === NS::OTHER && in_array($elt->namespaceURI, [static::NS, null], true)) {
+                } elseif ($namespace === NS::OTHER && in_array($elt->namespaceURI, [self::NS, null], true)) {
                     continue;
-                } elseif ($namespace === NS::TARGET && $elt->namespaceURI !== static::NS) {
+                } elseif ($namespace === NS::TARGET && $elt->namespaceURI !== self::NS) {
                     continue;
                 } elseif ($namespace === NS::LOCAL && $elt->namespaceURI !== null) {
                     continue;
@@ -79,7 +79,7 @@ trait ExtendableElementTrait
 
             // Replace the ##targetedNamespace with the actual namespace
             if (($key = array_search(NS::TARGET, $namespace)) !== false) {
-                $namespace[$key] = static::NS;
+                $namespace[$key] = self::NS;
             }
 
             // Replace the ##local with null
@@ -149,7 +149,7 @@ trait ExtendableElementTrait
 
             // Replace the ##targetedNamespace with the actual namespace
             if (($key = array_search(NS::TARGET, $allowed_namespaces)) !== false) {
-                $allowed_namespaces[$key] = static::NS;
+                $allowed_namespaces[$key] = self::NS;
             }
 
             // Replace the ##local with null
@@ -163,21 +163,21 @@ trait ExtendableElementTrait
                 sprintf(
                     'Elements from namespaces [ %s ] are not allowed inside a %s element.',
                     rtrim(implode(', ', $diff)),
-                    static::NS,
+                    self::NS,
                 ),
             );
         } elseif ($namespace === NS::OTHER) {
             // Must be any namespace other than the parent element, excluding elements with no namespace
             Assert::notInArray(null, $actual_namespaces);
-            Assert::allNotSame($actual_namespaces, static::NS);
+            Assert::allNotSame($actual_namespaces, self::NS);
         } elseif ($namespace === NS::TARGET) {
             // Must be the same namespace as the one of the parent element
-            Assert::allSame($actual_namespaces, static::NS);
+            Assert::allSame($actual_namespaces, self::NS);
         } else {
             // XS_ANY_NS_ANY
         }
 
-        $exclusionList = static::getElementExclusions();
+        $exclusionList = self::getElementExclusions();
         foreach ($elements as $i => $elt) {
             if (in_array([$elt->getNamespaceURI(), $elt->getLocalName()], $exclusionList, true)) {
                 unset($elements[$i]);
@@ -205,13 +205,13 @@ trait ExtendableElementTrait
     public function getElementNamespace(): array|NS
     {
         Assert::true(
-            defined('static::XS_ANY_ELT_NAMESPACE'),
-            self::getClassName(static::class)
+            defined('self::XS_ANY_ELT_NAMESPACE'),
+            self::getClassName(self::class)
             . '::XS_ANY_ELT_NAMESPACE constant must be defined and set to the namespace for the xs:any element.',
             RuntimeException::class,
         );
 
-        return static::XS_ANY_ELT_NAMESPACE;
+        return self::XS_ANY_ELT_NAMESPACE;
     }
 
 
@@ -222,8 +222,8 @@ trait ExtendableElementTrait
      */
     public static function getElementExclusions(): array
     {
-        if (defined('static::XS_ANY_ELT_EXCLUSIONS')) {
-            return static::XS_ANY_ELT_EXCLUSIONS;
+        if (defined('self::XS_ANY_ELT_EXCLUSIONS')) {
+            return self::XS_ANY_ELT_EXCLUSIONS;
         }
 
         return [];

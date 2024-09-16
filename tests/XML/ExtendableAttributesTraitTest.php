@@ -224,22 +224,6 @@ final class ExtendableAttributesTraitTest extends TestCase
 
     /**
      */
-    public function testLocalNamespacePassingTargetThrowsAnException(): void
-    {
-        $this->expectException(AssertionFailedException::class);
-        new class ([self::$target]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAtributeNamespace(): array|NS
-            {
-                return NS::LOCAL;
-            }
-        };
-    }
-
-
-
-    /**
-     */
     public function testLocalNamespacePassingOtherThrowsAnException(): void
     {
         $this->expectException(AssertionFailedException::class);

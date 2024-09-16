@@ -20,7 +20,6 @@ class ExtendableAttributesElement extends AbstractElement
 {
     use ExtendableAttributesTrait;
 
-
     /** @var string */
     public const NS = 'urn:x-simplesamlphp:namespace';
 
@@ -31,34 +30,12 @@ class ExtendableAttributesElement extends AbstractElement
     public const LOCALNAME = 'ExtendableAttributesElement';
 
     /** @var string|\SimpleSAML\XML\XsNamespace */
-    public const XS_ANY_ATTR_NAMESPACE = NS::ANY;
+    final public const XS_ANY_ATTR_NAMESPACE = NS::ANY;
 
     /** @var array{array{string, string}} */
-    public const XS_ANY_ATTR_EXCLUSIONS = [
+    final public const XS_ANY_ATTR_EXCLUSIONS = [
         ['urn:x-simplesamlphp:namespace', 'attr3'],
     ];
-
-
-    /**
-     * Get the namespace for the element.
-     *
-     * @return string
-     */
-    public static function getNamespaceURI(): string
-    {
-        return static::NS;
-    }
-
-
-    /**
-     * Get the namespace-prefix for the element.
-     *
-     * @return string
-     */
-    public static function getNamespacePrefix(): string
-    {
-        return static::NS_PREFIX;
-    }
 
 
     /**
