@@ -95,8 +95,8 @@ trait ExtendableAttributesTrait
      */
     protected static function getAttributesNSFromXML(DOMElement $xml, NS|array $namespace = null): array
     {
-        $namespace = $namespace ?? static::XS_ANY_ATTR_NAMESPACE;
-        $exclusionList = static::getAttributeExclusions();
+        $namespace = $namespace ?? self::XS_ANY_ATTR_NAMESPACE;
+        $exclusionList = self::getAttributeExclusions();
         $attributes = [];
 
         // Validate namespace value
@@ -107,9 +107,9 @@ trait ExtendableAttributesTrait
             foreach ($xml->attributes as $a) {
                 if (in_array([$a->namespaceURI, $a->localName], $exclusionList, true)) {
                     continue;
-                } elseif ($namespace === NS::OTHER && in_array($a->namespaceURI, [static::NS, null], true)) {
+                } elseif ($namespace === NS::OTHER && in_array($a->namespaceURI, [self::NS, null], true)) {
                     continue;
-                } elseif ($namespace === NS::TARGET && $a->namespaceURI !== static::NS) {
+                } elseif ($namespace === NS::TARGET && $a->namespaceURI !== self::NS) {
                     continue;
                 } elseif ($namespace === NS::LOCAL && $a->namespaceURI !== null) {
                     continue;
@@ -126,7 +126,7 @@ trait ExtendableAttributesTrait
 
             // Replace the ##targetedNamespace with the actual namespace
             if (($key = array_search(NS::TARGET, $namespace)) !== false) {
-                $namespace[$key] = static::NS;
+                $namespace[$key] = self::NS;
             }
 
             // Replace the ##local with null
@@ -195,7 +195,7 @@ trait ExtendableAttributesTrait
 
             // Replace the ##targetedNamespace with the actual namespace
             if (($key = array_search(NS::TARGET, $allowed_namespaces)) !== false) {
-                $allowed_namespaces[$key] = static::NS;
+                $allowed_namespaces[$key] = self::NS;
             }
 
             // Replace the ##local with null
@@ -209,7 +209,7 @@ trait ExtendableAttributesTrait
                 sprintf(
                     'Attributes from namespaces [ %s ] are not allowed inside a %s element.',
                     rtrim(implode(', ', $diff)),
-                    static::NS,
+                    self::NS,
                 ),
             );
         } else {
@@ -218,14 +218,14 @@ trait ExtendableAttributesTrait
                 Assert::allNotNull($actual_namespaces);
 
                 // Must be any namespace other than the parent element
-                Assert::allNotSame($actual_namespaces, static::NS);
+                Assert::allNotSame($actual_namespaces, self::NS);
             } elseif ($namespace === NS::TARGET) {
                 // Must be the same namespace as the one of the parent element
-                Assert::allSame($actual_namespaces, static::NS);
+                Assert::allSame($actual_namespaces, self::NS);
             }
         }
 
-        $exclusionList = static::getAttributeExclusions();
+        $exclusionList = self::getAttributeExclusions();
         foreach ($attributes as $i => $attr) {
             if (in_array([$attr->getNamespaceURI(), $attr->getAttrName()], $exclusionList, true)) {
                 unset($attributes[$i]);
@@ -243,13 +243,13 @@ trait ExtendableAttributesTrait
     public function getAttributeNamespace(): array|NS
     {
         Assert::true(
-            defined('static::XS_ANY_ATTR_NAMESPACE'),
-            self::getClassName(static::class)
+            defined('self::XS_ANY_ATTR_NAMESPACE'),
+            self::getClassName(self::class)
             . '::XS_ANY_ATTR_NAMESPACE constant must be defined and set to the namespace for the xs:anyAttribute.',
             RuntimeException::class,
         );
 
-        return static::XS_ANY_ATTR_NAMESPACE;
+        return self::XS_ANY_ATTR_NAMESPACE;
     }
 
 
@@ -260,8 +260,8 @@ trait ExtendableAttributesTrait
      */
     public static function getAttributeExclusions(): array
     {
-        if (defined('static::XS_ANY_ATTR_EXCLUSIONS')) {
-            return static::XS_ANY_ATTR_EXCLUSIONS;
+        if (defined('self::XS_ANY_ATTR_EXCLUSIONS')) {
+            return self::XS_ANY_ATTR_EXCLUSIONS;
         }
 
         return [];
