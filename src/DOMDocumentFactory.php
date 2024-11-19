@@ -38,7 +38,8 @@ final class DOMDocumentFactory
         libxml_clear_errors();
 
         $domDocument = self::create();
-        $options = LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_NONET | LIBXML_PARSEHUGE | LIBXML_NSCLEAN;
+        /** @TODO: LIBXML_NO_XXE is available as of PHP 8.4 */
+        $options = LIBXML_NONET | LIBXML_PARSEHUGE /* | LIBXML_NO_XXE */;
         if (defined('LIBXML_COMPACT')) {
             $options |= LIBXML_COMPACT;
         }
