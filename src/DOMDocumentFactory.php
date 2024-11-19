@@ -14,6 +14,7 @@ use function defined;
 use function file_get_contents;
 use function libxml_clear_errors;
 use function libxml_get_last_error;
+use function libxml_set_external_entity_loader;
 use function libxml_use_internal_errors;
 use function sprintf;
 
@@ -30,6 +31,7 @@ final class DOMDocumentFactory
      */
     public static function fromString(string $xml): DOMDocument
     {
+        libxml_set_external_entity_loader(null);
         Assert::notWhitespaceOnly($xml);
 
         $internalErrors = libxml_use_internal_errors(true);
