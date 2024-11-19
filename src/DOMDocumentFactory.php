@@ -63,6 +63,14 @@ final class DOMDocumentFactory
 
         libxml_clear_errors();
 
+        foreach ($domDocument->childNodes as $child) {
+            Assert::false(
+                $child->nodeType === XML_DOCUMENT_TYPE_NODE,
+                'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body',
+                RuntimeException::class,
+            );
+        }
+
         return $domDocument;
     }
 
