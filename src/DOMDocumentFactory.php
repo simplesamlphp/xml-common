@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMDocument;
-use RuntimeException;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\IOException;
+use SimpleSAML\XML\Exception\RuntimeException;
 use SimpleSAML\XML\Exception\UnparseableXMLException;
 
 use function defined;
@@ -33,6 +33,12 @@ final class DOMDocumentFactory
     {
         libxml_set_external_entity_loader(null);
         Assert::notWhitespaceOnly($xml);
+        Assert::notRegex(
+            $xml,
+            '/<(\s*)!(\s*)DOCTYPE/',
+            'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body',
+            RuntimeException::class,
+        );
 
         $internalErrors = libxml_use_internal_errors(true);
         libxml_clear_errors();
@@ -56,14 +62,6 @@ final class DOMDocumentFactory
         }
 
         libxml_clear_errors();
-
-        foreach ($domDocument->childNodes as $child) {
-            if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
-                throw new RuntimeException(
-                    'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body',
-                );
-            }
-        }
 
         return $domDocument;
     }
