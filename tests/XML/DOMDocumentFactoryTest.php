@@ -84,6 +84,19 @@ final class DOMDocumentFactoryTest extends TestCase
     }
 
 
+    public function testStringThatContainsDocTypeIsNotAccepted2(): void
+    {
+        $xml = '<?xml version="1.0" encoding="ISO-8859-1"?>
+               <!DOCTYPE foo [<!ENTITY % exfiltrate SYSTEM "file://dev/random">%exfiltrate;]>
+               <foo>y</foo>';
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body',
+        );
+        DOMDocumentFactory::fromString($xml);
+    }
+
+
     public function testEmptyFileIsNotValid(): void
     {
         $file = 'resources/xml/domdocument_empty.xml';
