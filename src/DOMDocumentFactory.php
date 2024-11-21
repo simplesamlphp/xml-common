@@ -10,7 +10,6 @@ use SimpleSAML\XML\Exception\IOException;
 use SimpleSAML\XML\Exception\RuntimeException;
 use SimpleSAML\XML\Exception\UnparseableXMLException;
 
-use function defined;
 use function file_get_contents;
 use function libxml_clear_errors;
 use function libxml_get_last_error;
@@ -24,13 +23,22 @@ use function sprintf;
 final class DOMDocumentFactory
 {
     /**
+     * @var non-negative-int
+     * TODO: Add LIBXML_NO_XXE to the defaults when PHP 8.4.0 + libxml 2.13.0 become generally available
+     */
+    public const DEFAULT_OPTIONS = LIBXML_COMPACT | LIBXML_NONET | LIBXML_NSCLEAN;
+
+
+    /**
      * @param string $xml
-     * @param non-empty-string $xml
+     * @param non-negative-int $options
      *
      * @return \DOMDocument
      */
-    public static function fromString(string $xml): DOMDocument
-    {
+    public static function fromString(
+        string $xml,
+        int $options = self::DEFAULT_OPTIONS,
+    ): DOMDocument {
         libxml_set_external_entity_loader(null);
         Assert::notWhitespaceOnly($xml);
         Assert::notRegex(
@@ -44,12 +52,6 @@ final class DOMDocumentFactory
         libxml_clear_errors();
 
         $domDocument = self::create();
-        /** @TODO: LIBXML_NO_XXE is available as of PHP 8.4 */
-        $options = LIBXML_NONET | LIBXML_PARSEHUGE /* | LIBXML_NO_XXE */;
-        if (defined('LIBXML_COMPACT')) {
-            $options |= LIBXML_COMPACT;
-        }
-
         $loaded = $domDocument->loadXML($xml, $options);
 
         libxml_use_internal_errors($internalErrors);
@@ -77,10 +79,11 @@ final class DOMDocumentFactory
 
     /**
      * @param string $file
+     * @param non-negative-int $options
      *
      * @return \DOMDocument
      */
-    public static function fromFile(string $file): DOMDocument
+    public static function fromFile(string $file, int $options = self::DEFAULT_OPTIONS): DOMDocument
     {
         error_clear_last();
         $xml = @file_get_contents($file);
@@ -92,7 +95,7 @@ final class DOMDocumentFactory
         }
 
         Assert::notWhitespaceOnly($xml, sprintf('File "%s" does not have content', $file), RuntimeException::class);
-        return static::fromString($xml);
+        return static::fromString($xml, $options);
     }
 
 
