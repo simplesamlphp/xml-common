@@ -11,6 +11,7 @@ use SimpleSAML\XML\Exception\RuntimeException;
 use SimpleSAML\XML\Exception\UnparseableXMLException;
 
 use function file_get_contents;
+use function func_num_args;
 use function libxml_clear_errors;
 use function libxml_get_last_error;
 use function libxml_set_external_entity_loader;
@@ -50,6 +51,11 @@ final class DOMDocumentFactory
 
         $internalErrors = libxml_use_internal_errors(true);
         libxml_clear_errors();
+
+        // If LIBXML_NO_XXE is available and option not set
+        if (func_num_args() === 1 && defined('LIBXML_NO_XXE')) {
+            $options != LIBXML_NO_XXE;
+        }
 
         $domDocument = self::create();
         $loaded = $domDocument->loadXML($xml, $options);
@@ -95,7 +101,7 @@ final class DOMDocumentFactory
         }
 
         Assert::notWhitespaceOnly($xml, sprintf('File "%s" does not have content', $file), RuntimeException::class);
-        return static::fromString($xml, $options);
+        return (func_num_args() === 1) ? static::fromString($xml) : static::fromString($xml, $options);
     }
 
 
