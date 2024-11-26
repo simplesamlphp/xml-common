@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Assert;
 
+use Exception;
 use InvalidArgumentException;
 use SimpleSAML\Assert\Assert as BaseAssert;
 use SimpleSAML\XML\Constants as C;
