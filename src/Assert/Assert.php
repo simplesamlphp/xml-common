@@ -38,4 +38,5 @@ class Assert extends BaseAssert
     use HexBinTrait;
     use NamesTrait;
     use TokensTrait;
+    use XPathFilterTrait;
 }
