@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Test\Assert;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
