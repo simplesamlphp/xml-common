@@ -36,7 +36,7 @@ abstract class AbstractElement implements SerializableElementInterface
      * @param \DOMElement|null $parent The element we should append to.
      * @return \DOMElement
      */
-    public function instantiateParentElement(DOMElement $parent = null): DOMElement
+    public function instantiateParentElement(?DOMElement $parent = null): DOMElement
     {
         $qualifiedName = $this->getQualifiedName();
         $namespace = static::getNamespaceURI();

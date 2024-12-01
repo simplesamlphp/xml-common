@@ -58,7 +58,7 @@ trait BooleanElementTrait
      * @param \DOMElement|null $parent
      * @return \DOMElement
      */
-    final public function toXML(DOMElement $parent = null): DOMElement
+    final public function toXML(?DOMElement $parent = null): DOMElement
     {
         $e = $this->instantiateParentElement($parent);
         $e->textContent = $this->getContent();

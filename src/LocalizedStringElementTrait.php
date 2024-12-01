@@ -90,7 +90,7 @@ trait LocalizedStringElementTrait
      * @param \DOMElement|null $parent
      * @return \DOMElement
      */
-    final public function toXML(DOMElement $parent = null): DOMElement
+    final public function toXML(?DOMElement $parent = null): DOMElement
     {
         $e = $this->instantiateParentElement($parent);
         $e->setAttributeNS(C::NS_XML, 'xml:lang', $this->getLanguage());

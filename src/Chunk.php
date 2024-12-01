@@ -99,7 +99,7 @@ final class Chunk implements SerializableElementInterface
      *
      * @param string|null $namespaceURI
      */
-    protected function setNamespaceURI(string $namespaceURI = null): void
+    protected function setNamespaceURI(?string $namespaceURI = null): void
     {
         Assert::nullOrValidURI($namespaceURI, SchemaViolationException::class);
         $this->namespaceURI = $namespaceURI;
@@ -133,7 +133,7 @@ final class Chunk implements SerializableElementInterface
      *
      * @param string|null $prefix
      */
-    protected function setPrefix(string $prefix = null): void
+    protected function setPrefix(?string $prefix = null): void
     {
         $this->prefix = strval($prefix);
     }
@@ -304,7 +304,7 @@ final class Chunk implements SerializableElementInterface
      * @param  \DOMElement|null $parent The element we should append this element to.
      * @return \DOMElement The new element.
      */
-    public function toXML(DOMElement $parent = null): DOMElement
+    public function toXML(?DOMElement $parent = null): DOMElement
     {
         if ($parent === null) {
             $doc = DOMDocumentFactory::create();

@@ -86,5 +86,5 @@ trait SerializableElementTrait
      * @param \DOMElement|null $parent
      * @return \DOMElement
      */
-    abstract public function toXML(DOMElement $parent = null): DOMElement;
+    abstract public function toXML(?DOMElement $parent = null): DOMElement;
 }
