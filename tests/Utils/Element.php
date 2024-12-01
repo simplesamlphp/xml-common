@@ -96,7 +96,7 @@ final class Element extends AbstractElement
      * @param \DOMElement|null $parent
      * @return \DOMElement
      */
-    public function toXML(DOMElement $parent = null): DOMElement
+    public function toXML(?DOMElement $parent = null): DOMElement
     {
         $e = $this->instantiateParentElement($parent);
 

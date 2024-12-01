@@ -93,7 +93,7 @@ trait ExtendableAttributesTrait
      *
      * @return array<int, \SimpleSAML\XML\Attribute> $attributes
      */
-    protected static function getAttributesNSFromXML(DOMElement $xml, NS|array $namespace = null): array
+    protected static function getAttributesNSFromXML(DOMElement $xml, NS|array|null $namespace = null): array
     {
         $namespace = $namespace ?? self::XS_ANY_ATTR_NAMESPACE;
         $exclusionList = self::getAttributeExclusions();

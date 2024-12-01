@@ -42,7 +42,7 @@ trait ExtendableElementTrait
      *
      * @return list<\SimpleSAML\XML\SerializableElementInterface> $elements
      */
-    protected static function getChildElementsFromXML(DOMElement $xml, NS|array $namespace = null): array
+    protected static function getChildElementsFromXML(DOMElement $xml, NS|array|null $namespace = null): array
     {
         $namespace = $namespace ?? self::XS_ANY_ELT_NAMESPACE;
         $exclusionList = self::getElementExclusions();

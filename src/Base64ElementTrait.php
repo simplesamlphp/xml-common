@@ -60,5 +60,5 @@ trait Base64ElementTrait
      * @param \DOMElement|null $parent The element we should append to.
      * @return \DOMElement
      */
-    abstract public function instantiateParentElement(DOMElement $parent = null): DOMElement;
+    abstract public function instantiateParentElement(?DOMElement $parent = null): DOMElement;
 }
