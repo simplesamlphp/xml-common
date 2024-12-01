@@ -112,7 +112,6 @@ final class DOMDocumentFactoryTest extends TestCase
         $this->expectExceptionMessage(
             'Expected a non-whitespace string. Got: ""',
         );
-        /** @phpstan-ignore-next-line */
         DOMDocumentFactory::fromString('');
     }
 }
