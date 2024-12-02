@@ -36,7 +36,7 @@
 
         "simplesamlphp/assert": "^1.2",
         "simplesamlphp/composer-xmlprovider-installer": "~1.0.0",
-        "symfony/finder": "^6.4"
+        "symfony/finder": "^7.2"
     },
     "require-dev": {
         "simplesamlphp/simplesamlphp-test-framework": "^1.7"
