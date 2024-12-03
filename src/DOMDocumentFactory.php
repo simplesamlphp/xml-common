@@ -54,7 +54,7 @@ final class DOMDocumentFactory
 
         // If LIBXML_NO_XXE is available and option not set
         if (func_num_args() === 1 && defined('LIBXML_NO_XXE')) {
-            $options != LIBXML_NO_XXE;
+            $options |= LIBXML_NO_XXE;
         }
 
         $domDocument = self::create();
