@@ -51,13 +51,13 @@ final class DOMDocumentFactoryTest extends TestCase
     public function testFileThatDoesNotContainXMLCannotBeLoaded(): void
     {
         $this->expectException(RuntimeException::class);
-        DOMDocumentFactory::fromFile('resources/xml/domdocument_invalid_xml.xml');
+        DOMDocumentFactory::fromFile('tests/resources/xml/domdocument_invalid_xml.xml');
     }
 
 
     public function testFileWithValidXMLCanBeLoaded(): void
     {
-        $file = 'resources/xml/domdocument_valid_xml.xml';
+        $file = 'tests/resources/xml/domdocument_valid_xml.xml';
         $document = DOMDocumentFactory::fromFile($file);
 
         $this->assertXmlStringEqualsXmlFile($file, strval($document->saveXML()));
@@ -66,7 +66,7 @@ final class DOMDocumentFactoryTest extends TestCase
 
     public function testFileThatContainsDocTypeIsNotAccepted(): void
     {
-        $file = 'resources/xml/domdocument_doctype.xml';
+        $file = 'tests/resources/xml/domdocument_doctype.xml';
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(
             'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body',
@@ -101,7 +101,7 @@ final class DOMDocumentFactoryTest extends TestCase
 
     public function testEmptyFileIsNotValid(): void
     {
-        $file = 'resources/xml/domdocument_empty.xml';
+        $file = 'tests/resources/xml/domdocument_empty.xml';
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('does not have content');
         DOMDocumentFactory::fromFile($file);
