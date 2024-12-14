@@ -32,7 +32,6 @@
         "ext-libxml": "*",
         "ext-pcre": "*",
         "ext-spl": "*",
-        "ext-xmlreader": "*",
 
         "simplesamlphp/assert": "^1.2",
         "simplesamlphp/composer-xmlprovider-installer": "~1.0.0",

@@ -5,21 +5,19 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMDocument;
-use Exception;
-use LibXMLError;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\IOException;
 use SimpleSAML\XML\Exception\RuntimeException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Exception\UnparseableXMLException;
-use XMLReader;
 
 use function array_unique;
+use function file_exists;
 use function file_get_contents;
 use function func_num_args;
 use function implode;
 use function libxml_clear_errors;
-use function libxml_get_last_error;
+use function libxml_get_errors;
 use function libxml_set_external_entity_loader;
 use function libxml_use_internal_errors;
 use function sprintf;
@@ -150,29 +148,19 @@ final class DOMDocumentFactory
         string $schemaFile,
         int $options = self::DEFAULT_OPTIONS,
     ): void {
-        $xmlReader = XMLReader::XML($xml, null, $options);
-        Assert::notFalse($xmlReader, SchemaViolationException::class);
-
-        libxml_use_internal_errors(true);
-
-        try {
-            $xmlReader->setSchema($schemaFile);
-        } catch (Exception) {
-            $err = libxml_get_last_error();
-            throw new SchemaViolationException(trim($err->message) . ' on line ' . $err->line);
+        if (!file_exists($schemaFile)) {
+            throw new IOException('File not found.');
         }
 
-        $msgs = [];
-        while ($xmlReader->read()) {
-            if (!$xmlReader->isValid()) {
-                $err = libxml_get_last_error();
-                if ($err instanceof LibXMLError) {
-                    $msgs[] = trim($err->message) . ' on line ' . $err->line;
-                }
+        $document = DOMDocumentFactory::fromString($xml);
+        $result = $document->schemaValidate($schemaFile);
+
+        if ($result === false) {
+            $msgs = [];
+            foreach (libxml_get_errors() as $err) {
+                $msgs[] = trim($err->message) . ' on line ' . $err->line;
             }
-        }
 
-        if ($msgs) {
             throw new SchemaViolationException(sprintf(
                 "XML schema validation errors:\n - %s",
                 implode("\n - ", array_unique($msgs)),
