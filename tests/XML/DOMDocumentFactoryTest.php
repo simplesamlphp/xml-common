@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Exception\UnparseableXMLException;
 
 use function strval;
@@ -113,5 +115,24 @@ final class DOMDocumentFactoryTest extends TestCase
             'Expected a non-whitespace string. Got: ""',
         );
         DOMDocumentFactory::fromString('');
+    }
+
+
+    public function testSchemaValidationPasses(): void
+    {
+        $file = 'tests/resources/xml/ssp_Chunk.xml';
+        $schemaFile = 'tests/resources/schemas/simplesamlphp.xsd';
+        $doc = DOMDocumentFactory::fromFile($file, $schemaFile);
+        $this->assertInstanceOf(DOMDocument::class, $doc);
+    }
+
+
+    public function testSchemaValidationWrongElementFails(): void
+    {
+        $file = 'tests/resources/xml/ssp_BooleanElement.xml';
+        $schemaFile = 'tests/resources/schemas/simplesamlphp.xsd';
+
+        $this->expectException(SchemaViolationException::class);
+        DOMDocumentFactory::fromFile($file, $schemaFile);
     }
 }
