@@ -7,6 +7,8 @@ namespace SimpleSAML\Test\XML;
 use DOMElement;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\ExtendableElementTrait;
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XML\SerializableElementTrait;
 use SimpleSAML\XML\XsNamespace as NS;
 
@@ -15,9 +17,10 @@ use SimpleSAML\XML\XsNamespace as NS;
  *
  * @package simplesaml/xml-security
  */
-class ExtendableElement extends AbstractElement
+class ExtendableElement extends AbstractElement implements SchemaValidatableElementInterface
 {
     use ExtendableElementTrait;
+    use SchemaValidatableElementTrait;
     use SerializableElementTrait;
 
     /** @var string */
@@ -28,6 +31,9 @@ class ExtendableElement extends AbstractElement
 
     /** @var string */
     public const LOCALNAME = 'ExtendableElement';
+
+    /** @var string */
+    public const SCHEMA = 'tests/resources/schemas/simplesamlphp.xsd';
 
     /** @var \SimpleSAML\XML\XsNamespace|array<int, \SimpleSAML\XML\XsNamespace> */
     final public const XS_ANY_ELT_NAMESPACE = NS::ANY;

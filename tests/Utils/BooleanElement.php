@@ -6,21 +6,28 @@ namespace SimpleSAML\Test\XML;
 
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\BooleanElementTrait;
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 
 /**
  * Empty shell class for testing BooleanElement.
  *
  * @package simplesaml/xml-common
+ *
+ * Note: this class is not final for testing purposes.
  */
-final class BooleanElement extends AbstractElement
+class BooleanElement extends AbstractElement implements SchemaValidatableElementInterface
 {
     use BooleanElementTrait;
+    use SchemaValidatableElementTrait;
 
     /** @var string */
     public const NS = 'urn:x-simplesamlphp:namespace';
 
     /** @var string */
     public const NS_PREFIX = 'ssp';
+
+    public const SCHEMA = '/file/does/not/exist.xsd';
 
 
     /**
