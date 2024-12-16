@@ -9,6 +9,8 @@ use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\ExtendableAttributesTrait;
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XML\XsNamespace as NS;
 
 /**
@@ -16,9 +18,10 @@ use SimpleSAML\XML\XsNamespace as NS;
  *
  * @package simplesaml/xml-security
  */
-class ExtendableAttributesElement extends AbstractElement
+class ExtendableAttributesElement extends AbstractElement implements SchemaValidatableElementInterface
 {
     use ExtendableAttributesTrait;
+    use SchemaValidatableElementTrait;
 
     /** @var string */
     public const NS = 'urn:x-simplesamlphp:namespace';
@@ -28,6 +31,9 @@ class ExtendableAttributesElement extends AbstractElement
 
     /** @var string */
     public const LOCALNAME = 'ExtendableAttributesElement';
+
+    /** @var string */
+    public const SCHEMA = 'tests/resources/schemas/simplesamlphp.xsd';
 
     /** @var string|\SimpleSAML\XML\XsNamespace */
     final public const XS_ANY_ATTR_NAMESPACE = NS::ANY;

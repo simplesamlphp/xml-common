@@ -31,8 +31,6 @@ final class ExtendableAttributesTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$schemaFile = dirname(__FILE__, 2) . '/resources/schemas/simplesamlphp.xsd';
-
         self::$testedClass = ExtendableAttributesElement::class;
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(

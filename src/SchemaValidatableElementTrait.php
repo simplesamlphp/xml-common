@@ -6,16 +6,18 @@ namespace SimpleSAML\XML;
 
 use DOMDocument;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\Exception\IOException;
-use SimpleSAML\Exception\SchemaViolationException;
+use SimpleSAML\XML\Exception\IOException;
+use SimpleSAML\XML\Exception\SchemaViolationException;
 
 use function array_unique;
 use function defined;
 use function file_exists;
 use function implode;
+use function libxml_get_errors;
+use function restore_error_handler;
+use function set_error_handler;
 use function sprintf;
 use function trim;
-use function libxml_get_errors;
 
 /**
  * trait class to be used by all the classes that implement the SchemaValidatableElementInterface
@@ -27,16 +29,28 @@ trait SchemaValidatableElementTrait
     /**
      * Validate the given DOMDocument against the schema set for this element
      *
-     * @return void
+     * @return \DOMDocument
      * @throws \SimpleSAML\XML\Exception\SchemaViolationException
      */
     public static function schemaValidate(DOMDocument $document): DOMDocument
     {
         $schemaFile = self::getSchemaFile();
-        $result = $document->schemaValidate($schemaFile);
 
+        // Dirty trick to catch the warnings emitted by XML-DOMs schemaValidate
+        // This will turn the warning into an exception
+        set_error_handler(static function (int $errno, string $errstr): never {
+            throw new SchemaViolationException($errstr, $errno);
+        }, E_WARNING);
+
+        try {
+            $result = $document->schemaValidate($schemaFile);
+        } finally {
+            // Restore the error handler, whether we throw an exception or not
+            restore_error_handler();
+        }
+
+        $msgs = [];
         if ($result === false) {
-            $msgs = [];
             foreach (libxml_get_errors() as $err) {
                 $msgs[] = trim($err->message) . ' on line ' . $err->line;
             }
@@ -53,6 +67,7 @@ trait SchemaValidatableElementTrait
 
     /**
      * Get the schema file that can validate this element.
+     * The path must be relative to the project's base directory.
      *
      * @return string
      */
@@ -62,7 +77,7 @@ trait SchemaValidatableElementTrait
             $schemaFile = static::SCHEMA;
         }
 
-        Assert::true(file_exists($schemaFile), IOException::class);
+        Assert::true(file_exists($schemaFile), sprintf("File not found: %s", $schemaFile), IOException::class);
         return $schemaFile;
     }
 }
