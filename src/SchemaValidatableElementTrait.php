@@ -13,7 +13,9 @@ use function array_unique;
 use function defined;
 use function file_exists;
 use function implode;
+use function libxml_clear_errors;
 use function libxml_get_errors;
+use function libxml_use_internal_errors;
 use function sprintf;
 use function trim;
 
@@ -32,6 +34,9 @@ trait SchemaValidatableElementTrait
      */
     public static function schemaValidate(DOMDocument $document): DOMDocument
     {
+        $internalErrors = libxml_use_internal_errors(true);
+        libxml_clear_errors();
+
         $schemaFile = self::getSchemaFile();
         // Must suppress the warnings here in order to throw them as an error below.
         $result = @$document->schemaValidate($schemaFile);
@@ -47,6 +52,9 @@ trait SchemaValidatableElementTrait
                 implode("\n - ", array_unique($msgs)),
             ));
         }
+
+        libxml_use_internal_errors($internalErrors);
+        libxml_clear_errors();
 
         return $document;
     }
