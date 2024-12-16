@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use SimpleSAML\XML\AbstractElement;
-use SimpleSAML\XML\URIElementTrait;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\XML\URIElementTrait;
 
 /**
  * Empty shell class for testing URIElement.
