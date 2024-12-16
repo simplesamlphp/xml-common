@@ -32,6 +32,16 @@ final class SchemaValidatableElementTraitTest extends TestCase
     }
 
 
+    public function testSchemaValidationFails(): void
+    {
+        $file = 'tests/resources/xml/invalid_ExtendableElement.xml';
+        $chunk = DOMDocumentFactory::fromFile($file);
+
+        $this->expectException(SchemaViolationException::class);
+        $document = StringElement::schemaValidate($chunk);
+    }
+
+
     public function testSchemaValidationWrongElementFails(): void
     {
         $file = 'tests/resources/xml/ssp_Base64Element.xml';

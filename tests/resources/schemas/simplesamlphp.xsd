@@ -47,6 +47,12 @@
 
 <!-- End StringElement -->
 
+<!-- Start URIElement -->
+
+<element name="URIElement" type="anyURI"/>
+
+<!-- End URIElement -->
+
 <!-- Start ExtendableAttributesElement -->
 
 <element name="ExtendableAttributesElement" type="ssp:ExtendableAttributesElementType"/>
