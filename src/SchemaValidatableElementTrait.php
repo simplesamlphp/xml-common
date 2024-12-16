@@ -14,8 +14,6 @@ use function defined;
 use function file_exists;
 use function implode;
 use function libxml_get_errors;
-use function restore_error_handler;
-use function set_error_handler;
 use function sprintf;
 use function trim;
 
@@ -35,22 +33,11 @@ trait SchemaValidatableElementTrait
     public static function schemaValidate(DOMDocument $document): DOMDocument
     {
         $schemaFile = self::getSchemaFile();
+        // Must suppress the warnings here in order to throw them as an error below.
+        $result = @$document->schemaValidate($schemaFile);
 
-        // Dirty trick to catch the warnings emitted by XML-DOMs schemaValidate
-        // This will turn the warning into an exception
-        set_error_handler(static function (int $errno, string $errstr): never {
-            throw new SchemaViolationException($errstr, $errno);
-        }, E_WARNING);
-
-        try {
-            $result = $document->schemaValidate($schemaFile);
-        } finally {
-            // Restore the error handler, whether we throw an exception or not
-            restore_error_handler();
-        }
-
-        $msgs = [];
         if ($result === false) {
+            $msgs = [];
             foreach (libxml_get_errors() as $err) {
                 $msgs[] = trim($err->message) . ' on line ' . $err->line;
             }
