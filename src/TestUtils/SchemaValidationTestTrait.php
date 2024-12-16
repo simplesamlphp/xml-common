@@ -6,7 +6,6 @@ namespace SimpleSAML\XML\TestUtils;
 
 use DOMDocument;
 use PHPUnit\Framework\Attributes\Depends;
-use SimpleSAML\XML\DOMDocumentFactory;
 
 use function class_exists;
 
@@ -19,9 +18,6 @@ trait SchemaValidationTestTrait
 {
     /** @var class-string */
     protected static string $testedClass;
-
-    /** @var string */
-    protected static string $schemaFile;
 
     /** @var \DOMDocument */
     protected static DOMDocument $xmlRepresentation;
@@ -38,11 +34,6 @@ trait SchemaValidationTestTrait
                 'Unable to run ' . self::class . '::testSchemaValidation(). Please set ' . self::class
                 . ':$testedClass to a class-string representing the XML-class being tested',
             );
-        } elseif (empty(self::$schemaFile)) {
-            $this->markTestSkipped(
-                'Unable to run ' . self::class . '::testSchemaValidation(). Please set ' . self::class
-                . ':$schema to point to a schema file',
-            );
         } elseif (empty(self::$xmlRepresentation)) {
             $this->markTestSkipped(
                 'Unable to run ' . self::class . '::testSchemaValidation(). Please set ' . self::class
@@ -50,14 +41,14 @@ trait SchemaValidationTestTrait
             );
         } else {
             // Validate before serialization
-            DOMDocumentFactory::schemaValidation(self::$xmlRepresentation->saveXML(), self::$schemaFile);
+            self::$testedClass::schemaValidate(self::$xmlRepresentation);
 
             // Perform serialization
             $class = self::$testedClass::fromXML(self::$xmlRepresentation->documentElement);
             $serializedClass = $class->toXML();
 
             // Validate after serialization
-            DOMDocumentFactory::schemaValidation($serializedClass->ownerDocument->saveXML(), self::$schemaFile);
+            self::$testedClass::schemaValidate($serializedClass->ownerDocument);
 
             // If we got this far and no exceptions were thrown, consider this test passed!
             $this->addToAssertionCount(1);

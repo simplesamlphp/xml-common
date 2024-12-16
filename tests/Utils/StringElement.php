@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use SimpleSAML\XML\AbstractElement;
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XML\StringElementTrait;
 
 /**
@@ -12,8 +14,9 @@ use SimpleSAML\XML\StringElementTrait;
  *
  * @package simplesaml/xml-common
  */
-final class StringElement extends AbstractElement
+final class StringElement extends AbstractElement implements SchemaValidatableElementInterface
 {
+    use SchemaValidatableElementTrait;
     use StringElementTrait;
 
     /** @var string */
@@ -21,6 +24,9 @@ final class StringElement extends AbstractElement
 
     /** @var string */
     public const NS_PREFIX = 'ssp';
+
+    /** @var string */
+    public const SCHEMA = 'tests/resources/schemas/simplesamlphp.xsd';
 
 
     /**

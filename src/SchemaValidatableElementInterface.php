@@ -16,7 +16,7 @@ interface SchemaValidatableElementInterface extends ElementInterface
     /**
      * Validate the given DOMDocument against the schema set for this element
      *
-     * @return void
+     * @return \DOMDocument
      * @throws \SimpleSAML\XML\Exception\SchemaViolationException
      */
     public static function schemaValidate(DOMDocument $document): DOMDocument;
