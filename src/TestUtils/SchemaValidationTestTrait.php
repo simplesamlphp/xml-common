@@ -16,6 +16,9 @@ use function class_exists;
  */
 trait SchemaValidationTestTrait
 {
+    /** @var string|null */
+    protected static ?string $schemaFile = null;
+
     /** @var class-string */
     protected static string $testedClass;
 
@@ -41,14 +44,14 @@ trait SchemaValidationTestTrait
             );
         } else {
             // Validate before serialization
-            self::$testedClass::schemaValidate(self::$xmlRepresentation);
+            self::$testedClass::schemaValidate(self::$xmlRepresentation, self::$schemaFile);
 
             // Perform serialization
             $class = self::$testedClass::fromXML(self::$xmlRepresentation->documentElement);
             $serializedClass = $class->toXML();
 
             // Validate after serialization
-            self::$testedClass::schemaValidate($serializedClass->ownerDocument);
+            self::$testedClass::schemaValidate($serializedClass->ownerDocument, self::$schemaFile);
 
             // If we got this far and no exceptions were thrown, consider this test passed!
             $this->addToAssertionCount(1);
