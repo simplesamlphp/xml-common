@@ -29,15 +29,22 @@ trait SchemaValidatableElementTrait
     /**
      * Validate the given DOMDocument against the schema set for this element
      *
+     * @param \DOMDocument $document
+     * @param string|null $schemaFile
      * @return \DOMDocument
+     *
+     * @throws \SimpleSAML\XML\Exception\IOException
      * @throws \SimpleSAML\XML\Exception\SchemaViolationException
      */
-    public static function schemaValidate(DOMDocument $document): DOMDocument
+    public static function schemaValidate(DOMDocument $document, ?string $schemaFile = null): DOMDocument
     {
         $internalErrors = libxml_use_internal_errors(true);
         libxml_clear_errors();
 
-        $schemaFile = self::getSchemaFile();
+        if ($schemaFile === null) {
+            $schemaFile = self::getSchemaFile();
+        }
+
         // Must suppress the warnings here in order to throw them as an error below.
         $result = @$document->schemaValidate($schemaFile);
 
