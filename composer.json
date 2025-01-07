@@ -33,7 +33,7 @@
         "ext-pcre": "*",
         "ext-spl": "*",
 
-        "simplesamlphp/assert": "^1.2",
+        "simplesamlphp/assert": "~1.8.0",
         "simplesamlphp/composer-xmlprovider-installer": "~1.0.0",
         "symfony/finder": "^6.4"
     },
