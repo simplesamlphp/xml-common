@@ -11,22 +11,22 @@ use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\Assert\Assert;
 
 /**
- * Class \SimpleSAML\Test\XML\Assert\IDTest
+ * Class \SimpleSAML\Test\XML\Assert\NCNameTest
  *
  * @package simplesamlphp/xml-common
  */
 #[CoversClass(Assert::class)]
-final class IDTest extends TestCase
+final class NCNameTest extends TestCase
 {
     /**
      * @param boolean $shouldPass
-     * @param string $id
+     * @param string $ncName
      */
-    #[DataProvider('provideID')]
-    public function testValidID(bool $shouldPass, string $id): void
+    #[DataProvider('provideNCName')]
+    public function testValidNCName(bool $shouldPass, string $ncName): void
     {
         try {
-            Assert::validID($id);
+            Assert::validNCName($ncName);
             $this->assertTrue($shouldPass);
         } catch (AssertionFailedException $e) {
             $this->assertFalse($shouldPass);
@@ -37,7 +37,7 @@ final class IDTest extends TestCase
     /**
      * @return array<int, array{0: bool, 1: string}>
      */
-    public static function provideID(): array
+    public static function provideNCName(): array
     {
         return [
             [true, 'Test'],
