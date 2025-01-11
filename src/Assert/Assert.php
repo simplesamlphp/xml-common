@@ -30,6 +30,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void validQName(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidAllowedXPathFilter(mixed $value, array $allowed_axes, array $allowed_functions, string $message = '', string $exception = '')
  * @method static void validTime(mixed $value, string $message = '', string $exception = '')
+ * @method static void validToken(mixed $value, string $message = '', string $exception = '')
  * @method static void validYearMonth(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidAnyURI(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidDate(mixed $value, string $message = '', string $exception = '')
@@ -51,6 +52,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void nullOrValidQName(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidAllowedXPathFilter(mixed $value, array $allowed_axes, array $allowed_functions, string $message = '', string $exception = '')
  * @method static void nullOrValidTime(mixed $value, string $message = '', string $exception = '')
+ * @method static void nullOrValidToken(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidYearMonth(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidAnyURI(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidDate(mixed $value, string $message = '', string $exception = '')
@@ -71,6 +73,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void allValidNMTokens(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidQName(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidTime(mixed $value, string $message = '', string $exception = '')
+ * @method static void allValidToken(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidYearMonth(mixed $value, string $message = '', string $exception = '')
  */
 class Assert extends BaseAssert
@@ -94,6 +97,7 @@ class Assert extends BaseAssert
     use NMTokensTrait;
     use QNameTrait;
     use TimeTrait;
+    use TokenTrait;
     use XPathFilterTrait;
     use YearMonthTrait;
 }
