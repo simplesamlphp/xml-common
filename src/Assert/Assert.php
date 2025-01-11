@@ -22,6 +22,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void validIDRef(mixed $value, string $message = '', string $exception = '')
  * @method static void validIDRefs(mixed $value, string $message = '', string $exception = '')
  * @method static void validLang(mixed $value, string $message = '', string $exception = '')
+ * @method static void validMonth(mixed $value, string $message = '', string $exception = '')
  * @method static void validName(mixed $value, string $message = '', string $exception = '')
  * @method static void validNCName(mixed $value, string $message = '', string $exception = '')
  * @method static void validNMToken(mixed $value, string $message = '', string $exception = '')
@@ -42,6 +43,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void nullOrValidIDRef(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidIDRefs(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidLang(mixed $value, string $message = '', string $exception = '')
+ * @method static void nullOrValidMonth(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidName(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidNCName(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidNMToken(mixed $value, string $message = '', string $exception = '')
@@ -62,6 +64,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void allValidIDRef(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidIDRefs(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidLang(mixed $value, string $message = '', string $exception = '')
+ * @method static void allValidMonth(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidName(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidNCName(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidNMToken(mixed $value, string $message = '', string $exception = '')
@@ -84,6 +87,7 @@ class Assert extends BaseAssert
     use IDRefTrait;
     use IDRefsTrait;
     use LangTrait;
+    use MonthTrait;
     use NameTrait;
     use NCNameTrait;
     use NMTokenTrait;
