@@ -7,8 +7,8 @@ namespace SimpleSAML\Test\XML\Assert;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Assert\Assert;
 use SimpleSAML\Assert\AssertionFailedException;
+use SimpleSAML\XML\Assert\Assert;
 
 /**
  * Class \SimpleSAML\Test\Assert\HexBinaryTest
