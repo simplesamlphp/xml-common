@@ -32,6 +32,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void validNMToken(mixed $value, string $message = '', string $exception = '')
  * @method static void validNMTokens(mixed $value, string $message = '', string $exception = '')
  * @method static void validNegativeInteger(mixed $value, string $message = '', string $exception = '')
+ * @method static void validNonNegativeInteger(mixed $value, string $message = '', string $exception = '')
  * @method static void validNonPositiveInteger(mixed $value, string $message = '', string $exception = '')
  * @method static void validNormalizedString(mixed $value, string $message = '', string $exception = '')
  * @method static void validQName(mixed $value, string $message = '', string $exception = '')
@@ -62,6 +63,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void nullOrValidNMToken(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidNMTokens(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidNegativeInteger(mixed $value, string $message = '', string $exception = '')
+ * @method static void nullOrValidNonNegativeInteger(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidNonPositiveInteger(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidNormalizedString(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidQName(mixed $value, string $message = '', string $exception = '')
@@ -92,6 +94,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void allValidNMToken(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidNMTokens(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidNegativeInteger(mixed $value, string $message = '', string $exception = '')
+ * @method static void allValidNonNegativeInteger(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidNonPositiveInteger(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidNormalizedString(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidQName(mixed $value, string $message = '', string $exception = '')
@@ -124,6 +127,7 @@ class Assert extends BaseAssert
     use NMTokenTrait;
     use NMTokensTrait;
     use NegativeIntegerTrait;
+    use NonNegativeIntegerTrait;
     use NonPositiveIntegerTrait;
     use NormalizedStringTrait;
     use QNameTrait;
