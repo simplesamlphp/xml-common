@@ -10,6 +10,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @package simplesamlphp/xml-common
  *
  * @method static void validAnyURI(mixed $value, string $message = '', string $exception = '')
+ * @method static void validBase64Binary(mixed $value, string $message = '', string $exception = '')
  * @method static void validDate(mixed $value, string $message = '', string $exception = '')
  * @method static void validDateTime(mixed $value, string $message = '', string $exception = '')
  * @method static void validDay(mixed $value, string $message = '', string $exception = '')
@@ -33,6 +34,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void validToken(mixed $value, string $message = '', string $exception = '')
  * @method static void validYearMonth(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidAnyURI(mixed $value, string $message = '', string $exception = '')
+ * @method static void nullOrValidBase64Binary(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidDate(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidDateTime(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidDay(mixed $value, string $message = '', string $exception = '')
@@ -56,6 +58,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void nullOrValidToken(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidYearMonth(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidAnyURI(mixed $value, string $message = '', string $exception = '')
+ * @method static void allValidBase64Binary(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidDate(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidDateTime(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidDay(mixed $value, string $message = '', string $exception = '')
@@ -82,6 +85,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
 class Assert extends BaseAssert
 {
     use AnyURITrait;
+    use Base64BinaryTrait;
     use DateTrait;
     use DateTimeTrait;
     use DayTrait;
