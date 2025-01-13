@@ -21,6 +21,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void validDuration(mixed $value, string $message = '', string $exception = '')
  * @method static void validEntity(mixed $value, string $message = '', string $exception = '')
  * @method static void validEntities(mixed $value, string $message = '', string $exception = '')
+ * @method static void validFloat(mixed $value, string $message = '', string $exception = '')
  * @method static void validHexBinary(mixed $value, string $message = '', string $exception = '')
  * @method static void validID(mixed $value, string $message = '', string $exception = '')
  * @method static void validIDRef(mixed $value, string $message = '', string $exception = '')
@@ -57,6 +58,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void nullOrValidDuration(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidEntity(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidEntities(mixed $value, string $message = '', string $exception = '')
+ * @method static void nullOrValidFloat(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidHexBinary(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidID(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidIDRef(mixed $value, string $message = '', string $exception = '')
@@ -93,6 +95,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void allValidDuration(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidEntity(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidEntities(mixed $value, string $message = '', string $exception = '')
+ * @method static void allValidFloat(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidHexBinary(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidID(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidIDRef(mixed $value, string $message = '', string $exception = '')
@@ -132,6 +135,7 @@ class Assert extends BaseAssert
     use HexBinaryTrait;
     use EntitiesTrait;
     use EntityTrait;
+    use FloatTrait;
     use IDTrait;
     use IDRefTrait;
     use IDRefsTrait;
