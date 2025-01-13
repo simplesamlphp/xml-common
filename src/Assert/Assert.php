@@ -39,6 +39,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void validNormalizedString(mixed $value, string $message = '', string $exception = '')
  * @method static void validPositiveInteger(mixed $value, string $message = '', string $exception = '')
  * @method static void validQName(mixed $value, string $message = '', string $exception = '')
+ * @method static void validShort(mixed $value, string $message = '', string $exception = '')
  * @method static void validString(mixed $value, string $message = '', string $exception = '')
  * @method static void validTime(mixed $value, string $message = '', string $exception = '')
  * @method static void validToken(mixed $value, string $message = '', string $exception = '')
@@ -73,6 +74,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void nullOrValidNormalizedString(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidPositiveInteger(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidQName(mixed $value, string $message = '', string $exception = '')
+ * @method static void nullOrValidShort(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidString(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidTime(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidToken(mixed $value, string $message = '', string $exception = '')
@@ -107,6 +109,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void allValidNormalizedString(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidPositiveInteger(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidQName(mixed $value, string $message = '', string $exception = '')
+ * @method static void allValidShort(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidString(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidTime(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidToken(mixed $value, string $message = '', string $exception = '')
@@ -143,6 +146,7 @@ class Assert extends BaseAssert
     use NormalizedStringTrait;
     use PositiveIntegerTrait;
     use QNameTrait;
+    use ShortTrait;
     use StringTrait;
     use TimeTrait;
     use TokenTrait;
