@@ -15,6 +15,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void validDate(mixed $value, string $message = '', string $exception = '')
  * @method static void validDateTime(mixed $value, string $message = '', string $exception = '')
  * @method static void validDay(mixed $value, string $message = '', string $exception = '')
+ * @method static void validDecimal(mixed $value, string $message = '', string $exception = '')
  * @method static void validDuration(mixed $value, string $message = '', string $exception = '')
  * @method static void validEntity(mixed $value, string $message = '', string $exception = '')
  * @method static void validEntities(mixed $value, string $message = '', string $exception = '')
@@ -40,6 +41,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void nullOrValidDate(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidDateTime(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidDay(mixed $value, string $message = '', string $exception = '')
+ * @method static void nullOrValidDecimal(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidDuration(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidEntity(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidEntities(mixed $value, string $message = '', string $exception = '')
@@ -65,6 +67,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void allValidDate(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidDateTime(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidDay(mixed $value, string $message = '', string $exception = '')
+ * @method static void allValidDecimal(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidDuration(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidEntity(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidEntities(mixed $value, string $message = '', string $exception = '')
@@ -93,6 +96,7 @@ class Assert extends BaseAssert
     use DateTrait;
     use DateTimeTrait;
     use DayTrait;
+    use DecimalTrait;
     use DurationTrait;
     use HexBinaryTrait;
     use EntitiesTrait;
