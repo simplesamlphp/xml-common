@@ -46,6 +46,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void validString(mixed $value, string $message = '', string $exception = '')
  * @method static void validTime(mixed $value, string $message = '', string $exception = '')
  * @method static void validToken(mixed $value, string $message = '', string $exception = '')
+ * @method static void validUnsignedByte(mixed $value, string $message = '', string $exception = '')
  * @method static void validUnsignedInt(mixed $value, string $message = '', string $exception = '')
  * @method static void validUnsignedLong(mixed $value, string $message = '', string $exception = '')
  * @method static void validUnsignedShort(mixed $value, string $message = '', string $exception = '')
@@ -87,6 +88,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void nullOrValidString(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidTime(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidToken(mixed $value, string $message = '', string $exception = '')
+ * @method static void nullOrValidUnsignedByte(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidUnsignedInt(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidUnsignedLong(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidUnsignedShort(mixed $value, string $message = '', string $exception = '')
@@ -128,6 +130,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void allValidString(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidTime(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidToken(mixed $value, string $message = '', string $exception = '')
+ * @method static void allValidUnsignedByte(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidUnsignedInt(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidUnsignedLong(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidUnsignedShort(mixed $value, string $message = '', string $exception = '')
@@ -171,6 +174,7 @@ class Assert extends BaseAssert
     use StringTrait;
     use TimeTrait;
     use TokenTrait;
+    use UnsignedByteTrait;
     use UnsignedIntTrait;
     use UnsignedLongTrait;
     use UnsignedShortTrait;
