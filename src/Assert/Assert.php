@@ -49,6 +49,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void validUnsignedInt(mixed $value, string $message = '', string $exception = '')
  * @method static void validUnsignedLong(mixed $value, string $message = '', string $exception = '')
  * @method static void validUnsignedShort(mixed $value, string $message = '', string $exception = '')
+ * @method static void validYear(mixed $value, string $message = '', string $exception = '')
  * @method static void validYearMonth(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidAnyURI(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidBase64Binary(mixed $value, string $message = '', string $exception = '')
@@ -90,6 +91,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void nullOrValidUnsignedInt(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidUnsignedLong(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidUnsignedShort(mixed $value, string $message = '', string $exception = '')
+ * @method static void nullOrValidYear(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidYearMonth(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidAnyURI(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidBase64Binary(mixed $value, string $message = '', string $exception = '')
@@ -131,6 +133,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void allValidUnsignedInt(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidUnsignedLong(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidUnsignedShort(mixed $value, string $message = '', string $exception = '')
+ * @method static void allValidYear(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidYearMonth(mixed $value, string $message = '', string $exception = '')
  */
 class Assert extends BaseAssert
@@ -175,5 +178,6 @@ class Assert extends BaseAssert
     use UnsignedIntTrait;
     use UnsignedLongTrait;
     use UnsignedShortTrait;
+    use YearTrait;
     use YearMonthTrait;
 }
