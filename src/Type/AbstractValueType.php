@@ -80,9 +80,9 @@ abstract class AbstractValueType implements ValueTypeInterface
 
     /**
      * @param string $value
-     * @return \SimpleSAML\XML\Type\ValueTypeInterface
+     * @return static
      */
-    public static function fromString(string $value): ValueTypeInterface
+    public static function fromString(string $value): static
     {
         return new static($value);
     }
