@@ -10,6 +10,7 @@ use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\Type\{BooleanValue, IntegerValue, StringValue};
 
 use function dirname;
 use function strval;
@@ -68,29 +69,31 @@ final class ChunkTest extends TestCase
         $this->assertFalse($chunk->isEmptyElement());
 
         // Get mandatory attributes
-        $this->assertEquals(2, $chunk::getIntegerAttribute($xml, 'integer'));
-        $this->assertEquals(false, $chunk::getBooleanAttribute($xml, 'boolean'));
-        $this->assertEquals('text', $chunk::getAttribute($xml, 'text'));
+        $this->assertEquals('2', strval($chunk::getAttribute($xml, 'integer', IntegerValue::class)));
+        $this->assertEquals('false', strval($chunk::getAttribute($xml, 'boolean', BooleanValue::class)));
+        $this->assertEquals('text', strval($chunk::getAttribute($xml, 'text', StringValue::class)));
+        $this->assertEquals('otherText', strval($chunk::getAttribute($xml, 'otherText')));
 
         // Get optional attributes
-        $this->assertEquals('text', $chunk::getOptionalAttribute($xml, 'text'));
-        $this->assertFalse($chunk::getOptionalBooleanAttribute($xml, 'boolean'));
-        $this->assertEquals(2, $chunk::getOptionalIntegerAttribute($xml, 'integer'));
+        $this->assertEquals('text', strval($chunk::getOptionalAttribute($xml, 'text')));
+        $this->assertEquals('otherText', strval($chunk::getOptionalAttribute($xml, 'otherText', StringValue::class)));
+        $this->assertEquals('false', strval($chunk::getOptionalAttribute($xml, 'boolean', BooleanValue::class)));
+        $this->assertEquals('2', strval($chunk::getOptionalAttribute($xml, 'integer', IntegerValue::class)));
 
         // Get optional non-existing attributes
         $this->assertNull($chunk::getOptionalAttribute($xml, 'non-existing'));
-        $this->assertNull($chunk::getOptionalBooleanAttribute($xml, 'non-existing'));
-        $this->assertNull($chunk::getOptionalIntegerAttribute($xml, 'non-existing'));
+        $this->assertNull($chunk::getOptionalAttribute($xml, 'non-existing', BooleanValue::class));
+        $this->assertNull($chunk::getOptionalAttribute($xml, 'non-existing', IntegerValue::class));
 
         // Get optional non-existing attributes with default
-        $this->assertEquals('other text', $chunk::getOptionalAttribute($xml, 'non-existing', 'other text'));
-        $this->assertTrue($chunk::getOptionalBooleanAttribute($xml, 'non-existing', true));
-        $this->assertEquals(3, $chunk::getOptionalIntegerAttribute($xml, 'non-existing', 3));
+        $this->assertEquals('other text', $chunk::getOptionalAttribute($xml, 'non-existing', StringValue::class, StringValue::fromString('other text')));
+        $this->assertEquals('true', $chunk::getOptionalAttribute($xml, 'non-existing', BooleanValue::class, BooleanValue::fromString('true')));
+        $this->assertEquals('3', $chunk::getOptionalAttribute($xml, 'non-existing', IntegerValue::class, IntegerValue::fromString('3')));
 
         // Get mandatory non-existing attributes
         $this->expectException(MissingAttributeException::class);
         $chunk::getAttribute($xml, 'non-existing');
-        $chunk::getBooleanAttribute($xml, 'non-existing');
-        $chunk::getIntegerAttribute($xml, 'non-existing');
+        $chunk::getAttribute($xml, 'non-existing', BooleanValue::class);
+        $chunk::getAttribute($xml, 'non-existing', IntegerValue::class);
     }
 }
