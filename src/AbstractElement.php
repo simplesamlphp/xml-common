@@ -7,6 +7,7 @@ namespace SimpleSAML\XML;
 use DOMElement;
 use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
+use SimpleSAML\XML\DOM\DOMDocument;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\SerializableElementTrait;
@@ -40,7 +41,7 @@ abstract class AbstractElement implements SerializableElementInterface
         $namespace = static::getNamespaceURI();
 
         if ($parent === null) {
-            $parent = DOMDocumentFactory::create();
+            $parent = DOMDocument::create();
             $e = $parent->createElementNS($namespace, $qualifiedName);
         } else {
             $doc = $parent->ownerDocument;
@@ -57,10 +58,11 @@ abstract class AbstractElement implements SerializableElementInterface
     /**
      * Get the value of an attribute from a given element.
      *
-     * @param \DOMElement $xml The element where we should search for the attribute.
-     * @param string      $name The name of the attribute.
-     * @param string      $type The type of the attribute value.
-     * @return \SimpleSAML\XML\Type\ValueTypeInterface
+     * @template T of \SimpleSAML\XML\Type\ValueTypeInterface
+     * @param \DOMElement     $xml The element where we should search for the attribute.
+     * @param string          $name The name of the attribute.
+     * @param class-string<T> $type The type of the attribute value.
+     * @return T
      *
      * @throws \SimpleSAML\XML\Exception\MissingAttributeException if the attribute is missing from the element
      */
@@ -88,11 +90,13 @@ abstract class AbstractElement implements SerializableElementInterface
     /**
      * Get the value of an attribute from a given element.
      *
-     * @param \DOMElement $xml The element where we should search for the attribute.
-     * @param string      $name The name of the attribute.
-     * @param string      $type The type of the attribute value.
-     * @param string|null $default The default to return in case the attribute does not exist and it is optional.
-     * @return ($default is \SimpleSAML\XML\Type\ValueTypeInterface ? \SimpleSAML\XML\Type\ValueTypeInterface : \SimpleSAML\XML\Type\ValueTypeInterface|null)
+     * @template T of \SimpleSAML\XML\Type\ValueTypeInterface
+     * @param \DOMElement  $xml The element where we should search for the attribute.
+     * @param string       $name The name of the attribute.
+     * @param class-string<T> $type The type of the attribute value.
+     * @param \SimpleSAML\XML\Type\ValueTypeInterface|null $default
+     *   The default to return in case the attribute does not exist and it is optional.
+     * @return ($default is \SimpleSAML\XML\Type\ValueTypeInterface ? T : T|null)
      */
     public static function getOptionalAttribute(
         DOMElement $xml,
@@ -152,7 +156,7 @@ abstract class AbstractElement implements SerializableElementInterface
                 && $node->localName === static::getLocalName()
             ) {
                 // Normalize the DOMElement by importing it into a clean empty document
-                $newDoc = DOMDocumentFactory::create();
+                $newDoc = DOMDocument::create();
                 /** @var \DOMElement $node */
                 $node = $newDoc->appendChild($newDoc->importNode($node, true));
 

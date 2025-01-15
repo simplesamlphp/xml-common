@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\Test\XML\ExtendableElement;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\DOM\DOMDocument;
 use SimpleSAML\XML\ElementInterface;
 use SimpleSAML\XML\ExtendableElementTrait;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
@@ -43,28 +43,28 @@ final class ExtendableElementTraitTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        $emptyDocument = DOMDocumentFactory::fromString(
+        $emptyDocument = DOMDocument::fromString(
             <<<XML
             <chunk/>
 XML
             ,
         );
 
-        $localDocument = DOMDocumentFactory::fromString(
+        $localDocument = DOMDocument::fromString(
             <<<XML
             <chunk>some</chunk>
 XML
             ,
         );
 
-        $targetDocument = DOMDocumentFactory::fromString(
+        $targetDocument = DOMDocument::fromString(
             <<<XML
             <ssp:chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:chunk>
 XML
             ,
         );
 
-        $otherDocument = DOMDocumentFactory::fromString(
+        $otherDocument = DOMDocument::fromString(
             <<<XML
             <dummy:chunk xmlns:dummy="urn:custom:dummy">some</dummy:chunk>
 XML

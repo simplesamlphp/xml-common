@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\XMLDumper;
 use SimpleSAML\XML\AbstractElement;
-use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\DOM\DOMDocument;
 use SimpleSAML\XML\HexBinaryElementTrait;
 use SimpleSAML\XML\StringElementTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
@@ -37,7 +37,7 @@ final class HexBinaryElementTraitTest extends TestCase
     {
         self::$testedClass = HexBinaryElement::class;
 
-        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocument::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_HexBinaryElement.xml',
         );
     }
@@ -78,7 +78,7 @@ final class HexBinaryElementTraitTest extends TestCase
     #[DataProvider('provideHexBinaryCases')]
     public function testHexBinaryCases(string $xml): void
     {
-        $xmlRepresentation = DOMDocumentFactory::fromString($xml);
+        $xmlRepresentation = DOMDocument::fromString($xml);
         /** @var \DOMElement $xmlElement */
         $xmlElement = $xmlRepresentation->documentElement;
 

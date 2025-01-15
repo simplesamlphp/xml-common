@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\XMLDumper;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Base64ElementTrait;
-use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\DOM\DOMDocument;
 use SimpleSAML\XML\StringElementTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
@@ -37,7 +37,7 @@ final class Base64ElementTraitTest extends TestCase
     {
         self::$testedClass = Base64Element::class;
 
-        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocument::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_Base64Element.xml',
         );
     }
@@ -73,7 +73,7 @@ final class Base64ElementTraitTest extends TestCase
     #[DataProvider('provideBase64Cases')]
     public function testBase64Cases(string $xml): void
     {
-        $xmlRepresentation = DOMDocumentFactory::fromString($xml);
+        $xmlRepresentation = DOMDocument::fromString($xml);
         /** @var \DOMElement $xmlElement */
         $xmlElement = $xmlRepresentation->documentElement;
 

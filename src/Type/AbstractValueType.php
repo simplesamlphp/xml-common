@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Type;
 
+use Stringable;
+
 /**
  * Abstract class to be implemented by all types
  *
  * @package simplesamlphp/xml-common
  */
-abstract class AbstractValueType implements ValueTypeInterface
+abstract class AbstractValueType implements Stringable, ValueTypeInterface
 {
     /**
      * Set the value for this type.

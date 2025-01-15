@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use SimpleSAML\Assert\AssertionFailedException;
-use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\DOM\DOMDocument;
 use SimpleSAML\XML\Exception\UnparseableXMLException;
 
 use function strval;
@@ -17,14 +17,14 @@ use function strval;
 /**
  * @package simplesamlphp\xml-common
  */
-#[CoversClass(DOMDocumentFactory::class)]
+#[CoversClass(DOMDocument::class)]
 #[Group('domdocument')]
-final class DOMDocumentFactoryTest extends TestCase
+final class DOMDocumentTest extends TestCase
 {
     public function testNotXmlStringRaisesAnException(): void
     {
         $this->expectException(UnparseableXMLException::class);
-        DOMDocumentFactory::fromString('this is not xml');
+        DOMDocument::fromString('this is not xml');
     }
 
 
@@ -32,7 +32,7 @@ final class DOMDocumentFactoryTest extends TestCase
     {
         $xml = '<root/>';
 
-        $document = DOMDocumentFactory::fromString($xml);
+        $document = DOMDocument::fromString($xml);
 
         $this->assertXmlStringEqualsXmlString($xml, strval($document->saveXML()));
     }
@@ -42,21 +42,21 @@ final class DOMDocumentFactoryTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
         $filename = 'DoesNotExist.ext';
-        DOMDocumentFactory::fromFile($filename);
+        DOMDocument::fromFile($filename);
     }
 
 
     public function testFileThatDoesNotContainXMLCannotBeLoaded(): void
     {
         $this->expectException(RuntimeException::class);
-        DOMDocumentFactory::fromFile('tests/resources/xml/domdocument_invalid_xml.xml');
+        DOMDocument::fromFile('tests/resources/xml/domdocument_invalid_xml.xml');
     }
 
 
     public function testFileWithValidXMLCanBeLoaded(): void
     {
         $file = 'tests/resources/xml/domdocument_valid_xml.xml';
-        $document = DOMDocumentFactory::fromFile($file);
+        $document = DOMDocument::fromFile($file);
 
         $this->assertXmlStringEqualsXmlFile($file, strval($document->saveXML()));
     }
@@ -69,7 +69,7 @@ final class DOMDocumentFactoryTest extends TestCase
         $this->expectExceptionMessage(
             'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body',
         );
-        DOMDocumentFactory::fromFile($file);
+        DOMDocument::fromFile($file);
     }
 
 
@@ -80,7 +80,7 @@ final class DOMDocumentFactoryTest extends TestCase
         $this->expectExceptionMessage(
             'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body',
         );
-        DOMDocumentFactory::fromString($xml);
+        DOMDocument::fromString($xml);
     }
 
 
@@ -93,7 +93,7 @@ final class DOMDocumentFactoryTest extends TestCase
         $this->expectExceptionMessage(
             'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body',
         );
-        DOMDocumentFactory::fromString($xml);
+        DOMDocument::fromString($xml);
     }
 
 
@@ -102,7 +102,7 @@ final class DOMDocumentFactoryTest extends TestCase
         $file = 'tests/resources/xml/domdocument_empty.xml';
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('does not have content');
-        DOMDocumentFactory::fromFile($file);
+        DOMDocument::fromFile($file);
     }
 
 
@@ -112,6 +112,6 @@ final class DOMDocumentFactoryTest extends TestCase
         $this->expectExceptionMessage(
             'Expected a non-whitespace string. Got: ""',
         );
-        DOMDocumentFactory::fromString('');
+        DOMDocument::fromString('');
     }
 }

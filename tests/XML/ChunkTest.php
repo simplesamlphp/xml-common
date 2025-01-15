@@ -7,7 +7,7 @@ namespace SimpleSAML\Test\XML;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\DOM\DOMDocument;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XML\Type\{BooleanValue, IntegerValue, StringValue};
@@ -33,7 +33,7 @@ final class ChunkTest extends TestCase
     {
         self::$testedClass = Chunk::class;
 
-        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocument::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_Element.xml',
         );
     }
@@ -69,7 +69,7 @@ final class ChunkTest extends TestCase
         $this->assertFalse($chunk->isEmptyElement());
 
         // Get mandatory attributes
-        $this->assertEquals('2', strval($chunk::getAttribute($xml, 'integer', IntegerValue::class)));
+        $this->assertEquals('2', $chunk::getAttribute($xml, 'integer', IntegerValue::class));
         $this->assertEquals('false', strval($chunk::getAttribute($xml, 'boolean', BooleanValue::class)));
         $this->assertEquals('text', strval($chunk::getAttribute($xml, 'text', StringValue::class)));
         $this->assertEquals('otherText', strval($chunk::getAttribute($xml, 'otherText')));

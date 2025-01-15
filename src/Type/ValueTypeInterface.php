@@ -9,7 +9,7 @@ namespace SimpleSAML\XML\Type;
  *
  * @package simplesamlphp/xml-common
  */
-interface ValueTypeInterface
+interface ValueTypeInterface extends \Stringable
 {
     /**
      * @return string
@@ -28,4 +28,12 @@ interface ValueTypeInterface
      * @return \SimpleSAML\XML\Type\ValueTypeInterface
      */
     public static function fromString(string $value): ValueTypeInterface;
+
+
+    /**
+     * Output the value as a string
+     *
+     * @return string
+     */
+    public function __toString(): string;
 }

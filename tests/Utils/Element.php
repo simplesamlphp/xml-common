@@ -8,7 +8,7 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Type\{BooleanValue, IntegerValue, StringValue};
+use SimpleSAML\XML\Type\{BooleanValue, IntegerValue, StringValue, ValueTypeInterface};
 
 use function strval;
 
@@ -27,16 +27,16 @@ final class Element extends AbstractElement
 
 
     /**
-     * @param \SimpleSAML\XML\Type\IntegerValue|null $integer
-     * @param \SimpleSAML\XML\Type\BooleanValue|null $boolean
-     * @param \SimpleSAML\XML\Type\StringValue|null $text
-     * @param \SimpleSAML\XML\Type\StringValue|null $otherText
+     * @param \SimpleSAML\XML\Type\IntegerValue $integer
+     * @param \SimpleSAML\XML\Type\BooleanValue $boolean
+     * @param \SimpleSAML\XML\Type\StringValue $text
+     * @param \SimpleSAML\XML\Type\StringValue $otherText
      */
     public function __construct(
-        protected ?IntegerValue $integer = null,
-        protected ?BooleanValue $boolean = null,
-        protected ?StringValue $text = null,
-        protected ?StringValue $otherText = null,
+        protected IntegerValue $integer,
+        protected BooleanValue $boolean,
+        protected StringValue $text,
+        protected StringValue $otherText,
     ) {
     }
 
@@ -44,9 +44,9 @@ final class Element extends AbstractElement
     /**
      * Collect the value of the integer-property
      *
-     * @return \SimpleSAML\XML\Type\IntegerValue|null
+     * @return \SimpleSAML\XML\Type\IntegerValue
      */
-    public function getInteger(): ?IntegerValue
+    public function getInteger(): IntegerValue
     {
         return $this->integer;
     }
@@ -55,9 +55,9 @@ final class Element extends AbstractElement
     /**
      * Collect the value of the boolean-property
      *
-     * @return \SimpleSAML\XML\Type\BooleanValue|null
+     * @return \SimpleSAML\XML\Type\BooleanValue
      */
-    public function getBoolean(): ?BooleanValue
+    public function getBoolean(): BooleanValue
     {
         return $this->boolean;
     }
@@ -66,20 +66,20 @@ final class Element extends AbstractElement
     /**
      * Collect the value of the text-property
      *
-     * @return \SimpleSAML\XML\Type\StringValue|null
+     * @return \SimpleSAML\XML\Type\StringValue
      */
-    public function getString(): ?StringValue
+    public function getString(): StringValue
     {
         return $this->text;
     }
 
 
     /**
-     * Collect the value of the text2-property
+     * Collect the value of the otherText-property
      *
-     * @return \SimpleSAML\XML\Type\StringValue|null
+     * @return \SimpleSAML\XML\Type\StringValue
      */
-    public function getOtherString(): ?StringValue
+    public function getOtherString(): StringValue
     {
         return $this->otherText;
     }
@@ -115,21 +115,10 @@ final class Element extends AbstractElement
     {
         $e = $this->instantiateParentElement($parent);
 
-        if ($this->getInteger() !== null) {
-            $e->setAttribute('integer', strval($this->getInteger()));
-        }
-
-        if ($this->getBoolean() !== null) {
-            $e->setAttribute('boolean', strval($this->getBoolean()));
-        }
-
-        if ($this->getString() !== null) {
-            $e->setAttribute('text', strval($this->getString()));
-        }
-
-        if ($this->getOtherString() !== null) {
-            $e->setAttribute('otherText', strval($this->getOtherString()));
-        }
+        $e->setAttribute('integer', strval($this->getInteger()));
+        $e->setAttribute('boolean', strval($this->getBoolean()));
+        $e->setAttribute('text', strval($this->getString()));
+        $e->setAttribute('otherText', strval($this->getOtherString()));
 
         return $e;
     }

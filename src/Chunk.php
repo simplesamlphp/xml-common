@@ -6,7 +6,7 @@ namespace SimpleSAML\XML;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\DOMDocument;
+use SimpleSAML\XML\DOM\DOMDocument;
 use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\SerializableElementTrait;
@@ -159,10 +159,11 @@ final class Chunk implements SerializableElementInterface
     /**
      * Get the value of an attribute from a given element.
      *
-     * @param \DOMElement $xml The element where we should search for the attribute.
-     * @param string      $name The name of the attribute.
-     * @param string      $type The type of the attribute value.
-     * @return \SimpleSAML\XML\Type\ValueTypeInterface
+     * @template T of \SimpleSAML\XML\Type\ValueTypeInterface
+     * @param \DOMElement      $xml The element where we should search for the attribute.
+     * @param string           $name The name of the attribute.
+     * @param class-string<T>  $type The type of the attribute value.
+     * @return T
      *
      * @throws \SimpleSAML\XML\Exception\MissingAttributeException if the attribute is missing from the element
      */
@@ -187,12 +188,13 @@ final class Chunk implements SerializableElementInterface
     /**
      * Get the value of an attribute from a given element.
      *
-     * @param \DOMElement $xml The element where we should search for the attribute.
-     * @param string      $name The name of the attribute.
-     * @param string      $type The type of the attribute value.
+     * @template T of \SimpleSAML\XML\Type\ValueTypeInterface
+     * @param \DOMElement      $xml The element where we should search for the attribute.
+     * @param string           $name The name of the attribute.
+     * @param class-string<T>  $type The type of the attribute value.
      * @param \SimpleSAML\XML\Type\ValueTypeInterface|null $default
      *   The default to return in case the attribute does not exist and it is optional.
-     * @return ($default is \SimpleSAML\XML\Type\ValueTypeInterface ? \SimpleSAML\XML\Type\ValueTypeInterface : \SimpleSAML\XML\Type\ValueTypeInterface|null)
+     * @return ($default is \SimpleSAML\XML\Type\ValueTypeInterface ? T : T|null)
      */
     public static function getOptionalAttribute(
         DOMElement $xml,
