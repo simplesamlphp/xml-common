@@ -6,9 +6,11 @@ namespace SimpleSAML\XML;
 
 use DOMAttr;
 use DOMElement;
-use SimpleSAML\Assert\Assert;
+use SimpleSAML\XML\Assert\Assert;
+use SimpleSAML\XML\Type\{StringValue, ValueTypeInterface};
 
 use function array_keys;
+use function strval;
 
 /**
  * Class to represent an arbitrary namespaced attribute.
@@ -23,20 +25,19 @@ final class Attribute implements ArrayizableElementInterface
      * @param string|null $namespaceURI
      * @param string|null $namespacePrefix
      * @param string $attrName
-     * @param string $attrValue
+     * @param \SimpleSAML\XML\Type\ValueTypeInterface $attrValue
      */
     public function __construct(
         protected ?string $namespaceURI,
         protected ?string $namespacePrefix,
         protected string $attrName,
-        protected string $attrValue,
+        protected ValueTypeInterface $attrValue,
     ) {
-        Assert::nullOrStringNotEmpty($namespaceURI);
+        Assert::nullOrValidAnyURI($namespaceURI);
         if ($namespaceURI !== null) {
-            Assert::stringNotEmpty($namespacePrefix);
+            Assert::nullOrValidNCName($namespacePrefix);
         }
-        Assert::stringNotEmpty($attrName);
-        Assert::string($attrValue);
+        Assert::validNCName($attrName);
     }
 
 
@@ -76,9 +77,9 @@ final class Attribute implements ArrayizableElementInterface
     /**
      * Collect the value of the value-property
      *
-     * @return string
+     * @return \SimpleSAML\XML\Type\ValueTypeInterface
      */
-    public function getAttrValue(): string
+    public function getAttrValue(): ValueTypeInterface
     {
         return $this->attrValue;
     }
@@ -92,7 +93,7 @@ final class Attribute implements ArrayizableElementInterface
      */
     public static function fromXML(DOMAttr $attr): static
     {
-        return new static($attr->namespaceURI, $attr->prefix, $attr->localName, $attr->value);
+        return new static($attr->namespaceURI, $attr->prefix, $attr->localName, StringValue::fromString($attr->value));
     }
 
 
@@ -110,7 +111,7 @@ final class Attribute implements ArrayizableElementInterface
             !in_array($this->getNamespacePrefix(), ['', null])
                 ? ($this->getNamespacePrefix() . ':' . $this->getAttrName())
                 : $this->getAttrName(),
-            $this->getAttrValue(),
+            strval($this->getAttrValue()),
         );
 
         return $parent;
@@ -120,7 +121,12 @@ final class Attribute implements ArrayizableElementInterface
     /**
      * Create a class from an array
      *
-     * @param array{namespaceURI: string, namespacePrefix: string|null, attrName: string, attrValue: mixed} $data
+     * @param array{
+     *   namespaceURI: string,
+     *   namespacePrefix: string|null,
+     *   attrName: string,
+     *   attrValue:  \SimpleSAML\XML\Type\ValueTypeInterface,
+     * } $data
      * @return static
      */
     public static function fromArray(array $data): static
@@ -157,10 +163,10 @@ final class Attribute implements ArrayizableElementInterface
         Assert::keyExists($data, 'attrname');
         Assert::keyExists($data, 'attrvalue');
 
-        Assert::nullOrStringNotEmpty($data['namespaceuri']);
-        Assert::string($data['namespaceprefix']);
-        Assert::stringNotEmpty($data['attrname']);
-        Assert::string($data['attrvalue']);
+        Assert::nullOrValidAnyURI($data['namespaceuri']);
+        Assert::nullOrValidNCName($data['namespaceprefix']);
+        Assert::nullOrValidNCName($data['attrname']);
+        Assert::isAOf($data['attrvalue'], ValueTypeInterface::class);
 
         return [
             'namespaceURI' => $data['namespaceuri'],
@@ -174,7 +180,12 @@ final class Attribute implements ArrayizableElementInterface
     /**
      * Create an array from this class
      *
-     * @return array{attrName: string, attrValue: string, namespacePrefix: string, namespaceURI: null|string}
+     * @return array{
+     *   attrName: string,
+     *   attrValue: \SimpleSAML\XML\Type\ValueTypeInterface,
+     *   namespacePrefix: string,
+     *   namespaceURI: null|string,
+     * }
      */
     public function toArray(): array
     {

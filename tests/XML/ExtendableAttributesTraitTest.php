@@ -12,6 +12,7 @@ use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\ExtendableAttributesTrait;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\Type\StringValue;
 use SimpleSAML\XML\XsNamespace as NS;
 
 /**
@@ -38,11 +39,16 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$local = new Attribute(null, '', 'some', 'localValue');
+        self::$local = new Attribute(null, '', 'some', StringValue::fromString('localValue'));
 
-        self::$target = new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'some', 'targetValue');
+        self::$target = new Attribute(
+            'urn:x-simplesamlphp:namespace',
+            'ssp',
+            'some',
+            StringValue::fromString('targetValue'),
+        );
 
-        self::$other = new Attribute('urn:custom:dummy', 'dummy', 'some', 'dummyValue');
+        self::$other = new Attribute('urn:custom:dummy', 'dummy', 'some', StringValue::fromString('dummyValue'));
     }
 
 
