@@ -1,0 +1,69 @@
+<?php
+
+declare(strict_types=1);
+
+namespace SimpleSAML\Test\XML;
+
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
+use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\Exception\{InvalidValueTypeException, SchemaViolationException};
+use SimpleSAML\XML\TypedTextContentTrait;
+
+/**
+ * Class \SimpleSAML\XML\TypedTextContentTraitTest
+ *
+ * @package simplesamlphp\xml-common
+ */
+#[CoversClass(TypedTextContentTrait::class)]
+final class TypedTextContentTraitTest extends TestCase
+{
+    public function testTypedContentPassesForString(): void
+    {
+        $file = 'tests/resources/xml/ssp_StringElement.xml';
+        $doc = DOMDocumentFactory::fromFile($file);
+        /** @var \DOMElement $elt */
+        $elt = $doc->documentElement;
+
+        $stringElt = StringElement::fromXML($elt);
+        $this->assertInstanceOf(StringElement::class, $stringElt);
+    }
+
+
+    public function testTypedContentPassesForBoolean(): void
+    {
+        $file = 'tests/resources/xml/ssp_BooleanElement.xml';
+        $doc = DOMDocumentFactory::fromFile($file);
+        /** @var \DOMElement $elt */
+        $elt = $doc->documentElement;
+
+        $stringElt = BooleanElement::fromXML($elt);
+        $this->assertInstanceOf(BooleanElement::class, $stringElt);
+    }
+
+
+    public function testTypedContentFailsForWrongType(): void
+    {
+        $file = 'tests/resources/xml/ssp_BooleanElement.xml';
+        $doc = DOMDocumentFactory::fromFile($file);
+        /** @var \DOMElement $elt */
+        $elt = $doc->documentElement;
+        $elt->textContent = 'not-a-boolean';
+
+        $this->expectException(SchemaViolationException::class);
+        BooleanElement::fromXML($elt);
+    }
+
+
+    public function testTypedContentFailsForWrongClass(): void
+    {
+        // Base64Binary has a TEXTCONTENT_TYPE that makes no sense
+        $file = 'tests/resources/xml/ssp_Base64BinaryElement.xml';
+        $doc = DOMDocumentFactory::fromFile($file);
+        /** @var \DOMElement $elt */
+        $elt = $doc->documentElement;
+
+        $this->expectException(InvalidValueTypeException::class);
+        Base64BinaryElement::fromXML($elt);
+    }
+}
