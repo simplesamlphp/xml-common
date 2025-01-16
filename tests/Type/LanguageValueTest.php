@@ -8,25 +8,25 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Exception\SchemaViolationException;
-use SimpleSAML\XML\Type\LangValue;
+use SimpleSAML\XML\Type\LanguageValue;
 
 /**
- * Class \SimpleSAML\Test\Type\LangValueTest
+ * Class \SimpleSAML\Test\Type\LanguageValueTest
  *
  * @package simplesamlphp/xml-common
  */
-#[CoversClass(LangValue::class)]
-final class LangValueTest extends TestCase
+#[CoversClass(LanguageValue::class)]
+final class LanguageValueTest extends TestCase
 {
     /**
      * @param boolean $shouldPass
-     * @param string $lang
+     * @param string $language
      */
-    #[DataProvider('provideLang')]
-    public function testLang(bool $shouldPass, string $lang): void
+    #[DataProvider('provideLanguage')]
+    public function testLanguage(bool $shouldPass, string $language): void
     {
         try {
-            LangValue::fromString($lang);
+            LanguageValue::fromString($language);
             $this->assertTrue($shouldPass);
         } catch (SchemaViolationException $e) {
             $this->assertFalse($shouldPass);
@@ -37,14 +37,14 @@ final class LangValueTest extends TestCase
     /**
      * @return array<string, array{0: bool, 1: string}>
      */
-    public static function provideLang(): array
+    public static function provideLanguage(): array
     {
         return [
             'empty string' => [false, ''],
             'one part' => [true, 'es'],
             'two parts' => [true, 'en-US'],
             'many parts' => [true, 'es-this-goes-on-forever'],
-            'too long' => [false, 'toolonglanguage'],
+            'too long' => [false, 'toolongLanguageuage'],
             'x-case' => [true, 'x-klingon'],
             'i-case' => [true, 'i-sami-no'],
             'normalization' => [true, ' en-US '],
