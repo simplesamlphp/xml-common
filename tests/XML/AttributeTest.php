@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
-use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Attribute;
-use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\DOM\DOMDocument;
 use SimpleSAML\XML\TestUtils\ArrayizableElementTestTrait;
 
 /**
@@ -22,7 +21,7 @@ final class AttributeTest extends TestCase
 {
     use ArrayizableElementTestTrait;
 
-    /** @var \DOMDocument */
+    /** @var \SimpleSAML\XML\DOM\DOMDocument */
     protected static DOMDocument $xmlRepresentation;
 
 
@@ -32,7 +31,7 @@ final class AttributeTest extends TestCase
     {
         self::$testedClass = Attribute::class;
 
-        self::$xmlRepresentation = DOMDocumentFactory::fromString(
+        self::$xmlRepresentation = DOMDocument::fromString(
             '<root xmlns:ssp="urn:x-simplesamlphp:phpunit" ssp:test1="testvalue1"/>',
         );
 
@@ -88,7 +87,7 @@ final class AttributeTest extends TestCase
             'testvalue1',
         );
 
-        $doc = DOMDocumentFactory::fromString('<root />');
+        $doc = DOMDocument::fromString('<root />');
         /** @var \DOMElement $docElement */
         $docElement = $doc->documentElement;
 

@@ -41,8 +41,12 @@ final class QNameTest extends TestCase
     {
         return [
             [true, 'some:Test'],
-            [true, 'some:_Test'],
-            [true, '_some:_Test'],
+            // both parts can contain a dash
+            [true, 'som-e:Test'],
+            [true, 'so-me:T-est'],
+            // Neither part can start with a dash
+            [false, 'some:-Test'],
+            [false, '-some:-Test'],
             [true, 'Test'],
             // Cannot start with a colon
             [false, ':test'],

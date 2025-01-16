@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\ExtendableAttributesElement;
 use SimpleSAML\XML\Attribute;
-use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\DOM\DOMDocument;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
@@ -33,7 +33,7 @@ final class ExtendableAttributesTest extends TestCase
     {
         self::$testedClass = ExtendableAttributesElement::class;
 
-        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocument::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_ExtendableAttributesElement.xml',
         );
     }

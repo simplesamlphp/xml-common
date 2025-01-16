@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\IntegerElement;
 use SimpleSAML\XML\AbstractElement;
-use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\DOM\DOMDocument;
 use SimpleSAML\XML\IntegerElementTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
@@ -34,7 +34,7 @@ final class IntegerElementTraitTest extends TestCase
     {
         self::$testedClass = IntegerElement::class;
 
-        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocument::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_IntegerElement.xml',
         );
     }

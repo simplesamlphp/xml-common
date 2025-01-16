@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\BooleanElement;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\BooleanElementTrait;
-use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\DOM\DOMDocument;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
 use function dirname;
@@ -34,7 +34,7 @@ final class BooleanElementTraitTest extends TestCase
     {
         self::$testedClass = BooleanElement::class;
 
-        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocument::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_BooleanElement.xml',
         );
     }

@@ -6,7 +6,7 @@ namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\DOM\DOMDocument;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\QNameElementTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
@@ -32,7 +32,7 @@ final class QNameElementTraitTest extends TestCase
     {
         self::$testedClass = QNameElement::class;
 
-        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocument::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_QNameElement.xml',
         );
     }
@@ -78,7 +78,7 @@ final class QNameElementTraitTest extends TestCase
      */
     public function testUnmarshallingNonNamepacedQualifiedName(): void
     {
-        $doc = DOMDocumentFactory::fromString(
+        $doc = DOMDocument::fromString(
             '<ssp:QNameElement xmlns:ssp="urn:x-simplesamlphp:namespace">Sender</ssp:QNameElement>',
         );
 

@@ -7,7 +7,7 @@ namespace SimpleSAML\Test\XML;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\DOM\DOMDocument;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
@@ -33,7 +33,7 @@ final class ExtendableElementTest extends TestCase
     {
         self::$testedClass = ExtendableElement::class;
 
-        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
+        self::$xmlRepresentation = DOMDocument::fromFile(
             dirname(__FILE__, 2) . '/resources/xml/ssp_ExtendableElement.xml',
         );
     }
@@ -43,13 +43,13 @@ final class ExtendableElementTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $dummyDocument1 = DOMDocumentFactory::fromString(
+        $dummyDocument1 = DOMDocument::fromString(
             '<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>',
         );
-        $dummyDocument2 = DOMDocumentFactory::fromString(
+        $dummyDocument2 = DOMDocument::fromString(
             '<dummy:Chunk xmlns:dummy="urn:custom:dummy">some</dummy:Chunk>',
         );
-        $dummyDocument3 = DOMDocumentFactory::fromString(
+        $dummyDocument3 = DOMDocument::fromString(
             '<other:Chunk xmlns:other="urn:custom:other">some</other:Chunk>',
         );
 

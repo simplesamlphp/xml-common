@@ -6,16 +6,13 @@ namespace SimpleSAML\XML\Assert;
 
 use InvalidArgumentException;
 
-use function filter_var;
-use function sprintf;
-
 /**
  * @package simplesamlphp/xml-common
  */
-trait HexBinTrait
+trait QNameTrait
 {
     /** @var string */
-    private static string $hexbin_regex = '/^([0-9a-fA-F]{2})+$/D';
+    private static string $qname_regex = '/^([a-z_][\w.-]*)(:[a-z_][\w.-]*)?$/Dui';
 
     /***********************************************************************************
      *  NOTE:  Custom assertions may be added below this line.                         *
@@ -30,19 +27,13 @@ trait HexBinTrait
      * @param string $value
      * @param string $message
      */
-    protected static function validHexBinary(string $value, string $message = ''): void
+    protected static function validQName(string $value, string $message = ''): void
     {
-        $result = true;
-
-        if (filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => self::$hexbin_regex]]) === false) {
-            $result = false;
-        }
-
-        if ($result === false) {
-            throw new InvalidArgumentException(sprintf(
-                $message ?: '\'%s\' is not a valid hexBinary string',
-                $value,
-            ));
-        }
+        parent::regex(
+            $value,
+            self::$qname_regex,
+            $message ?: '%s is not a valid xs:QName',
+            InvalidArgumentException::class,
+        );
     }
 }

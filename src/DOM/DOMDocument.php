@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace SimpleSAML\XML;
+namespace SimpleSAML\XML\DOM;
 
-use DOMDocument;
+use DOMDocument as BaseDOMDocument;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\IOException;
 use SimpleSAML\XML\Exception\RuntimeException;
@@ -20,7 +20,7 @@ use function sprintf;
 /**
  * @package simplesamlphp/xml-common
  */
-final class DOMDocumentFactory
+final class DOMDocument extends BaseDOMDocument
 {
     /**
      * @var non-negative-int
@@ -33,12 +33,12 @@ final class DOMDocumentFactory
      * @param string $xml
      * @param non-negative-int $options
      *
-     * @return \DOMDocument
+     * @return \SimpleSAML\XML\DOM\DOMDocument
      */
     public static function fromString(
         string $xml,
         int $options = self::DEFAULT_OPTIONS,
-    ): DOMDocument {
+    ): static {
         libxml_set_external_entity_loader(null);
         Assert::notWhitespaceOnly($xml);
         Assert::notRegex(
@@ -86,13 +86,13 @@ final class DOMDocumentFactory
      * @param string $file
      * @param non-negative-int $options
      *
-     * @return \DOMDocument
+     * @return \SimpleSAML\XML\DOM\DOMDocument
      */
     public static function fromFile(
         string $file,
         ?string $schemaFile = null,
         int $options = self::DEFAULT_OPTIONS,
-    ): DOMDocument {
+    ): static {
         error_clear_last();
         $xml = @file_get_contents($file);
         if ($xml === false) {
@@ -110,10 +110,10 @@ final class DOMDocumentFactory
     /**
      * @param string $version
      * @param string $encoding
-     * @return \DOMDocument
+     * @return static
      */
-    public static function create(string $version = '1.0', string $encoding = 'UTF-8'): DOMDocument
+    public static function create(string $version = '1.0', string $encoding = 'UTF-8'): static
     {
-        return new DOMDocument($version, $encoding);
+        return new static($version, $encoding);
     }
 }
