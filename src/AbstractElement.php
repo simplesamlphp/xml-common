@@ -101,6 +101,8 @@ abstract class AbstractElement implements SerializableElementInterface
         string $type = StringValue::class,
         ?ValueTypeInterface $default = null,
     ): ?ValueTypeInterface {
+        Assert::nullOrIsInstanceOf($default, $type);
+
         if (!$xml->hasAttribute($name)) {
             return $default;
         }
