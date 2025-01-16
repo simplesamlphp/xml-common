@@ -11,22 +11,22 @@ use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\Assert\Assert;
 
 /**
- * Class \SimpleSAML\Test\XML\Assert\LangTest
+ * Class \SimpleSAML\Test\XML\Assert\LanguageTest
  *
  * @package simplesamlphp/xml-common
  */
 #[CoversClass(Assert::class)]
-final class LangTest extends TestCase
+final class LanguageTest extends TestCase
 {
     /**
      * @param boolean $shouldPass
-     * @param string $lang
+     * @param string $language
      */
-    #[DataProvider('provideLang')]
-    public function testValidLang(bool $shouldPass, string $lang): void
+    #[DataProvider('provideLanguage')]
+    public function testValidLanguage(bool $shouldPass, string $language): void
     {
         try {
-            Assert::validLang($lang);
+            Assert::validLanguage($language);
             $this->assertTrue($shouldPass);
         } catch (AssertionFailedException $e) {
             $this->assertFalse($shouldPass);
@@ -37,14 +37,14 @@ final class LangTest extends TestCase
     /**
      * @return array<string, array{0: bool, 1: string}>
      */
-    public static function provideLang(): array
+    public static function provideLanguage(): array
     {
         return [
             'empty string' => [false, ''],
             'one part' => [true, 'es'],
             'two parts' => [true, 'en-US'],
             'many parts' => [true, 'es-this-goes-on-forever'],
-            'too long' => [false, 'toolonglanguage'],
+            'too long' => [false, 'toolongLanguageuage'],
             'x-case' => [true, 'x-klingon'],
             'i-case' => [true, 'i-sami-no'],
         ];
