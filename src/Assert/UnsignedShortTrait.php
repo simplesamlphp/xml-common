@@ -12,7 +12,21 @@ use InvalidArgumentException;
 trait UnsignedShortTrait
 {
     /** @var string */
-    private static string $unsignedShort_regex = '/^(([+]?0*)(?:[1-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])|0)$/D';
+    private static string $unsignedShort_regex = '/^
+        (
+            ([+]?0*)
+            (?:
+                [1-9]
+                |[1-9]\d{1,3}
+                |[1-5]\d{4}
+                |6[0-4]\d{3}
+                |65[0-4]\d{2}
+                |655[0-2]\d
+                |6553[0-5]
+            )
+            |0
+        )
+        $/Dx';
 
 
     /**

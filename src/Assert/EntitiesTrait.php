@@ -12,7 +12,7 @@ use InvalidArgumentException;
 trait EntitiesTrait
 {
     /** @var string */
-    private static string $entities_regex = '/^([a-zA-Z_][\w.-]*)([\s][a-zA-Z_][\w.-]*)*$/Du';
+    private static string $entities_regex = '/^([a-z_][\w.-]*)([\s][a-z_][\w.-]*)*$/Dui';
 
 
     /**

@@ -12,7 +12,18 @@ use InvalidArgumentException;
 trait DurationTrait
 {
     /** @var string */
-    private static string $duration_regex = '/^([-+]?)P(?!$)(?:(?<years>\d+(?:[\.\,]\d+)?)Y)?(?:(?<months>\d+(?:[\.\,]\d+)?)M)?(?:(?<weeks>\d+(?:[\.\,]\d+)?)W)?(?:(?<days>\d+(?:[\.\,]\d+)?)D)?(T(?=\d)(?:(?<hours>\d+(?:[\.\,]\d+)?)H)?(?:(?<minutes>\d+(?:[\.\,]\d+)?)M)?(?:(?<seconds>\d+(?:[\.\,]\d+)?)S)?)?$/D';
+    private static string $duration_regex = '/^
+        ([-+]?)
+        P
+        (?!$)
+        (?:(?<years>\d+(?:[\.\,]\d+)?)Y)?
+        (?:(?<months>\d+(?:[\.\,]\d+)?)M)?
+        (?:(?<weeks>\d+(?:[\.\,]\d+)?)W)?
+        (?:(?<days>\d+(?:[\.\,]\d+)?)D)?
+        (T(?=\d)(?:(?<hours>\d+(?:[\.\,]\d+)?)H)?
+        (?:(?<minutes>\d+(?:[\.\,]\d+)?)M)?
+        (?:(?<seconds>\d+(?:[\.\,]\d+)?)S)?)?
+        $/Dx';
 
 
     /**
