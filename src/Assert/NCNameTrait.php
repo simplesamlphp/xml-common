@@ -12,7 +12,7 @@ use InvalidArgumentException;
 trait NCNameTrait
 {
     /** @var string */
-    private static string $ncname_regex = '/^[a-zA-Z_][\w.-]*$/Du';
+    private static string $ncname_regex = '/^[a-z_][\w.-]*$/Dui';
 
 
     /**

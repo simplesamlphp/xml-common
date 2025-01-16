@@ -12,15 +12,7 @@ use InvalidArgumentException;
 trait QNameTrait
 {
     /** @var string */
-    private static string $qname_regex = '/^([a-z_][\w.-]*)(:[a-z_][\w.-]*)?$/Dui';
-
-    /***********************************************************************************
-     *  NOTE:  Custom assertions may be added below this line.                         *
-     *         They SHOULD be marked as `protected` to ensure the call is forced       *
-     *          through __callStatic().                                                *
-     *         Assertions marked `public` are called directly and will                 *
-     *          not handle any custom exception passed to it.                          *
-     ***********************************************************************************/
+    private static string $qname_regex = '/^([a-z_][\w.-]*)(:[a-z_][\w.-]*)?$/Di';
 
 
     /**

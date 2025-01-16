@@ -12,7 +12,7 @@ use InvalidArgumentException;
 trait HexBinaryTrait
 {
     /** @var string */
-    private static string $hexbin_regex = '/^([0-9a-fA-F]{2})+$/D';
+    private static string $hexbin_regex = '/^([0-9a-f]{2})+$/Di';
 
 
     /**

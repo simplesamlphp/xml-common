@@ -86,9 +86,33 @@ final class ChunkTest extends TestCase
         $this->assertNull($chunk::getOptionalAttribute($xml, 'non-existing', IntegerValue::class));
 
         // Get optional non-existing attributes with default
-        $this->assertEquals('other text', $chunk::getOptionalAttribute($xml, 'non-existing', StringValue::class, StringValue::fromString('other text')));
-        $this->assertEquals('true', $chunk::getOptionalAttribute($xml, 'non-existing', BooleanValue::class, BooleanValue::fromString('true')));
-        $this->assertEquals('3', $chunk::getOptionalAttribute($xml, 'non-existing', IntegerValue::class, IntegerValue::fromString('3')));
+        $this->assertEquals(
+            'other text',
+            $chunk::getOptionalAttribute(
+                $xml,
+                'non-existing',
+                StringValue::class,
+                StringValue::fromString('other text'),
+            ),
+        );
+        $this->assertEquals(
+            'true',
+            $chunk::getOptionalAttribute(
+                $xml,
+                'non-existing',
+                BooleanValue::class,
+                BooleanValue::fromString('true'),
+            ),
+        );
+        $this->assertEquals(
+            '3',
+            $chunk::getOptionalAttribute(
+                $xml,
+                'non-existing',
+                IntegerValue::class,
+                IntegerValue::fromString('3'),
+            ),
+        );
 
         // Get mandatory non-existing attributes
         $this->expectException(MissingAttributeException::class);
