@@ -32,7 +32,11 @@ interface ElementInterface
      *
      * @throws \SimpleSAML\XML\Exception\MissingAttributeException if the attribute is missing from the element
      */
-    public static function getAttribute(DOMElement $xml, string $name, string $type = StringValue::class): ValueTypeInterface;
+    public static function getAttribute(
+        DOMElement $xml,
+        string $name,
+        string $type = StringValue::class,
+    ): ValueTypeInterface;
 
 
     /**
@@ -45,5 +49,10 @@ interface ElementInterface
      *   The default to return in case the attribute does not exist and it is optional.
      * @return \SimpleSAML\XML\Type\ValueTypeInterface|null
      */
-    public static function getOptionalAttribute(DOMElement $xml, string $name, string $type = StringValue::class, ?ValueTypeInterface $default = null): ?ValueTypeInterface;
+    public static function getOptionalAttribute(
+        DOMElement $xml,
+        string $name,
+        string $type = StringValue::class,
+        ?ValueTypeInterface $default = null,
+    ): ?ValueTypeInterface;
 }

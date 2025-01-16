@@ -12,7 +12,7 @@ use InvalidArgumentException;
 trait NameTrait
 {
     /** @var string */
-    private static string $name_regex = '/^[a-zA-Z:-][\w.:-]+$/Du';
+    private static string $name_regex = '/^[a-z:-][\w.:-]+$/Dui';
 
 
     /**
