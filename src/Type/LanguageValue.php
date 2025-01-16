@@ -10,7 +10,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 /**
  * @package simplesaml/xml-common
  */
-class LangValue extends TokenValue
+class LanguageValue extends TokenValue
 {
     /**
      * Validate the value.
@@ -22,6 +22,6 @@ class LangValue extends TokenValue
     protected function validateValue(string $value): void
     {
         // Note: content must already be sanitized before validating
-        Assert::validLang($this->sanitizeValue($value), SchemaViolationException::class);
+        Assert::validLanguage($this->sanitizeValue($value), SchemaViolationException::class);
     }
 }

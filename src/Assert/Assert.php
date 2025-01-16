@@ -28,7 +28,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void validIDRefs(mixed $value, string $message = '', string $exception = '')
  * @method static void validInt(mixed $value, string $message = '', string $exception = '')
  * @method static void validInteger(mixed $value, string $message = '', string $exception = '')
- * @method static void validLang(mixed $value, string $message = '', string $exception = '')
+ * @method static void validLanguage(mixed $value, string $message = '', string $exception = '')
  * @method static void validLong(mixed $value, string $message = '', string $exception = '')
  * @method static void validMonth(mixed $value, string $message = '', string $exception = '')
  * @method static void validName(mixed $value, string $message = '', string $exception = '')
@@ -70,7 +70,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void nullOrValidIDRefs(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidInt(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidInteger(mixed $value, string $message = '', string $exception = '')
- * @method static void nullOrValidLang(mixed $value, string $message = '', string $exception = '')
+ * @method static void nullOrValidLanguage(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidLong(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidMonth(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidName(mixed $value, string $message = '', string $exception = '')
@@ -112,7 +112,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void allValidIDRefs(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidInt(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidInteger(mixed $value, string $message = '', string $exception = '')
- * @method static void allValidLang(mixed $value, string $message = '', string $exception = '')
+ * @method static void allValidLanguage(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidLong(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidMonth(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidName(mixed $value, string $message = '', string $exception = '')
@@ -157,7 +157,7 @@ class Assert extends BaseAssert
     use IDRefsTrait;
     use IntTrait;
     use IntegerTrait;
-    use LangTrait;
+    use LanguageTrait;
     use LongTrait;
     use MonthTrait;
     use NameTrait;
