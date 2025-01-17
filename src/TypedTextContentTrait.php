@@ -47,6 +47,17 @@ trait TypedTextContentTrait
 
 
     /**
+     * Get the typed content of the element
+     *
+     * @return \SimpleSAML\XML\Type\ValueTypeInterface
+     */
+    public function getContent(): ValueTypeInterface
+    {
+        return $this->content;
+    }
+
+
+    /**
      * Create XML from this class
      *
      * @param \DOMElement|null $parent
