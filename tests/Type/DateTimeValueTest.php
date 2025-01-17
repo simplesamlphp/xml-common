@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\DateTimeValue;
 
 /**
- * Class \SimpleSAML\Test\Type\DateTimeValueTest
+ * Class \SimpleSAML\Test\XML\Type\DateTimeValueTest
  *
  * @package simplesamlphp/xml-common
  */

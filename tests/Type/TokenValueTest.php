@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Type\TokenValue;
 
 /**
- * Class \SimpleSAML\Test\Type\TokenValueTest
+ * Class \SimpleSAML\Test\XML\Type\TokenValueTest
  *
  * @package simplesamlphp/xml-common
  */

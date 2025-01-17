@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\DecimalValue;
 
 /**
- * Class \SimpleSAML\Test\Type\DecimalValueTest
+ * Class \SimpleSAML\Test\XML\Type\DecimalValueTest
  *
  * @package simplesamlphp/xml-common
  */

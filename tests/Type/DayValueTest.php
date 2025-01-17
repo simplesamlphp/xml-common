@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\DayValue;
 
 /**
- * Class \SimpleSAML\Test\Type\DayValueTest
+ * Class \SimpleSAML\Test\XML\Type\DayValueTest
  *
  * @package simplesamlphp/xml-common
  */

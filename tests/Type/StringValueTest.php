@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Type\StringValue;
 
 /**
- * Class \SimpleSAML\Test\Type\StringValueValueTest
+ * Class \SimpleSAML\Test\XML\Type\StringValueValueTest
  *
  * @package simplesamlphp/xml-common
  */

@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\YearValue;
 
 /**
- * Class \SimpleSAML\Test\Type\YearValueTest
+ * Class \SimpleSAML\Test\XML\Type\YearValueTest
  *
  * @package simplesamlphp/xml-common
  */

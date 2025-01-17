@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\IDValue;
 
 /**
- * Class \SimpleSAML\Test\Type\IDValueTest
+ * Class \SimpleSAML\Test\XML\Type\IDValueTest
  *
  * @package simplesamlphp/xml-common
  */

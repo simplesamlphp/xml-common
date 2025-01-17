@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\NCNameValue;
 
 /**
- * Class \SimpleSAML\Test\Type\NCNameValueTest
+ * Class \SimpleSAML\Test\XML\Type\NCNameValueTest
  *
  * @package simplesamlphp/xml-common
  */

@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\HexBinaryValue;
 
 /**
- * Class \SimpleSAML\Test\Type\HexBinaryValueTest
+ * Class \SimpleSAML\Test\XML\Type\HexBinaryValueTest
  *
  * @package simplesamlphp/xml-common
  */

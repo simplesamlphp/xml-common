@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\AnyURIValue;
 
 /**
- * Class \SimpleSAML\Test\Type\AnyURIValueTest
+ * Class \SimpleSAML\Test\XML\Type\AnyURIValueTest
  *
  * @package simplesamlphp/xml-common
  */

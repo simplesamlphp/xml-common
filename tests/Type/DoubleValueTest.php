@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\DoubleValue;
 
 /**
- * Class \SimpleSAML\Test\Type\DoubleValueTest
+ * Class \SimpleSAML\Test\XML\Type\DoubleValueTest
  *
  * @package simplesamlphp/xml-common
  */

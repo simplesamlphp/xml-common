@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\Base64BinaryValue;
 
 /**
- * Class \SimpleSAML\Test\Type\Base64BinaryValueTest
+ * Class \SimpleSAML\Test\XML\Type\Base64BinaryValueTest
  *
  * @package simplesamlphp/xml-common
  */

@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\EntityValue;
 
 /**
- * Class \SimpleSAML\Test\Type\EntityValueTest
+ * Class \SimpleSAML\Test\XML\Type\EntityValueTest
  *
  * @package simplesamlphp/xml-common
  */

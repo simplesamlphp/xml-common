@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\MonthValue;
 
 /**
- * Class \SimpleSAML\Test\Type\MonthValueTest
+ * Class \SimpleSAML\Test\XML\Type\MonthValueTest
  *
  * @package simplesamlphp/xml-common
  */
