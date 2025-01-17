@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\BooleanValue;
 
 /**
- * Class \SimpleSAML\Test\Type\BooleanValueTest
+ * Class \SimpleSAML\Test\XML\Type\BooleanValueTest
  *
  * @package simplesamlphp/xml-common
  */

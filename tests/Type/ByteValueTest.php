@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\ByteValue;
 
 /**
- * Class \SimpleSAML\Test\Type\ByteValueTest
+ * Class \SimpleSAML\Test\XML\Type\ByteValueTest
  *
  * @package simplesamlphp/xml-common
  */

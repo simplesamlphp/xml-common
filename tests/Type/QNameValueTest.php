@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\QNameValue;
 
 /**
- * Class \SimpleSAML\Test\Type\QNameValueTest
+ * Class \SimpleSAML\Test\XML\Type\QNameValueTest
  *
  * @package simplesamlphp/xml-common
  */

@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\PositiveIntegerValue;
 
 /**
- * Class \SimpleSAML\Test\Type\PositiveIntegerValueTest
+ * Class \SimpleSAML\Test\XML\Type\PositiveIntegerValueTest
  *
  * @package simplesamlphp/xml-common
  */
@@ -43,7 +43,7 @@ final class PositiveIntegerValueTest extends TestCase
             'empty' => [false, ''],
             'valid positive integer' => [true, '123456'],
             'valid signed positive integer' => [true, '+123456'],
-            'valid zero' => [false, '0'],
+            'invalid zero' => [false, '0'],
             'valid negative leading zeros' => [true, '0000000000000000000005'],
             'valid with whitespace collapse' => [true, " 1 234 \n"],
             'invalid with fractional' => [false, '1.'],

@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\NonNegativeIntegerValue;
 
 /**
- * Class \SimpleSAML\Test\Type\NonNegativeIntegerValueTest
+ * Class \SimpleSAML\Test\XML\Type\NonNegativeIntegerValueTest
  *
  * @package simplesamlphp/xml-common
  */

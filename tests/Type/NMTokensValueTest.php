@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\NMTokensValue;
 
 /**
- * Class \SimpleSAML\Test\Type\NMTokensValueTest
+ * Class \SimpleSAML\Test\XML\Type\NMTokensValueTest
  *
  * @package simplesamlphp/xml-common
  */

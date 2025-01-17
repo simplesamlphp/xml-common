@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\FloatValue;
 
 /**
- * Class \SimpleSAML\Test\Type\FloatValueTest
+ * Class \SimpleSAML\Test\XML\Type\FloatValueTest
  *
  * @package simplesamlphp/xml-common
  */

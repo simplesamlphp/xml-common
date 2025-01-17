@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\UnsignedLongValue;
 
 /**
- * Class \SimpleSAML\Test\Type\UnsignedLongValueTest
+ * Class \SimpleSAML\Test\XML\Type\UnsignedLongValueTest
  *
  * @package simplesamlphp/xml-common
  */

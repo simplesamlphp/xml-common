@@ -11,7 +11,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\LanguageValue;
 
 /**
- * Class \SimpleSAML\Test\Type\LanguageValueTest
+ * Class \SimpleSAML\Test\XML\Type\LanguageValueTest
  *
  * @package simplesamlphp/xml-common
  */
