@@ -12,7 +12,7 @@ use InvalidArgumentException;
 trait PositiveIntegerTrait
 {
     /** @var string */
-    private static string $positiveInteger_regex = '/^[+]?(\d+[1-9]$)$/D';
+    private static string $positiveInteger_regex = '/^[+]?(\d*[1-9]$)$/D';
 
 
     /**

@@ -45,6 +45,7 @@ final class PositiveIntegerValueTest extends TestCase
             'valid signed positive integer' => [true, '+123456'],
             'invalid zero' => [false, '0'],
             'valid negative leading zeros' => [true, '0000000000000000000005'],
+            'valid single digit' => [true, '3'],
             'valid with whitespace collapse' => [true, " 1 234 \n"],
             'invalid with fractional' => [false, '1.'],
             'invalid negative' => [false, '-1234'],
