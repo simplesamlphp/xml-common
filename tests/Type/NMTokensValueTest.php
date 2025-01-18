@@ -23,7 +23,7 @@ final class NMTokensValueTest extends TestCase
      * @param string $nmtokens
      */
     #[DataProvider('provideNMTokens')]
-    public function testName(bool $shouldPass, string $nmtokens): void
+    public function testNMtokens(bool $shouldPass, string $nmtokens): void
     {
         try {
             NMTokensValue::fromString($nmtokens);
@@ -49,5 +49,15 @@ final class NMTokensValueTest extends TestCase
             'whitespace collapse' => [true, "foobar\n"],
             'normalization' => [true, ' foobar   nmtoken '],
         ];
+    }
+
+
+    /**
+     * Test the toArray function
+     */
+    public function testToArray(): void
+    {
+        $nmtokens = NMTokensValue::fromString("foo \nbar  baz");
+        $this->assertEquals(['foo', 'bar', 'baz'], $nmtokens->toArray());
     }
 }

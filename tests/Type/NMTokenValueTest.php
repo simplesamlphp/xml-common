@@ -23,7 +23,7 @@ final class NMTokenValueTest extends TestCase
      * @param string $nmtoken
      */
     #[DataProvider('provideNMToken')]
-    public function testName(bool $shouldPass, string $nmtoken): void
+    public function testNMToken(bool $shouldPass, string $nmtoken): void
     {
         try {
             NMTokenValue::fromString($nmtoken);
