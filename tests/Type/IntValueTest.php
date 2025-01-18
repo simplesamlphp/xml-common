@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\IntValue;

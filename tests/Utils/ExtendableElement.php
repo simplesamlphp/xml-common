@@ -7,8 +7,7 @@ namespace SimpleSAML\Test\XML;
 use DOMElement;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\ExtendableElementTrait;
-use SimpleSAML\XML\SchemaValidatableElementInterface;
-use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
 use SimpleSAML\XML\SerializableElementTrait;
 use SimpleSAML\XML\XsNamespace as NS;
 
