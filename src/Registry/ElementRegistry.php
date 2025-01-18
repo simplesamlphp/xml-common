@@ -6,8 +6,7 @@ namespace SimpleSAML\XML\Registry;
 
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\IOException;
+use SimpleSAML\XML\Exception\{InvalidDOMElementException, IOException};
 use Symfony\Component\Finder\Finder;
 
 use function array_merge_recursive;

@@ -8,8 +8,7 @@ use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\Exception\IOException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XML\Exception\{IOException, SchemaViolationException};
 use SimpleSAML\XML\SchemaValidatableElementTrait;
 
 /**
