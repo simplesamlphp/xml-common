@@ -54,4 +54,14 @@ final class IDRefsValueTest extends TestCase
             'normalization' => [true, ' foobar '],
         ];
     }
+
+
+    /**
+     * Test the toArray function
+     */
+    public function testToArray(): void
+    {
+        $idrefs = IDRefsValue::fromString("foo \nbar  baz");
+        $this->assertEquals(['foo', 'bar', 'baz'], $idrefs->toArray());
+    }
 }

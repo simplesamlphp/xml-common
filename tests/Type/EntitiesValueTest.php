@@ -53,4 +53,14 @@ final class EntitiesValueTest extends TestCase
             'normalization' => [true, ' foobar '],
         ];
     }
+
+
+    /**
+     * Test the toArray function
+     */
+    public function testToArray(): void
+    {
+        $entities = EntitiesValue::fromString("foo \nbar  baz");
+        $this->assertEquals(['foo', 'bar', 'baz'], $entities->toArray());
+    }
 }
