@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\ByteTest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\ByteValue;
 
@@ -21,7 +22,10 @@ final class ByteValueTest extends TestCase
      * @param boolean $shouldPass
      * @param string $byte
      */
-    #[DataProvider('provideByte')]
+    #[DataProvider('provideInvalidByte')]
+    #[DataProvider('provideValidByte')]
+    #[DataProviderExternal(ByteTest::class, 'provideValidByte')]
+    #[DependsOnClass(ByteTest::class)]
     public function testByte(bool $shouldPass, string $byte): void
     {
         try {
@@ -34,20 +38,25 @@ final class ByteValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideByte(): array
+    public static function provideValidByte(): array
+    {
+        return [
+            'valid with whitespace collapse' => [true, "\t 123 \n"],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidByte(): array
     {
         return [
             'empty' => [false, ''],
-            'valid positive signed' => [true, '+127'],
-            'valid negative signed' => [true, '-128'],
-            'valid non-signed' => [true, '123'],
-            'valid leading zeros' => [true, '-0001'],
-            'valid zero' => [true, '0'],
             'invalid positive signed out-of-bounds' => [false, '+128'],
             'invalid negative signed out-of-bounds' => [false, '-129'],
-            'valid with whitespace collapse' => [true, " 1 23 \n"],
             'invalid with fractional' => [false, '123.'],
         ];
     }

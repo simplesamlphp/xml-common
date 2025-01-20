@@ -13,6 +13,18 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class TimeValue extends AbstractValueType
 {
     /**
+     * Sanitize the value.
+     *
+     * @param string $value  The unsanitized value
+     * @return string
+     */
+    protected function sanitizeValue(string $value): string
+    {
+        return static::collapseWhitespace(static::normalizeWhitespace($value));
+    }
+
+
+    /**
      * Validate the value.
      *
      * @param string $value
@@ -21,6 +33,6 @@ class TimeValue extends AbstractValueType
      */
     protected function validateValue(string $value): void
     {
-        Assert::validTime($value, SchemaViolationException::class);
+        Assert::validTime($this->sanitizeValue($value), SchemaViolationException::class);
     }
 }

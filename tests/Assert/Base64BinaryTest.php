@@ -21,7 +21,8 @@ final class Base64BinaryTest extends TestCase
      * @param boolean $shouldPass
      * @param string $base64
      */
-    #[DataProvider('provideBase64')]
+    #[DataProvider('provideInvalidBase64')]
+    #[DataProvider('provideValidBase64')]
     public function testValidBase64Binary(bool $shouldPass, string $base64): void
     {
         try {
@@ -34,15 +35,26 @@ final class Base64BinaryTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideBase64(): array
+    public static function provideValidBase64(): array
+    {
+        return [
+            'valid' => [true, 'U2ltcGxlU0FNTHBocA=='],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidBase64(): array
     {
         return [
             'empty' => [false, ''],
-            'valid' => [true, 'U2ltcGxlU0FNTHBocA=='],
             'illegal characters' => [false, '&*$(#&^@!(^%$'],
             'length not dividable by 4' => [false, 'U2ltcGxlU0FTHBocA=='],
+            'whitespace' => [false, 'U2ltcGxl U0FNTHBocA=='],
         ];
     }
 }

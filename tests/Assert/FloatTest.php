@@ -21,7 +21,8 @@ final class FloatTest extends TestCase
      * @param boolean $shouldPass
      * @param string $float
      */
-    #[DataProvider('provideFloat')]
+    #[DataProvider('provideInvalidFloat')]
+    #[DataProvider('provideValidFloat')]
     public function testValidFloat(bool $shouldPass, string $float): void
     {
         try {
@@ -34,21 +35,31 @@ final class FloatTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideFloat(): array
+    public static function provideValidFloat(): array
     {
         return [
-            'empty' => [false, ''],
             'valid positive signed' => [true, '+123.456'],
             'valid negative signed' => [true, '-123.456'],
             'valid non-signed' => [true, '123.456'],
             'valid leading zeros' => [true, '-0123.456'],
             'valid zero' => [true, '0.0'],
             'valid NaN' => [true, 'NaN'],
-            'case-sensitive NaN' => [false, 'NAN'],
             'valid negative FIN' => [true, '-FIN'],
             'valid FIN' => [true, 'FIN'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidFloat(): array
+    {
+        return [
+            'empty' => [false, ''],
+            'case-sensitive NaN' => [false, 'NAN'],
             'invalid +FIN' => [false, '+FIN'],
             'invalid with space' => [false, '1 23.0'],
             'invalid without fractional' => [false, '123'],

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\IDRefTest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\IDRefValue;
 
@@ -21,7 +22,10 @@ final class IDRefValueTest extends TestCase
      * @param boolean $shouldPass
      * @param string $idref
      */
-    #[DataProvider('provideIDRef')]
+    #[DataProvider('provideInvalidIDRef')]
+    #[DataProvider('provideValidIDRef')]
+    #[DataProviderExternal(IDRefTest::class, 'provideValidIDRef')]
+    #[DependsOnClass(IDRefTest::class)]
     public function testIDRef(bool $shouldPass, string $idref): void
     {
         try {
@@ -34,23 +38,27 @@ final class IDRefValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideIDRef(): array
+    public static function provideValidIDRef(): array
     {
         return [
-            'valid' => [true, 'Test'],
-            'valid starts with underscore' => [true, '_Test'],
-            'valid contains dashes' => [true, '_1950-10-04_10-00'],
-            'valid contains dots' => [true, 'Te.st'],
-            'valid contains diacriticals' => [true, 'fööbár'],
-            'valid prefixed v4 UUID' => [true, '_5425e58e-e799-4884-92cc-ca64ecede32f'],
+            'whitespace collapse' => [true, "foobar\n"],
+            'normalization' => [true, ' foobar '],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidIDRef(): array
+    {
+        return [
             'invalid empty string' => [false, ''],
             'invalid contains wildcard' => [false, 'Te*st'],
             'invalid starts with digit' => [false, '1Test'],
             'invalid contains colon' => [false, 'Te:st'],
-            'whitespace collapse' => [true, "foobar\n"],
-            'normalization' => [true, ' foobar '],
         ];
     }
 }

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Type;
 
+use function preg_replace;
+use function trim;
+
 /**
  * Abstract class to be implemented by all types
  *
@@ -69,12 +72,34 @@ abstract class AbstractValueType implements ValueTypeInterface
      * @throws \Exception on failure
      * @return void
      */
-    protected function validateValue(/** @scrutinizer ignore-unused */ string $value): void
+    protected function validateValue(/** @scrutinizer-ignore */string $value): void
     {
         /**
          * Perform no validation by default.
          * Override this method on the implementing class to perform validation.
          */
+    }
+
+
+    /**
+     * Normalize whitespace in the value
+     *
+     * @return string
+     */
+    protected static function normalizeWhitespace(string $value): string
+    {
+        return preg_replace('/\s/', ' ', $value);
+    }
+
+
+    /**
+     * Collapse whitespace
+     *
+     * @return string
+     */
+    protected static function collapseWhitespace(string $value): string
+    {
+        return trim(preg_replace('/\s+/', ' ', $value));
     }
 
 

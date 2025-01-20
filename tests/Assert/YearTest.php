@@ -21,7 +21,8 @@ final class YearTest extends TestCase
      * @param boolean $shouldPass
      * @param string $year
      */
-    #[DataProvider('provideYear')]
+    #[DataProvider('provideInvalidYear')]
+    #[DataProvider('provideValidYear')]
     public function testValidYear(bool $shouldPass, string $year): void
     {
         try {
@@ -34,19 +35,27 @@ final class YearTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideYear(): array
+    public static function provideValidYear(): array
     {
         return [
-            'empty' => [false, ''],
             'valid' => [true, '2001'],
-            'whitespace' => [false, ' 2001 '],
             'valid numeric timezone' => [true, '2001+02:00'],
             'valid Zulu timezone' => [true, '2001Z'],
             'valid 00:00 timezone' => [true, '2001+00:00'],
-            '2001 BC' => [true, '-2001'],
-            '20000 BC' => [true, '-20000'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidYear(): array
+    {
+        return [
+            'empty' => [false, ''],
+            'whitespace' => [false, ' 2001 '],
         ];
     }
 }

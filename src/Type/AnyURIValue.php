@@ -13,6 +13,18 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class AnyURIValue extends AbstractValueType
 {
     /**
+     * Sanitize the value.
+     *
+     * @param string $value  The unsanitized value
+     * @return string
+     */
+    protected function sanitizeValue(string $value): string
+    {
+        return static::collapseWhitespace(static::normalizeWhitespace($value));
+    }
+
+
+    /**
      * Validate the value.
      *
      * @param string $value

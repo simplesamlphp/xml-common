@@ -21,7 +21,8 @@ final class QNameTest extends TestCase
      * @param boolean $shouldPass
      * @param string $name
      */
-    #[DataProvider('provideQName')]
+    #[DataProvider('provideInvalidQName')]
+    #[DataProvider('provideValidQName')]
     public function testValidQName(bool $shouldPass, string $name): void
     {
         try {
@@ -34,31 +35,36 @@ final class QNameTest extends TestCase
 
 
     /**
-     * @return array<int, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideQName(): array
+    public static function provideValidQName(): array
     {
         return [
-            [true, 'some:Test'],
+            'valid' => [true, 'some:Test'],
             // both parts can contain a dash
-            [true, 'som-e:Test'],
-            [true, 'so-me:T-est'],
-            // Neither part can start with a dash
-            [false, 'some:-Test'],
-            [false, '-some:-Test'],
-            [true, 'Test'],
-            // Cannot start with a colon
-            [false, ':test'],
-            // Cannot contain multiple colons
-            [false, 'test:test:test'],
-            // Cannot start with a number
-            [false, '1Test'],
-            // Cannot contain a wildcard character
-            [false, 'Te*st'],
-            // Prefixed newlines are forbidden
-            [false, "\nsome:Test"],
+            '1st part containing dash' => [true, 'som-e:Test'],
+            '2nd part containing dash' => [true, 'some:T-est'],
+            'both parts containing dash' => [true, 'so-me:T-est'],
+            // A single NCName is also a valid QName
+            'no colon' => [true, 'Test'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidQName(): array
+    {
+        return [
+            'start 2nd part with dash' => [false, 'some:-Test'],
+            'start both parts with dash' => [false, '-some:-Test'],
+            'start with colon' => [false, ':test'],
+            'multiple colons' => [false, 'test:test:test'],
+            'start with digit' => [false, '1Test'],
+            'wildcard' => [false, 'Te*st'],
             // Trailing newlines are forbidden
-            [false, "some:Test\n"],
+            'trailing newline' => [false, "some:Test\n"],
         ];
     }
 }

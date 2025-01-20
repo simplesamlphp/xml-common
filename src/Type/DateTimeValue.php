@@ -8,9 +8,6 @@ use DateTimeInterface;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 
-use function preg_replace;
-use function trim;
-
 /**
  * @package simplesaml/xml-common
  */
@@ -27,7 +24,7 @@ class DateTimeValue extends AbstractValueType
      */
     protected function sanitizeValue(string $value): string
     {
-        return trim(preg_replace('/\s+/', ' ', $value));
+        return static::collapseWhitespace(static::normalizeWhitespace($value));
     }
 
 

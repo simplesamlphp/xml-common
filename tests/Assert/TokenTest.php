@@ -34,20 +34,20 @@ final class TokenTest extends TestCase
 
 
     /**
-     * @return array<int, array{0: bool, 1: string}>
+     * @return array<string, array{0: bool, 1: string}>
      */
     public static function provideToken(): array
     {
         return [
-            [true, 'Snoopy'],
-            [true, ':CMS'],
-            [true, 'fööbár'],
-            [true, '-1950-10-04'],
-            [true, ''],
-            [true, '0836217462'],
-            [true, 'foo bar'],
-            [true, 'foo,bar'],
-            [true, "foobar\n"],
+            'valid' => [true, 'Snoopy'],
+            'starting with a colon' => [true, ':CMS'],
+            'diakriticals' => [true, 'fööbár'],
+            'starting with a dash' => [true, '-1950-10-04'],
+            'empty' => [true, ''],
+            'starting with a number' => [true, '0836217462'],
+            'space' => [true, 'foo bar'],
+            'comma' => [true, 'foo,bar'],
+            'whitespace collapse' => [true, " foobar \n "],
         ];
     }
 }

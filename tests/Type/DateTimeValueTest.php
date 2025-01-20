@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML\Type;
 
 use DateTimeImmutable;
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\DateTimeTest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\DateTimeValue;
 
@@ -22,7 +23,10 @@ final class DateTimeValueTest extends TestCase
      * @param boolean $shouldPass
      * @param string $dateTime
      */
-    #[DataProvider('provideDateTime')]
+    #[DataProvider('provideInvalidDateTime')]
+    #[DataProvider('provideValidDateTime')]
+    #[DataProviderExternal(DateTimeTest::class, 'provideValidDateTime')]
+    #[DependsOnClass(DateTimeTest::class)]
     public function testDateTime(bool $shouldPass, string $dateTime): void
     {
         try {
@@ -35,21 +39,36 @@ final class DateTimeValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * Test the fromDateTime function
      */
-    public static function provideDateTime(): array
+    #[DependsOnClass(DateTimeTest::class)]
+    public function testFromDateTime(): void
+    {
+        $dt = new DateTimeImmutable('@946684800');
+
+        $dateTimeValue = DateTimeValue::fromDateTime($dt);
+        $this->assertEquals('2000-01-01T00:00:00+00:00', $dateTimeValue->getValue());
+    }
+
+
+    /**
+     * @return array<string, array{0: true, 1: string}>
+     */
+    public static function provideValidDateTime(): array
     {
         return [
-            'valid' => [true, '2001-10-26T21:32:52'],
-            'valid with numeric difference' => [true, '2001-10-26T21:32:52+02:00'],
-            'valid with Zulu' => [true, '2001-10-26T19:32:52Z'],
-            'valid with 00:00 difference' => [true, '2001-10-26T19:32:52+00:00'],
-            'valid with negative value' => [true, '-2001-10-26T21:32:52'],
-            'valid with subseconds' => [true, '2001-10-26T21:32:52.12679'],
-            'valid with more than four digit year' => [true, '-22001-10-26T21:32:52+02:00'],
-            'valid with sub-seconds' => [true, '2001-10-26T21:32:52.12679'],
-            'empty' => [false, ''],
             'whitespace collapse' => [true, ' 2001-10-26T21:32:52 '],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidDateTime(): array
+    {
+        return [
+            'empty' => [false, ''],
             'missing time' => [false, '2001-10-26'],
             'missing second' => [false, '2001-10-26T21:32'],
             'hour out of range' => [false, '2001-10-26T25:32:52+02:00'],
@@ -57,17 +76,5 @@ final class DateTimeValueTest extends TestCase
             'prefixed zero' => [false, '02001-10-26T25:32:52+02:00'],
             'wrong format' => [false, '01-10-26T21:32'],
         ];
-    }
-
-
-    /**
-     * Test the fromDateTime function
-     */
-    public function testFromDateTime(): void
-    {
-        $dt = new DateTimeImmutable('@946684800');
-
-        $dateTimeValue = DateTimeValue::fromDateTime($dt);
-        $this->assertEquals('2000-01-01T00:00:00+00:00', $dateTimeValue->getValue());
     }
 }

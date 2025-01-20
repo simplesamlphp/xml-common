@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\TokenTest;
 use SimpleSAML\XML\Type\TokenValue;
 
 /**
@@ -17,22 +18,23 @@ use SimpleSAML\XML\Type\TokenValue;
 final class TokenValueTest extends TestCase
 {
     /**
-     * @param string $str
-     * @param string $normalizedString
+     * @param string $token
+     * @param string $normalizedToken
      */
-    #[DataProvider('provideString')]
-    public function testToken(string $str, string $normalizedString): void
+    #[DataProvider('provideToken')]
+    #[DependsOnClass(TokenTest::class)]
+    public function testToken(string $token, string $normalizedToken): void
     {
-        $value = TokenValue::fromString($str);
-        $this->assertEquals($normalizedString, $value->getValue());
-        $this->assertEquals($str, $value->getRawValue());
+        $value = TokenValue::fromString($token);
+        $this->assertEquals($normalizedToken, $value->getValue());
+        $this->assertEquals($token, $value->getRawValue());
     }
 
 
     /**
      * @return array<string, array{0: string, 1: string}>
      */
-    public static function provideString(): array
+    public static function provideToken(): array
     {
         return [
             'empty string' => ['', ''],
