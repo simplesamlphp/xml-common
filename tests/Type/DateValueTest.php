@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\DateTest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\DateValue;
 
@@ -21,7 +22,10 @@ final class DateValueTest extends TestCase
      * @param boolean $shouldPass
      * @param string $date
      */
-    #[DataProvider('provideDate')]
+    #[DataProvider('provideInvalidDate')]
+    #[DataProvider('provideValidDate')]
+    #[DataProviderExternal(DateTest::class, 'provideValidDate')]
+    #[DependsOnClass(DateTest::class)]
     public function testDate(bool $shouldPass, string $date): void
     {
         try {
@@ -34,19 +38,23 @@ final class DateValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideDate(): array
+    public static function provideValidDate(): array
     {
         return [
-            'valid' => [true, '2001-10-26'],
-            'valid numeric timezone' => [true, '2001-10-26+02:00'],
-            'valid Zulu timezone' => [true, '2001-10-26Z'],
-            'valid 00:00 timezone' => [true, '2001-10-26+00:00'],
-            '2001 BC' => [true, '-2001-10-26'],
-            '2000 BC' => [true, '-20000-04-01'],
+            'whitespace collapse' => [true, " 2001-10-26 \n"],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidDate(): array
+    {
+        return [
             'empty' => [false, ''],
-            'whitespace collapse' => [true, ' 2001-10-26 '],
             'missing part' => [false, '2001-10'],
             'day out of range' => [false, '2001-10-32'],
             'month out of range' => [false, '2001-13-26+02:00'],

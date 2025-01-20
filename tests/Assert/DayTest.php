@@ -21,7 +21,8 @@ final class DayTest extends TestCase
      * @param boolean $shouldPass
      * @param string $day
      */
-    #[DataProvider('provideDay')]
+    #[DataProvider('provideInvalidDay')]
+    #[DataProvider('provideValidDay')]
     public function testValidDay(bool $shouldPass, string $day): void
     {
         try {
@@ -34,9 +35,9 @@ final class DayTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideDay(): array
+    public static function provideValidDay(): array
     {
         return [
             'valid' => [true, '---01'],
@@ -45,6 +46,16 @@ final class DayTest extends TestCase
             'valid 00:00 timezone' => [true, '---01+00:00'],
             'day 15' => [true, '---15'],
             'day 31' => [true, '---31'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidDay(): array
+    {
+        return [
             'invalid format' => [false, '--30-'],
             'day out of range' => [false, '---35'],
             'missing leading dashes' => [false, '15'],

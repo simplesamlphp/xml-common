@@ -7,8 +7,6 @@ namespace SimpleSAML\XML\Type;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 
-use function str_replace;
-
 /**
  * @package simplesaml/xml-common
  */
@@ -22,7 +20,7 @@ class BooleanValue extends AbstractValueType
      */
     protected function sanitizeValue(string $value): string
     {
-        return str_replace(["\f", "\r", "\n", "\t", "\v", ' '], '', $value);
+        return static::collapseWhitespace(static::normalizeWhitespace($value));
     }
 
 

@@ -20,7 +20,7 @@ class DecimalValue extends AbstractValueType
      */
     protected function sanitizeValue(string $value): string
     {
-        return str_replace(["\f", "\r", "\n", "\t", "\v", ' '], '', $value);
+        return static::collapseWhitespace(static::normalizeWhitespace($value));
     }
 
 

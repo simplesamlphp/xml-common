@@ -21,7 +21,8 @@ final class PositiveIntegerTest extends TestCase
      * @param boolean $shouldPass
      * @param string $positiveInteger
      */
-    #[DataProvider('providePositiveInteger')]
+    #[DataProvider('provideInvalidPositiveInteger')]
+    #[DataProvider('provideValidPositiveInteger')]
     public function testValidPositiveInteger(bool $shouldPass, string $positiveInteger): void
     {
         try {
@@ -34,17 +35,27 @@ final class PositiveIntegerTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function providePositiveInteger(): array
+    public static function provideValidPositiveInteger(): array
     {
         return [
-            'empty' => [false, ''],
             'valid positive integer' => [true, '123456'],
             'valid signed positive integer' => [true, '+123456'],
             'valid single digit' => [true, '3'],
-            'invalid zero' => [false, '0'],
             'valid negative leading zeros' => [true, '0000000000000000000005'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidPositiveInteger(): array
+    {
+        return [
+            'empty' => [false, ''],
+            'invalid zero' => [false, '0'],
             'invalid with fractional' => [false, '1.'],
             'invalid negative' => [false, '-1234'],
             'invalid with thousands-delimiter' => [false, '1,234'],

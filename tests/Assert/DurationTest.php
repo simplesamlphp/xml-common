@@ -21,7 +21,8 @@ final class DurationTest extends TestCase
      * @param boolean $shouldPass
      * @param string $duration
      */
-    #[DataProvider('provideDuration')]
+    #[DataProvider('provideInvalidDuration')]
+    #[DataProvider('provideValidDuration')]
     public function testValidDuration(bool $shouldPass, string $duration): void
     {
         try {
@@ -34,9 +35,9 @@ final class DurationTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideDuration(): array
+    public static function provideValidDuration(): array
     {
         return [
             'valid long seconds' => [true, 'PT1004199059S'],
@@ -45,6 +46,16 @@ final class DurationTest extends TestCase
             'valid one day and two seconds' => [true, 'P1DT2S'],
             'valid minus one year' => [true, '-P1Y'],
             'valid complex sub-second' => [true, 'P1Y2M3DT5H20M30.123S'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidDuration(): array
+    {
+        return [
             'invalid missing P' => [false, '1Y'],
             'invalid missing T' => [false, 'P1S'],
             'invalid all parts must be positive' => [false, 'P-1Y'],

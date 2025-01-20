@@ -21,7 +21,8 @@ final class DateTest extends TestCase
      * @param boolean $shouldPass
      * @param string $date
      */
-    #[DataProvider('provideDate')]
+    #[DataProvider('provideInvalidDate')]
+    #[DataProvider('provideValidDate')]
     public function testValidDate(bool $shouldPass, string $date): void
     {
         try {
@@ -34,9 +35,9 @@ final class DateTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideDate(): array
+    public static function provideValidDate(): array
     {
         return [
             'valid' => [true, '2001-10-26'],
@@ -45,6 +46,16 @@ final class DateTest extends TestCase
             'valid 00:00 timezone' => [true, '2001-10-26+00:00'],
             '2001 BC' => [true, '-2001-10-26'],
             '2000 BC' => [true, '-20000-04-01'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidDate(): array
+    {
+        return [
             'missing part' => [false, '2001-10'],
             'day out of range' => [false, '2001-10-32'],
             'month out of range' => [false, '2001-13-26+02:00'],

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\StringTest;
 use SimpleSAML\XML\Type\StringValue;
 
 /**
@@ -21,6 +22,7 @@ final class StringValueTest extends TestCase
      * @param string $stringValue
      */
     #[DataProvider('provideString')]
+    #[DependsOnClass(StringTest::class)]
     public function testString(string $str, string $stringValue): void
     {
         $value = StringValue::fromString($str);

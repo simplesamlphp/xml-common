@@ -21,7 +21,8 @@ final class NMTokenTest extends TestCase
      * @param boolean $shouldPass
      * @param string $nmtoken
      */
-    #[DataProvider('provideNMToken')]
+    #[DataProvider('provideInvalidNMToken')]
+    #[DataProvider('provideValidNMToken')]
     public function testValidToken(bool $shouldPass, string $nmtoken): void
     {
         try {
@@ -34,22 +35,29 @@ final class NMTokenTest extends TestCase
 
 
     /**
-     * @return array<int, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideNMToken(): array
+    public static function provideValidNMToken(): array
     {
         return [
-            [true, 'Snoopy'],
-            [true, 'CMS'],
-            [true, 'fööbár'],
-            [true, '1950-10-04'],
-            [true, '0836217462'],
-            // Spaces are forbidden
-            [false, 'foo bar'],
-            // Commas are forbidden
-            [false, 'foo,bar'],
-            // Trailing newlines are forbidden
-            [false, "foobar\n"],
+            'valid' => [true, 'Snoopy'],
+            'diacritical' => [true, 'fööbár'],
+            'start with colon' => [true, ':CMS'],
+            'start with dash' => [true, '-1950-10-04'],
+            'numeric first char' => [true, '0836217462'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidNMToken(): array
+    {
+        return [
+            'space' => [false, 'foo bar'],
+            'comma' => [false, 'foo,bar'],
+            'trailing newline' => [false, "foobar\n"],
         ];
     }
 }

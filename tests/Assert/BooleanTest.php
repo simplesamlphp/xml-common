@@ -21,7 +21,8 @@ final class BooleanTest extends TestCase
      * @param boolean $shouldPass
      * @param string $boolean
      */
-    #[DataProvider('provideBoolean')]
+    #[DataProvider('provideInvalidBoolean')]
+    #[DataProvider('provideValidBoolean')]
     public function testValidBoolean(bool $shouldPass, string $boolean): void
     {
         try {
@@ -34,15 +35,25 @@ final class BooleanTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideBoolean(): array
+    public static function provideValidBoolean(): array
     {
         return [
             'true' => [true, 'true'],
             'false' => [true, 'false'],
             'one' => [true, '1'],
             'zero' => [true, '0'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidBoolean(): array
+    {
+        return [
             'vrai' => [false, 'vrai'],
             'faux' => [false, 'faux'],
         ];

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\IntegerTest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\IntegerValue;
 
@@ -21,7 +22,10 @@ final class IntegerValueTest extends TestCase
      * @param boolean $shouldPass
      * @param string $integer
      */
-    #[DataProvider('provideInteger')]
+    #[DataProvider('provideInvalidInteger')]
+    #[DataProvider('provideValidInteger')]
+    #[DataProviderExternal(IntegerTest::class, 'provideValidInteger')]
+    #[DependsOnClass(IntegerTest::class)]
     public function testInteger(bool $shouldPass, string $integer): void
     {
         try {
@@ -34,16 +38,23 @@ final class IntegerValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideInteger(): array
+    public static function providevalidInteger(): array
+    {
+        return [
+            'valid with whitespace collapse' => [true, " \n1234\r "],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidInteger(): array
     {
         return [
             'empty' => [false, ''],
-            'valid integer' => [true, '123456'],
-            'valid positive signed' => [true, '+00000012'],
-            'valid negative signed' => [true, '-1'],
-            'valid with whitespace collapse' => [true, ' 1 234 '],
             'invalid with fractional' => [false, '1234.'],
             'invalid with thousands-delimiter' => [false, '+1,234'],
         ];

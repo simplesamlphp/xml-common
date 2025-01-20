@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\NonNegativeIntegerTest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\NonNegativeIntegerValue;
 
@@ -21,7 +22,10 @@ final class NonNegativeIntegerValueTest extends TestCase
      * @param boolean $shouldPass
      * @param string $nonNegativeInteger
      */
-    #[DataProvider('provideNonNegativeInteger')]
+    #[DataProvider('provideInvalidNonNegativeInteger')]
+    #[DataProvider('provideValidNonNegativeInteger')]
+    #[DataProviderExternal(NonNegativeIntegerTest::class, 'provideValidNonNegativeInteger')]
+    #[DependsOnClass(NonNegativeIntegerTest::class)]
     public function testNonNegativeInteger(bool $shouldPass, string $nonNegativeInteger): void
     {
         try {
@@ -34,17 +38,23 @@ final class NonNegativeIntegerValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideNonNegativeInteger(): array
+    public static function provideValidNonNegativeInteger(): array
+    {
+        return [
+            'valid with whitespace collapse' => [true, " 1234 \n "],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidNonNegativeInteger(): array
     {
         return [
             'empty' => [false, ''],
-            'valid positive integer' => [true, '123456'],
-            'valid signed positive integer' => [true, '+123456'],
-            'valid zero' => [true, '0'],
-            'valid negative leading zeros' => [true, '0000000000000000000005'],
-            'valid with whitespace collapse' => [true, " 1 234 \n"],
             'invalid with fractional' => [false, '1.'],
             'invalid negative' => [false, '-1234'],
             'invalid with thousands-delimiter' => [false, '1,234'],

@@ -21,7 +21,8 @@ final class UnsignedShortTest extends TestCase
      * @param boolean $shouldPass
      * @param string $unsignedShort
      */
-    #[DataProvider('provideUnsignedShort')]
+    #[DataProvider('provideInvalidUnsignedShort')]
+    #[DataProvider('provideValidUnsignedShort')]
     public function testValidUnsignedShort(bool $shouldPass, string $unsignedShort): void
     {
         try {
@@ -34,17 +35,27 @@ final class UnsignedShortTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideUnsignedShort(): array
+    public static function provideValidUnsignedShort(): array
     {
         return [
-            'empty' => [false, ''],
             'valid positive short' => [true, '65535'],
-            'invalid positive out-of-bounds' => [false, '65536'],
             'valid signed positive short' => [true, '+65535'],
             'valid zero' => [true, '0'],
             'valid negative leading zeros' => [true, '0000000000000000000005'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidUnsignedShort(): array
+    {
+        return [
+            'empty' => [false, ''],
+            'invalid positive out-of-bounds' => [false, '65536'],
             'invalid with fractional' => [false, '1.'],
             'invalid with space' => [false, '12 34'],
             'invalid negative' => [false, '-1'],

@@ -21,7 +21,8 @@ final class DecimalTest extends TestCase
      * @param boolean $shouldPass
      * @param string $decimal
      */
-    #[DataProvider('provideDecimal')]
+    #[DataProvider('provideInvalidDecimal')]
+    #[DataProvider('provideValidDecimal')]
     public function testValidDecimal(bool $shouldPass, string $decimal): void
     {
         try {
@@ -34,17 +35,27 @@ final class DecimalTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideDecimal(): array
+    public static function provideValidDecimal(): array
     {
         return [
-            'empty' => [false, ''],
             'valid decimal' => [true, '123.456'],
             'valid positive signed' => [true, '+123.456'],
             'valid negative signed' => [true, '-123.456'],
             'valid fractional only' => [true, '-.456'],
             'valid without fraction' => [true, '-456'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidDecimal(): array
+    {
+        return [
+            'empty' => [false, ''],
             'invalid with space' => [false, '1 234.456'],
             'invalid scientific notation' => [false, '1234.456E+2'],
             'invalid signed with space' => [false, '+ 1234.456'],

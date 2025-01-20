@@ -21,7 +21,8 @@ final class IDRefsTest extends TestCase
      * @param boolean $shouldPass
      * @param string $idrefs
      */
-    #[DataProvider('provideIDRefs')]
+    #[DataProvider('provideInvalidIDRefs')]
+    #[DataProvider('provideValidIDRefs')]
     public function testValidIDRefs(bool $shouldPass, string $idrefs): void
     {
         try {
@@ -34,23 +35,31 @@ final class IDRefsTest extends TestCase
 
 
     /**
-     * @return array<int, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideIDRefs(): array
+    public static function provideValidIDRefs(): array
     {
         return [
-            [true, 'Snoopy'],
-            [true, 'CMS'],
-            [true, 'fööbár'],
-            [false, '-1950-10-04'],
-            [false, '0836217462 0836217463'],
-            [true, 'foo bar'],
-            // Quotes are forbidden
-            [false, 'foo "bar" baz'],
-            // Commas are forbidden
-            [false, 'foo,bar'],
-            // Trailing newlines are forbidden
-            [false, "foobar\n"],
+            'valid' => [true, 'Snoopy foobar'],
+            'diacritical' => [true, 'Snööpy fööbár'],
+            'start with underscore' => [true, '_1950-10-04 foobar'],
+            'space' => [true, 'foo bar'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidIDRefs(): array
+    {
+        return [
+            'start with colon' => [false, 'foobar :CMS'],
+            'start with dash' => [false, '-1950-10-04 foobar'],
+            'invalid first char' => [false, '0836217462 1378943'],
+            'empty string' => [false, ''],
+            'colon' => [false, 'foo:bar'],
+            'comma' => [false, 'foo,bar'],
         ];
     }
 }

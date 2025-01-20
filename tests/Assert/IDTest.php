@@ -21,7 +21,8 @@ final class IDTest extends TestCase
      * @param boolean $shouldPass
      * @param string $id
      */
-    #[DataProvider('provideID')]
+    #[DataProvider('provideInvalidID')]
+    #[DataProvider('provideValidID')]
     public function testValidID(bool $shouldPass, string $id): void
     {
         try {
@@ -34,32 +35,32 @@ final class IDTest extends TestCase
 
 
     /**
-     * @return array<int, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideID(): array
+    public static function provideValidID(): array
     {
         return [
-            [true, 'Test'],
-            // May start with an underscore
-            [true, '_Test'],
-            // May contain dashes
-            [true, '_1950-10-04_10-00'],
-            // May contain dots
-            [true, 'Te.st'],
-            // May contain diacriticals
-            [true, 'fööbár'],
-            // Prefixed v4 UUID
-            [true, '_5425e58e-e799-4884-92cc-ca64ecede32f'],
-            // An empty value is not valid, unless xsi:nil is used
-            [false, ''],
-            // Wildcards are not allowed
-            [false, 'Te*st'],
-            // May not start with a digit
-            [false, '1Test'],
-            // May not contain a colon
-            [false, 'Te:st'],
-            // Trailing newlines are forbidden
-            [false, "Test\n"],
+            'valid' => [true, 'Test'],
+            'valid starts with underscore' => [true, '_Test'],
+            'valid contains dashes' => [true, '_1950-10-04_10-00'],
+            'valid contains dots' => [true, 'Te.st'],
+            'valid contains diacriticals' => [true, 'fööbár'],
+            'valid prefixed v4 UUID' => [true, '_5425e58e-e799-4884-92cc-ca64ecede32f'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidID(): array
+    {
+        return [
+            'invalid empty string' => [false, ''],
+            'invalid contains wildcard' => [false, 'Te*st'],
+            'invalid starts with digit' => [false, '1Test'],
+            'invalid contains colon' => [false, 'Te:st'],
+            'trailing newline' => [false, "Test\n"],
         ];
     }
 }

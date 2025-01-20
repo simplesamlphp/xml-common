@@ -21,7 +21,8 @@ final class DoubleTest extends TestCase
      * @param boolean $shouldPass
      * @param string $double
      */
-    #[DataProvider('provideDouble')]
+    #[DataProvider('provideInvalidDouble')]
+    #[DataProvider('provideValidDouble')]
     public function testValidDouble(bool $shouldPass, string $double): void
     {
         try {
@@ -34,21 +35,31 @@ final class DoubleTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideDouble(): array
+    public static function provideValidDouble(): array
     {
         return [
-            'empty' => [false, ''],
             'valid positive signed' => [true, '+123.456'],
             'valid negative signed' => [true, '-123.456'],
             'valid non-signed' => [true, '123.456'],
             'valid leading zeros' => [true, '-0123.456'],
             'valid zero' => [true, '0.0'],
             'valid NaN' => [true, 'NaN'],
-            'case-sensitive NaN' => [false, 'NAN'],
             'valid negative FIN' => [true, '-FIN'],
             'valid FIN' => [true, 'FIN'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidDouble(): array
+    {
+        return [
+            'empty' => [false, ''],
+            'case-sensitive NaN' => [false, 'NAN'],
             'invalid +FIN' => [false, '+FIN'],
             'invalid with space' => [false, '1 23.0'],
             'invalid without fractional' => [false, '123'],

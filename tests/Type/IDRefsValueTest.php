@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\IDRefsTest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\IDRefsValue;
 
@@ -21,7 +22,10 @@ final class IDRefsValueTest extends TestCase
      * @param boolean $shouldPass
      * @param string $idrefs
      */
-    #[DataProvider('provideIDRefs')]
+    #[DataProvider('provideInvalidIDRefs')]
+    #[DataProvider('provideValidIDRefs')]
+    #[DataProviderExternal(IDRefsTest::class, 'provideValidIDRefs')]
+    #[DependsOnClass(IDRefsTest::class)]
     public function testIDRefs(bool $shouldPass, string $idrefs): void
     {
         try {
@@ -34,21 +38,22 @@ final class IDRefsValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * Test the toArray function
      */
-    public static function provideIDRefs(): array
+    #[DependsOnClass(IDRefsTest::class)]
+    public function testToArray(): void
+    {
+        $idrefs = IDRefsValue::fromString("foo \nbar  baz");
+        $this->assertEquals(['foo', 'bar', 'baz'], $idrefs->toArray());
+    }
+
+
+    /**
+     * @return array<string, array{0: true, 1: string}>
+     */
+    public static function provideValidIDRefs(): array
     {
         return [
-            'valid' => [true, 'Snoopy foobar'],
-            'diacritical' => [true, 'Snööpy fööbár'],
-            'start with colon' => [false, 'foobar :CMS'],
-            'start with dash' => [false, '-1950-10-04 foobar'],
-            'start with underscore' => [true, '_1950-10-04 foobar'],
-            'invalid first char' => [false, '0836217462 1378943'],
-            'empty string' => [false, ''],
-            'space' => [true, 'foo bar'],
-            'colon' => [false, 'foo:bar'],
-            'comma' => [false, 'foo,bar'],
             'whitespace collapse' => [true, "foobar\n"],
             'normalization' => [true, ' foobar '],
         ];
@@ -56,11 +61,17 @@ final class IDRefsValueTest extends TestCase
 
 
     /**
-     * Test the toArray function
+     * @return array<string, array{0: false, 1: string}>
      */
-    public function testToArray(): void
+    public static function provideInvalidIDRefs(): array
     {
-        $idrefs = IDRefsValue::fromString("foo \nbar  baz");
-        $this->assertEquals(['foo', 'bar', 'baz'], $idrefs->toArray());
+        return [
+            'start with colon' => [false, 'foobar :CMS'],
+            'start with dash' => [false, '-1950-10-04 foobar'],
+            'invalid first char' => [false, '0836217462 1378943'],
+            'empty string' => [false, ''],
+            'colon' => [false, 'foo:bar'],
+            'comma' => [false, 'foo,bar'],
+        ];
     }
 }

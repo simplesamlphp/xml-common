@@ -21,7 +21,8 @@ final class UnsignedLongTest extends TestCase
      * @param boolean $shouldPass
      * @param string $unsignedLong
      */
-    #[DataProvider('provideUnsignedLong')]
+    #[DataProvider('provideInvalidUnsignedLong')]
+    #[DataProvider('provideValidUnsignedLong')]
     public function testValidUnsignedLong(bool $shouldPass, string $unsignedLong): void
     {
         try {
@@ -34,17 +35,27 @@ final class UnsignedLongTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideUnsignedLong(): array
+    public static function provideValidUnsignedLong(): array
     {
         return [
-            'empty' => [false, ''],
             'valid positive integer' => [true, '18446744073709551615'],
-            'invalid positive out-of-bounds' => [false, '18446744073709551616'],
             'valid signed positive integer' => [true, '+18446744073709551615'],
             'valid zero' => [true, '0'],
             'valid negative leading zeros' => [true, '0000000000000000000005'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidUnsignedLong(): array
+    {
+        return [
+            'empty' => [false, ''],
+            'invalid positive out-of-bounds' => [false, '18446744073709551616'],
             'invalid with fractional' => [false, '1.'],
             'invalid with space' => [false, '12 34'],
             'invalid negative' => [false, '-1'],

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\NormalizedStringTest;
 use SimpleSAML\XML\Type\NormalizedStringValue;
 
 /**
@@ -21,6 +22,7 @@ final class NormalizedStringValueTest extends TestCase
      * @param string $normalizedStringValue
      */
     #[DataProvider('provideNormalizedString')]
+    #[DependsOnClass(NormalizedStringTest::class)]
     public function testNormalizedString(string $str, string $normalizedStringValue): void
     {
         $value = NormalizedStringValue::fromString($str);
