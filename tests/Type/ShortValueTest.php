@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\ShortTest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\ShortValue;
 
@@ -21,7 +22,10 @@ final class ShortValueTest extends TestCase
      * @param boolean $shouldPass
      * @param string $short
      */
-    #[DataProvider('provideShort')]
+    #[DataProvider('provideInvalidShort')]
+    #[DataProvider('provideValidShort')]
+    #[DataProviderExternal(ShortTest::class, 'provideValidShort')]
+    #[DependsOnClass(ShortTest::class)]
     public function testShort(bool $shouldPass, string $short): void
     {
         try {
@@ -34,20 +38,25 @@ final class ShortValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideShort(): array
+    public static function provideValidShort(): array
+    {
+        return [
+            'valid with whitespace collapse' => [true, " 1234 \n "],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidShort(): array
     {
         return [
             'empty' => [false, ''],
-            'valid positive signed' => [true, '+32767'],
-            'valid negative signed' => [true, '-32768'],
-            'valid non-signed' => [true, '123'],
-            'valid leading zeros' => [true, '-0001'],
-            'valid zero' => [true, '0'],
             'invalid positive signed out-of-bounds' => [false, '+32768'],
             'invalid negative signed out-of-bounds' => [false, '-32769'],
-            'valid with whitespace collapse' => [true, " 1 234 \n"],
             'invalid with fractional' => [false, '1234.'],
             'invalid with thousands-delimiter' => [false, '+1,234'],
         ];

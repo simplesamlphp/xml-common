@@ -21,7 +21,7 @@ final class AnyURITest extends TestCase
      * @param boolean $shouldPass
      * @param string $uri
      */
-    #[DataProvider('provideURI')]
+    #[DataProvider('provideValidURI')]
     public function testValidURI(bool $shouldPass, string $uri): void
     {
         try {
@@ -36,7 +36,7 @@ final class AnyURITest extends TestCase
     /**
      * @return array<string, array{0: bool, 1: string}>
      */
-    public static function provideURI(): array
+    public static function provideValidURI(): array
     {
         return [
             'urn' => [true, 'urn:x-simplesamlphp:phpunit'],

@@ -21,7 +21,8 @@ final class MonthTest extends TestCase
      * @param boolean $shouldPass
      * @param string $month
      */
-    #[DataProvider('provideMonth')]
+    #[DataProvider('provideInvalidMonth')]
+    #[DataProvider('provideValidMonth')]
     public function testValidMonth(bool $shouldPass, string $month): void
     {
         try {
@@ -34,9 +35,9 @@ final class MonthTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideMonth(): array
+    public static function provideValidMonth(): array
     {
         return [
             'valid' => [true, '--05'],
@@ -44,6 +45,16 @@ final class MonthTest extends TestCase
             'valid Zulu timezone' => [true, '--11Z'],
             'valid 00:00 timezone' => [true, '--11+00:00'],
             'month 02' => [true, '--02'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidMonth(): array
+    {
+        return [
             'invalid format' => [false, '-01-'],
             'month out of range' => [false, '--13'],
             'both digits must be provided' => [false, '--1'],

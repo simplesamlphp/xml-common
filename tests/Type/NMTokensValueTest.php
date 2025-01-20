@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\NMTokensTest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\NMTokensValue;
 
@@ -21,7 +22,10 @@ final class NMTokensValueTest extends TestCase
      * @param boolean $shouldPass
      * @param string $nmtokens
      */
-    #[DataProvider('provideNMTokens')]
+    #[DataProvider('provideInvalidNMTokens')]
+    #[DataProvider('provideValidNMTokens')]
+    #[DataProviderExternal(NMTokensTest::class, 'provideValidNMTokens')]
+    #[DependsOnClass(NMTokensTest::class)]
     public function testNMtokens(bool $shouldPass, string $nmtokens): void
     {
         try {
@@ -34,17 +38,22 @@ final class NMTokensValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * Test the toArray function
      */
-    public static function provideNMTokens(): array
+    #[DependsOnClass(NMTokensTest::class)]
+    public function testToArray(): void
+    {
+        $nmtokens = NMTokensValue::fromString("foo \nbar  baz");
+        $this->assertEquals(['foo', 'bar', 'baz'], $nmtokens->toArray());
+    }
+
+
+    /**
+     * @return array<string, array{0: true, 1: string}>
+     */
+    public static function provideValidNMTokens(): array
     {
         return [
-            'valid' => [true, 'Snoopy foobar'],
-            'diacritical' => [true, 'Snoopy fööbár'],
-            'start with colon' => [true, ':CMS :ABC'],
-            'start with dash' => [true, '-1950-10-04 -1984-11-07'],
-            'numeric first char' => [true, '0836217462'],
-            'comma' => [false, 'foo,bar'],
             'whitespace collapse' => [true, "foobar\n"],
             'normalization' => [true, ' foobar   nmtoken '],
         ];
@@ -52,11 +61,12 @@ final class NMTokensValueTest extends TestCase
 
 
     /**
-     * Test the toArray function
+     * @return array<string, array{0: false, 1: string}>
      */
-    public function testToArray(): void
+    public static function provideInvalidNMTokens(): array
     {
-        $nmtokens = NMTokensValue::fromString("foo \nbar  baz");
-        $this->assertEquals(['foo', 'bar', 'baz'], $nmtokens->toArray());
+        return [
+            'comma' => [false, 'foo,bar'],
+        ];
     }
 }

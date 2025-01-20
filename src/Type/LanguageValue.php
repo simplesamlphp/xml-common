@@ -21,7 +21,7 @@ class LanguageValue extends TokenValue
      */
     protected function validateValue(string $value): void
     {
-        // Note: content must already be sanitized before validating
+        // Note: value must already be sanitized before validating
         Assert::validLanguage($this->sanitizeValue($value), SchemaViolationException::class);
     }
 }

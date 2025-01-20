@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\YearMonthTest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\YearMonthValue;
 
@@ -21,7 +22,10 @@ final class YearMonthValueTest extends TestCase
      * @param boolean $shouldPass
      * @param string $yearMonth
      */
-    #[DataProvider('provideYearMonth')]
+    #[DataProvider('provideInvalidYearMonth')]
+    #[DataProvider('provideValidYearMonth')]
+    #[DataProviderExternal(YearMonthTest::class, 'provideValidYearMonth')]
+    #[DependsOnClass(YearMonthTest::class)]
     public function testYearMonth(bool $shouldPass, string $yearMonth): void
     {
         try {
@@ -34,19 +38,23 @@ final class YearMonthValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideYearMonth(): array
+    public static function provideValidYearMonth(): array
+    {
+        return [
+            'whitespace collapse' => [true, " 2001-10 \n "],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidYearMonth(): array
     {
         return [
             'empty' => [false, ''],
-            'whitespace collapse' => [true, ' 2001-10  '],
-            'valid' => [true, '2001-10'],
-            'valid numeric timezone' => [true, '2001-10+02:00'],
-            'valid Zulu timezone' => [true, '2001-10Z'],
-            'valid 00:00 timezone' => [true, '2001-10+00:00'],
-            '2001 BC' => [true, '-2001-10'],
-            '20000 BC' => [true, '-20000-04'],
             'missing part' => [false, '2001'],
             'month out of range' => [false, '2001-13'],
         ];

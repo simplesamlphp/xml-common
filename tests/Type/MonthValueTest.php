@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\MonthTest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\MonthValue;
 
@@ -21,7 +22,10 @@ final class MonthValueTest extends TestCase
      * @param boolean $shouldPass
      * @param string $month
      */
-    #[DataProvider('provideMonth')]
+    #[DataProvider('provideInvalidMonth')]
+    #[DataProvider('provideValidMonth')]
+    #[DataProviderExternal(MonthTest::class, 'provideValidMonth')]
+    #[DependsOnClass(MonthTest::class)]
     public function testMonth(bool $shouldPass, string $month): void
     {
         try {
@@ -34,18 +38,23 @@ final class MonthValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideMonth(): array
+    public static function provideValidMonth(): array
+    {
+        return [
+            'whitespace collapse' => [true, ' --05  '],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidMonth(): array
     {
         return [
             'empty' => [false, ''],
-            'whitespace collapse' => [true, ' --05  '],
-            'valid' => [true, '--05'],
-            'valid numeric timezone' => [true, '--11+02:00'],
-            'valid Zulu timezone' => [true, '--11Z'],
-            'valid 00:00 timezone' => [true, '--11+00:00'],
-            'month 02' => [true, '--02'],
             'invalid format' => [false, '-01-'],
             'month out of range' => [false, '--13'],
             'both digits must be provided' => [false, '--1'],

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\XML\Assert\NegativeIntegerTest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\NegativeIntegerValue;
 
@@ -21,7 +22,10 @@ final class NegativeIntegerValueTest extends TestCase
      * @param boolean $shouldPass
      * @param string $negativeInteger
      */
-    #[DataProvider('provideNegativeInteger')]
+    #[DataProvider('provideInvalidNegativeInteger')]
+    #[DataProvider('provideValidNegativeInteger')]
+    #[DataProviderExternal(NegativeIntegerTest::class, 'provideValidNegativeInteger')]
+    #[DependsOnClass(NegativeIntegerTest::class)]
     public function testNegativeInteger(bool $shouldPass, string $negativeInteger): void
     {
         try {
@@ -34,16 +38,24 @@ final class NegativeIntegerValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideNegativeInteger(): array
+    public static function provideValidNegativeInteger(): array
+    {
+        return [
+            'valid with whitespace collapse' => [true, "\t -1234 \n "],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidNegativeInteger(): array
     {
         return [
             'empty' => [false, ''],
-            'valid non-positive integer' => [true, '-123456'],
             'invalid zero' => [false, '0'],
-            'valid negative leading zeros' => [true, '-0000000000000000000005'],
-            'valid with whitespace collapse' => [true, " -1 234 \n"],
             'invalid with fractional' => [false, '-1.'],
             'invalid positive' => [false, '1234'],
             'invalid with thousands-delimiter' => [false, '-1,234'],

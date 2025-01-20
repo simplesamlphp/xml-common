@@ -21,7 +21,8 @@ final class LanguageTest extends TestCase
      * @param boolean $shouldPass
      * @param string $language
      */
-    #[DataProvider('provideLanguage')]
+    #[DataProvider('provideInvalidLanguage')]
+    #[DataProvider('provideValidLanguage')]
     public function testValidLanguage(bool $shouldPass, string $language): void
     {
         try {
@@ -34,18 +35,28 @@ final class LanguageTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideLanguage(): array
+    public static function provideValidLanguage(): array
     {
         return [
-            'empty string' => [false, ''],
             'one part' => [true, 'es'],
             'two parts' => [true, 'en-US'],
             'many parts' => [true, 'es-this-goes-on-forever'],
-            'too long' => [false, 'toolongLanguageuage'],
             'x-case' => [true, 'x-klingon'],
             'i-case' => [true, 'i-sami-no'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidLanguage(): array
+    {
+        return [
+            'empty string' => [false, ''],
+            'too long' => [false, 'toolongLanguageuage'],
         ];
     }
 }

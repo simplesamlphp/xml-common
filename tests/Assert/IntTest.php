@@ -21,7 +21,8 @@ final class IntTest extends TestCase
      * @param boolean $shouldPass
      * @param string $int
      */
-    #[DataProvider('provideInt')]
+    #[DataProvider('provideInvalidInt')]
+    #[DataProvider('provideValidInt')]
     public function testValidInt(bool $shouldPass, string $int): void
     {
         try {
@@ -34,17 +35,27 @@ final class IntTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideInt(): array
+    public static function provideValidInt(): array
     {
         return [
-            'empty' => [false, ''],
             'valid positive signed' => [true, '+2147483647'],
             'valid negative signed' => [true, '-2147483648'],
             'valid non-signed' => [true, '123'],
             'valid leading zeros' => [true, '-0001'],
             'valid zero' => [true, '0'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidInt(): array
+    {
+        return [
+            'empty' => [false, ''],
             'invalid positive signed out-of-bounds' => [false, '+2147483648'],
             'invalid negative signed out-of-bounds' => [false, '-2147483649'],
             'invalid with space' => [false, '1 234'],
