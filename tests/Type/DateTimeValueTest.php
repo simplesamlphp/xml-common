@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
+use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Exception\SchemaViolationException;
@@ -56,5 +57,17 @@ final class DateTimeValueTest extends TestCase
             'prefixed zero' => [false, '02001-10-26T25:32:52+02:00'],
             'wrong format' => [false, '01-10-26T21:32'],
         ];
+    }
+
+
+    /**
+     * Test the fromDateTime function
+     */
+    public function testFromDateTime(): void
+    {
+        $dt = new DateTimeImmutable('@946684800');
+
+        $dateTimeValue = DateTimeValue::fromDateTime($dt);
+        $this->assertEquals('2000-01-01T00:00:00+00:00', $dateTimeValue->getValue());
     }
 }
