@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Type;
 
+use DateTimeInterface;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 
@@ -15,6 +16,9 @@ use function trim;
  */
 class DateTimeValue extends AbstractValueType
 {
+    public const string DATETIME_FORMAT = 'Y-m-d\\TH:i:sP';
+
+
     /**
      * Sanitize the value.
      *
@@ -37,5 +41,15 @@ class DateTimeValue extends AbstractValueType
     protected function validateValue(string $value): void
     {
         Assert::validDateTime($this->sanitizeValue($value), SchemaViolationException::class);
+    }
+
+
+    /**
+     * @param \DateTimeInterface $value
+     * @return static
+     */
+    public static function fromDateTime(DateTimeInterface $value): static
+    {
+        return new static($value->format(static::DATETIME_FORMAT));
     }
 }
