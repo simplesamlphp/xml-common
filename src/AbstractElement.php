@@ -9,7 +9,7 @@ use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Exception\{MissingAttributeException, SchemaViolationException};
 use SimpleSAML\XML\SerializableElementTrait;
-use SimpleSAML\XML\Type\{StringValue, ValueTypeInterface};
+use SimpleSAML\XML\Type\{QNameValue, StringValue, ValueTypeInterface};
 
 use function array_slice;
 use function defined;
@@ -79,7 +79,7 @@ abstract class AbstractElement implements SerializableElementInterface
         );
 
         $value = $xml->getAttribute($name);
-        return $type::fromString($value);
+        return ($type === QNameValue::class) ? QNameValue::fromDocument($value, $xml) : $type::fromString($value);
     }
 
 
