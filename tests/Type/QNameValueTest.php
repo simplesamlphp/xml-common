@@ -6,11 +6,8 @@ namespace SimpleSAML\Test\XML\Type;
 
 use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Test\XML\Assert\QNameTest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\QNameValue;
-
-use function strval;
 
 /**
  * Class \SimpleSAML\Test\XML\Type\QNameValueTest
@@ -26,8 +23,6 @@ final class QNameValueTest extends TestCase
      */
     #[DataProvider('provideInvalidQName')]
     #[DataProvider('provideValidQName')]
-    #[DataProviderExternal(QNameTest::class, 'provideValidQName')]
-    #[DependsOnClass(QNameTest::class)]
     public function testQName(bool $shouldPass, string $qname): void
     {
         try {
@@ -40,28 +35,21 @@ final class QNameValueTest extends TestCase
 
 
     /**
-     */
-    #[DependsOnClass(QNameTest::class)]
-    public function testHelpers(): void
-    {
-        $qn = QNameValue::fromString('some:Test');
-        $this->assertEquals(strval($qn->getNamespacePrefix()), 'some');
-        $this->assertEquals(strval($qn->getLocalName()), 'Test');
-
-        $qn = QNameValue::fromString('Test');
-        $this->assertNull($qn->getNamespacePrefix());
-        $this->assertEquals(strval($qn->getLocalName()), 'Test');
-    }
-
-
-    /**
      * @return array<string, array{0: true, 1: string}>
      */
     public static function provideValidQName(): array
     {
         return [
-            'prefixed newline' => [true, "\nsome:Test"],
-            'trailing newline' => [true, "some:Test\n"],
+            'valid' => [true, '{urn:x-simplesamlphp:namespace}ssp:Chunk'],
+            'valid without namespace' => [true, '{urn:x-simplesamlphp:namespace}Chunk'],
+            // both parts can contain a dash
+            '1st part containing dash' => [true, '{urn:x-simplesamlphp:namespace}s-sp:Chunk'],
+            '2nd part containing dash' => [true, '{urn:x-simplesamlphp:namespace}ssp:Ch-unk'],
+            'both parts containing dash' => [true, '{urn:x-simplesamlphp:namespace}s-sp:Ch-unk'],
+            // A single NCName is also a valid QName
+            'no colon' => [true, 'Test'],
+            'prefixed newline' => [true, "\nTest"],
+            'trailing newline' => [true, "Test\n"],
         ];
     }
 
@@ -72,8 +60,8 @@ final class QNameValueTest extends TestCase
     public static function provideInvalidQName(): array
     {
         return [
-            'start 2nd part with dash' => [false, 'some:-Test'],
-            'start both parts with dash' => [false, '-some:-Test'],
+            'empty namespace' => [false, '{}Test'],
+            'start 2nd part with dash' => [false, '-Test'],
             'start with colon' => [false, ':test'],
             'multiple colons' => [false, 'test:test:test'],
             'start with digit' => [false, '1Test'],
