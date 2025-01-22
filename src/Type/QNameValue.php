@@ -4,16 +4,36 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Type;
 
+use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XML\Type\{AnyURIValue, NCNameValue};
 
-use function explode;
+use function preg_match;
 
 /**
  * @package simplesaml/xml-common
  */
 class QNameValue extends AbstractValueType
 {
+    protected ?AnyURIValue $namespaceURI;
+    protected ?NCNameValue $namespacePrefix;
+    protected NCNameValue $localName;
+
+    private static string $qname_regex = '/^
+        (?:
+          \{                 # Match a literal {
+            (\S+)            # Match one or more non-whitespace character
+          \}                 # Match a literal }
+          (?:
+            ([\w_][\w.-]*)   # Match a-z or underscore followed by any word-character, dot or dash
+            :                # Match a literal :
+          )?
+        )?                   # Namespace and prefix are optional
+        ([\w_][\w.-]*)       # Match a-z or underscore followed by any word-character, dot or dash
+        $/Dimx';
+
+
     /**
      * Sanitize the value.
      *
@@ -35,8 +55,49 @@ class QNameValue extends AbstractValueType
      */
     protected function validateValue(string $value): void
     {
-        // Note: value must already be sanitized before validating
-        Assert::validQName($this->sanitizeValue($value), SchemaViolationException::class);
+        $qName = $this->sanitizeValue($value);
+
+        /**
+         * Split our custom format of {<namespaceURI>}<prefix>:<localName> into individual parts
+         */
+        $result = preg_match(
+            self::$qname_regex,
+            $qName,
+            $matches,
+            PREG_UNMATCHED_AS_NULL,
+        );
+
+        if ($result && count($matches) === 4) {
+            list($qName, $namespaceURI, $namespacePrefix, $localName) = $matches;
+
+            $this->namespaceURI = ($namespaceURI !== null) ? AnyURIValue::fromString($namespaceURI) : null;
+            $this->namespacePrefix = ($namespacePrefix !== null) ? NCNameValue::fromString($namespacePrefix) : null;
+            $this->localName = NCNameValue::fromString($localName);
+        } else {
+            throw new SchemaViolationException(sprintf('\'%s\' is not a valid xs:QName.', $qName));
+        }
+    }
+
+
+    /**
+     * Get the value.
+     *
+     * @return string
+     */
+    public function getValue(): string
+    {
+        return $this->getNamespacePrefix() . ':' . $this->getLocalName();
+    }
+
+
+    /**
+     * Get the namespaceURI for this qualified name.
+     *
+     * @return \SimpleSAML\XML\Type\AnyURIValue|null
+     */
+    public function getNamespaceURI(): ?AnyURIValue
+    {
+        return $this->namespaceURI;
     }
 
 
@@ -47,12 +108,7 @@ class QNameValue extends AbstractValueType
      */
     public function getNamespacePrefix(): ?NCNameValue
     {
-        $qname = explode(':', $this->getValue(), 2);
-        if (count($qname) === 2) {
-            return NCNameValue::fromString($qname[0]);
-        }
-
-        return null;
+        return $this->namespacePrefix;
     }
 
 
@@ -63,11 +119,53 @@ class QNameValue extends AbstractValueType
      */
     public function getLocalName(): NCNameValue
     {
-        $qname = explode(':', $this->getValue(), 2);
-        if (count($qname) === 2) {
-            return NCNameValue::fromString($qname[1]);
+        return $this->localName;
+    }
+
+
+    /**
+     * @param \SimpleSAML\XML\Type\NCNameValue $localName
+     * @param \SimpleSAML\XML\Type\AnyURIValue|null $namespaceURI
+     * @param \SimpleSAML\XML\Type\NCNameValue|null $namespacePrefix
+     * @return static
+     */
+    public static function fromParts(
+        NCNameValue $localName,
+        ?AnyURIValue $namespaceURI,
+        ?NCNameValue $namespacePrefix,
+    ): static {
+        if ($namespaceURI === null) {
+            // If we don't have a namespace, we can't have a prefix either
+            Assert::null($namespacePrefix->getValue(), SchemaViolationException::class);
+            return new static($localName->getValue());
         }
 
-        return NCNameValue::fromString($qname[0]);
+        return new static(
+            '{' . $namespaceURI->getValue() . '}'
+            . ($namespacePrefix ? ($namespacePrefix->getValue() . ':') : '')
+            . $localName,
+        );
+    }
+
+
+    /**
+     * @param string $qName
+     */
+    public static function fromDocument(
+        string $qName,
+        DOMElement $element,
+    ): static {
+        $namespacePrefix = null;
+        if (str_contains($qName, ':')) {
+            list($namespacePrefix, $localName) = explode(':', $qName, 2);
+        } else {
+            // No prefix
+            $localName = $qName;
+        }
+
+        // Will return the default namespace (if any) when prefix is NULL
+        $namespaceURI = $element->lookupNamespaceUri($namespacePrefix);
+
+        return new static('{' . $namespaceURI . '}' . $namespacePrefix . ':' . $localName);
     }
 }

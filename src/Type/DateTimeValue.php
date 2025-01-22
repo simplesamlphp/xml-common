@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  */
 class DateTimeValue extends AbstractValueType
 {
-    public const string DATETIME_FORMAT = 'Y-m-d\\TH:i:sP';
+    public const DATETIME_FORMAT = 'Y-m-d\\TH:i:sP';
 
 
     /**

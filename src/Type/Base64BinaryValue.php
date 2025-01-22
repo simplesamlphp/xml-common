@@ -7,7 +7,7 @@ namespace SimpleSAML\XML\Type;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 
-use preg_replace;
+use function preg_replace;
 
 /**
  * @package simplesaml/xml-common

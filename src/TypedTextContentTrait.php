@@ -7,7 +7,7 @@ namespace SimpleSAML\XML;
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Exception\{InvalidDOMElementException, InvalidValueTypeException};
-use SimpleSAML\XML\Type\{ValueTypeInterface, StringValue};
+use SimpleSAML\XML\Type\{QNameValue, StringValue, ValueTypeInterface};
 
 use function defined;
 use function strval;
@@ -40,9 +40,14 @@ trait TypedTextContentTrait
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
         $type = self::getTextContentType();
-        $text = $type::fromString($xml->textContent);
+        if ($type === QNameValue::class) {
+            $qName = QNameValue::fromDocument($xml->textContent, $xml);
+            $text = $qName->getRawValue();
+        } else {
+            $text = $xml->textContent;
+        }
 
-        return new static($text);
+        return new static($type::fromString($text));
     }
 
 
