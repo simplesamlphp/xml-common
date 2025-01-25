@@ -9,4 +9,6 @@ namespace SimpleSAML\XML\Type;
  */
 class EntityValue extends NCNameValue
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:ENTITY';
 }

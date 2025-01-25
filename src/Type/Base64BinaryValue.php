@@ -14,6 +14,10 @@ use function preg_replace;
  */
 class Base64BinaryValue extends AbstractValueType
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:base64Binary';
+
+
     /**
      * Sanitize the value.
      *

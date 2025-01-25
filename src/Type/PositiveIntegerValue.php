@@ -12,6 +12,10 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  */
 class PositiveIntegerValue extends IntegerValue
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:positiveInteger';
+
+
     /**
      * Validate the value.
      *

@@ -12,6 +12,10 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  */
 class NCNameValue extends TokenValue
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:NCName';
+
+
     /**
      * Validate the value.
      *
