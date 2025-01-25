@@ -16,6 +16,10 @@ use function explode;
  */
 class NMTokensValue extends TokenValue implements ListTypeInterface
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:NMTOKENS';
+
+
     /**
      * Validate the value.
      *

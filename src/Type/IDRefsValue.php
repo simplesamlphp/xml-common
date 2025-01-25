@@ -13,6 +13,10 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  */
 class IDRefsValue extends TokenValue implements ListTypeInterface
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:IDREFS';
+
+
     /**
      * Validate the value.
      *

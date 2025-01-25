@@ -13,6 +13,10 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  */
 class DateTimeValue extends AbstractValueType
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:dateTime';
+
+    /** @var string *?
     public const DATETIME_FORMAT = 'Y-m-d\\TH:i:sP';
 
 
