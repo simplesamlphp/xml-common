@@ -16,10 +16,19 @@ use function preg_match;
  */
 class QNameValue extends AbstractValueType
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:QName';
+
+    /** @var \SimpleSAML\XML\Type\AnyURIValue|null */
     protected ?AnyURIValue $namespaceURI;
+
+    /** @var \SimpleSAML\XML\Type\NCNameValue|null */
     protected ?NCNameValue $namespacePrefix;
+
+    /** @var \SimpleSAML\XML\Type\NCName */
     protected NCNameValue $localName;
 
+    /** @var string */
     private static string $qname_regex = '/^
         (?:
           \{                 # Match a literal {

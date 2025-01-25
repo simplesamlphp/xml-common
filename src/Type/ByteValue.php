@@ -12,6 +12,10 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  */
 class ByteValue extends LongValue
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:byte';
+
+
     /**
      * Validate the value.
      *

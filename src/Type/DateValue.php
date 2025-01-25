@@ -12,6 +12,10 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  */
 class DateValue extends AbstractValueType
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:date';
+
+
     /**
      * Sanitize the value.
      *

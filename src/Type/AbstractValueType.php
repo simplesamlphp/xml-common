@@ -14,6 +14,13 @@ use function trim;
  */
 abstract class AbstractValueType implements ValueTypeInterface
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:anySimpleType';
+
+    /** @var string */
+    public const SCHEMA_NAMESPACE = 'http://www.w3.org/2001/XMLSchema';
+
+
     /**
      * Set the value for this type.
      *

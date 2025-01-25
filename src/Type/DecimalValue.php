@@ -12,6 +12,10 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  */
 class DecimalValue extends AbstractValueType
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:decimal';
+
+
     /**
      * Sanitize the value.
      *

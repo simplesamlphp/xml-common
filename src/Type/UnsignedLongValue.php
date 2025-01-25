@@ -12,6 +12,10 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  */
 class UnsignedLongValue extends IntegerValue
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:unsignedLong';
+
+
     /**
      * Validate the value.
      *

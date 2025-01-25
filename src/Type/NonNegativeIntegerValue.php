@@ -12,6 +12,10 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  */
 class NonNegativeIntegerValue extends IntegerValue
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:nonNegativeInteger';
+
+
     /**
      * Validate the value.
      *

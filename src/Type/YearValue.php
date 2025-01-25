@@ -12,6 +12,10 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  */
 class YearValue extends AbstractValueType
 {
+    /** @var string */
+    public const SCHEMA_TYPE = 'xs:gYear';
+
+
     /**
      * Sanitize the value.
      *
