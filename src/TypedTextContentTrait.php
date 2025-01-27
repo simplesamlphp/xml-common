@@ -71,6 +71,17 @@ trait TypedTextContentTrait
     public function toXML(?DOMElement $parent = null): DOMElement
     {
         $e = $this->instantiateParentElement($parent);
+
+        if ($this->getTextContentType() === QNameValue::class) {
+            if (!$e->lookupPrefix($this->getContent()->getNamespaceURI()->getValue())) {
+                $e->setAttributeNS(
+                    'http://www.w3.org/2000/xmlns/',
+                    'xmlns:' . $this->getContent()->getNamespacePrefix()->getValue(),
+                    $this->getContent()->getNamespaceURI()->getValue(),
+                );
+            }
+        }
+
         $e->textContent = strval($this->getContent());
 
         return $e;
