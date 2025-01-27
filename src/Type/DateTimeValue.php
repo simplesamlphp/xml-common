@@ -16,7 +16,7 @@ class DateTimeValue extends AbstractValueType
     /** @var string */
     public const SCHEMA_TYPE = 'xs:dateTime';
 
-    /** @var string *?
+    /** @var string */
     public const DATETIME_FORMAT = 'Y-m-d\\TH:i:sP';
 
 

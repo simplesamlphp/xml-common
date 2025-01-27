@@ -25,7 +25,7 @@ class QNameValue extends AbstractValueType
     /** @var \SimpleSAML\XML\Type\NCNameValue|null */
     protected ?NCNameValue $namespacePrefix;
 
-    /** @var \SimpleSAML\XML\Type\NCName */
+    /** @var \SimpleSAML\XML\Type\NCNameValue */
     protected NCNameValue $localName;
 
     /** @var string */
