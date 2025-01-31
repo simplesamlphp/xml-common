@@ -7,7 +7,6 @@ namespace SimpleSAML\XML\Type;
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Exception\SchemaViolationException;
-use SimpleSAML\XML\Type\{AnyURIValue, NCNameValue};
 
 use function preg_match;
 

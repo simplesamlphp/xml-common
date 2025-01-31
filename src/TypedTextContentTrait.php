@@ -104,4 +104,13 @@ trait TypedTextContentTrait
         Assert::isAOf($type, ValueTypeInterface::class, InvalidValueTypeException::class);
         return $type;
     }
+
+
+    /**
+     * Create a document structure for this element
+     *
+     * @param \DOMElement|null $parent The element we should append to.
+     * @return \DOMElement
+     */
+    abstract public function instantiateParentElement(?DOMElement $parent = null): DOMElement;
 }
