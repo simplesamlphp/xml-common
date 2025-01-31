@@ -144,7 +144,7 @@ class QNameValue extends AbstractValueType
     ): static {
         if ($namespaceURI === null) {
             // If we don't have a namespace, we can't have a prefix either
-            Assert::null($namespacePrefix->getValue(), SchemaViolationException::class);
+            Assert::null($namespacePrefix, SchemaViolationException::class);
             return new static($localName->getValue());
         }
 
