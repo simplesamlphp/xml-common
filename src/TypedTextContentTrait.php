@@ -19,12 +19,40 @@ use function strval;
  */
 trait TypedTextContentTrait
 {
+    /** @var \SimpleSAML\XML\Type\ValueTypeInterface $content */
+    protected ValueTypeInterface $content;
+
+
     /**
      * @param \SimpleSAML\XML\Type\ValueTypeInterface $content
      */
     public function __construct(
-        protected ValueTypeInterface $content,
+        ValueTypeInterface $content,
     ) {
+        $this->setContent($content);
+    }
+
+
+    /**
+     * Set the content of the element.
+     *
+     * @param \SimpleSAML\XML\Type\ValueTypeInterface $content  The value to go in the XML textContent
+     */
+    protected function setContent(ValueTypeInterface $content): void
+    {
+        Assert::isAOf($content, static::getTextContentType(), InvalidValueTypeException::class);
+        $this->content = $content;
+    }
+
+
+    /**
+     * Get the typed content of the element
+     *
+     * @return \SimpleSAML\XML\Type\ValueTypeInterface
+     */
+    public function getContent(): ValueTypeInterface
+    {
+        return $this->content;
     }
 
 
@@ -48,17 +76,6 @@ trait TypedTextContentTrait
         }
 
         return new static($type::fromString($text));
-    }
-
-
-    /**
-     * Get the typed content of the element
-     *
-     * @return \SimpleSAML\XML\Type\ValueTypeInterface
-     */
-    public function getContent(): ValueTypeInterface
-    {
-        return $this->content;
     }
 
 
