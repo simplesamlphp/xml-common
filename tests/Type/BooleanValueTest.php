@@ -38,6 +38,20 @@ final class BooleanValueTest extends TestCase
 
 
     /**
+     * Test helpers
+     */
+    public function testHelpers(): void
+    {
+        $x = BooleanValue::fromBoolean(false);
+        $this->assertFalse($x->toBoolean());
+
+        $y = BooleanValue::fromString('1');
+        $this->assertTrue($y->toBoolean());
+    }
+
+
+
+    /**
      * @return array<string, array{0: true, 1: string}>
      */
     public static function provideValidBoolean(): array
