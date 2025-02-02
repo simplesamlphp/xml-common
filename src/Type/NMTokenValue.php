@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class NMTokenValue extends TokenValue
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:NMTOKEN';
+    public const SCHEMA_TYPE = 'NMTOKEN';
 
 
     /**

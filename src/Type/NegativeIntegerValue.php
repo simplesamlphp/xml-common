@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class NegativeIntegerValue extends IntegerValue
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:negativeInteger';
+    public const SCHEMA_TYPE = 'negativeInteger';
 
 
     /**

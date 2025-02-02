@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class LanguageValue extends TokenValue
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:language';
+    public const SCHEMA_TYPE = 'language';
 
 
     /**

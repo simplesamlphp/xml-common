@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class DurationValue extends AbstractValueType
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:duration';
+    public const SCHEMA_TYPE = 'duration';
 
 
     /**

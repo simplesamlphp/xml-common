@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class DayValue extends AbstractValueType
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:gDay';
+    public const SCHEMA_TYPE = 'gDay';
 
 
     /**
