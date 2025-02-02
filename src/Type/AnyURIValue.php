@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class AnyURIValue extends AbstractValueType
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:anyURI';
+    public const SCHEMA_TYPE = 'anyURI';
 
 
     /**

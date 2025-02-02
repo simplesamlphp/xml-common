@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class ShortValue extends IntValue
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:short';
+    public const SCHEMA_TYPE = 'short';
 
 
     /**

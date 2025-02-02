@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class UnsignedByteValue extends IntegerValue
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:unsignedByte';
+    public const SCHEMA_TYPE = 'unsignedByte';
 
 
     /**

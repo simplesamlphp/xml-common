@@ -10,7 +10,7 @@ namespace SimpleSAML\XML\Type;
 class TokenValue extends NormalizedStringValue
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:token';
+    public const SCHEMA_TYPE = 'token';
 
 
     /**

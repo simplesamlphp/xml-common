@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class DoubleValue extends AbstractValueType
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:double';
+    public const SCHEMA_TYPE = 'double';
 
 
     /**
