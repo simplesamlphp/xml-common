@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class IntegerValue extends DecimalValue
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:integer';
+    public const SCHEMA_TYPE = 'integer';
 
 
     /**

@@ -10,7 +10,7 @@ namespace SimpleSAML\XML\Type;
 class NormalizedStringValue extends StringValue
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:normalizedString';
+    public const SCHEMA_TYPE = 'normalizedString';
 
 
     /**

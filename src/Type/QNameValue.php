@@ -16,7 +16,7 @@ use function preg_match;
 class QNameValue extends AbstractValueType
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:QName';
+    public const SCHEMA_TYPE = 'QName';
 
     /** @var \SimpleSAML\XML\Type\AnyURIValue|null */
     protected ?AnyURIValue $namespaceURI;

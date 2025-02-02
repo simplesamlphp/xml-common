@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class MonthValue extends AbstractValueType
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:gMonth';
+    public const SCHEMA_TYPE = 'gMonth';
 
 
     /**

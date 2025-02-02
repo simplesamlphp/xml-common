@@ -14,7 +14,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class EntitiesValue extends TokenValue implements ListTypeInterface
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:ENTITIES';
+    public const SCHEMA_TYPE = 'ENTITIES';
 
 
     /**

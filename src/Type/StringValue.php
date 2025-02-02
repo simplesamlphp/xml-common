@@ -10,5 +10,5 @@ namespace SimpleSAML\XML\Type;
 class StringValue extends AbstractValueType
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:string';
+    public const SCHEMA_TYPE = 'string';
 }

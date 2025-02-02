@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 class LongValue extends IntegerValue
 {
     /** @var string */
-    public const SCHEMA_TYPE = 'xs:long';
+    public const SCHEMA_TYPE = 'long';
 
 
     /**
