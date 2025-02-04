@@ -41,6 +41,8 @@ final class PositiveIntegerTest extends TestCase
     {
         return [
             'valid positive integer' => [true, '123456'],
+            'valid positive ten' => [true, '30'],
+            'valid positive hundred' => [true, '300'],
             'valid signed positive integer' => [true, '+123456'],
             'valid single digit' => [true, '3'],
             'valid negative leading zeros' => [true, '0000000000000000000005'],
