@@ -40,7 +40,7 @@ trait TypedTextContentTrait
      */
     protected function setContent(ValueTypeInterface $content): void
     {
-        Assert::isAOf($content, static::getTextContentType(), InvalidValueTypeException::class);
+        Assert::isAOf($content, self::getTextContentType(), InvalidValueTypeException::class);
         $this->content = $content;
     }
 
@@ -112,8 +112,8 @@ trait TypedTextContentTrait
      */
     public static function getTextContentType(): string
     {
-        if (defined('static::TEXTCONTENT_TYPE')) {
-            $type = static::TEXTCONTENT_TYPE;
+        if (defined('self::TEXTCONTENT_TYPE')) {
+            $type = self::TEXTCONTENT_TYPE;
         } else {
             $type = StringValue::class;
         }
