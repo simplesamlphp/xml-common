@@ -9,7 +9,6 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 
 use function boolval;
 use function in_array;
-use function strval;
 
 /**
  * @package simplesaml/xml-common
