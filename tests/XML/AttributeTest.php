@@ -43,7 +43,7 @@ final class AttributeTest extends TestCase
             'namespaceURI' => 'urn:x-simplesamlphp:phpunit',
             'namespacePrefix' => 'ssp',
             'attrName' => 'test1',
-            'attrValue' => StringValue::fromString('testvalue1'),
+            'attrValue' => 'testvalue1',
         ];
     }
 
@@ -68,7 +68,7 @@ final class AttributeTest extends TestCase
 
     /**
      */
-    public function testUnmarshalling(): void
+    public function testUnmarshallingArray(): void
     {
         /**
          * @var array{
@@ -89,7 +89,7 @@ final class AttributeTest extends TestCase
 
     /**
      */
-    public function testMarshallingXML(): void
+    public function testMarshalling(): void
     {
         $extendableAttribute = new Attribute(
             'urn:x-simplesamlphp:phpunit',

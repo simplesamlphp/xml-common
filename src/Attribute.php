@@ -137,7 +137,7 @@ final class Attribute implements ArrayizableElementInterface
             $data['namespaceURI'],
             $data['namespacePrefix'],
             $data['attrName'],
-            $data['attrValue'],
+            StringValue::fromString($data['attrValue']),
         );
     }
 
@@ -166,7 +166,7 @@ final class Attribute implements ArrayizableElementInterface
         Assert::nullOrValidAnyURI($data['namespaceuri']);
         Assert::nullOrValidNCName($data['namespaceprefix']);
         Assert::nullOrValidNCName($data['attrname']);
-        Assert::isAOf($data['attrvalue'], ValueTypeInterface::class);
+//        Assert::isAOf($data['attrvalue'], ValueTypeInterface::class);
 
         return [
             'namespaceURI' => $data['namespaceuri'],
@@ -193,7 +193,7 @@ final class Attribute implements ArrayizableElementInterface
             'namespaceURI' => $this->getNamespaceURI(),
             'namespacePrefix' => $this->getNamespacePrefix(),
             'attrName' => $this->getAttrName(),
-            'attrValue' => $this->getAttrValue(),
+            'attrValue' => $this->getAttrValue()->getValue(),
         ];
     }
 }
