@@ -106,6 +106,14 @@ final class Attribute implements ArrayizableElementInterface
      */
     public function toXML(DOMElement $parent): DOMElement
     {
+        if ($this->getNamespaceURI() !== null && !$parent->lookupPrefix($this->getNamespacePrefix())) {
+            $parent->setAttributeNS(
+                'http://www.w3.org/2000/xmlns/',
+                'xmlns:' . $this->getNamespacePrefix(),
+                $this->getNamespaceURI(),
+            );
+        }
+
         $parent->setAttributeNS(
             $this->getNamespaceURI(),
             !in_array($this->getNamespacePrefix(), ['', null])
