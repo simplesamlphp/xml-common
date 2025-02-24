@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Type;
 
+use DateTimeImmutable;
 use DateTimeInterface;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Exception\SchemaViolationException;
@@ -52,5 +53,14 @@ class DateTimeValue extends AbstractValueType
     public static function fromDateTime(DateTimeInterface $value): static
     {
         return new static($value->format(static::DATETIME_FORMAT));
+    }
+
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function toDateTime(): DateTimeImmutable
+    {
+        return new DateTimeImmutable($this->getValue());
     }
 }
