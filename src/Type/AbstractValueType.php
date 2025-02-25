@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Type;
 
+use function is_string;
 use function preg_replace;
+use function strcmp;
 use function trim;
 
 /**
@@ -131,5 +133,21 @@ abstract class AbstractValueType implements ValueTypeInterface
     public function __toString(): string
     {
         return $this->getValue();
+    }
+
+
+    /**
+     * Compare the value to another one
+     *
+     * @param \SimpleSAML\Type\ValueTypeInterface|string
+     * @return bool
+     */
+    public function equals(ValueTypeInterface|string $other): bool
+    {
+        if (is_string($other)) {
+            $other = static::fromString($other);
+        }
+
+        return strcmp($this->getValue(), $other->getValue()) === 0;
     }
 }
