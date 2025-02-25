@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Assert;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\Assert\Assert;
@@ -22,7 +21,8 @@ final class DurationTest extends TestCase
      * @param boolean $shouldPass
      * @param string $duration
      */
-    #[DataProvider('provideDuration')]
+    #[DataProvider('provideInvalidDuration')]
+    #[DataProvider('provideValidDuration')]
     public function testValidDuration(bool $shouldPass, string $duration): void
     {
         try {
@@ -35,32 +35,32 @@ final class DurationTest extends TestCase
 
 
     /**
-     * @return array<int, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideDuration(): array
+    public static function provideValidDuration(): array
     {
         return [
-            [true, 'P2Y6M5DT12H35M30S'],
-            [true, 'P1DT2H'],
-            [true, 'P1W'],
-            [true, 'P20M'],
-            [true, 'PT20M'],
-            [true, 'P0Y20M0D'],
-            [true, 'P0Y'],
-            [true, '-P60D'],
-            [true, 'PT1M30.5S'],
-            [true, 'P15.5Y'],
-            [true, 'P15,5Y'],
-            [false, 'P-20M'],
-            [false, 'P20MT'],
-            [false, 'P1YM5D'],
-            [false, 'P1D2H'],
-            [false, '1Y2M'],
-            [false, 'P2M1Y'],
-            [false, 'P'],
-            [false, 'PT15.S'],
-            // Trailing newlines are forbidden
-            [false, "P20M\n"],
+            'valid long seconds' => [true, 'PT1004199059S'],
+            'valid short seconds' => [true, 'PT130S'],
+            'valid minutes and seconds' => [true, 'PT2M10S'],
+            'valid one day and two seconds' => [true, 'P1DT2S'],
+            'valid minus one year' => [true, '-P1Y'],
+            'valid complex sub-second' => [true, 'P1Y2M3DT5H20M30.123S'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidDuration(): array
+    {
+        return [
+            'invalid missing P' => [false, '1Y'],
+            'invalid missing T' => [false, 'P1S'],
+            'invalid all parts must be positive' => [false, 'P-1Y'],
+            'invalid order Y must precede M' => [false, 'P1M2Y'],
+            'invalid all parts must me positive' => [false, 'P1Y-1M'],
         ];
     }
 }

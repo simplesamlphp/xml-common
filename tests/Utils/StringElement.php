@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use SimpleSAML\XML\AbstractElement;
-use SimpleSAML\XML\SchemaValidatableElementInterface;
-use SimpleSAML\XML\SchemaValidatableElementTrait;
-use SimpleSAML\XML\StringElementTrait;
+use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\TypedTextContentTrait;
+use SimpleSAML\XML\Type\StringValue;
 
 /**
  * Empty shell class for testing String elements.
@@ -17,7 +17,7 @@ use SimpleSAML\XML\StringElementTrait;
 final class StringElement extends AbstractElement implements SchemaValidatableElementInterface
 {
     use SchemaValidatableElementTrait;
-    use StringElementTrait;
+    use TypedTextContentTrait;
 
     /** @var string */
     public const NS = 'urn:x-simplesamlphp:namespace';
@@ -28,12 +28,6 @@ final class StringElement extends AbstractElement implements SchemaValidatableEl
     /** @var string */
     public const SCHEMA = 'tests/resources/schemas/simplesamlphp.xsd';
 
-
-    /**
-     * @param string $content
-     */
-    public function __construct(string $content)
-    {
-        $this->setContent($content);
-    }
+    /** @var string */
+    public const TEXTCONTENT_TYPE = StringValue::class;
 }

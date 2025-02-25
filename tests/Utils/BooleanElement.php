@@ -5,21 +5,19 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use SimpleSAML\XML\AbstractElement;
-use SimpleSAML\XML\BooleanElementTrait;
-use SimpleSAML\XML\SchemaValidatableElementInterface;
-use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\TypedTextContentTrait;
+use SimpleSAML\XML\Type\BooleanValue;
 
 /**
- * Empty shell class for testing BooleanElement.
+ * Empty shell class for testing xs:string elements.
  *
  * @package simplesaml/xml-common
- *
- * Note: this class is not final for testing purposes.
  */
-class BooleanElement extends AbstractElement implements SchemaValidatableElementInterface
+final class BooleanElement extends AbstractElement implements SchemaValidatableElementInterface
 {
-    use BooleanElementTrait;
     use SchemaValidatableElementTrait;
+    use TypedTextContentTrait;
 
     /** @var string */
     public const NS = 'urn:x-simplesamlphp:namespace';
@@ -27,14 +25,9 @@ class BooleanElement extends AbstractElement implements SchemaValidatableElement
     /** @var string */
     public const NS_PREFIX = 'ssp';
 
-    public const SCHEMA = '/file/does/not/exist.xsd';
+    /** @var string */
+    public const SCHEMA = 'tests/resources/schemas/simplesamlphp.xsd';
 
-
-    /**
-     * @param string $content
-     */
-    public function __construct(string $content)
-    {
-        $this->setContent($content);
-    }
+    /** @var string */
+    public const TEXTCONTENT_TYPE = BooleanValue::class;
 }
