@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExterna
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\Assert\AnyURITest;
 use SimpleSAML\XML\Exception\SchemaViolationException;
-use SimpleSAML\XML\Type\AnyURIValue;
+use SimpleSAML\XML\Type\{AnyURIValue, StringValue};
 
 /**
  * Class \SimpleSAML\Test\XML\Type\AnyURIValueTest
@@ -33,6 +33,22 @@ final class AnyURIValueTest extends TestCase
         } catch (SchemaViolationException $e) {
             $this->assertFalse($shouldPass);
         }
+    }
+
+
+    /**
+     */
+    public function testEquals(): void
+    {
+        // Assert that two identical values are equal
+        $this->assertTrue(AnyURIValue::fromString('hello')->equals(AnyURIValue::fromString('hello')));
+        $this->assertTrue(AnyURIValue::fromString('hello')->equals(StringValue::fromString('hello')));
+        $this->assertTrue(AnyURIValue::fromString('hello')->equals('hello'));
+
+        // Assert that two different values are not equal
+        $this->assertFalse(AnyURIValue::fromString('hello')->equals(AnyURIValue::fromString('world')));
+        $this->assertFalse(AnyURIValue::fromString('hello')->equals(StringValue::fromString('world')));
+        $this->assertFalse(AnyURIValue::fromString('hello')->equals('world'));
     }
 
 
