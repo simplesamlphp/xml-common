@@ -26,7 +26,7 @@ final class DOMDocumentFactory
      * @var non-negative-int
      * TODO: Add LIBXML_NO_XXE to the defaults when PHP 8.4.0 + libxml 2.13.0 become generally available
      */
-    public const DEFAULT_OPTIONS = LIBXML_COMPACT | LIBXML_NONET | LIBXML_NSCLEAN;
+    public const DEFAULT_OPTIONS = LIBXML_COMPACT | LIBXML_NONET | LIBXML_NSCLEAN | LIBXML_PARSEHUGE;
 
 
     /**
