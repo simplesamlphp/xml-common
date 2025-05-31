@@ -107,7 +107,7 @@ trait XPathFilterTrait
      * @param array<string> $allowed_functions
      * @param string $message
      */
-    public static function allowedXPathFilter(
+    public static function validAllowedXPathFilter(
         string $value,
         array $allowed_axes = C::DEFAULT_ALLOWED_AXES,
         array $allowed_functions = C::DEFAULT_ALLOWED_FUNCTIONS,
@@ -132,6 +132,21 @@ trait XPathFilterTrait
             throw new Exception("Error in preg_replace.");
         }
 
+        self::validAllowedXpathFunctions($strippedValue, $allowed_functions);
+        self::validAllowedXpathAxes($strippedValue, $allowed_axes);
+    }
+
+
+    /**
+     * @param string $value
+     * @param array<string> $allowed_functions
+     * @param string $message
+     */
+    public static function validAllowedXPathFunctions(
+        string $value,
+        array $allowed_functions = C::DEFAULT_ALLOWED_FUNCTIONS,
+        string $message = '',
+    ): void {
         /**
          * Check if the $xpath_expression uses an XPath function that is not in the list of allowed functions
          *
@@ -140,7 +155,7 @@ trait XPathFilterTrait
          * All functions must match a string on a list of allowed function names
          */
         $matches = [];
-        $res = preg_match_all(self::$regex_xpfilter_functions, $strippedValue, $matches);
+        $res = preg_match_all(self::$regex_xpfilter_functions, $value, $matches);
         if ($res === false) {
             throw new Exception("Error in preg_match_all.");
         }
@@ -154,7 +169,19 @@ trait XPathFilterTrait
                 ));
             }
         }
+    }
 
+
+    /**
+     * @param string $value
+     * @param array<string> $allowed_axes
+     * @param string $message
+     */
+    public static function validAllowedXPathAxes(
+        string $value,
+        array $allowed_axes = C::DEFAULT_ALLOWED_AXES,
+        string $message = '',
+    ): void {
         /**
          * Check if the $xpath_expression uses an XPath axis that is not in the list of allowed axes
          *
@@ -163,7 +190,7 @@ trait XPathFilterTrait
          * All axes must match a string on a list of allowed axis names
          */
         $matches = [];
-        $res = preg_match_all(self::$regex_xpfilter_axes, $strippedValue, $matches);
+        $res = preg_match_all(self::$regex_xpfilter_axes, $value, $matches);
         if ($res === false) {
             throw new Exception("Error in preg_match_all.");
         }

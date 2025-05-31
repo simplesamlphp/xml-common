@@ -35,7 +35,7 @@ final class XPathFilterTest extends TestCase
         array $functions = C::DEFAULT_ALLOWED_FUNCTIONS,
     ): void {
         try {
-            XMLAssert::allowedXPathFilter($filter, $axes, $functions);
+            XMLAssert::validAllowedXPathFilter($filter, $axes, $functions);
             $this->assertTrue($shouldPass);
         } catch (AssertionFailedException $e) {
             $this->assertFalse($shouldPass);
