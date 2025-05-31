@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\XML\Assert;
 
 use Exception;
-use InvalidArgumentException;
 use SimpleSAML\Assert\Assert as BaseAssert;
+use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\Constants as C;
 
 use function in_array;
@@ -148,7 +148,7 @@ trait XPathFilterTrait
         // Check that all the function names we found are in the list of allowed function names
         foreach ($matches[1] as $match) {
             if (!in_array($match, $allowed_functions)) {
-                throw new InvalidArgumentException(sprintf(
+                throw new AssertionFailedException(sprintf(
                     $message ?: '\'%s\' is not an allowed XPath function.',
                     $match,
                 ));
@@ -171,7 +171,7 @@ trait XPathFilterTrait
         // Check that all the axes names we found are in the list of allowed axes names
         foreach ($matches[1] as $match) {
             if (!in_array($match, $allowed_axes)) {
-                throw new InvalidArgumentException(sprintf(
+                throw new AssertionFailedException(sprintf(
                     $message ?: '\'%s\' is not an allowed XPath axis.',
                     $match,
                 ));
