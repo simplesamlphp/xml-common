@@ -107,7 +107,7 @@ trait XPathFilterTrait
      * @param array<string> $allowed_functions
      * @param string $message
      */
-    private static function allowedXPathFilter(
+    public static function allowedXPathFilter(
         string $value,
         array $allowed_axes = C::DEFAULT_ALLOWED_AXES,
         array $allowed_functions = C::DEFAULT_ALLOWED_FUNCTIONS,
