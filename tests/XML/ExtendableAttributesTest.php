@@ -9,10 +9,11 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\ExtendableAttributesElement;
 use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XML\Type\StringValue;
 
 use function dirname;
+use function strval;
 
 /**
  * Class \SimpleSAML\XML\ExtendableAttributesTest
@@ -45,9 +46,9 @@ final class ExtendableAttributesTest extends TestCase
     {
         $extendableElement = new ExtendableAttributesElement(
             [
-                new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr1', 'testval1'),
-                new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr2', 'testval2'),
-                new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr3', 'testval3'),
+                new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr1', StringValue::fromString('testval1')),
+                new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr2', StringValue::fromString('testval2')),
+                new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr3', StringValue::fromString('testval3')),
             ],
         );
 
@@ -72,11 +73,11 @@ final class ExtendableAttributesTest extends TestCase
         $this->assertEquals($attributes[0]->getNamespaceURI(), 'urn:x-simplesamlphp:namespace');
         $this->assertEquals($attributes[0]->getNamespacePrefix(), 'ssp');
         $this->assertEquals($attributes[0]->getAttrName(), 'attr1');
-        $this->assertEquals($attributes[0]->getAttrValue(), 'testval1');
+        $this->assertEquals(strval($attributes[0]->getAttrValue()), 'testval1');
 
         $this->assertEquals($attributes[1]->getNamespaceURI(), 'urn:x-simplesamlphp:namespace');
         $this->assertEquals($attributes[1]->getNamespacePrefix(), 'ssp');
         $this->assertEquals($attributes[1]->getAttrName(), 'attr2');
-        $this->assertEquals($attributes[1]->getAttrValue(), 'testval2');
+        $this->assertEquals(strval($attributes[1]->getAttrValue()), 'testval2');
     }
 }

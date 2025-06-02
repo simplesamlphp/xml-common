@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Assert;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\Assert\Assert;
@@ -20,13 +19,14 @@ final class NCNameTest extends TestCase
 {
     /**
      * @param boolean $shouldPass
-     * @param string $name
+     * @param string $ncName
      */
-    #[DataProvider('provideNCName')]
-    public function testValidNCName(bool $shouldPass, string $name): void
+    #[DataProvider('provideInvalidNCName')]
+    #[DataProvider('provideValidNCName')]
+    public function testValidNCName(bool $shouldPass, string $ncName): void
     {
         try {
-            Assert::validNCName($name);
+            Assert::validNCName($ncName);
             $this->assertTrue($shouldPass);
         } catch (AssertionFailedException $e) {
             $this->assertFalse($shouldPass);
@@ -35,22 +35,33 @@ final class NCNameTest extends TestCase
 
 
     /**
-     * @return array<int, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideNCName(): array
+    public static function provideValidNCName(): array
     {
         return [
-            [true, 'Test'],
-            [true, '_Test'],
-            // Prefixed v4 UUID
-            [true, '_5425e58e-e799-4884-92cc-ca64ecede32f'],
-            // An empty value is not valid, unless xsi:nil is used
-            [false, ''],
-            [false, 'Te*st'],
-            [false, '1Test'],
-            [false, 'Te:st'],
-            // Trailing newlines are forbidden
-            [false, "Test\n"],
+            'valid' => [true, 'Test'],
+            'valid starts with underscore' => [true, '_Test'],
+            'valid contains dashes' => [true, '_1950-10-04_10-00'],
+            'valid contains dots' => [true, 'Te.st'],
+            'valid contains diacriticals' => [true, 'fööbár'],
+            'valid prefixed v4 UUID' => [true, '_5425e58e-e799-4884-92cc-ca64ecede32f'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidNCName(): array
+    {
+        return [
+            'invalid empty string' => [false, ''],
+            'invalid contains wildcard' => [false, 'Te*st'],
+            'invalid starts with dash' => [false, '-Test'],
+            'invalid starts with digit' => [false, '1Test'],
+            'invalid contains colon' => [false, 'Te:st'],
+            'trailing newline' => [false, "Test\n"],
         ];
     }
 }

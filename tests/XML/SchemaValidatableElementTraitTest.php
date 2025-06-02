@@ -7,11 +7,8 @@ namespace SimpleSAML\Test\XML;
 use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Test\XML\BooleanElement;
-use SimpleSAML\Test\XML\StringElement;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\Exception\IOException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XML\Exception\{IOException, SchemaViolationException};
 use SimpleSAML\XML\SchemaValidatableElementTrait;
 
 /**
@@ -44,20 +41,20 @@ final class SchemaValidatableElementTraitTest extends TestCase
 
     public function testSchemaValidationWrongElementFails(): void
     {
-        $file = 'tests/resources/xml/ssp_Base64Element.xml';
+        $file = 'tests/resources/xml/ssp_Base64BinaryElement.xml';
         $chunk = DOMDocumentFactory::fromFile($file);
 
         $this->expectException(SchemaViolationException::class);
-        StringElement::schemaValidate($chunk);
+        BooleanElement::schemaValidate($chunk);
     }
 
 
     public function testSchemaValidationUnknownSchemaFileFails(): void
     {
-        $file = 'tests/resources/xml/ssp_BooleanElement.xml';
+        $file = 'tests/resources/xml/ssp_Base64BinaryElement.xml';
         $chunk = DOMDocumentFactory::fromFile($file);
 
         $this->expectException(IOException::class);
-        BooleanElement::schemaValidate($chunk);
+        Base64BinaryElement::schemaValidate($chunk);
     }
 }

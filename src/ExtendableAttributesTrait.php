@@ -9,6 +9,7 @@ use RuntimeException;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\Constants as C;
+use SimpleSAML\XML\Type\StringValue;
 use SimpleSAML\XML\XsNamespace as NS;
 
 use function array_diff;
@@ -115,7 +116,12 @@ trait ExtendableAttributesTrait
                     continue;
                 }
 
-                $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
+                $attributes[] = new Attribute(
+                    $a->namespaceURI,
+                    $a->prefix,
+                    $a->localName,
+                    StringValue::fromString($a->nodeValue),
+                );
             }
         } else {
             // Array must be non-empty and cannot contain ##any or ##other
@@ -141,7 +147,12 @@ trait ExtendableAttributesTrait
                     continue;
                 }
 
-                $attributes[] = new Attribute($a->namespaceURI, $a->prefix, $a->localName, $a->nodeValue);
+                $attributes[] = new Attribute(
+                    $a->namespaceURI,
+                    $a->prefix,
+                    $a->localName,
+                    StringValue::fromString($a->nodeValue),
+                );
             }
         }
 

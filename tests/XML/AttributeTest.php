@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\ArrayizableElementTestTrait;
+use SimpleSAML\XML\Type\StringValue;
+
+use function strval;
 
 /**
  * Class \SimpleSAML\XML\AttributeTest
@@ -53,7 +56,7 @@ final class AttributeTest extends TestCase
             'urn:x-simplesamlphp:phpunit',
             'ssp',
             'test1',
-            'testvalue1',
+            StringValue::fromString('testvalue1'),
         );
 
         $this->assertEquals(
@@ -65,9 +68,16 @@ final class AttributeTest extends TestCase
 
     /**
      */
-    public function testUnmarshalling(): void
+    public function testUnmarshallingArray(): void
     {
-        /** @var array{namespaceURI: string, namespacePrefix: string|null, attrName: string, attrValue: mixed} $arrayRepresentation */
+        /**
+         * @var array{
+         *   namespaceURI: string,
+         *   namespacePrefix: string|null,
+         *   attrName: string,
+         *   attrValue: \SimpleSAML\XML\Type\ValueTypeInterface
+         * } $arrayRepresentation
+         */
         $arrayRepresentation = self::$arrayRepresentation;
         $extendableAttribute = Attribute::fromArray($arrayRepresentation);
         $this->assertEquals(
@@ -79,13 +89,13 @@ final class AttributeTest extends TestCase
 
     /**
      */
-    public function testMarshallingXML(): void
+    public function testMarshalling(): void
     {
         $extendableAttribute = new Attribute(
             'urn:x-simplesamlphp:phpunit',
             'ssp',
             'test1',
-            'testvalue1',
+            StringValue::fromString('testvalue1'),
         );
 
         $doc = DOMDocumentFactory::fromString('<root />');
