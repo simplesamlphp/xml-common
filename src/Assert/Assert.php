@@ -9,9 +9,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
 /**
  * @package simplesamlphp/xml-common
  *
- * @method static void validAllowedXPathAxes(mixed $value, array $allowed_axes, string $message = '', string $exception = '')
  * @method static void validAllowedXPathFilter(mixed $value, array $allowed_axes, array $allowed_functions, string $message = '', string $exception = '')
- * @method static void validAllowedXPathFunctions(mixed $value, array $allowed_functions, string $message = '', string $exception = '')
  * @method static void validHexBinary(mixed $value, string $message = '', string $exception = '')
  * @method static void validNMToken(mixed $value, string $message = '', string $exception = '')
  * @method static void validNMTokens(mixed $value, string $message = '', string $exception = '')
@@ -19,9 +17,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void validDateTime(mixed $value, string $message = '', string $exception = '')
  * @method static void validNCName(mixed $value, string $message = '', string $exception = '')
  * @method static void validQName(mixed $value, string $message = '', string $exception = '')
- * @method static void nullOrValidAllowedXPathAxes(mixed $value, array $allowed_axes, string $message = '', string $exception = '')
  * @method static void nullOrValidAllowedXPathFilter(mixed $value, array $allowed_axes, array $allowed_functions, string $message = '', string $exception = '')
- * @method static void nullOrValidAllowedXPathFunctions(mixed $value, array $allowed_functions, string $message = '', string $exception = '')
  * @method static void nullOrValidHexBinary(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidNMToken(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidNMTokens(mixed $value, string $message = '', string $exception = '')
@@ -29,9 +25,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void nullOrValidDateTime(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidNCName(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidQName(mixed $value, string $message = '', string $exception = '')
- * @method static void allValidAllowedXPathAxes(mixed $value, array $allowed_axes, string $message = '', string $exception = '')
  * @method static void allValidAllowedXPathFilter(mixed $value, array $allowed_axes, array $allowed_functions, string $message = '', string $exception = '')
- * @method static void allValidAllowedXPathFunctions(mixed $value, array $allowed_functions, string $message = '', string $exception = '')
  * @method static void allValidHexBinary(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidNMToken(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidNMTokens(mixed $value, string $message = '', string $exception = '')

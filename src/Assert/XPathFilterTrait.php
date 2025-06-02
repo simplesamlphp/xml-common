@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Assert;
 
+use InvalidArgumentException;
 use SimpleSAML\Assert\Assert as BaseAssert;
-use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\Exception\RuntimeException;
+use SimpleSAML\XML\Utils\XPathFilter;
 
-use function in_array;
-use function preg_match_all;
-use function preg_replace;
 use function sprintf;
 
 /**
@@ -19,63 +17,6 @@ use function sprintf;
  */
 trait XPathFilterTrait
 {
-    /**
-     * Remove the content from all single or double-quoted strings in $input, leaving only quotes.
-     * Use possessive quantifiers (i.e. *+ and ++ instead of * and + respectively) to prevent backtracking.
-     *
-     * '/(["\'])(?:(?!\1).)*+\1/'
-     *  (["\'])  # Match a single or double quote and capture it in group 1
-     *  (?:      # Start a non-capturing group
-     *    (?!    # Negative lookahead
-     *      \1   # Match the same quote as in group 1
-     *    )      # End of negative lookahead
-     *    .      # Match any character (that is not a quote, because of the negative lookahead)
-     *  )*+      # Repeat the non-capturing group zero or more times, possessively
-     *  \1       # Match the same quote as in group 1
-     */
-    private static string $regex_xpfilter_remove_strings = '/(["\'])(?:(?!\1).)*+\1/';
-
-    /**
-     * Function names are lower-case alpha (i.e. [a-z]) and can contain one or more hyphens,
-     * but cannot start or end with a hyphen. To match this, we start with matching one or more
-     * lower-case alpha characters, followed by zero or more atomic groups that start with a hyphen
-     * and then match one or more lower-case alpha characters. This ensures that the function name
-     * cannot start or end with a hyphen, but can contain one or more hyphens.
-     * More than one consecutive hyphen does not match.
-     *
-     * '/([a-z]++(?>-[a-z]++)*+)\s*+\(/'
-     * (           # Start a capturing group
-     *   [a-z]++   # Match one or more lower-case alpha characters
-     *   (?>       # Start an atomic group (no capturing)
-     *     -       # Match a hyphen
-     *     [a-z]++ # Match one or more lower-case alpha characters, possessively
-     *   )*+        # Repeat the atomic group zero or more times,
-     * )           # End of the capturing group
-     * \s*+        # Match zero or more whitespace characters, possessively
-     * \(          # Match an opening parenthesis
-     */
-    private static string $regex_xpfilter_functions = '/([a-z]++(?>-[a-z]++)*+)\\s*+\\(/';
-
-    /**
-     * We use the same rules for matching Axis names as we do for function names.
-     * The only difference is that we match the '::' instead of the '('
-     * so everything that was said about the regular expression for function names
-     * applies here as well.
-     *
-     * '/([a-z]++(?>-[a-z]++)*+)\s*+::'
-     * (           # Start a capturing group
-     *   [a-z]++   # Match one or more lower-case alpha characters
-     *   (?>       # Start an atomic group (no capturing)
-     *     -       # Match a hyphen
-     *     [a-z]++ # Match one or more lower-case alpha characters, possessively
-     *   )*+       # Repeat the atomic group zero or more times,
-     * )           # End of the capturing group
-     * \s*+        # Match zero or more whitespace characters, possessively
-     * \(          # Match an opening parenthesis
-     */
-    private static string $regex_xpfilter_axes = '/([a-z]++(?>-[a-z]++)*+)\\s*+::/';
-
-
     /***********************************************************************************
      *  NOTE:  Custom assertions may be added below this line.                         *
      *         They SHOULD be marked as `private` to ensure the call is forced         *
@@ -89,7 +30,7 @@ trait XPathFilterTrait
      * The goal is preventing DoS attacks by limiting the complexity of the XPath expression by only allowing
      * a select subset of functions and axes.
      * The check uses a list of allowed functions and axes, and throws an exception when an unknown function
-     * or axis is found in the $value.
+     * or axis is found in the $xpathExpression.
      *
      * Limitations:
      * - The implementation is based on regular expressions, and does not employ an XPath 1.0 parser. It may not
@@ -102,107 +43,37 @@ trait XPathFilterTrait
      *   XPath processor that will evaluate the expression.
      * - The check was written with the XPath 1.0 syntax in mind, but should work equally well for XPath 2.0 and 3.0.
      *
-     * @param string $value
-     * @param array<string> $allowed_axes
-     * @param array<string> $allowed_functions
+     * @param string $xpathExpression
+     * @param array<string> $allowedAxes
+     * @param array<string> $allowedFunctions
      * @param string $message
      */
     public static function validAllowedXPathFilter(
-        string $value,
-        array $allowed_axes = C::DEFAULT_ALLOWED_AXES,
-        array $allowed_functions = C::DEFAULT_ALLOWED_FUNCTIONS,
+        string $xpathExpression,
+        array $allowedAxes = C::DEFAULT_ALLOWED_AXES,
+        array $allowedFunctions = C::DEFAULT_ALLOWED_FUNCTIONS,
         string $message = '',
     ): void {
-        BaseAssert::allString($allowed_axes);
-        BaseAssert::allString($allowed_functions);
+        BaseAssert::allString($allowedAxes);
+        BaseAssert::allString($allowedFunctions);
         BaseAssert::maxLength(
-            $value,
+            $xpathExpression,
             C::XPATH_FILTER_MAX_LENGTH,
             sprintf('XPath Filter exceeds the limit of 100 characters.'),
         );
 
-        $strippedValue = preg_replace(
-            self::$regex_xpfilter_remove_strings,
-            // Replace the content with two of the quotes that were matched
-            "\\1\\1",
-            $value,
-        );
+        try {
+            // First remove the contents of any string literals in the $xpath to prevent false positives
+            $xpathWithoutStringLiterals = XPathFilter::removeStringContents($xpathExpression);
 
-        if ($strippedValue === null) {
-            throw new RuntimeException("Error in preg_replace.");
-        }
-
-        self::validAllowedXpathFunctions($strippedValue, $allowed_functions);
-        self::validAllowedXpathAxes($strippedValue, $allowed_axes);
-    }
-
-
-    /**
-     * @param string $value
-     * @param array<string> $allowed_functions
-     * @param string $message
-     */
-    public static function validAllowedXPathFunctions(
-        string $value,
-        array $allowed_functions = C::DEFAULT_ALLOWED_FUNCTIONS,
-        string $message = '',
-    ): void {
-        /**
-         * Check if the $xpath_expression uses an XPath function that is not in the list of allowed functions
-         *
-         * Look for the function specifier '(' and look for a function name before it.
-         * Ignoring whitespace before the '(' and the function name.
-         * All functions must match a string on a list of allowed function names
-         */
-        $matches = [];
-        $res = preg_match_all(self::$regex_xpfilter_functions, $value, $matches);
-        if ($res === false) {
-            throw new RuntimeException("Error in preg_match_all.");
-        }
-
-        // Check that all the function names we found are in the list of allowed function names
-        foreach ($matches[1] as $match) {
-            if (!in_array($match, $allowed_functions)) {
-                throw new AssertionFailedException(sprintf(
-                    $message ?: '\'%s\' is not an allowed XPath function.',
-                    $match,
-                ));
-            }
-        }
-    }
-
-
-    /**
-     * @param string $value
-     * @param array<string> $allowed_axes
-     * @param string $message
-     */
-    public static function validAllowedXPathAxes(
-        string $value,
-        array $allowed_axes = C::DEFAULT_ALLOWED_AXES,
-        string $message = '',
-    ): void {
-        /**
-         * Check if the $value uses an XPath axis that is not in the list of allowed axes
-         *
-         * Look for the axis specifier '::' and look for a function name before it.
-         * Ignoring whitespace before the '::' and the axis name.
-         * All axes must match a string on a list of allowed axis names
-         */
-        $matches = [];
-        $res = preg_match_all(self::$regex_xpfilter_axes, $value, $matches);
-        if ($res === false) {
-            throw new RuntimeException("Error in preg_match_all.");
-        }
-
-        // Check that all the axes names we found are in the list of allowed axes names
-        foreach ($matches[1] as $match) {
-            if (!in_array($match, $allowed_axes)) {
-                throw new AssertionFailedException(sprintf(
-                    $message ?: '\'%s\' is not an allowed XPath axis.',
-                    $match,
-                ));
-            }
+            // Then check that the xpath expression only contains allowed functions and axes, throws when it doesn't
+            XPathFilter::filterXPathFunction($xpathWithoutStringLiterals, $allowedFunctions);
+            XPathFilter::filterXPathAxis($xpathWithoutStringLiterals, $allowedAxes);
+        } catch (RuntimeException $e) {
+            throw new InvalidArgumentException(sprintf(
+                $message ?: $e->getMessage(),
+                $xpathExpression,
+            ));
         }
     }
 }
