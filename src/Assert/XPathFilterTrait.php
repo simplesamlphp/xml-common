@@ -89,7 +89,7 @@ trait XPathFilterTrait
      * The goal is preventing DoS attacks by limiting the complexity of the XPath expression by only allowing
      * a select subset of functions and axes.
      * The check uses a list of allowed functions and axes, and throws an exception when an unknown function
-     * or axis is found in the $xpath_expression.
+     * or axis is found in the $value.
      *
      * Limitations:
      * - The implementation is based on regular expressions, and does not employ an XPath 1.0 parser. It may not
@@ -183,7 +183,7 @@ trait XPathFilterTrait
         string $message = '',
     ): void {
         /**
-         * Check if the $xpath_expression uses an XPath axis that is not in the list of allowed axes
+         * Check if the $value uses an XPath axis that is not in the list of allowed axes
          *
          * Look for the axis specifier '::' and look for a function name before it.
          * Ignoring whitespace before the '::' and the axis name.
