@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Assert;
 
-use Exception;
 use SimpleSAML\Assert\Assert as BaseAssert;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\Constants as C;
+use SimpleSAML\XML\Exception\RuntimeException;
 
 use function in_array;
 use function preg_match_all;
@@ -129,7 +129,7 @@ trait XPathFilterTrait
         );
 
         if ($strippedValue === null) {
-            throw new Exception("Error in preg_replace.");
+            throw new RuntimeException("Error in preg_replace.");
         }
 
         self::validAllowedXpathFunctions($strippedValue, $allowed_functions);
@@ -157,7 +157,7 @@ trait XPathFilterTrait
         $matches = [];
         $res = preg_match_all(self::$regex_xpfilter_functions, $value, $matches);
         if ($res === false) {
-            throw new Exception("Error in preg_match_all.");
+            throw new RuntimeException("Error in preg_match_all.");
         }
 
         // Check that all the function names we found are in the list of allowed function names
@@ -192,7 +192,7 @@ trait XPathFilterTrait
         $matches = [];
         $res = preg_match_all(self::$regex_xpfilter_axes, $value, $matches);
         if ($res === false) {
-            throw new Exception("Error in preg_match_all.");
+            throw new RuntimeException("Error in preg_match_all.");
         }
 
         // Check that all the axes names we found are in the list of allowed axes names
