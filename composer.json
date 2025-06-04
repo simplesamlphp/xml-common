@@ -35,7 +35,7 @@
         "ext-spl": "*",
 
         "simplesamlphp/assert": "~1.8.1",
-        "symfony/finder": "~6.4.0"
+        "symfony/finder": "^7.3.0"
     },
     "require-dev": {
         "simplesamlphp/simplesamlphp-test-framework": "~1.9.2"
