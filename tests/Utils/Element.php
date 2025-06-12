@@ -8,6 +8,7 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\XML\Type\{BooleanValue, IntegerValue, StringValue};
 
 use function strval;
 
@@ -26,14 +27,16 @@ final class Element extends AbstractElement
 
 
     /**
-     * @param int|null $integer
-     * @param bool|null $boolean
-     * @param string|null $text
+     * @param \SimpleSAML\XML\Type\IntegerValue|null $integer
+     * @param \SimpleSAML\XML\Type\BooleanValue|null $boolean
+     * @param \SimpleSAML\XML\Type\StringValue|null $text
+     * @param \SimpleSAML\XML\Type\StringValue|null $otherText
      */
     public function __construct(
-        protected ?int $integer = null,
-        protected ?bool $boolean = null,
-        protected ?string $text = null,
+        protected ?IntegerValue $integer = null,
+        protected ?BooleanValue $boolean = null,
+        protected ?StringValue $text = null,
+        protected ?StringValue $otherText = null,
     ) {
     }
 
@@ -41,9 +44,9 @@ final class Element extends AbstractElement
     /**
      * Collect the value of the integer-property
      *
-     * @return int|null
+     * @return \SimpleSAML\XML\Type\IntegerValue|null
      */
-    public function getInteger(): ?int
+    public function getInteger(): ?IntegerValue
     {
         return $this->integer;
     }
@@ -52,9 +55,9 @@ final class Element extends AbstractElement
     /**
      * Collect the value of the boolean-property
      *
-     * @return bool|null
+     * @return \SimpleSAML\XML\Type\BooleanValue|null
      */
-    public function getBoolean(): ?bool
+    public function getBoolean(): ?BooleanValue
     {
         return $this->boolean;
     }
@@ -63,11 +66,22 @@ final class Element extends AbstractElement
     /**
      * Collect the value of the text-property
      *
-     * @return string|null
+     * @return \SimpleSAML\XML\Type\StringValue|null
      */
-    public function getString(): ?string
+    public function getString(): ?StringValue
     {
         return $this->text;
+    }
+
+
+    /**
+     * Collect the value of the text2-property
+     *
+     * @return \SimpleSAML\XML\Type\StringValue|null
+     */
+    public function getOtherString(): ?StringValue
+    {
+        return $this->otherText;
     }
 
 
@@ -82,11 +96,12 @@ final class Element extends AbstractElement
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
-        $integer = self::getIntegerAttribute($xml, 'integer');
-        $boolean = self::getBooleanAttribute($xml, 'boolean');
-        $text = self::getAttribute($xml, 'text');
+        $integer = self::getAttribute($xml, 'integer', IntegerValue::class);
+        $boolean = self::getAttribute($xml, 'boolean', BooleanValue::class);
+        $text = self::getAttribute($xml, 'text', StringValue::class);
+        $otherText = self::getAttribute($xml, 'otherText');
 
-        return new static($integer, $boolean, $text);
+        return new static($integer, $boolean, $text, $otherText);
     }
 
 
@@ -100,16 +115,20 @@ final class Element extends AbstractElement
     {
         $e = $this->instantiateParentElement($parent);
 
-        if ($this->integer !== null) {
-            $e->setAttribute('integer', strval($this->integer));
+        if ($this->getInteger() !== null) {
+            $e->setAttribute('integer', strval($this->getInteger()));
         }
 
-        if ($this->boolean !== null) {
-            $e->setAttribute('boolean', $this->boolean ? 'true' : 'false');
+        if ($this->getBoolean() !== null) {
+            $e->setAttribute('boolean', strval($this->getBoolean()));
         }
 
-        if ($this->text !== null) {
-            $e->setAttribute('text', $this->text);
+        if ($this->getString() !== null) {
+            $e->setAttribute('text', strval($this->getString()));
+        }
+
+        if ($this->getOtherString() !== null) {
+            $e->setAttribute('otherText', strval($this->getOtherString()));
         }
 
         return $e;

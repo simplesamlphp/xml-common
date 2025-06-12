@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Assert;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\Assert\Assert;
@@ -22,7 +21,8 @@ final class NMTokensTest extends TestCase
      * @param boolean $shouldPass
      * @param string $nmtokens
      */
-    #[DataProvider('provideNMTokens')]
+    #[DataProvider('provideInvalidNMTokens')]
+    #[DataProvider('provideValidNMTokens')]
     public function testValidTokens(bool $shouldPass, string $nmtokens): void
     {
         try {
@@ -35,23 +35,29 @@ final class NMTokensTest extends TestCase
 
 
     /**
-     * @return array<int, array{0: bool, 1: string}>
+     * @return array<string, array{0: true, 1: string}>
      */
-    public static function provideNMTokens(): array
+    public static function provideValidNMTokens(): array
     {
         return [
-            [true, 'Snoopy'],
-            [true, 'CMS'],
-            [true, 'fööbár'],
-            [true, '1950-10-04'],
-            [true, '0836217462 0836217463'],
-            [true, 'foo bar'],
-            // Quotes are forbidden
-            [false, 'foo "bar" baz'],
-            // Commas are forbidden
-            [false, 'foo,bar'],
-            // Trailing newlines are forbidden
-            [false, "foobar\n"],
+            'valid' => [true, 'Snoopy foobar'],
+            'diacritical' => [true, 'Snoopy fööbár'],
+            'start with colon' => [true, ':CMS :ABC'],
+            'start with dash' => [true, '-1950-10-04 -1984-11-07'],
+            'numeric first char' => [true, '0836217462'],
+        ];
+    }
+
+
+    /**
+     * @return array<string, array{0: false, 1: string}>
+     */
+    public static function provideInvalidNMTokens(): array
+    {
+        return [
+            'comma' => [false, 'foo,bar'],
+            'quotes' => [false, 'foo "bar" baz'],
+            'trailing newline' => [false, "foobar\n"],
         ];
     }
 }
