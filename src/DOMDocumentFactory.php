@@ -5,10 +5,15 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMDocument;
+use LIBXML_COMPACT;
+use LIBXML_NONET;
+use LIBXML_NO_XXE;
+use LIBXML_NSCLEAN;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\IOException;
 use SimpleSAML\XML\Exception\RuntimeException;
 use SimpleSAML\XML\Exception\UnparseableXMLException;
+use XML_DOCUMENT_TYPE_NODE;
 
 use function file_get_contents;
 use function func_num_args;
@@ -90,7 +95,6 @@ final class DOMDocumentFactory
      */
     public static function fromFile(
         string $file,
-        ?string $schemaFile = null,
         int $options = self::DEFAULT_OPTIONS,
     ): DOMDocument {
         error_clear_last();
