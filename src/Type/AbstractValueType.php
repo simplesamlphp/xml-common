@@ -139,7 +139,7 @@ abstract class AbstractValueType implements ValueTypeInterface
     /**
      * Compare the value to another one
      *
-     * @param \SimpleSAML\Type\ValueTypeInterface|string
+     * @param \SimpleSAML\XML\Type\ValueTypeInterface|string $other
      * @return bool
      */
     public function equals(ValueTypeInterface|string $other): bool

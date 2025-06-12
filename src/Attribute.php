@@ -190,7 +190,7 @@ final class Attribute implements ArrayizableElementInterface
      *
      * @return array{
      *   attrName: string,
-     *   attrValue: \SimpleSAML\XML\Type\ValueTypeInterface,
+     *   attrValue: string,
      *   namespacePrefix: string,
      *   namespaceURI: null|string,
      * }
