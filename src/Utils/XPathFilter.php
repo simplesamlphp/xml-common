@@ -73,7 +73,7 @@ class XPathFilter
          * All functions must match a string on a list of allowed function names
          */
         $matches = [];
-        $res = preg_match_all(
+        preg_match_all(
             /**
              * Function names are lower-case alpha (i.e. [a-z]) and can contain one or more hyphens,
              * but cannot start or end with a hyphen. To match this, we start with matching one or more
@@ -126,7 +126,7 @@ class XPathFilter
          * All axes must match a string on a list of allowed axis names
          */
         $matches = [];
-        $res = preg_match_all(
+        preg_match_all(
             /**
              * We use the same rules for matching Axis names as we do for function names.
              * The only difference is that we match the '::' instead of the '('
