@@ -10,7 +10,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 /**
  * @package simplesaml/xml-common
  */
-class UnsignedShortValue extends IntegerValue
+class UnsignedShortValue extends NonNegativeIntegerValue
 {
     /** @var string */
     public const SCHEMA_TYPE = 'unsignedShort';

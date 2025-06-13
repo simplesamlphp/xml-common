@@ -10,7 +10,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 /**
  * @package simplesaml/xml-common
  */
-class PositiveIntegerValue extends IntegerValue
+class PositiveIntegerValue extends NonNegativeIntegerValue
 {
     /** @var string */
     public const SCHEMA_TYPE = 'positiveInteger';
