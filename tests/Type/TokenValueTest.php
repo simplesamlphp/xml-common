@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DependsOnClass};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\Assert\TokenTest;
 use SimpleSAML\XML\Type\TokenValue;
