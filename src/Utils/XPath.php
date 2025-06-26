@@ -8,6 +8,7 @@ use DOMDocument;
 use DOMNode;
 use DOMXPath;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\XML\Constants as C;
 
 /**
  * XPath helper functions for the XML library.
@@ -36,6 +37,9 @@ class XPath
         if ($xpCache === null || !$xpCache->document->isSameNode($doc)) {
             $xpCache = new DOMXPath($doc);
         }
+
+        $xpCache->registerNamespace('xml', C::NS_XML);
+        $xpCache->registerNamespace('xs', C::NS_XS);
 
         return $xpCache;
     }
