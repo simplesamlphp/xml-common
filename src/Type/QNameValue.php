@@ -174,6 +174,6 @@ class QNameValue extends AbstractValueType
         // Will return the default namespace (if any) when prefix is NULL
         $namespaceURI = $element->lookupNamespaceUri($namespacePrefix);
 
-        return new static('{' . $namespaceURI . '}' . $namespacePrefix . ':' . $localName);
+        return new static('{' . $namespaceURI . '}' . ($namespacePrefix ? $namespacePrefix . ':' : '') . $localName);
     }
 }
