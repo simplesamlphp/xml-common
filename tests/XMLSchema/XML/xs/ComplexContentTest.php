@@ -164,5 +164,7 @@ final class ComplexContentTest extends TestCase
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
             strval($complexContent),
         );
+
+        $this->assertFalse($complexContent->isEmptyElement());
     }
 }
