@@ -3,8 +3,10 @@
 /tools/ export-ignore
 /tests/bootstrap.php export-ignore
 /tests/resources/xml export-ignore
+/tests/InterOperability/ export-ignore
 /tests/Utils/ export-ignore
 /tests/XML/ export-ignore
+/tests/XMLSchema/ export-ignore
 codecov.yml export-ignore
 .editorconfig export-ignore
 .gitattributes export-ignore

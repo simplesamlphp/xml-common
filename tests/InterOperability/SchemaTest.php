@@ -47,7 +47,7 @@ final class SchemaTest extends TestCase
      */
     public static function provideSchema(): array
     {
-        $dir = dirname(__FILE__, 3);
+        $dir = dirname(__FILE__, 2);
 
         /** @var string $xml */
         $xml = file_get_contents($dir . '/resources/schemas/xml.xsd');
