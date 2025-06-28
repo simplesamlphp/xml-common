@@ -1,0 +1,1 @@
+<xs:documentation xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:ssp="urn:x-simplesamlphp:namespace" source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr1="value1">Some Documentation</xs:documentation>

@@ -7,10 +7,10 @@ namespace SimpleSAML\Test\XML;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractElement;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\ExtendableAttributesTrait;
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XML\XsNamespace as NS;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\XML\xs\NamespaceEnum;
 
 /**
  * Empty shell class for testing ExtendableAttributesTrait.
@@ -34,8 +34,13 @@ class ExtendableAttributesElement extends AbstractElement implements SchemaValid
     /** @var string */
     public const SCHEMA = 'tests/resources/schemas/simplesamlphp.xsd';
 
-    /** @var string|\SimpleSAML\XML\XsNamespace */
-    final public const XS_ANY_ATTR_NAMESPACE = NS::ANY;
+    /**
+     * @var (
+     *   \SimpleSAML\XMLSchema\XML\xs\NamespaceEnum|
+     *   array<int, \SimpleSAML\XMLSchema\XML\xs\NamespaceEnum|string>
+     * )
+     */
+    final public const XS_ANY_ATTR_NAMESPACE = NamespaceEnum::Any;
 
     /** @var array{array{string, string}} */
     final public const XS_ANY_ATTR_EXCLUSIONS = [

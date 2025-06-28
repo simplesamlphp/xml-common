@@ -9,9 +9,9 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\Element;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\Exception\MissingAttributeException;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
-use SimpleSAML\XML\Type\{IntegerValue, BooleanValue, StringValue};
+use SimpleSAML\XMLSchema\Exception\MissingAttributeException;
+use SimpleSAML\XMLSchema\Type\Builtin\{IntegerValue, BooleanValue, StringValue};
 
 use function dirname;
 

@@ -7,8 +7,8 @@ namespace SimpleSAML\Test\XML;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractElement;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Type\{BooleanValue, IntegerValue, StringValue};
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Type\Builtin\{BooleanValue, IntegerValue, StringValue};
 
 use function strval;
 
@@ -27,10 +27,10 @@ final class Element extends AbstractElement
 
 
     /**
-     * @param \SimpleSAML\XML\Type\IntegerValue|null $integer
-     * @param \SimpleSAML\XML\Type\BooleanValue|null $boolean
-     * @param \SimpleSAML\XML\Type\StringValue|null $text
-     * @param \SimpleSAML\XML\Type\StringValue|null $otherText
+     * @param \SimpleSAML\XMLSchema\Type\Builtin\IntegerValue|null $integer
+     * @param \SimpleSAML\XMLSchema\Type\Builtin\BooleanValue|null $boolean
+     * @param \SimpleSAML\XMLSchema\Type\Builtin\StringValue|null $text
+     * @param \SimpleSAML\XMLSchema\Type\Builtin\StringValue|null $otherText
      */
     public function __construct(
         protected ?IntegerValue $integer = null,
@@ -44,7 +44,7 @@ final class Element extends AbstractElement
     /**
      * Collect the value of the integer-property
      *
-     * @return \SimpleSAML\XML\Type\IntegerValue|null
+     * @return \SimpleSAML\XMLSchema\Type\Builtin\IntegerValue|null
      */
     public function getInteger(): ?IntegerValue
     {
@@ -55,7 +55,7 @@ final class Element extends AbstractElement
     /**
      * Collect the value of the boolean-property
      *
-     * @return \SimpleSAML\XML\Type\BooleanValue|null
+     * @return \SimpleSAML\XMLSchema\Type\Builtin\BooleanValue|null
      */
     public function getBoolean(): ?BooleanValue
     {
@@ -66,7 +66,7 @@ final class Element extends AbstractElement
     /**
      * Collect the value of the text-property
      *
-     * @return \SimpleSAML\XML\Type\StringValue|null
+     * @return \SimpleSAML\XMLSchema\Type\Builtin\StringValue|null
      */
     public function getString(): ?StringValue
     {
@@ -75,9 +75,9 @@ final class Element extends AbstractElement
 
 
     /**
-     * Collect the value of the text2-property
+     * Collect the value of the otherText-property
      *
-     * @return \SimpleSAML\XML\Type\StringValue|null
+     * @return \SimpleSAML\XMLSchema\Type\Builtin\StringValue|null
      */
     public function getOtherString(): ?StringValue
     {

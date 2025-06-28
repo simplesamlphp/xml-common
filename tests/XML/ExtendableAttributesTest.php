@@ -10,7 +10,7 @@ use SimpleSAML\Test\XML\ExtendableAttributesElement;
 use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\StringValue;
+use SimpleSAML\XMLSchema\Type\Builtin\StringValue;
 
 use function dirname;
 use function strval;

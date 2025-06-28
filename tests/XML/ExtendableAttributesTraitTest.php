@@ -11,8 +11,8 @@ use SimpleSAML\Test\XML\ExtendableAttributesElement;
 use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\ExtendableAttributesTrait;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\StringValue;
-use SimpleSAML\XML\XsNamespace as NS;
+use SimpleSAML\XMLSchema\Type\Builtin\StringValue;
+use SimpleSAML\XMLSchema\XML\xs\NamespaceEnum;
 
 /**
  * Class \SimpleSAML\XML\ExtendableAttributesTraitTest
@@ -79,10 +79,10 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$target]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAttributeNamespace(): array|NS
+            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            public function getAttributeNamespace(): array|NamespaceEnum
             {
-                return [NS::OTHER, NS::ANY];
+                return [NamespaceEnum::Other, NamespaceEnum::Any];
             }
         };
     }
@@ -92,8 +92,8 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAttributeNamespace(): array|NS
+            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return [];
             }
@@ -106,14 +106,14 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testOtherNamespacePassingOtherSucceeds(): void
     {
         $c = new class ([self::$other]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAttributeNamespace(): array|NS
+            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            public function getAttributeNamespace(): array|NamespaceEnum
             {
-                return NS::OTHER;
+                return NamespaceEnum::Other;
             }
         };
 
-        $this->assertEquals(NS::OTHER, $c->getAttributeNamespace());
+        $this->assertEquals(NamespaceEnum::Other, $c->getAttributeNamespace());
     }
 
 
@@ -123,10 +123,10 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$local]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAttributeNamespace(): array|NS
+            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            public function getAttributeNamespace(): array|NamespaceEnum
             {
-                return NS::OTHER;
+                return NamespaceEnum::Other;
             }
         };
     }
@@ -137,14 +137,14 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testTargetNamespacePassingTargetSucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAttributeNamespace(): array|NS
+            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            public function getAttributeNamespace(): array|NamespaceEnum
             {
-                return NS::TARGET;
+                return NamespaceEnum::TargetNamespace;
             }
         };
 
-        $this->assertEquals(NS::TARGET, $c->getAttributeNamespace());
+        $this->assertEquals(NamespaceEnum::TargetNamespace, $c->getAttributeNamespace());
     }
 
 
@@ -153,14 +153,14 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testTargetNamespacePassingTargetArraySucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAttributeNamespace(): array|NS
+            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            public function getAttributeNamespace(): array|NamespaceEnum
             {
-                return [NS::TARGET];
+                return [NamespaceEnum::TargetNamespace];
             }
         };
 
-        $this->assertEquals([NS::TARGET], $c->getAttributeNamespace());
+        $this->assertEquals([NamespaceEnum::TargetNamespace], $c->getAttributeNamespace());
     }
 
 
@@ -169,14 +169,14 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testTargetNamespacePassingTargetArraySucceedsWithLocal(): void
     {
         $c = new class ([self::$target]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAttributeNamespace(): array|NS
+            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            public function getAttributeNamespace(): array|NamespaceEnum
             {
-                return [NS::TARGET, NS::LOCAL];
+                return [NamespaceEnum::TargetNamespace, NamespaceEnum::Local];
             }
         };
 
-        $this->assertEquals([NS::TARGET, NS::LOCAL], $c->getAttributeNamespace());
+        $this->assertEquals([NamespaceEnum::TargetNamespace, NamespaceEnum::Local], $c->getAttributeNamespace());
     }
 
 
@@ -186,10 +186,10 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$other]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAttributeNamespace(): array|NS
+            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            public function getAttributeNamespace(): array|NamespaceEnum
             {
-                return NS::TARGET;
+                return NamespaceEnum::TargetNamespace;
             }
         };
     }
@@ -200,14 +200,14 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testLocalNamespacePassingLocalSucceeds(): void
     {
         $c = new class ([self::$local]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAttributeNamespace(): array|NS
+            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            public function getAttributeNamespace(): array|NamespaceEnum
             {
-                return NS::LOCAL;
+                return NamespaceEnum::Local;
             }
         };
 
-        $this->assertEquals(NS::LOCAL, $c->getAttributeNamespace());
+        $this->assertEquals(NamespaceEnum::Local, $c->getAttributeNamespace());
     }
 
 
@@ -216,14 +216,14 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testLocalNamespacePassingLocalArraySucceeds(): void
     {
         $c = new class ([self::$local]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAttributeNamespace(): array|NS
+            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            public function getAttributeNamespace(): array|NamespaceEnum
             {
-                return [NS::LOCAL];
+                return [NamespaceEnum::Local];
             }
         };
 
-        $this->assertEquals([NS::LOCAL], $c->getAttributeNamespace());
+        $this->assertEquals([NamespaceEnum::Local], $c->getAttributeNamespace());
     }
 
 
@@ -233,10 +233,10 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$other]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAttributeNamespace(): array|NS
+            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            public function getAttributeNamespace(): array|NamespaceEnum
             {
-                return NS::LOCAL;
+                return NamespaceEnum::Local;
             }
         };
     }
@@ -247,14 +247,14 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testAnyNamespacePassingTargetSucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAttributeNamespace(): array|NS
+            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            public function getAttributeNamespace(): array|NamespaceEnum
             {
-                return NS::ANY;
+                return NamespaceEnum::Any;
             }
         };
 
-        $this->assertEquals(NS::ANY, $c->getAttributeNamespace());
+        $this->assertEquals(NamespaceEnum::Any, $c->getAttributeNamespace());
     }
 
 
@@ -263,13 +263,13 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testAnyNamespacePassingOtherSucceeds(): void
     {
         $c = new class ([self::$other]) extends ExtendableAttributesElement {
-            /** @return array<int, NS>|NS */
-            public function getAttributeNamespace(): array|NS
+            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            public function getAttributeNamespace(): array|NamespaceEnum
             {
-                return NS::ANY;
+                return NamespaceEnum::Any;
             }
         };
 
-        $this->assertEquals(NS::ANY, $c->getAttributeNamespace());
+        $this->assertEquals(NamespaceEnum::Any, $c->getAttributeNamespace());
     }
 }

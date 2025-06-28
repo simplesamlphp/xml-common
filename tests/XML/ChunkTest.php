@@ -6,11 +6,10 @@ namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\Exception\MissingAttributeException;
+use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
-use SimpleSAML\XML\Type\{BooleanValue, IntegerValue, StringValue};
+use SimpleSAML\XMLSchema\Exception\MissingAttributeException;
+use SimpleSAML\XMLSchema\Type\Builtin\{BooleanValue, IntegerValue, StringValue};
 
 use function dirname;
 use function strval;
