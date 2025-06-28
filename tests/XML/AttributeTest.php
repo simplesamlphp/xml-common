@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\ArrayizableElementTestTrait;
-use SimpleSAML\XML\Type\StringValue;
+use SimpleSAML\XMLSchema\Type\Builtin\StringValue;
 
 use function strval;
 
@@ -75,7 +75,7 @@ final class AttributeTest extends TestCase
          *   namespaceURI: string,
          *   namespacePrefix: string|null,
          *   attrName: string,
-         *   attrValue: \SimpleSAML\XML\Type\ValueTypeInterface
+         *   attrValue: \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface
          * } $arrayRepresentation
          */
         $arrayRepresentation = self::$arrayRepresentation;

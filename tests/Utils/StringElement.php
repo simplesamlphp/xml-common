@@ -7,7 +7,7 @@ namespace SimpleSAML\Test\XML;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
 use SimpleSAML\XML\TypedTextContentTrait;
-use SimpleSAML\XML\Type\StringValue;
+use SimpleSAML\XMLSchema\Type\Builtin\StringValue;
 
 /**
  * Empty shell class for testing String elements.

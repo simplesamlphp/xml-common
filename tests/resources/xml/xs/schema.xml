@@ -1,0 +1,26 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:ssp="urn:x-simplesamlphp:namespace" ssp:attr3="value3" targetNamespace="http://www.w3.org/2001/XMLSchema" version="1.0" finalDefault="union" blockDefault="restriction" attributeFormDefault="unqualified" elementFormDefault="unqualified" id="phpunit_schema" xml:lang="en">
+  <xs:annotation ssp:attr1="value1" id="phpunit_annotation1">
+    <xs:documentation source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr2="value2">Import</xs:documentation>
+  </xs:annotation>
+  <xs:import ssp:attr4="value4" id="phpunit_import" namespace="urn:x-simplesamlphp:namespace" schemaLocation="file:///tmp/schema.xsd" />
+  <xs:annotation ssp:attr1="value1" id="phpunit_annotation2">
+    <xs:documentation source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr2="value2">Element</xs:documentation>
+  </xs:annotation>
+  <xs:element ssp:attr4="value4" id="phpunit_localElement" name="phpunit" type="xs:group" substitutionGroup="xs:typeDefParticle" fixed="1" final="extension" block="#all">
+    <xs:simpleType>
+      <xs:restriction base="xs:nonNegativeInteger"/>
+    </xs:simpleType>
+    <xs:keyref ssp:attr3="value3" id="phpunit_keyref" name="phpunit_keyref" refer="xs:integer">
+      <xs:selector ssp:attr4="value4" id="phpunit_selector" xpath=".//annotation" />
+      <xs:field ssp:attr4="value4" id="phpunit_field" xpath="@id" />
+    </xs:keyref>
+  </xs:element>
+  <xs:annotation ssp:attr1="value1" id="phpunit_annotation3">
+    <xs:documentation source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr2="value2">Attribute</xs:documentation>
+  </xs:annotation>
+  <xs:attribute ssp:attr4="value4" id="phpunit_attribute" name="number" type="xs:integer" default="1" fixed="1">
+    <xs:simpleType ssp:attr4="value4" id="phpunit_simpleType">
+      <xs:restriction base="xs:nonNegativeInteger"/>
+    </xs:simpleType>
+  </xs:attribute>
+</xs:schema>

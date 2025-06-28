@@ -7,7 +7,7 @@ namespace SimpleSAML\Test\XML;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\Exception\{InvalidValueTypeException, SchemaViolationException};
+use SimpleSAML\XMLSchema\Exception\{InvalidValueTypeException, SchemaViolationException};
 use SimpleSAML\XML\TypedTextContentTrait;
 
 /**

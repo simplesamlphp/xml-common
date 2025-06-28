@@ -1,0 +1,26 @@
+<xs:restriction xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ssp="urn:x-simplesamlphp:namespace" ssp:attr4="value4" id="phpunit_restriction" base="xs:string">
+  <xs:annotation ssp:attr3="value3" id="phpunit_annotation">
+    <xs:appinfo source="urn:x-simplesamlphp:source" ssp:attr1="value1">Application Information</xs:appinfo>
+    <xs:appinfo source="urn:x-simplesamlphp:source" ssp:attr2="value2">Other Application Information</xs:appinfo>
+    <xs:documentation xmlns:xml="http://www.w3.org/XML/1998/namespace" source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr1="value1">Some Documentation</xs:documentation>
+    <xs:documentation xmlns:xml="http://www.w3.org/XML/1998/namespace" source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr2="value2">Other Documentation</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType ssp:attr4="value4" id="phpunit_simpleType">
+    <xs:restriction base="xs:nonNegativeInteger"/>
+  </xs:simpleType>
+  <xs:maxExclusive ssp:attr4="value4" id="phpunit_maxexclusive" value="1024" fixed="true" />
+  <xs:maxInclusive ssp:attr4="value4" id="phpunit_maxinclusive" value="1024" fixed="true" />
+  <xs:minExclusive ssp:attr4="value4" id="phpunit_minexclusive" value="128" fixed="true" />
+  <xs:minInclusive ssp:attr4="value4" id="phpunit_mininclusive" value="128" fixed="true" />
+  <xs:totalDigits ssp:attr4="value4" id="phpunit_totalDigits" value="2" fixed="true" />
+  <xs:fractionDigits ssp:attr4="value4" id="phpunit_fractionDigits" value="2" fixed="true" />
+  <xs:length ssp:attr4="value4" id="phpunit_length" value="512" fixed="true" />
+  <xs:maxLength ssp:attr4="value4" id="phpunit_maxlength" value="1024" fixed="true" />
+  <xs:minLength ssp:attr4="value4" id="phpunit_minlength" value="128" fixed="true" />
+  <xs:enumeration ssp:attr4="value4" id="phpunit_enumeration" value="dummy" />
+  <xs:whiteSpace ssp:attr4="value4" id="phpunit_whitespace" value="collapse" fixed="true" />
+  <xs:pattern ssp:attr4="value4" id="phpunit_pattern" value="[A-Za-z0-9]" />
+  <xs:attribute name="phpunit" type="xs:integer"/>
+  <xs:attributeGroup ref="xs:defRef"/>
+  <xs:anyAttribute id="phpunit_anyattribute" namespace="##any" processContents="strict" />
+</xs:restriction>

@@ -7,7 +7,7 @@ namespace SimpleSAML\Test\XML;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
 use SimpleSAML\XML\TypedTextContentTrait;
-use SimpleSAML\XML\Type\BooleanValue;
+use SimpleSAML\XMLSchema\Type\Builtin\BooleanValue;
 
 /**
  * Empty shell class for testing xs:string elements.

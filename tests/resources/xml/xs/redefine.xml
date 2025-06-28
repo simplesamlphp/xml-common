@@ -1,0 +1,45 @@
+<xs:redefine xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ssp="urn:x-simplesamlphp:namespace" ssp:attr3="value3" schemaLocation="https://example.org/schema.xsd" id="phpunit_redefine">
+  <xs:annotation ssp:attr1="value1" id="phpunit_annotation1">
+    <xs:documentation xmlns:xml="http://www.w3.org/XML/1998/namespace" source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr2="value2">SimpleType</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType ssp:attr4="value4" id="phpunit_simpleType" final="#all" name="phpunit">
+    <xs:list itemType="xs:integer">
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger"/>
+      </xs:simpleType>
+    </xs:list>
+  </xs:simpleType>
+  <xs:annotation ssp:attr1="value1" id="phpunit_annotation2">
+    <xs:documentation xmlns:xml="http://www.w3.org/XML/1998/namespace" source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr2="value2">ComplexType</xs:documentation>
+  </xs:annotation>
+  <xs:complexType ssp:attr4="value4" id="phpunit_complexType" name="complex" mixed="true" abstract="false" final="restriction" block="#all">
+    <xs:group ssp:attr4="value4" id="phpunit_group1" ref="xs:nestedParticle" />
+    <xs:attribute name="phpunit" type="xs:integer"/>
+    <xs:attributeGroup ref="xs:defRef"/>
+    <xs:anyAttribute id="phpunit_anyattribute1" namespace="##any" processContents="strict" />
+  </xs:complexType>
+  <xs:annotation ssp:attr1="value1" id="phpunit_annotation3">
+    <xs:documentation xmlns:xml="http://www.w3.org/XML/1998/namespace" source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr2="value2">Group</xs:documentation>
+  </xs:annotation>
+  <xs:group ssp:attr4="value4" id="phpunit_group2" name="dulyNoted">
+    <xs:all id="phpunit_all">
+      <xs:element ssp:attr4="value4" id="phpunit_localElement" name="phpunit" type="xs:group" minOccurs="0" maxOccurs="1" default="1" nillable="true" block="#all" form="qualified">
+        <xs:simpleType>
+          <xs:restriction base="xs:nonNegativeInteger"/>
+        </xs:simpleType>
+        <xs:keyref ssp:attr3="value3" id="phpunit_keyref" name="phpunit_keyref" refer="xs:integer">
+          <xs:selector ssp:attr4="value4" id="phpunit_selector" xpath=".//annotation"/>
+          <xs:field ssp:attr4="value4" id="phpunit_field" xpath="@id"/>
+        </xs:keyref>
+      </xs:element>
+    </xs:all>
+  </xs:group>
+  <xs:annotation ssp:attr1="value1" id="phpunit_annotation4">
+    <xs:documentation xmlns:xml="http://www.w3.org/XML/1998/namespace" source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr2="value2">AttributeGroup</xs:documentation>
+  </xs:annotation>
+  <xs:attributeGroup ssp:attr4="value4" id="phpunit_attributeGroup" name="number">
+    <xs:attribute name="phpunit" type="xs:integer"/>
+    <xs:attributeGroup ref="xs:defRef"/>
+    <xs:anyAttribute id="phpunit_anyattribute2" namespace="##any" processContents="strict" />
+  </xs:attributeGroup>
+</xs:redefine>

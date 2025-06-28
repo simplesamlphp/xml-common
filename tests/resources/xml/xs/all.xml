@@ -1,0 +1,14 @@
+<xs:all xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ssp="urn:x-simplesamlphp:namespace" ssp:attr3="value3" id="phpunit_all">
+  <xs:annotation ssp:attr1="value1" id="phpunit_annotation1">
+    <xs:documentation xmlns:xml="http://www.w3.org/XML/1998/namespace" source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr2="value2">SimpleType</xs:documentation>
+  </xs:annotation>
+  <xs:element ssp:attr4="value4" id="phpunit_localElement" name="phpunit" type="xs:group" minOccurs="0" maxOccurs="1" default="1" nillable="true" block="#all" form="qualified">
+    <xs:simpleType>
+      <xs:restriction base="xs:nonNegativeInteger"/>
+    </xs:simpleType>
+    <xs:keyref ssp:attr3="value3" id="phpunit_keyref" name="phpunit_keyref" refer="xs:integer">
+      <xs:selector ssp:attr4="value4" id="phpunit_selector" xpath=".//annotation"/>
+      <xs:field ssp:attr4="value4" id="phpunit_field" xpath="@id"/>
+    </xs:keyref>
+  </xs:element>
+</xs:all>
