@@ -1,4 +1,4 @@
-<xs:attribute xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ssp="urn:x-simplesamlphp:namespace" ssp:attr4="value4" id="phpunit_attribute" name="number" type="xs:integer" default="1" fixed="1">
+<xs:attribute xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ssp="urn:x-simplesamlphp:namespace" ssp:attr4="value4" id="phpunit_attribute" name="number" default="1">
   <xs:annotation ssp:attr3="value3" id="phpunit_annotation">
     <xs:appinfo source="urn:x-simplesamlphp:source" ssp:attr1="value1">Application Information</xs:appinfo>
     <xs:appinfo source="urn:x-simplesamlphp:source" ssp:attr2="value2">Other Application Information</xs:appinfo>

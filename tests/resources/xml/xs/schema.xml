@@ -18,7 +18,7 @@
   <xs:annotation ssp:attr1="value1" id="phpunit_annotation3">
     <xs:documentation source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr2="value2">Attribute</xs:documentation>
   </xs:annotation>
-  <xs:attribute ssp:attr4="value4" id="phpunit_attribute" name="number" type="xs:integer" default="1" fixed="1">
+  <xs:attribute ssp:attr4="value4" id="phpunit_attribute" name="number" default="1">
     <xs:simpleType ssp:attr4="value4" id="phpunit_simpleType">
       <xs:restriction base="xs:nonNegativeInteger"/>
     </xs:simpleType>

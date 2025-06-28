@@ -208,9 +208,9 @@ final class SchemaTest extends TestCase
 
         $attribute = new TopLevelAttribute(
             NCNameValue::fromString('number'),
-            QNameValue::fromString('{http://www.w3.org/2001/XMLSchema}xs:integer'),
+            null,
             StringValue::fromString('1'),
-            StringValue::fromString('1'),
+            null,
             $simpleType,
             null,
             IDValue::fromString('phpunit_attribute'),

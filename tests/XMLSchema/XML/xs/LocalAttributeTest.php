@@ -133,10 +133,10 @@ final class LocalAttributeTest extends TestCase
 
         $attribute = new LocalAttribute(
             null,
+            NCNameValue::fromString('myAttr'),
             null,
-            QNameValue::fromString('{http://www.w3.org/XML/1998/namespace}xml:lang'),
             UseValue::fromEnum(UseEnum::Required),
-            StringValue::fromString('en'),
+            null,
             StringValue::fromString('en'),
             FormChoiceValue::fromEnum(FormChoiceEnum::Unqualified),
             $simpleType,

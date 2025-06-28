@@ -6,7 +6,7 @@ namespace SimpleSAML\XMLSchema\XML\xs;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Exception\{ProtocolViolationException, SchemaViolationException};
 use SimpleSAML\XMLSchema\Type\Builtin\{BooleanValue, IDValue, NCNameValue};
 use SimpleSAML\XMLSchema\Type\DerivationSetValue;
 
@@ -60,6 +60,10 @@ abstract class AbstractComplexType extends AbstractAnnotated
             Assert::null($anyAttribute, SchemaViolationException::class);
 
             $this->setContent($content);
+
+            if ($content instanceof SimpleContent) {
+                Assert::null($mixed, ProtocolViolationException::class, 'mixed is disallowed if simpleContent');
+            }
         } else {
             Assert::null($content, SchemaViolationException::class);
 

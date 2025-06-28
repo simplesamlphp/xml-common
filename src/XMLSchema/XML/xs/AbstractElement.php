@@ -77,14 +77,21 @@ abstract class AbstractElement extends AbstractAnnotated
          * type and ref are mutually exclusive.
          * name and ref are mutually exclusive, one is required
          */
-        Assert::true(is_null($type) || is_null($reference), ProtocolViolationException::class);
-        Assert::true(is_null($name) || is_null($reference), ProtocolViolationException::class);
+        Assert::oneOf(null, [$type, $reference], ProtocolViolationException::class);
+        Assert::oneOf(null, [$name, $reference], ProtocolViolationException::class);
         Assert::false(is_null($name) && is_null($reference), ProtocolViolationException::class);
 
         /**
          * default and fixed are mutually exclusive
          */
-        Assert::true(is_null($default) || is_null($fixed), ProtocolViolationException::class);
+        Assert::oneOf(null, [$default, $fixed], ProtocolViolationException::class);
+
+        /**
+         * simpleType or complexType only if no type|ref attribute
+         */
+        if ($localType !== null) {
+            Assert::true(is_null($type) || is_null($reference), ProtocolViolationException::class);
+        }
 
         parent::__construct($annotation, $id, $namespacedAttributes);
 

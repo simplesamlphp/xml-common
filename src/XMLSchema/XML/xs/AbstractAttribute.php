@@ -51,9 +51,19 @@ abstract class AbstractAttribute extends AbstractAnnotated
         ?IDValue $id = null,
         array $namespacedAttributes = [],
     ) {
-        Assert::true(is_null($type) || is_null($reference), ProtocolViolationException::class);
-        Assert::true(is_null($name) || is_null($reference), ProtocolViolationException::class);
+        Assert::oneOf(null, [$type, $reference], ProtocolViolationException::class);
+        Assert::oneOf(null, [$name, $reference], ProtocolViolationException::class);
         Assert::false(is_null($name) && is_null($reference), ProtocolViolationException::class);
+
+        /**
+         * default and fixed are mutually exclusive
+         */
+        Assert::oneOf(null, [$default, $fixed], ProtocolViolationException::class);
+
+        // simpleType only if no type|ref attribute
+        if ($simpleType !== null) {
+            Assert::true(is_null($type) && is_null($reference), ProtocolViolationException::class);
+        }
 
         parent::__construct($annotation, $id, $namespacedAttributes);
 
