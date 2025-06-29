@@ -77,11 +77,14 @@ final class Schema extends AbstractOpenAttrs implements SchemaValidatableElement
         protected ?XMLAttribute $lang = null,
         array $namespacedAttributes = [],
     ) {
+        Assert::maxCount($topLevelElements, C::UNBOUNDED_LIMIT);
         Assert::allIsInstanceOfAny(
             $topLevelElements,
             [XsInclude::class, Import::class, Redefine::class, Annotation::class],
             SchemaViolationException::class,
         );
+
+        Assert::maxCount($schemaTopElements, C::UNBOUNDED_LIMIT);
         Assert::allIsInstanceOfAny(
             $schemaTopElements,
             [

@@ -42,6 +42,7 @@ final class Redefine extends AbstractOpenAttrs implements SchemaValidatableEleme
         protected array $redefineElements = [],
         array $namespacedAttributes = [],
     ) {
+        Assert::maxCount($redefineElements, C::UNBOUNDED_LIMIT);
         Assert::allIsInstanceOfAny(
             $redefineElements,
             [RedefinableInterface::class, Annotation::class],

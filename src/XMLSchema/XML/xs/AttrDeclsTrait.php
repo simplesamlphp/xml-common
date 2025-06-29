@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\XML\xs;
 
 use SimpleSAML\XML\Assert\Assert;
+use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 
 /**
@@ -67,6 +68,7 @@ trait AttrDeclsTrait
      */
     protected function setAttributes(array $attributes): void
     {
+        Assert::maxCount($attributes, C::UNBOUNDED_LIMIT);
         Assert::allIsInstanceOfAny(
             $attributes,
             [LocalAttribute::class, ReferencedAttributeGroup::class],

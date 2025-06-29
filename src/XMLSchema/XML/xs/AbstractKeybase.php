@@ -6,6 +6,7 @@ namespace SimpleSAML\XMLSchema\XML\xs;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
+use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Exception\MissingElementException;
 use SimpleSAML\XMLSchema\Type\Builtin\{IDValue, NCNameValue};
 
@@ -36,6 +37,7 @@ abstract class AbstractKeybase extends AbstractAnnotated
         protected ?IDValue $id = null,
         array $namespacedAttributes = [],
     ) {
+        Assert::maxCount($field, C::UNBOUNDED_LIMIT);
         Assert::allIsInstanceOf($field, Field::class, MissingElementException::class);
 
         parent::__construct($annotation, $id, $namespacedAttributes);

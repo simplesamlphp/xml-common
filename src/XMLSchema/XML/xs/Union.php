@@ -6,6 +6,7 @@ namespace SimpleSAML\XMLSchema\XML\xs;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
+use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
 use SimpleSAML\XMLSchema\Exception\{
     InvalidDOMElementException,
@@ -55,6 +56,7 @@ final class Union extends AbstractAnnotated implements
         Assert::allIsInstanceOf($simpleType, LocalSimpleType::class, SchemaViolationException::class);
         Assert::allIsInstanceOf($memberTypes, QNameValue::class, SchemaViolationException::class);
 
+        Assert::maxCount($memberTypes, C::UNBOUNDED_LIMIT);
         if (empty($memberTypes)) {
             Assert::minCount($simpleType, 1, MissingElementException::class);
         }

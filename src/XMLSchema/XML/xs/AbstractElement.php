@@ -6,6 +6,7 @@ namespace SimpleSAML\XMLSchema\XML\xs;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
+use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Exception\{ProtocolViolationException, SchemaViolationException};
 use SimpleSAML\XMLSchema\Type\Builtin\{BooleanValue, IDValue, NCNameValue, QNameValue, StringValue};
 use SimpleSAML\XMLSchema\Type\{BlockSetValue, DerivationSetValue, FormChoiceValue, MaxOccursValue, MinOccursValue};
@@ -64,6 +65,7 @@ abstract class AbstractElement extends AbstractAnnotated
         ?IDValue $id = null,
         array $namespacedAttributes = [],
     ) {
+        Assert::maxCount($identityConstraint, C::UNBOUNDED_LIMIT);
         Assert::allIsInstanceOf(
             $identityConstraint,
             IdentityConstraintInterface::class,

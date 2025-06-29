@@ -53,6 +53,7 @@ final class Documentation extends AbstractXsElement implements SchemaValidatable
         protected ?AnyURIValue $source = null,
         array $namespacedAttributes = [],
     ) {
+        Assert::lessThanEq($content->count(), C::UNBOUNDED_LIMIT);
         $this->setAttributesNS($namespacedAttributes);
     }
 

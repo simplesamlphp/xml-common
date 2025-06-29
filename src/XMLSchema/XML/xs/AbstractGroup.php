@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\XML\xs;
 
 use DOMElement;
+use SimpleSAML\XML\Assert\Assert;
+use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Type\Builtin\{IDValue, NCNameValue, QNameValue};
 use SimpleSAML\XMLSchema\Type\{MinOccursValue, MaxOccursValue};
 
@@ -42,6 +44,8 @@ abstract class AbstractGroup extends AbstractAnnotated
         ?IDValue $id = null,
         array $namespacedAttributes = [],
     ) {
+        Assert::maxCount($particles, C::UNBOUNDED_LIMIT);
+
         parent::__construct($annotation, $id, $namespacedAttributes);
 
         $this->setName($name);
