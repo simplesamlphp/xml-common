@@ -11,6 +11,7 @@ use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Type\Builtin\{
     AnyURIValue,
     BooleanValue,
@@ -98,23 +99,23 @@ final class SchemaTest extends TestCase
         $attr2 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr2', StringValue::fromString('value2'));
         $attr3 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr3', StringValue::fromString('value3'));
         $attr4 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr4', StringValue::fromString('value4'));
-        $langattr = new XMLAttribute(C::NS_XML, 'xml', 'lang', StringValue::fromString('nl'));
+        $lang = LangValue::fromString('nl');
 
         $documentation1 = new Documentation(
             $importDocument->childNodes,
-            $langattr,
+            $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
             [$attr2],
         );
         $documentation2 = new Documentation(
             $elementDocument->childNodes,
-            $langattr,
+            $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
             [$attr2],
         );
         $documentation3 = new Documentation(
             $attributeDocument->childNodes,
-            $langattr,
+            $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
             [$attr2],
         );
@@ -228,14 +229,14 @@ final class SchemaTest extends TestCase
                 $annotation3,
                 $attribute,
             ],
-            AnyURIValue::fromString('http://www.w3.org/2001/XMLSchema'),
+            AnyURIValue::fromString(C::NS_XS),
             TokenValue::fromString('1.0'),
             FullDerivationSetValue::fromEnum(DerivationControlEnum::Union),
             BlockSetValue::fromString('restriction'),
             FormChoiceValue::fromEnum(FormChoiceEnum::Unqualified),
             FormChoiceValue::fromEnum(FormChoiceEnum::Unqualified),
             IDValue::fromString('phpunit_schema'),
-            new XMLAttribute(C::NS_XML, 'xml', 'lang', StringValue::fromString('en')),
+            LangValue::fromString('en'),
             [$attr3],
         );
 

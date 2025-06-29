@@ -159,6 +159,7 @@ class QNameValue extends AbstractAnySimpleType
 
     /**
      * @param string $qName
+     * @param \DOMElement $element
      */
     public static function fromDocument(
         string $qName,

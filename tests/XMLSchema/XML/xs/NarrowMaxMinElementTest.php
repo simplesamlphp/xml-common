@@ -8,9 +8,9 @@ use DOMText;
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Attribute as XMLAttribute;
-use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Type\Builtin\{AnyURIValue, BooleanValue, IDValue, NCNameValue, StringValue, QNameValue};
 use SimpleSAML\XMLSchema\Type\{BlockSetValue, FormChoiceValue, MaxOccursValue, MinOccursValue};
 use SimpleSAML\XMLSchema\XML\xs\AbstractAnnotated;
@@ -91,7 +91,7 @@ final class NarrowMaxMinElementTest extends TestCase
         $attr2 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr2', StringValue::fromString('value2'));
         $attr3 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr3', StringValue::fromString('value3'));
         $attr4 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr4', StringValue::fromString('value4'));
-        $langattr = new XMLAttribute(C::NS_XML, 'xml', 'lang', StringValue::fromString('nl'));
+        $lang = LangValue::fromString('nl');
 
         $appinfo1 = new Appinfo(
             $appinfoDocument->childNodes,
@@ -106,13 +106,13 @@ final class NarrowMaxMinElementTest extends TestCase
 
         $documentation1 = new Documentation(
             $documentationDocument->childNodes,
-            $langattr,
+            $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
             [$attr1],
         );
         $documentation2 = new Documentation(
             $otherDocumentationDocument->childNodes,
-            $langattr,
+            $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
             [$attr2],
         );

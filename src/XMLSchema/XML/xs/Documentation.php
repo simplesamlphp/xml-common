@@ -7,10 +7,10 @@ namespace SimpleSAML\XMLSchema\XML\xs;
 use DOMElement;
 use DOMNodeList;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\ExtendableAttributesTrait;
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Type\Builtin\{AnyURIValue, StringValue};
 use SimpleSAML\XMLSchema\XML\xs\NamespaceEnum;
@@ -35,7 +35,7 @@ final class Documentation extends AbstractXsElement implements SchemaValidatable
 
     /** The exclusions for the xs:anyAttribute element */
     public const XS_ANY_ATTR_EXCLUSIONS = [
-        ['http://www.w3.org/XML/1998/namespace', 'lang'],
+        [C::NS_XML, 'lang'],
     ];
 
 
@@ -43,13 +43,13 @@ final class Documentation extends AbstractXsElement implements SchemaValidatable
      * Documentation constructor
      *
      * @param \DOMNodeList<\DOMNode> $content
-     * @param \SimpleSAML\XML\Attribute|null $lang
+     * @param \SimpleSAML\XML\Type\LangValue|null $lang
      * @param \SimpleSAML\XMLSchema\Type\Builtin\AnyURIValue|null $source
      * @param array<\SimpleSAML\XML\Attribute> $namespacedAttributes
      */
     final public function __construct(
         protected DOMNodeList $content,
-        protected ?XMLAttribute $lang = null,
+        protected ?LangValue $lang = null,
         protected ?AnyURIValue $source = null,
         array $namespacedAttributes = [],
     ) {
@@ -72,9 +72,9 @@ final class Documentation extends AbstractXsElement implements SchemaValidatable
     /**
      * Get the lang property.
      *
-     * @return \SimpleSAML\XML\Attribute|null
+     * @return \SimpleSAML\XML\Type\LangValue|null
      */
-    public function getLang(): ?XMLAttribute
+    public function getLang(): ?LangValue
     {
         return $this->lang;
     }
@@ -119,15 +119,9 @@ final class Documentation extends AbstractXsElement implements SchemaValidatable
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
-        $lang = null;
-        if ($xml->hasAttributeNS(C::NS_XML, 'lang')) {
-            $lang = new XMLAttribute(
-                C::NS_XML,
-                'xml',
-                'lang',
-                StringValue::fromString($xml->getAttributeNS(C::NS_XML, 'lang')),
-            );
-        }
+        $lang = $xml->hasAttributeNS(C::NS_XML, 'lang')
+            ? LangValue::fromString($xml->getAttributeNS(C::NS_XML, 'lang'))
+            : null;
 
         return new static(
             $xml->childNodes,
@@ -152,9 +146,7 @@ final class Documentation extends AbstractXsElement implements SchemaValidatable
             $e->setAttribute('source', strval($this->getSource()));
         }
 
-        if ($this->getLang() !== null) {
-            $this->getLang()->toXML($e);
-        }
+        $this->getLang()?->toAttribute()->toXML($e);
 
         foreach ($this->getAttributesNS() as $attr) {
             $attr->toXML($e);

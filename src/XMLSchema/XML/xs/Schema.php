@@ -6,9 +6,9 @@ namespace SimpleSAML\XMLSchema\XML\xs;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XML\Utils\XPath;
 use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, SchemaViolationException};
 use SimpleSAML\XMLSchema\Type\Builtin\{AnyURIValue, IDValue, StringValue, TokenValue};
@@ -61,7 +61,7 @@ final class Schema extends AbstractOpenAttrs implements SchemaValidatableElement
      * @param \SimpleSAML\XMLSchema\Type\FormChoiceValue|null $attributeFormDefault
      * @param \SimpleSAML\XMLSchema\Type\FormChoiceValue|null $elementFormDefault
      * @param \SimpleSAML\XMLSchema\Type\Builtin\IDValue|null $id
-     * @param \SimpleSAML\XML\Attribute|null $lang
+     * @param \SimpleSAML\XML\Type\LangValue|null $lang
      * @param array<\SimpleSAML\XML\Attribute> $namespacedAttributes
      */
     public function __construct(
@@ -74,7 +74,7 @@ final class Schema extends AbstractOpenAttrs implements SchemaValidatableElement
         protected ?FormChoiceValue $attributeFormDefault = null,
         protected ?FormChoiceValue $elementFormDefault = null,
         protected ?IDValue $id = null,
-        protected ?XMLAttribute $lang = null,
+        protected ?LangValue $lang = null,
         array $namespacedAttributes = [],
     ) {
         Assert::maxCount($topLevelElements, C::UNBOUNDED_LIMIT);
@@ -214,9 +214,9 @@ final class Schema extends AbstractOpenAttrs implements SchemaValidatableElement
     /**
      * Collect the value of the lang-property
      *
-     * @return \SimpleSAML\XML\Attribute|null
+     * @return \SimpleSAML\XML\Type\LangValue|null
      */
-    public function getLang(): ?XMLAttribute
+    public function getLang(): ?LangValue
     {
         return $this->lang;
     }
@@ -335,15 +335,9 @@ final class Schema extends AbstractOpenAttrs implements SchemaValidatableElement
             }
         }
 
-        $lang = null;
-        if ($xml->hasAttributeNS(C::NS_XML, 'lang')) {
-            $lang = new XMLAttribute(
-                C::NS_XML,
-                'xml',
-                'lang',
-                StringValue::fromString($xml->getAttributeNS(C::NS_XML, 'lang')),
-            );
-        }
+        $lang = $xml->hasAttributeNS(C::NS_XML, 'lang')
+            ? LangValue::fromString($xml->getAttributeNS(C::NS_XML, 'lang'))
+            : null;
 
         return new static(
             $topLevelElements,
@@ -399,9 +393,7 @@ final class Schema extends AbstractOpenAttrs implements SchemaValidatableElement
             $e->setAttribute('id', strval($this->getId()));
         }
 
-        if ($this->getLang() !== null) {
-            $this->getLang()->toXML($e);
-        }
+        $this->getLang()?->toAttribute()->toXML($e);
 
         foreach ($this->getTopLevelElements() as $tle) {
             $tle->toXML($e);

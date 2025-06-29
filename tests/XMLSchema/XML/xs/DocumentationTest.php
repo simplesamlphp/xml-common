@@ -8,9 +8,9 @@ use DOMText;
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Attribute as XMLAttribute;
-use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Type\Builtin\{AnyURIValue, StringValue};
 use SimpleSAML\XMLSchema\XML\xs\AbstractXsElement;
 use SimpleSAML\XMLSchema\XML\xs\Documentation;
@@ -57,11 +57,11 @@ final class DocumentationTest extends TestCase
         $document->appendChild($text);
 
         $attr1 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr1', StringValue::fromString('value1'));
-        $langattr = new XMLAttribute(C::NS_XML, 'xml', 'lang', StringValue::fromString('nl'));
+        $lang = LangValue::fromString('nl');
 
         $documentation = new Documentation(
             $document->childNodes,
-            $langattr,
+            $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
             [$attr1],
         );
