@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use SimpleSAML\XML\AbstractElement;
+use SimpleSAML\XML\AbstractElement as BaseElement;
 use SimpleSAML\XML\Constants as C;
 
 /**
@@ -12,7 +12,7 @@ use SimpleSAML\XML\Constants as C;
  *
  * @package simplesamlphp/xml-common
  */
-abstract class AbstractXsElement extends AbstractElement
+abstract class AbstractXsElement extends BaseElement
 {
     /** @var string */
     public const NS = C::NS_XS;
