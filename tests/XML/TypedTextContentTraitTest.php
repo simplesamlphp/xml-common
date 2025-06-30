@@ -6,9 +6,10 @@ namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\Helper\{Base64BinaryElement, BooleanElement, StringElement};
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XMLSchema\Exception\{InvalidValueTypeException, SchemaViolationException};
 use SimpleSAML\XML\TypedTextContentTrait;
+use SimpleSAML\XMLSchema\Exception\{InvalidValueTypeException, SchemaViolationException};
 
 /**
  * Class \SimpleSAML\XML\TypedTextContentTraitTest

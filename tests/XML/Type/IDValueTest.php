@@ -10,7 +10,7 @@ use SimpleSAML\Test\XML\Assert\IDTest;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\Type\IDValue;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
-use SimpleSAML\XMLSchema\Type\Builtin\{IDValue as BaseIDValue, StringValue};
+use SimpleSAML\XMLSchema\Type\{IDValue as BaseIDValue, StringValue};
 
 /**
  * Class \SimpleSAML\Test\XML\Type\IDValueTest

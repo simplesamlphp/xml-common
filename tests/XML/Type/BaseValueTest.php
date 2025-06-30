@@ -10,7 +10,7 @@ use SimpleSAML\Test\XML\Assert\AnyURITest;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\Type\BaseValue;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
-use SimpleSAML\XMLSchema\Type\Builtin\{AnyURIValue, StringValue};
+use SimpleSAML\XMLSchema\Type\{AnyURIValue, StringValue};
 
 /**
  * Class \SimpleSAML\Test\XML\Type\BaseValueTest

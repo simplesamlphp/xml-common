@@ -8,6 +8,9 @@ use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Registry\ElementRegistry;
 
+use function dirname;
+use function sprintf;
+
 /**
  * @package simplesamlphp\xml-common
  */
@@ -24,7 +27,25 @@ final class ElementRegistryTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::$registry = ElementRegistry::getInstance();
-        self::$registry->registerElementHandler('\SimpleSAML\Test\XML\Element');
+        self::$registry->registerElementHandler('\SimpleSAML\Test\Helper\Element');
+    }
+
+
+    /**
+     * Test that the class-name can be resolved and it's localname matches.
+     */
+    public function testValidateElementRegistry(): void
+    {
+        $elementRegistry = dirname(__FILE__, 4) . '/classes/element.registry.php';
+
+        $namespaces = include($elementRegistry);
+        foreach ($namespaces as $namespaceURI => $elements) {
+            foreach ($elements as $localName => $fqdn) {
+                $this->assertTrue(class_exists($fqdn), sprintf('Class \'%s\' could not be found.', $fqdn));
+                $this->assertEquals($fqdn::getLocalName(), $localName);
+                $this->assertEquals($fqdn::getNamespaceURI(), $namespaceURI);
+            }
+        }
     }
 
 
@@ -33,7 +54,7 @@ final class ElementRegistryTest extends TestCase
     public function testFetchingHandlerWorks(): void
     {
         $handler = self::$registry->getElementHandler('urn:x-simplesamlphp:namespace', 'Element');
-        $this->assertEquals($handler, '\SimpleSAML\Test\XML\Element');
+        $this->assertEquals($handler, '\SimpleSAML\Test\Helper\Element');
     }
 
 
@@ -41,9 +62,9 @@ final class ElementRegistryTest extends TestCase
      */
     public function testAddingHandlerWorks(): void
     {
-        self::$registry->registerElementHandler('\SimpleSAML\Test\XML\ExtendableElement');
+        self::$registry->registerElementHandler('\SimpleSAML\Test\Helper\ExtendableElement');
         $handler = self::$registry->getElementHandler('urn:x-simplesamlphp:namespace', 'ExtendableElement');
-        $this->assertEquals($handler, '\SimpleSAML\Test\XML\ExtendableElement');
+        $this->assertEquals($handler, '\SimpleSAML\Test\Helper\ExtendableElement');
     }
 
 

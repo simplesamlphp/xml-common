@@ -6,8 +6,8 @@ namespace SimpleSAML\XML\Type;
 
 use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\Constants as C;
-use SimpleSAML\XMLSchema\Type\Builtin\IDValue as BaseIDValue;
-use SimpleSAML\XMLSchema\Type\Helper\AttributeTypeInterface;
+use SimpleSAML\XMLSchema\Type\IDValue as BaseIDValue;
+use SimpleSAML\XMLSchema\Type\Interface\AttributeTypeInterface;
 
 /**
  * @package simplesaml/xml-common

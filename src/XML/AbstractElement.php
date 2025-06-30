@@ -9,8 +9,8 @@ use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\SerializableElementTrait;
 use SimpleSAML\XMLSchema\Exception\{MissingAttributeException, SchemaViolationException};
-use SimpleSAML\XMLSchema\Type\Builtin\{QNameValue, StringValue};
-use SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface;
+use SimpleSAML\XMLSchema\Type\{QNameValue, StringValue};
+use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
 
 use function array_slice;
 use function defined;
@@ -55,7 +55,7 @@ abstract class AbstractElement implements SerializableElementInterface
 
 
     /**
-     * @template T of \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface
+     * @template T of \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface
      * @param \DOMElement     $xml The element where we should search for the attribute.
      * @param string          $name The name of the attribute.
      * @param class-string<T> $type The type of the attribute value.
@@ -87,13 +87,13 @@ abstract class AbstractElement implements SerializableElementInterface
     /**
      * Get the value of an attribute from a given element.
      *
-     * @template T of \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface
+     * @template T of \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface
      * @param \DOMElement  $xml The element where we should search for the attribute.
      * @param string       $name The name of the attribute.
      * @param class-string<T> $type The type of the attribute value.
-     * @param \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface|null $default
+     * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface|null $default
      *   The default to return in case the attribute does not exist and it is optional.
-     * @return ($default is \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface ? T : T|null)
+     * @return ($default is \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface ? T : T|null)
      */
     public static function getOptionalAttribute(
         DOMElement $xml,

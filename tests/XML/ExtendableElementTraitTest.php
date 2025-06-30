@@ -7,11 +7,11 @@ namespace SimpleSAML\Test\XML;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
-use SimpleSAML\Test\XML\ExtendableElement;
+use SimpleSAML\Test\Helper\ExtendableElement;
 use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\{ElementInterface, ExtendableElementTrait};
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XMLSchema\XML\xs\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 
 /**
  * Class \SimpleSAML\XML\ExtendableElementTraitTest

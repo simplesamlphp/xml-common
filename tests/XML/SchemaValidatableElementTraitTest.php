@@ -7,6 +7,7 @@ namespace SimpleSAML\Test\XML;
 use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Test\Helper\{Base64BinaryElement, BooleanElement, StringElement};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\IOException;
 use SimpleSAML\XML\SchemaValidatableElementTrait;

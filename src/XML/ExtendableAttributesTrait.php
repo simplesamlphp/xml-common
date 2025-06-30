@@ -9,8 +9,8 @@ use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\Constants as C;
-use SimpleSAML\XMLSchema\Type\Builtin\StringValue;
-use SimpleSAML\XMLSchema\XML\xs\NamespaceEnum;
+use SimpleSAML\XMLSchema\Type\StringValue;
+use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 
 use function array_diff;
 use function array_map;
@@ -91,8 +91,8 @@ trait ExtendableAttributesTrait
      *
      * @param \DOMElement $xml
      * @param (
-     *   \SimpleSAML\XMLSchema\XML\xs\NamespaceEnum|
-     *   array<\SimpleSAML\XMLSchema\XML\xs\NamespaceEnum|string>|
+     *   \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|
+     *   array<\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|
      *   null
      * ) $namespace
      *
@@ -255,7 +255,10 @@ trait ExtendableAttributesTrait
 
 
     /**
-     * @return array<\SimpleSAML\XMLSchema\XML\xs\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\xs\NamespaceEnum
+     * @return (
+     *   array<\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|
+     *   \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum
+     * )[]
      */
     public function getAttributeNamespace(): array|NamespaceEnum
     {

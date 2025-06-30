@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XMLSchema\Exception\MissingAttributeException;
-use SimpleSAML\XMLSchema\Type\Builtin\{BooleanValue, IntegerValue, StringValue};
+use SimpleSAML\XMLSchema\Type\{BooleanValue, IntegerValue, StringValue};
 
 use function dirname;
 use function strval;

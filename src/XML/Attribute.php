@@ -7,8 +7,8 @@ namespace SimpleSAML\XML;
 use DOMAttr;
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XMLSchema\Type\Builtin\StringValue;
-use SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface;
+use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
+use SimpleSAML\XMLSchema\Type\StringValue;
 
 use function array_keys;
 use function strval;
@@ -26,7 +26,7 @@ final class Attribute implements ArrayizableElementInterface
      * @param string|null $namespaceURI
      * @param string|null $namespacePrefix
      * @param string $attrName
-     * @param \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface $attrValue
+     * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface $attrValue
      */
     public function __construct(
         protected ?string $namespaceURI,
@@ -78,7 +78,7 @@ final class Attribute implements ArrayizableElementInterface
     /**
      * Collect the value of the value-property
      *
-     * @return \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface
+     * @return \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface
      */
     public function getAttrValue(): ValueTypeInterface
     {
@@ -134,7 +134,7 @@ final class Attribute implements ArrayizableElementInterface
      *   namespaceURI: string,
      *   namespacePrefix: string|null,
      *   attrName: string,
-     *   attrValue:  \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface,
+     *   attrValue:  \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface,
      * } $data
      * @return static
      */

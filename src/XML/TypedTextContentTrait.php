@@ -7,8 +7,8 @@ namespace SimpleSAML\XML;
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, InvalidValueTypeException};
-use SimpleSAML\XMLSchema\Type\Builtin\{QNameValue, StringValue};
-use SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface;
+use SimpleSAML\XMLSchema\Type\{QNameValue, StringValue};
+use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
 
 use function defined;
 use function strval;
@@ -20,12 +20,12 @@ use function strval;
  */
 trait TypedTextContentTrait
 {
-    /** @var \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface $content */
+    /** @var \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface $content */
     protected ValueTypeInterface $content;
 
 
     /**
-     * @param \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface $content
+     * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface $content
      */
     public function __construct(
         ValueTypeInterface $content,
@@ -37,7 +37,7 @@ trait TypedTextContentTrait
     /**
      * Set the content of the element.
      *
-     * @param \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface $content  The value to go in the XML textContent
+     * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface $content  The value to go in the XML textContent
      */
     protected function setContent(ValueTypeInterface $content): void
     {
@@ -49,7 +49,7 @@ trait TypedTextContentTrait
     /**
      * Get the typed content of the element
      *
-     * @return \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface
+     * @return \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface
      */
     public function getContent(): ValueTypeInterface
     {

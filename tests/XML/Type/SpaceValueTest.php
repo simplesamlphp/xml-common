@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DependsOnClass};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\Type\SpaceValue;
-use SimpleSAML\XML\XML\xml\SpaceEnum;
+use SimpleSAML\XML\XML\Enumeration\SpaceEnum;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 
 /**

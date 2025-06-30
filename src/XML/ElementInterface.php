@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMElement;
-use SimpleSAML\XMLSchema\Type\Builtin\StringValue;
-use SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface;
+use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
+use SimpleSAML\XMLSchema\Type\StringValue;
 
 /**
  * interface class to be implemented by all the classes that represent an XML element
@@ -29,7 +29,7 @@ interface ElementInterface
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param string      $type The type of the attribute value
-     * @return \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface
+     * @return \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface
      *
      * @throws \SimpleSAML\XMLSchema\Exception\MissingAttributeException if the attribute is missing from the element
      */
@@ -46,9 +46,9 @@ interface ElementInterface
      * @param \DOMElement $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param string      $type The type of the attribute value
-     * @param \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface|null $default
+     * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface|null $default
      *   The default to return in case the attribute does not exist and it is optional.
-     * @return \SimpleSAML\XMLSchema\Type\Helper\ValueTypeInterface|null
+     * @return \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface|null
      */
     public static function getOptionalAttribute(
         DOMElement $xml,
