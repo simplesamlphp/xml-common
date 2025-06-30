@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace SimpleSAML\XML\Utils;
+namespace SimpleSAML\XPath;
 
 use DOMDocument;
 use DOMNode;
 use DOMXPath;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\Constants as C;
+use SimpleSAML\XML\Constants as C_XML;
+use SimpleSAML\XMLSchema\Constants as C_XS;
 
 /**
  * XPath helper functions for the XML library.
@@ -38,8 +39,8 @@ class XPath
             $xpCache = new DOMXPath($doc);
         }
 
-        $xpCache->registerNamespace('xml', C::NS_XML);
-        $xpCache->registerNamespace('xs', C::NS_XS);
+        $xpCache->registerNamespace('xml', C_XML::NS_XML);
+        $xpCache->registerNamespace('xs', C_XS::NS_XS);
 
         return $xpCache;
     }

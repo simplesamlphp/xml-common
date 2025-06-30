@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
+use SimpleSAML\XPath\XPath;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\Constants as C;
+use SimpleSAML\XML\Constants as C_XML;
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
 use SimpleSAML\XML\Type\LangValue;
-use SimpleSAML\XML\Utils\XPath;
+use SimpleSAML\XMLSchema\Constants as C_XS;
 use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, SchemaViolationException};
 use SimpleSAML\XMLSchema\Type\{AnyURIValue, IDValue, StringValue, TokenValue};
 use SimpleSAML\XMLSchema\Type\Schema\{BlockSetValue, FormChoiceValue, FullDerivationSetValue};
@@ -32,7 +33,7 @@ final class Schema extends AbstractOpenAttrs implements SchemaValidatableElement
 
     /** The exclusions for the xs:anyAttribute element */
     public const XS_ANY_ATTR_EXCLUSIONS = [
-        [C::NS_XML, 'lang'],
+        [C_XML::NS_XML, 'lang'],
     ];
 
 
@@ -75,14 +76,14 @@ final class Schema extends AbstractOpenAttrs implements SchemaValidatableElement
         protected ?LangValue $lang = null,
         array $namespacedAttributes = [],
     ) {
-        Assert::maxCount($topLevelElements, C::UNBOUNDED_LIMIT);
+        Assert::maxCount($topLevelElements, C_XML::UNBOUNDED_LIMIT);
         Assert::allIsInstanceOfAny(
             $topLevelElements,
             [XsInclude::class, Import::class, Redefine::class, Annotation::class],
             SchemaViolationException::class,
         );
 
-        Assert::maxCount($schemaTopElements, C::UNBOUNDED_LIMIT);
+        Assert::maxCount($schemaTopElements, C_XML::UNBOUNDED_LIMIT);
         Assert::allIsInstanceOfAny(
             $schemaTopElements,
             [
@@ -280,7 +281,7 @@ final class Schema extends AbstractOpenAttrs implements SchemaValidatableElement
         foreach ($beforeSchemaTopElements as $node) {
             /** @var \DOMElement $node */
             if ($node instanceof DOMElement) {
-                if ($node->namespaceURI === C::NS_XS && array_key_exists($node->localName, $beforeAllowed)) {
+                if ($node->namespaceURI === C_XS::NS_XS && array_key_exists($node->localName, $beforeAllowed)) {
                     $topLevelElements[] = $beforeAllowed[$node->localName]::fromXML($node);
                 }
             }
@@ -327,14 +328,14 @@ final class Schema extends AbstractOpenAttrs implements SchemaValidatableElement
         foreach ($afterSchemaTopElements as $node) {
             /** @var \DOMElement $node */
             if ($node instanceof DOMElement) {
-                if ($node->namespaceURI === C::NS_XS && array_key_exists($node->localName, $afterAllowed)) {
+                if ($node->namespaceURI === C_XS::NS_XS && array_key_exists($node->localName, $afterAllowed)) {
                     $schemaTopElements[] = $afterAllowed[$node->localName]::fromXML($node);
                 }
             }
         }
 
-        $lang = $xml->hasAttributeNS(C::NS_XML, 'lang')
-            ? LangValue::fromString($xml->getAttributeNS(C::NS_XML, 'lang'))
+        $lang = $xml->hasAttributeNS(C_XML::NS_XML, 'lang')
+            ? LangValue::fromString($xml->getAttributeNS(C_XML::NS_XML, 'lang'))
             : null;
 
         return new static(

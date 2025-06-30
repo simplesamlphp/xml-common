@@ -6,9 +6,9 @@ namespace SimpleSAML\XML\Assert;
 
 use InvalidArgumentException;
 use SimpleSAML\XML\Assert\Assert as BaseAssert;
-use SimpleSAML\XML\Constants as C;
-use SimpleSAML\XML\Exception\RuntimeException;
-use SimpleSAML\XML\Utils\XPathFilter;
+use SimpleSAML\XPath\Constants as C;
+use SimpleSAML\XPath\Exception\RuntimeException;
+use SimpleSAML\XPath\XPathFilter;
 
 use function sprintf;
 

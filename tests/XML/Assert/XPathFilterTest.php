@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Assert\Assert as XMLAssert;
-use SimpleSAML\XML\Constants as C;
+use SimpleSAML\XPath\Constants as C;
 
 /**
  * Class \SimpleSAML\XML\Assert\XPathFilterTest

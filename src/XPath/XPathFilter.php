@@ -2,11 +2,16 @@
 
 declare(strict_types=1);
 
-namespace SimpleSAML\XML\Utils;
+namespace SimpleSAML\XPath;
 
-use SimpleSAML\XML\Exception\RuntimeException;
+use SimpleSAML\XML\Assert\Assert;
+use SimpleSAML\XPath\Constants as C;
+use SimpleSAML\XPath\Exception\{
+    AxisNotAllowedException,
+    FunctionNotAllowedException,
+    RuntimeException,
+};
 
-use function in_array;
 use function preg_match_all;
 use function preg_replace;
 
@@ -22,7 +27,7 @@ class XPathFilter
      *
      * @param string $input
      * @return string
-     * @throws \SimpleSAML\XML\Exception\RuntimeException
+     * @throws \SimpleSAML\XPath\Exception\RuntimeException
      */
     public static function removeStringContents(string $input): string
     {
@@ -59,14 +64,16 @@ class XPathFilter
 
 
     /**
-     * Check if the $xpath_expression uses an XPath function that is not in the list of allowed functions
+     * Check if the $xpathExpression uses an XPath function that is not in the list of allowed functions
      *
      * @param string $xpathExpression the expression to check. Should be a valid xpath expression
      * @param string[] $allowedFunctions array of string with a list of allowed function names
-     * @throws \SimpleSAML\XML\Exception\RuntimeException
+     * @throws \SimpleSAML\XPath\Exception\RuntimeException
      */
-    public static function filterXPathFunction(string $xpathExpression, array $allowedFunctions): void
-    {
+    public static function filterXPathFunction(
+        string $xpathExpression,
+        array $allowedFunctions = C::DEFAULT_ALLOWED_FUNCTIONS,
+    ): void {
         /**
          * Look for the function specifier '(' and look for a function name before it.
          * Ignoring whitespace before the '(' and the function name.
@@ -103,20 +110,16 @@ class XPathFilter
         );
 
         // Check that all the function names we found are in the list of allowed function names
-        foreach ($matches[1] as $match) {
-            if (!in_array($match, $allowedFunctions)) {
-                throw new RuntimeException("Invalid function: '" . $match . "'");
-            }
-        }
+        Assert::allOneOf($matches[1], $allowedFunctions, "Invalid function: %s", FunctionNotAllowedException::class);
     }
 
 
     /**
-     * Check if the $xpath_expression uses an XPath axis that is not in the list of allowed axes
+     * Check if the $xpathExpression uses an XPath axis that is not in the list of allowed axes
      *
      * @param string $xpathExpression the expression to check. Should be a valid xpath expression
      * @param string[] $allowedAxes array of string with a list of allowed axes names
-     * @throws \SimpleSAML\XML\Exception\RuntimeException
+     * @throws \SimpleSAML\XPath\Exception\RuntimeException
      */
     public static function filterXPathAxis(string $xpathExpression, array $allowedAxes): void
     {
@@ -154,10 +157,6 @@ class XPathFilter
         );
 
         // Check that all the axes names we found are in the list of allowed axes names
-        foreach ($matches[1] as $match) {
-            if (!in_array($match, $allowedAxes)) {
-                throw new RuntimeException("Invalid axis: '" . $match . "'");
-            }
-        }
+        Assert::allInArray($matches[1], $allowedAxes, "Invalid axis: %s", AxisNotAllowedException::class);
     }
 }

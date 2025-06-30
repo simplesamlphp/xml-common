@@ -18,13 +18,16 @@
     "autoload": {
         "psr-4": {
             "SimpleSAML\\XMLSchema\\": "src/XMLSchema",
-            "SimpleSAML\\XML\\": "src/XML"
+            "SimpleSAML\\XML\\": "src/XML",
+            "SimpleSAML\\XPath\\": "src/XPath"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "SimpleSAML\\Test\\Helper\\": ["tests/Helper"],
+            "SimpleSAML\\Test\\Registry\\": ["tests/Registry"],
             "SimpleSAML\\Test\\XML\\": ["tests/XML"],
+            "SimpleSAML\\Test\\XPath\\": ["tests/XPath"],
             "SimpleSAML\\Test\\XMLSchema\\": ["tests/XMLSchema"]
         }
     },

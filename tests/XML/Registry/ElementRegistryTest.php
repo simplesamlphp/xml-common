@@ -8,9 +8,6 @@ use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Registry\ElementRegistry;
 
-use function dirname;
-use function sprintf;
-
 /**
  * @package simplesamlphp\xml-common
  */
@@ -28,24 +25,6 @@ final class ElementRegistryTest extends TestCase
     {
         self::$registry = ElementRegistry::getInstance();
         self::$registry->registerElementHandler('\SimpleSAML\Test\Helper\Element');
-    }
-
-
-    /**
-     * Test that the class-name can be resolved and it's localname matches.
-     */
-    public function testValidateElementRegistry(): void
-    {
-        $elementRegistry = dirname(__FILE__, 4) . '/classes/element.registry.php';
-
-        $namespaces = include($elementRegistry);
-        foreach ($namespaces as $namespaceURI => $elements) {
-            foreach ($elements as $localName => $fqdn) {
-                $this->assertTrue(class_exists($fqdn), sprintf('Class \'%s\' could not be found.', $fqdn));
-                $this->assertEquals($fqdn::getLocalName(), $localName);
-                $this->assertEquals($fqdn::getNamespaceURI(), $namespaceURI);
-            }
-        }
     }
 
 

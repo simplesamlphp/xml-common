@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-namespace SimpleSAML\Test\XML\Utils;
+namespace SimpleSAML\Test\XPath;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\XML\Exception\RuntimeException;
-use SimpleSAML\XML\Utils\XPathFilter;
+use SimpleSAML\XPath\Exception\{AxisNotAllowedException, FunctionNotAllowedException, RuntimeException};
+use SimpleSAML\XPath\XPathFilter;
 
 use function microtime;
 use function str_repeat;
 
 /**
- * Class \SimpleSAML\Test\XML\Utils\XPathFilterTest
+ * Class \SimpleSAML\Test\XPath\XPathFilterTest
  *
  * @package simplesamlphp\xml-common
  */
@@ -128,7 +127,7 @@ final class XPathFilterTest extends TestCase
         if ($expected) {
             // Function must throw an exception
             $this->expectException(RuntimeException::class);
-            $this->expectExceptionMessage("Invalid function: '" . $expected . "'");
+            $this->expectExceptionMessage("Invalid function: \"" . $expected . "\"");
         } else {
             // Function must not throw an exception
             $this->expectNotToPerformAssertions();
@@ -245,7 +244,7 @@ final class XPathFilterTest extends TestCase
         if ($expected) {
             // Function must throw an exception
             $this->expectException(RuntimeException::class);
-            $this->expectExceptionMessage("Invalid axis: '" . $expected . "'");
+            $this->expectExceptionMessage("Invalid axis: \"" . $expected . "\"");
         } else {
             // Function must not throw an exception
             $this->expectNotToPerformAssertions();
