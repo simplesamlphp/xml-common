@@ -58,7 +58,9 @@ final class AnyURIValueTest extends TestCase
     public static function provideValidURI(): array
     {
         return [
+            'preceding newline' => [true, "\nhttps://sts.windows.net/{tenantid}/"],
             'trailing newline' => [true, "https://sts.windows.net/{tenantid}/\n"],
+            'both side whitespace' => [true, "\t https://sts.windows.net/{tenantid}/\n "],
         ];
     }
 }
