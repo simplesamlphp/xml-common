@@ -245,6 +245,8 @@ jobs:
         run: composer audit
 
   coverage:
+    # Disable code coverage upload in the fork repository, for now.
+    if: false
     name: Code coverage
     runs-on: [ubuntu-latest]
     needs: [unit-tests-linux]
