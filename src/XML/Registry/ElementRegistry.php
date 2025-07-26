@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Registry;
 
+use DirectoryIterator;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Exception\IOException;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
-use Symfony\Component\Finder\Finder;
 
 use function array_merge_recursive;
 use function dirname;
 use function file_exists;
+use function preg_match;
 
 final class ElementRegistry
 {
@@ -29,10 +30,12 @@ final class ElementRegistry
         $classesDir = dirname(__FILE__, 6) . '/vendor/simplesamlphp/composer-xmlprovider-installer/classes';
 
         if (file_exists($classesDir) === true) {
-            $finder = Finder::create()->files()->name('element.registry.*.php')->in($classesDir);
-            if ($finder->hasResults()) {
-                foreach ($finder as $file) {
-                    $this->importFromFile($file->getPathName());
+            $directory = new DirectoryIterator($classesDir);
+            foreach ($directory as $fileInfo) {
+                if ($fileInfo->isFile()) {
+                    if (preg_match('/^element\.registry\.(.*)\.php$/', $fileInfo->getFilename())) {
+                        $this->importFromFile($fileInfo->getPathname());
+                    }
                 }
             }
         }
