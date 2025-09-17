@@ -6,9 +6,14 @@ namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, TooManyElementsException};
-use SimpleSAML\XMLSchema\Type\{IDValue, NCNameValue, QNameValue, StringValue};
-use SimpleSAML\XMLSchema\Type\Schema\{FormChoiceValue, UseValue};
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\Schema\FormChoiceValue;
+use SimpleSAML\XMLSchema\Type\Schema\UseValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 
 use function array_pop;
 

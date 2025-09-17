@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XMLSchema\XML\Interface\FacetInterface;
 
 /**
@@ -15,6 +16,7 @@ use SimpleSAML\XMLSchema\XML\Interface\FacetInterface;
 final class Enumeration extends AbstractNoFixedFacet implements SchemaValidatableElementInterface, FacetInterface
 {
     use SchemaValidatableElementTrait;
+
 
     /** @var string */
     public const LOCALNAME = 'enumeration';

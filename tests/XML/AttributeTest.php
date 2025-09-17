@@ -19,11 +19,11 @@ use function strval;
  *
  * @package simplesamlphp\xml-common
  */
-#[CoversClass(ArrayizableElementTestTrait::class)]
 #[CoversClass(Attribute::class)]
 final class AttributeTest extends TestCase
 {
     use ArrayizableElementTestTrait;
+
 
     /** @var \DOMDocument */
     protected static DOMDocument $xmlRepresentation;

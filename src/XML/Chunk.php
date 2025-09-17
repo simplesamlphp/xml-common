@@ -8,9 +8,10 @@ use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\SerializableElementTrait;
-use SimpleSAML\XMLSchema\Exception\{MissingAttributeException, SchemaViolationException};
-use SimpleSAML\XMLSchema\Type\StringValue;
+use SimpleSAML\XMLSchema\Exception\MissingAttributeException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
+use SimpleSAML\XMLSchema\Type\StringValue;
 
 /**
  * Serializable class used to hold an XML element.

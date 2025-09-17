@@ -6,10 +6,15 @@ namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, TooManyElementsException};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\IDValue;
-use SimpleSAML\XMLSchema\Type\Schema\{MinOccursValue, MaxOccursValue, NamespaceListValue, ProcessContentsValue};
+use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
+use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
+use SimpleSAML\XMLSchema\Type\Schema\NamespaceListValue;
+use SimpleSAML\XMLSchema\Type\Schema\ProcessContentsValue;
 use SimpleSAML\XMLSchema\XML\Interface\NestedParticleInterface;
 use SimpleSAML\XMLSchema\XML\Trait\OccursTrait;
 
@@ -27,6 +32,7 @@ final class Any extends AbstractWildcard implements
 {
     use OccursTrait;
     use SchemaValidatableElementTrait;
+
 
     /** @var string */
     public const LOCALNAME = 'any';

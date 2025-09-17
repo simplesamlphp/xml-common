@@ -7,17 +7,21 @@ namespace SimpleSAML\XMLSchema\XML;
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
-use SimpleSAML\XMLSchema\Exception\{ProtocolViolationException, SchemaViolationException};
-use SimpleSAML\XMLSchema\Type\{BooleanValue, IDValue, NCNameValue, QNameValue, StringValue};
-use SimpleSAML\XMLSchema\Type\Schema\{
-    BlockSetValue,
-    DerivationSetValue,
-    FormChoiceValue,
-    MaxOccursValue,
-    MinOccursValue,
-};
+use SimpleSAML\XMLSchema\Exception\ProtocolViolationException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Type\BooleanValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\Schema\BlockSetValue;
+use SimpleSAML\XMLSchema\Type\Schema\DerivationSetValue;
+use SimpleSAML\XMLSchema\Type\Schema\FormChoiceValue;
+use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
+use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\Interface\IdentityConstraintInterface;
-use SimpleSAML\XMLSchema\XML\Trait\{DefRefTrait, OccursTrait};
+use SimpleSAML\XMLSchema\XML\Trait\DefRefTrait;
+use SimpleSAML\XMLSchema\XML\Trait\OccursTrait;
 
 use function strval;
 
@@ -30,6 +34,7 @@ abstract class AbstractElement extends AbstractAnnotated
 {
     use DefRefTrait;
     use OccursTrait;
+
 
     /**
      * Element constructor

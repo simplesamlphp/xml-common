@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XMLSchema\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DependsOnClass};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\Type\SpaceValue;

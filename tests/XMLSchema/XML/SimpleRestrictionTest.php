@@ -5,34 +5,37 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\Test\XML;
 
 use DOMText;
-use PHPUnit\Framework\Attributes\{CoversClass, Group};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XML\Type\LangValue;
-use SimpleSAML\XMLSchema\Type\{
-    AnyURIValue,
-    BooleanValue,
-    IDValue,
-    NCNameValue,
-    NonNegativeIntegerValue,
-    PositiveIntegerValue,
-    QNameValue,
-    StringValue,
-};
-use SimpleSAML\XMLSchema\Type\Schema\{NamespaceListValue, ProcessContentsValue, WhiteSpaceValue};
-use SimpleSAML\XMLSchema\XML\Enumeration\{NamespaceEnum, ProcessContentsEnum, WhiteSpaceEnum};
+use SimpleSAML\XMLSchema\Type\AnyURIValue;
+use SimpleSAML\XMLSchema\Type\BooleanValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
+use SimpleSAML\XMLSchema\Type\PositiveIntegerValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\Schema\NamespaceListValue;
+use SimpleSAML\XMLSchema\Type\Schema\ProcessContentsValue;
+use SimpleSAML\XMLSchema\Type\Schema\WhiteSpaceValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\AbstractAnnotated;
-use SimpleSAML\XMLSchema\XML\AbstractSimpleRestrictionType;
-use SimpleSAML\XMLSchema\XML\AbstractRestrictionType;
 use SimpleSAML\XMLSchema\XML\AbstractOpenAttrs;
+use SimpleSAML\XMLSchema\XML\AbstractRestrictionType;
+use SimpleSAML\XMLSchema\XML\AbstractSimpleRestrictionType;
 use SimpleSAML\XMLSchema\XML\AbstractXsElement;
 use SimpleSAML\XMLSchema\XML\Annotation;
 use SimpleSAML\XMLSchema\XML\AnyAttribute;
 use SimpleSAML\XMLSchema\XML\Appinfo;
 use SimpleSAML\XMLSchema\XML\Documentation;
 use SimpleSAML\XMLSchema\XML\Enumeration;
+use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Enumeration\ProcessContentsEnum;
+use SimpleSAML\XMLSchema\XML\Enumeration\WhiteSpaceEnum;
 use SimpleSAML\XMLSchema\XML\FractionDigits;
 use SimpleSAML\XMLSchema\XML\Length;
 use SimpleSAML\XMLSchema\XML\LocalAttribute;

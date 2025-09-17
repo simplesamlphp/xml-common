@@ -7,14 +7,15 @@ namespace SimpleSAML\XMLSchema\XML;
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XMLSchema\Exception\{
-    InvalidDOMElementException,
-    MissingElementException,
-    SchemaViolationException,
-    TooManyElementsException,
-};
-use SimpleSAML\XMLSchema\Type\{IDValue, QNameValue, StringValue};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\MissingElementException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\Interface\SimpleDerivationInterface;
 
 use function array_fill;
@@ -33,6 +34,7 @@ final class Union extends AbstractAnnotated implements
     SimpleDerivationInterface
 {
     use SchemaValidatableElementTrait;
+
 
     /** @var string */
     public const LOCALNAME = 'union';

@@ -98,7 +98,6 @@ final class Attribute implements ArrayizableElementInterface
     }
 
 
-
     /**
      * Create XML from this class
      *

@@ -15,6 +15,7 @@ trait SimpleRestrictionModelTrait
 {
     use FacetsTrait;
 
+
     /**
      * The simpleType.
      *

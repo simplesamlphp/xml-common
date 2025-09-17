@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Test\Helper\{Base64BinaryElement, BooleanElement, StringElement};
+use SimpleSAML\Test\Helper\Base64BinaryElement;
+use SimpleSAML\Test\Helper\BooleanElement;
+use SimpleSAML\Test\Helper\StringElement;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TypedTextContentTrait;
-use SimpleSAML\XMLSchema\Exception\{InvalidValueTypeException, SchemaViolationException};
+use SimpleSAML\XMLSchema\Exception\InvalidValueTypeException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 
 /**
  * Class \SimpleSAML\XML\TypedTextContentTraitTest
  *
  * @package simplesamlphp\xml-common
  */
-#[CoversClass(TypedTextContentTrait::class)]
 final class TypedTextContentTraitTest extends TestCase
 {
     public function testTypedContentPassesForString(): void

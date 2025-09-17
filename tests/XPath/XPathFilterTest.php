@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XPath;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\XPath\Exception\{AxisNotAllowedException, FunctionNotAllowedException, RuntimeException};
+use SimpleSAML\XPath\Exception\RuntimeException;
 use SimpleSAML\XPath\XPathFilter;
 
 use function microtime;

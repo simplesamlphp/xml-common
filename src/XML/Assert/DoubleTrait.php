@@ -19,6 +19,7 @@ trait DoubleTrait
             |[-]?FIN
         )$/Dx';
 
+
     /**
      * @param string $value
      * @param string $message

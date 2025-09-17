@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
-use SimpleSAML\XMLSchema\Type\{IDValue, NCNameValue};
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\Schema\SimpleDerivationSetValue;
 use SimpleSAML\XMLSchema\XML\Interface\SimpleDerivationInterface;
 use SimpleSAML\XMLSchema\XML\Trait\SimpleDerivationTrait;

@@ -6,11 +6,9 @@ namespace SimpleSAML\XPath;
 
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XPath\Constants as C;
-use SimpleSAML\XPath\Exception\{
-    AxisNotAllowedException,
-    FunctionNotAllowedException,
-    RuntimeException,
-};
+use SimpleSAML\XPath\Exception\AxisNotAllowedException;
+use SimpleSAML\XPath\Exception\FunctionNotAllowedException;
+use SimpleSAML\XPath\Exception\RuntimeException;
 
 use function preg_match_all;
 use function preg_replace;

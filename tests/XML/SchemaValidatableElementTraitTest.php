@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\XML;
 
 use DOMDocument;
-use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Test\Helper\{Base64BinaryElement, BooleanElement, StringElement};
+use SimpleSAML\Test\Helper\Base64BinaryElement;
+use SimpleSAML\Test\Helper\BooleanElement;
+use SimpleSAML\Test\Helper\StringElement;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\Exception\IOException;
-use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 
 /**
@@ -18,7 +18,6 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
  *
  * @package simplesamlphp\xml-common
  */
-#[CoversClass(SchemaValidatableElementTrait::class)]
 final class SchemaValidatableElementTraitTest extends TestCase
 {
     public function testSchemaValidationPasses(): void

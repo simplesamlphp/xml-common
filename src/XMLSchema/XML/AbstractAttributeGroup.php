@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
-use SimpleSAML\XMLSchema\Type\{IDValue, NCNameValue, QNameValue};
-use SimpleSAML\XMLSchema\XML\Trait\{AttrDeclsTrait, DefRefTrait};
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\XML\Trait\AttrDeclsTrait;
+use SimpleSAML\XMLSchema\XML\Trait\DefRefTrait;
 
 use function strval;
 
@@ -19,6 +22,7 @@ abstract class AbstractAttributeGroup extends AbstractAnnotated
 {
     use AttrDeclsTrait;
     use DefRefTrait;
+
 
     /**
      * AttributeGroup constructor

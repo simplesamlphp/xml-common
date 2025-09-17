@@ -6,10 +6,13 @@ namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, TooManyElementsException};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\IDValue;
-use SimpleSAML\XMLSchema\Type\Schema\{NamespaceListValue, ProcessContentsValue};
+use SimpleSAML\XMLSchema\Type\Schema\NamespaceListValue;
+use SimpleSAML\XMLSchema\Type\Schema\ProcessContentsValue;
 
 use function array_pop;
 
@@ -21,6 +24,7 @@ use function array_pop;
 final class AnyAttribute extends AbstractWildcard implements SchemaValidatableElementInterface
 {
     use SchemaValidatableElementTrait;
+
 
     /** @var string */
     public const LOCALNAME = 'anyAttribute';

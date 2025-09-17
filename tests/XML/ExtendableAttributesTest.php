@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\Helper\ExtendableAttributesElement;
 use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XMLSchema\Type\StringValue;
 
 use function dirname;
@@ -20,8 +20,6 @@ use function strval;
  *
  * @package simplesamlphp\xml-common
  */
-#[CoversClass(SchemaValidationTestTrait::class)]
-#[CoversClass(SerializableElementTestTrait::class)]
 final class ExtendableAttributesTest extends TestCase
 {
     use SchemaValidationTestTrait;

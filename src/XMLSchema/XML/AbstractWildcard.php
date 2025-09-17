@@ -6,7 +6,8 @@ namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
 use SimpleSAML\XMLSchema\Type\IDValue;
-use SimpleSAML\XMLSchema\Type\Schema\{NamespaceListValue, ProcessContentsValue};
+use SimpleSAML\XMLSchema\Type\Schema\NamespaceListValue;
+use SimpleSAML\XMLSchema\Type\Schema\ProcessContentsValue;
 
 use function strval;
 

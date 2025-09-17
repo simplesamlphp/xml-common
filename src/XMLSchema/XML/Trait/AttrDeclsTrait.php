@@ -7,7 +7,9 @@ namespace SimpleSAML\XMLSchema\XML\Trait;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
-use SimpleSAML\XMLSchema\XML\{AnyAttribute, LocalAttribute, ReferencedAttributeGroup};
+use SimpleSAML\XMLSchema\XML\AnyAttribute;
+use SimpleSAML\XMLSchema\XML\LocalAttribute;
+use SimpleSAML\XMLSchema\XML\ReferencedAttributeGroup;
 
 /**
  * Trait grouping common functionality for elements that use the attrDecls-group.

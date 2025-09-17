@@ -6,10 +6,13 @@ namespace SimpleSAML\Test\XML;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
+use SimpleSAML\XML\Chunk;
+use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XMLSchema\Exception\MissingAttributeException;
-use SimpleSAML\XMLSchema\Type\{BooleanValue, IntegerValue, StringValue};
+use SimpleSAML\XMLSchema\Type\BooleanValue;
+use SimpleSAML\XMLSchema\Type\IntegerValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 
 use function dirname;
 use function strval;
@@ -19,7 +22,6 @@ use function strval;
  *
  * @package simplesamlphp\xml-common
  */
-#[CoversClass(SerializableElementTestTrait::class)]
 #[CoversClass(Chunk::class)]
 final class ChunkTest extends TestCase
 {

@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\Helper;
 
 use SimpleSAML\XML\AbstractElement;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XML\TypedTextContentTrait;
 
 /**
@@ -17,6 +18,7 @@ final class Base64BinaryElement extends AbstractElement implements SchemaValidat
 {
     use TypedTextContentTrait;
     use SchemaValidatableElementTrait;
+
 
     /** @var string */
     public const NS = 'urn:x-simplesamlphp:namespace';

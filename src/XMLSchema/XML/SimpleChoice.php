@@ -6,9 +6,14 @@ namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, SchemaViolationException, TooManyElementsException};
-use SimpleSAML\XMLSchema\Type\{IDValue, NCNameValue, QNameValue};
-use SimpleSAML\XMLSchema\Type\Schema\{MaxOccursValue, MinOccursValue};
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
+use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
 
 use function array_merge;
 use function array_pop;

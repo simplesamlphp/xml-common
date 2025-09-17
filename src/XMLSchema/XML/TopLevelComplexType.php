@@ -6,9 +6,13 @@ namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, TooManyElementsException};
-use SimpleSAML\XMLSchema\Type\{BooleanValue, IDValue, NCNameValue};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
+use SimpleSAML\XMLSchema\Type\BooleanValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\Schema\DerivationSetValue;
 use SimpleSAML\XMLSchema\XML\Interface\RedefinableInterface;
 
@@ -25,6 +29,7 @@ final class TopLevelComplexType extends AbstractTopLevelComplexType implements
     SchemaValidatableElementInterface
 {
     use SchemaValidatableElementTrait;
+
 
     /** @var string */
     public const LOCALNAME = 'complexType';

@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
-use SimpleSAML\XML\Constants as C_XML;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\Constants as C_XML;
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XMLSchema\Constants as C_XS;
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, SchemaViolationException};
-use SimpleSAML\XMLSchema\Type\{AnyURIValue, IDValue};
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Type\AnyURIValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\XML\Interface\RedefinableInterface;
 
 use function strval;
@@ -24,8 +27,10 @@ final class Redefine extends AbstractOpenAttrs implements SchemaValidatableEleme
 {
     use SchemaValidatableElementTrait;
 
+
     /** @var string */
     public const LOCALNAME = 'redefine';
+
 
     /**
      * Schema constructor
@@ -123,7 +128,6 @@ final class Redefine extends AbstractOpenAttrs implements SchemaValidatableEleme
 
         $redefineElements = [];
         foreach ($xml->childNodes as $node) {
-            /** @var \DOMElement $node */
             if ($node instanceof DOMElement) {
                 if ($node->namespaceURI === C_XS::NS_XS && array_key_exists($node->localName, $allowed)) {
                     $redefineElements[] = $allowed[$node->localName]::fromXML($node);

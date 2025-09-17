@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\Assert\IDTest;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\Type\IDValue;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
-use SimpleSAML\XMLSchema\Type\{IDValue as BaseIDValue, StringValue};
 
 /**
  * Class \SimpleSAML\Test\XML\Type\IDValueTest

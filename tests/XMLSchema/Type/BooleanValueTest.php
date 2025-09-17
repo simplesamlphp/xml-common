@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XMLSchema\Type\Builtin;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\Assert\BooleanTest;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
@@ -48,7 +51,6 @@ final class BooleanValueTest extends TestCase
         $y = BooleanValue::fromString('1');
         $this->assertTrue($y->toBoolean());
     }
-
 
 
     /**

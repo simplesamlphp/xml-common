@@ -8,9 +8,11 @@ use DOMElement;
 use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\SerializableElementTrait;
-use SimpleSAML\XMLSchema\Exception\{MissingAttributeException, SchemaViolationException};
-use SimpleSAML\XMLSchema\Type\{QNameValue, StringValue};
+use SimpleSAML\XMLSchema\Exception\MissingAttributeException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 
 use function array_slice;
 use function defined;

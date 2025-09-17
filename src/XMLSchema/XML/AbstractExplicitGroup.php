@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\XML;
 
 use SimpleSAML\XMLSchema\Type\IDValue;
-use SimpleSAML\XMLSchema\Type\Schema\{MinOccursValue, MaxOccursValue};
+use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
+use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
 use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 
 /**

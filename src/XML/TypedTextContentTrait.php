@@ -6,9 +6,11 @@ namespace SimpleSAML\XML;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, InvalidValueTypeException};
-use SimpleSAML\XMLSchema\Type\{QNameValue, StringValue};
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\InvalidValueTypeException;
 use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 
 use function defined;
 use function strval;

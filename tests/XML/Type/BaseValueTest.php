@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DataProviderExternal, DependsOnClass};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\XML\Assert\AnyURITest;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\Type\BaseValue;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
-use SimpleSAML\XMLSchema\Type\{AnyURIValue, StringValue};
+use SimpleSAML\XMLSchema\Type\AnyURIValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 
 /**
  * Class \SimpleSAML\Test\XML\Type\BaseValueTest

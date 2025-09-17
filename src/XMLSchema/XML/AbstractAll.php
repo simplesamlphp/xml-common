@@ -7,7 +7,8 @@ namespace SimpleSAML\XMLSchema\XML;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\IDValue;
-use SimpleSAML\XMLSchema\Type\Schema\{MinOccursValue, MaxOccursValue};
+use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
+use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
 use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 
 /**

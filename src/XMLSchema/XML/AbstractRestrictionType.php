@@ -7,9 +7,12 @@ namespace SimpleSAML\XMLSchema\XML;
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
-use SimpleSAML\XMLSchema\Type\{IDValue, QNameValue};
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\XML\Interface\TypeDefParticleInterface;
-use SimpleSAML\XMLSchema\XML\Trait\{AttrDeclsTrait, SimpleRestrictionModelTrait, TypeDefParticleTrait};
+use SimpleSAML\XMLSchema\XML\Trait\AttrDeclsTrait;
+use SimpleSAML\XMLSchema\XML\Trait\SimpleRestrictionModelTrait;
+use SimpleSAML\XMLSchema\XML\Trait\TypeDefParticleTrait;
 
 use function strval;
 
@@ -23,6 +26,7 @@ abstract class AbstractRestrictionType extends AbstractAnnotated
     use AttrDeclsTrait;
     use SimpleRestrictionModelTrait;
     use TypeDefParticleTrait;
+
 
     /**
      * AbstractRestrictionType constructor

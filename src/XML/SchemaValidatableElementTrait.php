@@ -6,7 +6,8 @@ namespace SimpleSAML\XML;
 
 use DOMDocument;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\Exception\{IOException, RuntimeException};
+use SimpleSAML\XML\Exception\IOException;
+use SimpleSAML\XML\Exception\RuntimeException;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 
 use function array_unique;

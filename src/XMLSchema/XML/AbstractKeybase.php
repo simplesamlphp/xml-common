@@ -8,7 +8,8 @@ use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Exception\MissingElementException;
-use SimpleSAML\XMLSchema\Type\{IDValue, NCNameValue};
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
 
 use function strval;
 

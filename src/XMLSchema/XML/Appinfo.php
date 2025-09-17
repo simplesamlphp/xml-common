@@ -8,7 +8,8 @@ use DOMElement;
 use DOMNodeList;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\ExtendableAttributesTrait;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Type\AnyURIValue;
 use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
@@ -24,6 +25,7 @@ final class Appinfo extends AbstractXsElement implements SchemaValidatableElemen
 {
     use ExtendableAttributesTrait;
     use SchemaValidatableElementTrait;
+
 
     /** @var string */
     public const LOCALNAME = 'appinfo';

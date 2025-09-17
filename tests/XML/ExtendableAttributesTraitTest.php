@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\Test\Helper\ExtendableAttributesElement;
 use SimpleSAML\XML\Attribute;
-use SimpleSAML\XML\ExtendableAttributesTrait;
-use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 
@@ -19,9 +16,6 @@ use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
  *
  * @package simplesamlphp\xml-common
  */
-#[CoversClass(SchemaValidationTestTrait::class)]
-#[CoversClass(SerializableElementTestTrait::class)]
-#[CoversClass(ExtendableAttributesTrait::class)]
 final class ExtendableAttributesTraitTest extends TestCase
 {
     /** @var \SimpleSAML\XML\Attribute */
@@ -79,7 +73,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$target]) extends ExtendableAttributesElement {
-            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
             public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return [NamespaceEnum::Other, NamespaceEnum::Any];
@@ -92,7 +86,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([]) extends ExtendableAttributesElement {
-            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
             public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return [];
@@ -106,7 +100,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testOtherNamespacePassingOtherSucceeds(): void
     {
         $c = new class ([self::$other]) extends ExtendableAttributesElement {
-            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
             public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return NamespaceEnum::Other;
@@ -123,7 +117,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$local]) extends ExtendableAttributesElement {
-            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
             public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return NamespaceEnum::Other;
@@ -137,7 +131,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testTargetNamespacePassingTargetSucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableAttributesElement {
-            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
             public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return NamespaceEnum::TargetNamespace;
@@ -153,7 +147,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testTargetNamespacePassingTargetArraySucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableAttributesElement {
-            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
             public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return [NamespaceEnum::TargetNamespace];
@@ -169,7 +163,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testTargetNamespacePassingTargetArraySucceedsWithLocal(): void
     {
         $c = new class ([self::$target]) extends ExtendableAttributesElement {
-            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
             public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return [NamespaceEnum::TargetNamespace, NamespaceEnum::Local];
@@ -186,7 +180,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$other]) extends ExtendableAttributesElement {
-            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
             public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return NamespaceEnum::TargetNamespace;
@@ -200,7 +194,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testLocalNamespacePassingLocalSucceeds(): void
     {
         $c = new class ([self::$local]) extends ExtendableAttributesElement {
-            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
             public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return NamespaceEnum::Local;
@@ -216,7 +210,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testLocalNamespacePassingLocalArraySucceeds(): void
     {
         $c = new class ([self::$local]) extends ExtendableAttributesElement {
-            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
             public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return [NamespaceEnum::Local];
@@ -233,7 +227,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$other]) extends ExtendableAttributesElement {
-            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
             public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return NamespaceEnum::Local;
@@ -247,7 +241,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testAnyNamespacePassingTargetSucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableAttributesElement {
-            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
             public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return NamespaceEnum::Any;
@@ -263,7 +257,7 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testAnyNamespacePassingOtherSucceeds(): void
     {
         $c = new class ([self::$other]) extends ExtendableAttributesElement {
-            /** @return array<int, NamespaceEnum|string>|NamespaceEnum */
+            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
             public function getAttributeNamespace(): array|NamespaceEnum
             {
                 return NamespaceEnum::Any;

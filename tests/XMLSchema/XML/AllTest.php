@@ -5,41 +5,42 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\Test\XML;
 
 use DOMText;
-use PHPUnit\Framework\Attributes\{CoversClass, Group};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XML\Type\LangValue;
-use SimpleSAML\XMLSchema\Type\{
-    AnyURIValue,
-    BooleanValue,
-    IDValue,
-    NCNameValue,
-    QNameValue,
-    StringValue,
-};
-use SimpleSAML\XMLSchema\Type\Schema\{
-    BlockSetValue,
-    DerivationSetValue,
-    FormChoiceValue,
-    MaxOccursValue,
-    MinOccursValue,
-    NamespaceListValue,
-    ProcessContentsValue,
-    SimpleDerivationSetValue,
-};
-use SimpleSAML\XMLSchema\XML\Enumeration\{DerivationControlEnum, FormChoiceEnum, NamespaceEnum, ProcessContentsEnum};
+use SimpleSAML\XMLSchema\Type\AnyURIValue;
+use SimpleSAML\XMLSchema\Type\BooleanValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\Schema\BlockSetValue;
+use SimpleSAML\XMLSchema\Type\Schema\DerivationSetValue;
+use SimpleSAML\XMLSchema\Type\Schema\FormChoiceValue;
+use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
+use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
+use SimpleSAML\XMLSchema\Type\Schema\NamespaceListValue;
+use SimpleSAML\XMLSchema\Type\Schema\ProcessContentsValue;
+use SimpleSAML\XMLSchema\Type\Schema\SimpleDerivationSetValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\AbstractAll;
 use SimpleSAML\XMLSchema\XML\AbstractOpenAttrs;
 use SimpleSAML\XMLSchema\XML\AbstractXsElement;
 use SimpleSAML\XMLSchema\XML\All;
 use SimpleSAML\XMLSchema\XML\Annotation;
 use SimpleSAML\XMLSchema\XML\AnyAttribute;
-use SimpleSAML\XMLSchema\XML\LocalAttribute;
 use SimpleSAML\XMLSchema\XML\Documentation;
+use SimpleSAML\XMLSchema\XML\Enumeration\DerivationControlEnum;
+use SimpleSAML\XMLSchema\XML\Enumeration\FormChoiceEnum;
+use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Enumeration\ProcessContentsEnum;
 use SimpleSAML\XMLSchema\XML\Field;
 use SimpleSAML\XMLSchema\XML\Keyref;
+use SimpleSAML\XMLSchema\XML\LocalAttribute;
 use SimpleSAML\XMLSchema\XML\LocalSimpleType;
 use SimpleSAML\XMLSchema\XML\NarrowMaxMinElement;
 use SimpleSAML\XMLSchema\XML\ReferencedAttributeGroup;

@@ -5,16 +5,22 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\Test\XML;
 
 use DOMText;
-use PHPUnit\Framework\Attributes\{CoversClass, Group};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Constants as C;
-use SimpleSAML\XMLSchema\Type\{AnyURIValue, IDValue, StringValue};
-use SimpleSAML\XMLSchema\Type\Schema\{MaxOccursValue, MinOccursValue, NamespaceListValue, ProcessContentsValue};
-use SimpleSAML\XMLSchema\XML\Enumeration\{NamespaceEnum, ProcessContentsEnum};
+use SimpleSAML\XMLSchema\Type\AnyURIValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
+use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
+use SimpleSAML\XMLSchema\Type\Schema\NamespaceListValue;
+use SimpleSAML\XMLSchema\Type\Schema\ProcessContentsValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\AbstractAnnotated;
 use SimpleSAML\XMLSchema\XML\AbstractOpenAttrs;
 use SimpleSAML\XMLSchema\XML\AbstractWildcard;
@@ -23,7 +29,8 @@ use SimpleSAML\XMLSchema\XML\Annotation;
 use SimpleSAML\XMLSchema\XML\Any;
 use SimpleSAML\XMLSchema\XML\Appinfo;
 use SimpleSAML\XMLSchema\XML\Documentation;
-use SimpleSAML\XMLSchema\XML\Trait\{MaxOccursTrait, MinOccursTrait, OccursTrait};
+use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Enumeration\ProcessContentsEnum;
 
 use function dirname;
 use function strval;
@@ -39,9 +46,6 @@ use function strval;
 #[CoversClass(AbstractAnnotated::class)]
 #[CoversClass(AbstractOpenAttrs::class)]
 #[CoversClass(AbstractXsElement::class)]
-#[CoversClass(MinOccursTrait::class)]
-#[CoversClass(MaxOccursTrait::class)]
-#[CoversClass(OccursTrait::class)]
 final class AnyTest extends TestCase
 {
     use SchemaValidationTestTrait;

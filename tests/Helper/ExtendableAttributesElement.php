@@ -8,7 +8,8 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\ExtendableAttributesTrait;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 
@@ -21,6 +22,7 @@ class ExtendableAttributesElement extends AbstractElement implements SchemaValid
 {
     use ExtendableAttributesTrait;
     use SchemaValidatableElementTrait;
+
 
     /** @var string */
     public const NS = 'urn:x-simplesamlphp:namespace';

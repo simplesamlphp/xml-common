@@ -17,6 +17,7 @@ class Random
      */
     public const ID_LENGTH = 43;
 
+
     /**
      * This function will generate a unique ID that is valid for use
      * in an xs:ID attribute

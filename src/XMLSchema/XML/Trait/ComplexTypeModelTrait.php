@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML\Trait;
 
-use SimpleSAML\XMLSchema\XML\{ComplexContent, SimpleContent};
+use SimpleSAML\XMLSchema\XML\ComplexContent;
+use SimpleSAML\XMLSchema\XML\SimpleContent;
 
 /**
  * Trait grouping common functionality for elements that are part of the xs:complexTypeModel group.
@@ -15,6 +16,7 @@ trait ComplexTypeModelTrait
 {
     use AttrDeclsTrait;
     use TypeDefParticleTrait;
+
 
     /**
      * The content.

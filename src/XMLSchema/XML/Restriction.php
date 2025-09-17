@@ -6,9 +6,12 @@ namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, RuntimeException, TooManyElementsException};
-use SimpleSAML\XMLSchema\Type\{IDValue, QNameValue};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\XML\Interface\SimpleDerivationInterface;
 use SimpleSAML\XMLSchema\XML\Trait\SimpleRestrictionModelTrait;
 
@@ -27,6 +30,7 @@ final class Restriction extends AbstractAnnotated implements
 {
     use SchemaValidatableElementTrait;
     use SimpleRestrictionModelTrait;
+
 
     /** @var string */
     public const LOCALNAME = 'restriction';

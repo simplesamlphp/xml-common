@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\XML\Trait;
 
-use SimpleSAML\XML\Type\{BaseValue, IDValue, LangValue, SpaceValue};
+use SimpleSAML\XML\Type\BaseValue;
+use SimpleSAML\XML\Type\IDValue;
+use SimpleSAML\XML\Type\LangValue;
+use SimpleSAML\XML\Type\SpaceValue;
 
 /**
  * Trait grouping common functionality for elements that use the specialAttrs-attributeGroup.
@@ -20,7 +23,6 @@ trait SpecialAttrsTrait
      */
     protected ?BaseValue $base = null;
 
-
     /**
      * The id.
      *
@@ -28,14 +30,12 @@ trait SpecialAttrsTrait
      */
     protected ?IDValue $id = null;
 
-
     /**
      * The lang.
      *
      * @var \SimpleSAML\XML\Type\LangValue|null
      */
     protected ?LangValue $lang = null;
-
 
     /**
      * The space.

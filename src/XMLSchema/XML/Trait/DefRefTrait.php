@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML\Trait;
 
-use SimpleSAML\XMLSchema\Type\{NCNameValue, QNameValue};
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 /**
  * Trait grouping common functionality for elements that use the defRef-attributeGroup.
@@ -19,7 +20,6 @@ trait DefRefTrait
      * @var \SimpleSAML\XMLSchema\Type\NCNameValue|null
      */
     protected ?NCNameValue $name = null;
-
 
     /**
      * The reference.

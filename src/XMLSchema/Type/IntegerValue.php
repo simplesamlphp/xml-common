@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\Type;
 
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XMLSchema\Exception\{RuntimeException, SchemaViolationException};
+use SimpleSAML\XMLSchema\Exception\RuntimeException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 
 use function bccomp;
 use function intval;

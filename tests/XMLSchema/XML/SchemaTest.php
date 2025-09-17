@@ -5,35 +5,31 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\Test\XML;
 
 use DOMText;
-use PHPUnit\Framework\Attributes\{CoversClass, Group};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Constants as C;
-use SimpleSAML\XMLSchema\Type\{
-    AnyURIValue,
-    BooleanValue,
-    IDValue,
-    NCNameValue,
-    StringValue,
-    TokenValue,
-    QNameValue,
-};
-use SimpleSAML\XMLSchema\Type\Schema\{
-    BlockSetValue,
-    DerivationSetValue,
-    FormChoiceValue,
-    FullDerivationSetValue,
-    NamespaceListValue,
-    ProcessContentsValue,
-};
-use SimpleSAML\XMLSchema\XML\Enumeration\{DerivationControlEnum, FormChoiceEnum};
+use SimpleSAML\XMLSchema\Type\AnyURIValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\Schema\BlockSetValue;
+use SimpleSAML\XMLSchema\Type\Schema\DerivationSetValue;
+use SimpleSAML\XMLSchema\Type\Schema\FormChoiceValue;
+use SimpleSAML\XMLSchema\Type\Schema\FullDerivationSetValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
+use SimpleSAML\XMLSchema\Type\TokenValue;
 use SimpleSAML\XMLSchema\XML\AbstractOpenAttrs;
 use SimpleSAML\XMLSchema\XML\AbstractXsElement;
 use SimpleSAML\XMLSchema\XML\Annotation;
 use SimpleSAML\XMLSchema\XML\Documentation;
+use SimpleSAML\XMLSchema\XML\Enumeration\DerivationControlEnum;
+use SimpleSAML\XMLSchema\XML\Enumeration\FormChoiceEnum;
 use SimpleSAML\XMLSchema\XML\Field;
 use SimpleSAML\XMLSchema\XML\Import;
 use SimpleSAML\XMLSchema\XML\Keyref;

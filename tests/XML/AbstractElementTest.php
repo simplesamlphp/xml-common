@@ -11,7 +11,9 @@ use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XMLSchema\Exception\MissingAttributeException;
-use SimpleSAML\XMLSchema\Type\{IntegerValue, BooleanValue, StringValue};
+use SimpleSAML\XMLSchema\Type\BooleanValue;
+use SimpleSAML\XMLSchema\Type\IntegerValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 
 use function dirname;
 
@@ -20,7 +22,6 @@ use function dirname;
  *
  * @package simplesamlphp\xml-common
  */
-#[CoversClass(SerializableElementTestTrait::class)]
 #[CoversClass(AbstractElement::class)]
 final class AbstractElementTest extends TestCase
 {

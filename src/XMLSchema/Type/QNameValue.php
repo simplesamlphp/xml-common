@@ -19,6 +19,7 @@ class QNameValue extends AbstractAnySimpleType
     /** @var string */
     public const SCHEMA_TYPE = 'QName';
 
+
     /** @var \SimpleSAML\XMLSchema\Type\AnyURIValue|null */
     protected ?AnyURIValue $namespaceURI;
 

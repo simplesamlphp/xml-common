@@ -6,8 +6,10 @@ namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, TooManyElementsException};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\IDValue;
 
 use function array_merge;
@@ -20,6 +22,7 @@ use function array_merge;
 final class SimpleContent extends AbstractAnnotated implements SchemaValidatableElementInterface
 {
     use SchemaValidatableElementTrait;
+
 
     /** @var string */
     public const LOCALNAME = 'simpleContent';

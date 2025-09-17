@@ -43,7 +43,7 @@ final class SchemaTest extends TestCase
 
 
     /**
-     * @return array<string, array<int, DOMElement|null>>
+     * @return array<string, array<int, \DOMElement|null>>
      */
     public static function provideSchema(): array
     {

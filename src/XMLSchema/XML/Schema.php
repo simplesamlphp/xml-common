@@ -5,16 +5,22 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
-use SimpleSAML\XPath\XPath;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C_XML;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Constants as C_XS;
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, SchemaViolationException};
-use SimpleSAML\XMLSchema\Type\{AnyURIValue, IDValue, StringValue, TokenValue};
-use SimpleSAML\XMLSchema\Type\Schema\{BlockSetValue, FormChoiceValue, FullDerivationSetValue};
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Type\AnyURIValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\Schema\BlockSetValue;
+use SimpleSAML\XMLSchema\Type\Schema\FormChoiceValue;
+use SimpleSAML\XMLSchema\Type\Schema\FullDerivationSetValue;
+use SimpleSAML\XMLSchema\Type\TokenValue;
 use SimpleSAML\XMLSchema\XML\Interface\RedefinableInterface;
+use SimpleSAML\XPath\XPath;
 
 use function array_merge;
 use function strval;
@@ -27,6 +33,7 @@ use function strval;
 final class Schema extends AbstractOpenAttrs implements SchemaValidatableElementInterface
 {
     use SchemaValidatableElementTrait;
+
 
     /** @var string */
     public const LOCALNAME = 'schema';

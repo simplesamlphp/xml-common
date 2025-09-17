@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use SimpleSAML\XMLSchema\Type\{IDValue, QNameValue};
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\XML\Interface\TypeDefParticleInterface;
 
 /**

@@ -6,7 +6,8 @@ namespace SimpleSAML\XMLSchema\XML;
 
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
-use SimpleSAML\XMLSchema\Type\{IDValue, NCNameValue};
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\Schema\SimpleDerivationSetValue;
 
 /**

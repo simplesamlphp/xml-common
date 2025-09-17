@@ -58,5 +58,6 @@ trait SchemaValidationTestTrait
         }
     }
 
+
     abstract public function testSerialization(): void;
 }

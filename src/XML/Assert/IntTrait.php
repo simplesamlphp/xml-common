@@ -45,6 +45,7 @@ trait IntTrait
         )
         $/Dx';
 
+
     /**
      * @param string $value
      * @param string $message

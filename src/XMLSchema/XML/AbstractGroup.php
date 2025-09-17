@@ -7,9 +7,13 @@ namespace SimpleSAML\XMLSchema\XML;
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
-use SimpleSAML\XMLSchema\Type\{IDValue, NCNameValue, QNameValue};
-use SimpleSAML\XMLSchema\Type\Schema\{MinOccursValue, MaxOccursValue};
-use SimpleSAML\XMLSchema\XML\Trait\{DefRefTrait, OccursTrait};
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
+use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
+use SimpleSAML\XMLSchema\XML\Trait\DefRefTrait;
+use SimpleSAML\XMLSchema\XML\Trait\OccursTrait;
 
 use function strval;
 
@@ -22,6 +26,7 @@ abstract class AbstractGroup extends AbstractAnnotated
 {
     use DefRefTrait;
     use OccursTrait;
+
 
     /**
      * Group constructor

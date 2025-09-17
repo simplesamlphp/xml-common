@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use SimpleSAML\XMLSchema\Type\{BooleanValue, IDValue, NCNameValue, QNameValue, StringValue};
-use SimpleSAML\XMLSchema\Type\Schema\{BlockSetValue, DerivationSetValue};
+use SimpleSAML\XMLSchema\Type\BooleanValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\Schema\BlockSetValue;
+use SimpleSAML\XMLSchema\Type\Schema\DerivationSetValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 
 /**
  * Abstract class representing the topLevelElement-type.

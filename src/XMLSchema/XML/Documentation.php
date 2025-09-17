@@ -9,10 +9,11 @@ use DOMNodeList;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\ExtendableAttributesTrait;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
-use SimpleSAML\XMLSchema\Type\{AnyURIValue, StringValue};
+use SimpleSAML\XMLSchema\Type\AnyURIValue;
 use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 
 use function strval;
@@ -26,6 +27,7 @@ final class Documentation extends AbstractXsElement implements SchemaValidatable
 {
     use ExtendableAttributesTrait;
     use SchemaValidatableElementTrait;
+
 
     /** @var string */
     public const LOCALNAME = 'documentation';

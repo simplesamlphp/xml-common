@@ -253,7 +253,6 @@ trait ExtendableAttributesTrait
     }
 
 
-
     /**
      * @return (
      *   array<\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|

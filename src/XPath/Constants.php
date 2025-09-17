@@ -82,7 +82,6 @@ class Constants extends \SimpleSAML\XML\Constants
         'true',
     ];
 
-
     /** @var array<string> */
     public const DEFAULT_ALLOWED_FUNCTIONS = [
         // 'boolean',

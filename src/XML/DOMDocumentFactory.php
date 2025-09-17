@@ -6,7 +6,9 @@ namespace SimpleSAML\XML;
 
 use DOMDocument;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\Exception\{IOException, RuntimeException, UnparseableXMLException};
+use SimpleSAML\XML\Exception\IOException;
+use SimpleSAML\XML\Exception\RuntimeException;
+use SimpleSAML\XML\Exception\UnparseableXMLException;
 
 use function file_get_contents;
 use function func_num_args;

@@ -6,14 +6,15 @@ namespace SimpleSAML\XMLSchema\XML;
 
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
-use SimpleSAML\XMLSchema\Type\{BooleanValue, IDValue, NCNameValue, QNameValue, StringValue};
-use SimpleSAML\XMLSchema\Type\Schema\{
-    BlockSetValue,
-    DerivationSetValue,
-    FormChoiceValue,
-    MaxOccursValue,
-    MinOccursValue,
-};
+use SimpleSAML\XMLSchema\Type\BooleanValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\Schema\BlockSetValue;
+use SimpleSAML\XMLSchema\Type\Schema\FormChoiceValue;
+use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
+use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 
 use function strval;
 

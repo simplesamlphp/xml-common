@@ -7,7 +7,8 @@ namespace SimpleSAML\Test\Helper;
 use DOMElement;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\ExtendableElementTrait;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XML\SerializableElementTrait;
 use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 
@@ -21,6 +22,7 @@ class ExtendableElement extends AbstractElement implements SchemaValidatableElem
     use ExtendableElementTrait;
     use SchemaValidatableElementTrait;
     use SerializableElementTrait;
+
 
     /** @var string */
     public const NS = 'urn:x-simplesamlphp:namespace';

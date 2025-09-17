@@ -45,6 +45,7 @@ class XPath
         return $xpCache;
     }
 
+
     /**
      * Do an XPath query on an XML node.
      *

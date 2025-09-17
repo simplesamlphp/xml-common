@@ -7,9 +7,14 @@ namespace SimpleSAML\XMLSchema\XML;
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\ProtocolViolationException;
-use SimpleSAML\XMLSchema\Type\{IDValue, NCNameValue, QNameValue, StringValue};
-use SimpleSAML\XMLSchema\Type\Schema\{FormChoiceValue, UseValue};
-use SimpleSAML\XMLSchema\XML\Trait\{DefRefTrait, FormChoiceTrait};
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\Schema\FormChoiceValue;
+use SimpleSAML\XMLSchema\Type\Schema\UseValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
+use SimpleSAML\XMLSchema\XML\Trait\DefRefTrait;
+use SimpleSAML\XMLSchema\XML\Trait\FormChoiceTrait;
 
 use function strval;
 

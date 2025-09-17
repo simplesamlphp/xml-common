@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace SimpleSAML\XMLSchema\XML;
 
 use DOMElement;
-use SimpleSAML\XMLSchema\Type\{IDValue, QNameValue};
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\XML\Interface\TypeDefParticleInterface;
-use SimpleSAML\XMLSchema\XML\Trait\{AttrDeclsTrait, TypeDefParticleTrait};
+use SimpleSAML\XMLSchema\XML\Trait\AttrDeclsTrait;
+use SimpleSAML\XMLSchema\XML\Trait\TypeDefParticleTrait;
 
 use function strval;
 
@@ -20,6 +22,7 @@ abstract class AbstractExtensionType extends AbstractAnnotated
 {
     use AttrDeclsTrait;
     use TypeDefParticleTrait;
+
 
     /**
      * AbstractExtensionType constructor
