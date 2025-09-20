@@ -64,7 +64,6 @@ abstract class AbstractAnySimpleType implements ValueTypeInterface
      * Sanitize the value.
      *
      * @param string $value  The value
-     * @throws \Exception on failure
      * @return string
      */
     protected function sanitizeValue(string $value): string
@@ -81,7 +80,6 @@ abstract class AbstractAnySimpleType implements ValueTypeInterface
      * Validate the value.
      *
      * @param string $value  The value
-     * @throws \Exception on failure
      * @return void
      */
     protected function validateValue(/** @scrutinizer-ignore */string $value): void

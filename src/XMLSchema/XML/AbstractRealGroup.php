@@ -11,7 +11,7 @@ use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
 use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
 use SimpleSAML\XMLSchema\XML\Interface\ParticleInterface;
 
 use function is_null;
@@ -24,7 +24,7 @@ use function is_null;
 abstract class AbstractRealGroup extends AbstractGroup
 {
     /** The namespace-attribute for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_NAMESPACE = NamespaceEnum::Other;
+    public const XS_ANY_ATTR_NAMESPACE = NS::OTHER;
 
 
     /**

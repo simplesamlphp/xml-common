@@ -28,8 +28,8 @@ use SimpleSAML\XMLSchema\XML\Annotation;
 use SimpleSAML\XMLSchema\XML\AnyAttribute;
 use SimpleSAML\XMLSchema\XML\Appinfo;
 use SimpleSAML\XMLSchema\XML\ComplexRestriction;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
 use SimpleSAML\XMLSchema\XML\Documentation;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 use SimpleSAML\XMLSchema\XML\Enumeration\ProcessContentsEnum;
 use SimpleSAML\XMLSchema\XML\LocalAttribute;
 use SimpleSAML\XMLSchema\XML\ReferencedAttributeGroup;
@@ -129,7 +129,7 @@ final class ComplexRestrictionTest extends TestCase
         );
 
         $anyAttribute = new AnyAttribute(
-            NamespaceListValue::fromEnum(NamespaceEnum::Any),
+            NamespaceListValue::fromString(NS::ANY),
             ProcessContentsValue::fromEnum(ProcessContentsEnum::Strict),
             null,
             IDValue::fromString('phpunit_anyattribute'),

@@ -8,7 +8,7 @@ use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\NCNameValue;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
 use SimpleSAML\XMLSchema\XML\Interface\ParticleInterface;
 
 /**
@@ -19,7 +19,7 @@ use SimpleSAML\XMLSchema\XML\Interface\ParticleInterface;
 abstract class AbstractNamedGroup extends AbstractRealGroup
 {
     /** The namespace-attribute for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_NAMESPACE = NamespaceEnum::Other;
+    public const XS_ANY_ATTR_NAMESPACE = NS::OTHER;
 
 
     /**

@@ -13,6 +13,7 @@ use function class_exists;
  * Test for AbstractElement classes to perform schema validation tests.
  *
  * @package simplesamlphp\xml-common
+ * @phpstan-ignore trait.unused
  */
 trait SchemaValidationTestTrait
 {

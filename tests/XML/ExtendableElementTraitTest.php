@@ -10,7 +10,7 @@ use SimpleSAML\Test\Helper\ExtendableElement;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\ElementInterface;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
 
 /**
  * Class \SimpleSAML\XML\ExtendableElementTraitTest
@@ -85,11 +85,15 @@ XML
     public function testIllegalNamespaceComboThrowsAnException(): void
     {
         $this->expectException(AssertionFailedException::class);
+        // @phpstan-ignore expr.resultUnused
         new class ([]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return [NamespaceEnum::Other, NamespaceEnum::Any];
+                return [NS::OTHER, NS::ANY];
             }
         };
     }
@@ -100,9 +104,13 @@ XML
     public function testEmptyNamespaceArrayThrowsAnException(): void
     {
         $this->expectException(AssertionFailedException::class);
+        // @phpstan-ignore expr.resultUnused
         new class ([]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
                 return [];
             }
@@ -115,14 +123,17 @@ XML
     public function testOtherNamespacePassingOtherSucceeds(): void
     {
         $c = new class ([self::$other]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return NamespaceEnum::Other;
+                return NS::OTHER;
             }
         };
 
-        $this->assertEquals(NamespaceEnum::Other, $c->getElementNamespace());
+        $this->assertEquals(NS::OTHER, $c->getElementNamespace());
     }
 
 
@@ -132,10 +143,13 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$local]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return NamespaceEnum::Other;
+                return NS::OTHER;
             }
         };
     }
@@ -146,14 +160,17 @@ XML
     public function testTargetNamespacePassingTargetSucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return NamespaceEnum::TargetNamespace;
+                return NS::TARGETNAMESPACE;
             }
         };
 
-        $this->assertEquals(NamespaceEnum::TargetNamespace, $c->getElementNamespace());
+        $this->assertEquals(NS::TARGETNAMESPACE, $c->getElementNamespace());
     }
 
 
@@ -162,14 +179,17 @@ XML
     public function testTargetNamespacePassingTargetArraySucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return [NamespaceEnum::TargetNamespace];
+                return [NS::TARGETNAMESPACE];
             }
         };
 
-        $this->assertEquals([NamespaceEnum::TargetNamespace], $c->getElementNamespace());
+        $this->assertEquals([NS::TARGETNAMESPACE], $c->getElementNamespace());
     }
 
 
@@ -178,14 +198,17 @@ XML
     public function testTargetNamespacePassingTargetArraySucceedsWithLocal(): void
     {
         $c = new class ([self::$target]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return [NamespaceEnum::TargetNamespace, NamespaceEnum::Local];
+                return [NS::TARGETNAMESPACE, NS::LOCAL];
             }
         };
 
-        $this->assertEquals([NamespaceEnum::TargetNamespace, NamespaceEnum::Local], $c->getElementNamespace());
+        $this->assertEquals([NS::TARGETNAMESPACE, NS::LOCAL], $c->getElementNamespace());
     }
 
 
@@ -195,10 +218,13 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$other]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return NamespaceEnum::TargetNamespace;
+                return NS::TARGETNAMESPACE;
             }
         };
     }
@@ -209,14 +235,17 @@ XML
     public function testLocalNamespacePassingLocalSucceeds(): void
     {
         $c = new class ([self::$local]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return NamespaceEnum::Local;
+                return NS::LOCAL;
             }
         };
 
-        $this->assertEquals(NamespaceEnum::Local, $c->getElementNamespace());
+        $this->assertEquals(NS::LOCAL, $c->getElementNamespace());
     }
 
 
@@ -225,14 +254,17 @@ XML
     public function testLocalNamespacePassingLocalArraySucceeds(): void
     {
         $c = new class ([self::$local]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return [NamespaceEnum::Local];
+                return [NS::LOCAL];
             }
         };
 
-        $this->assertEquals([NamespaceEnum::Local], $c->getElementNamespace());
+        $this->assertEquals([NS::LOCAL], $c->getElementNamespace());
     }
 
 
@@ -242,10 +274,13 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$target]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return NamespaceEnum::Local;
+                return NS::LOCAL;
             }
         };
     }
@@ -257,10 +292,13 @@ XML
     {
         $this->expectException(AssertionFailedException::class);
         new class ([self::$other]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return NamespaceEnum::Local;
+                return NS::LOCAL;
             }
         };
     }
@@ -271,14 +309,17 @@ XML
     public function testAnyNamespacePassingLocalSucceeds(): void
     {
         $c = new class ([self::$local]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return NamespaceEnum::Any;
+                return NS::ANY;
             }
         };
 
-        $this->assertEquals(NamespaceEnum::Any, $c->getElementNamespace());
+        $this->assertEquals(NS::ANY, $c->getElementNamespace());
     }
 
 
@@ -287,14 +328,17 @@ XML
     public function testAnyNamespacePassingTargetSucceeds(): void
     {
         $c = new class ([self::$target]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return NamespaceEnum::Any;
+                return NS::ANY;
             }
         };
 
-        $this->assertEquals(NamespaceEnum::Any, $c->getElementNamespace());
+        $this->assertEquals(NS::ANY, $c->getElementNamespace());
     }
 
 
@@ -303,13 +347,16 @@ XML
     public function testAnyNamespacePassingOtherSucceeds(): void
     {
         $c = new class ([self::$other]) extends ExtendableElement {
-            /** @return array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum */
-            public function getElementNamespace(): array|NamespaceEnum
+            /**
+             * @return array<int, string>|string
+             * @phpstan-ignore return.unusedType
+             */
+            public function getElementNamespace(): array|string
             {
-                return NamespaceEnum::Any;
+                return NS::ANY;
             }
         };
 
-        $this->assertEquals(NamespaceEnum::Any, $c->getElementNamespace());
+        $this->assertEquals(NS::ANY, $c->getElementNamespace());
     }
 }

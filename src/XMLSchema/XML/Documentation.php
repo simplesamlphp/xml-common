@@ -14,7 +14,7 @@ use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Type\AnyURIValue;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
 
 use function strval;
 
@@ -33,7 +33,7 @@ final class Documentation extends AbstractXsElement implements SchemaValidatable
     public const LOCALNAME = 'documentation';
 
     /** The namespace-attribute for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_NAMESPACE = NamespaceEnum::Other;
+    public const XS_ANY_ATTR_NAMESPACE = NS::OTHER;
 
     /** The exclusions for the xs:anyAttribute element */
     public const XS_ANY_ATTR_EXCLUSIONS = [

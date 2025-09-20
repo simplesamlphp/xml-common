@@ -7,7 +7,7 @@ namespace SimpleSAML\XMLSchema\XML;
 use DOMElement;
 use SimpleSAML\XML\ExtendableAttributesTrait;
 use SimpleSAML\XML\ExtendableElementTrait;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
 
 /**
  * Abstract class to be implemented by all the classes that use the xs:anyType complex type
@@ -21,10 +21,10 @@ abstract class AbstractAnyType extends AbstractXsElement
 
 
     /** The namespace-attribute for the xs:any element */
-    public const XS_ANY_ELT_NAMESPACE = NamespaceEnum::Any;
+    public const XS_ANY_ELT_NAMESPACE = NS::ANY;
 
     /** The namespace-attribute for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_NAMESPACE = NamespaceEnum::Any;
+    public const XS_ANY_ATTR_NAMESPACE = NS::ANY;
 
 
     /**

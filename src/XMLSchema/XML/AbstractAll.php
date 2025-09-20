@@ -9,7 +9,7 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
 use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
 
 /**
  * Abstract class representing the explicitGroup-type.
@@ -19,7 +19,7 @@ use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 abstract class AbstractAll extends AbstractExplicitGroup
 {
     /** The namespace-attribute for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_NAMESPACE = NamespaceEnum::Other;
+    public const XS_ANY_ATTR_NAMESPACE = NS::OTHER;
 
 
     /**

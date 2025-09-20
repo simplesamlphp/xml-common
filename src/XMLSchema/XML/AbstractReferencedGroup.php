@@ -6,7 +6,7 @@ namespace SimpleSAML\XMLSchema\XML;
 
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\QNameValue;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
 
 /**
  * Abstract class representing the groupRef-type.
@@ -16,7 +16,7 @@ use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 abstract class AbstractReferencedGroup extends AbstractRealGroup
 {
     /** The namespace-attribute for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_NAMESPACE = NamespaceEnum::Other;
+    public const XS_ANY_ATTR_NAMESPACE = NS::OTHER;
 
 
     /**

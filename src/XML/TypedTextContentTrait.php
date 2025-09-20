@@ -19,6 +19,7 @@ use function strval;
  * Trait for elements that hold a typed textContent value.
  *
  * @package simplesaml/xml-common
+ * @phpstan-ignore trait.unused
  */
 trait TypedTextContentTrait
 {

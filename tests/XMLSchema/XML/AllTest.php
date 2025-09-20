@@ -33,10 +33,10 @@ use SimpleSAML\XMLSchema\XML\AbstractXsElement;
 use SimpleSAML\XMLSchema\XML\All;
 use SimpleSAML\XMLSchema\XML\Annotation;
 use SimpleSAML\XMLSchema\XML\AnyAttribute;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
 use SimpleSAML\XMLSchema\XML\Documentation;
 use SimpleSAML\XMLSchema\XML\Enumeration\DerivationControlEnum;
 use SimpleSAML\XMLSchema\XML\Enumeration\FormChoiceEnum;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 use SimpleSAML\XMLSchema\XML\Enumeration\ProcessContentsEnum;
 use SimpleSAML\XMLSchema\XML\Field;
 use SimpleSAML\XMLSchema\XML\Keyref;
@@ -154,7 +154,7 @@ final class AllTest extends TestCase
 
         // TopLevelComplexType
         $anyAttribute1 = new AnyAttribute(
-            NamespaceListValue::fromEnum(NamespaceEnum::Any),
+            NamespaceListValue::fromString(NS::ANY),
             ProcessContentsValue::fromEnum(ProcessContentsEnum::Strict),
             null,
             IDValue::fromString('phpunit_anyattribute1'),

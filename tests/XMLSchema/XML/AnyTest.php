@@ -28,8 +28,8 @@ use SimpleSAML\XMLSchema\XML\AbstractXsElement;
 use SimpleSAML\XMLSchema\XML\Annotation;
 use SimpleSAML\XMLSchema\XML\Any;
 use SimpleSAML\XMLSchema\XML\Appinfo;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
 use SimpleSAML\XMLSchema\XML\Documentation;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 use SimpleSAML\XMLSchema\XML\Enumeration\ProcessContentsEnum;
 
 use function dirname;
@@ -126,7 +126,7 @@ final class AnyTest extends TestCase
         );
 
         $any = new Any(
-            NamespaceListValue::fromEnum(NamespaceEnum::Any),
+            NamespaceListValue::fromString(NS::ANY),
             ProcessContentsValue::fromEnum(ProcessContentsEnum::Strict),
             $annotation,
             IDValue::fromString('phpunit_any'),

@@ -9,7 +9,8 @@ use SimpleSAML\Assert\Assert as BaseAssert;
 /**
  * @package simplesamlphp/xml-common
  *
- * @method static void validAllowedXPathFilter(mixed $value, array $allowed_axes, array $allowed_functions, string $message = '', string $exception = '')
+ * @phpcs:ignore Generic.Files.LineLength.TooLong
+ * @method static void validAllowedXPathFilter(mixed $value, string[] $allowed_axes, string[] $allowed_functions, string $message = '', string $exception = '')
  * @method static void validAnyURI(mixed $value, string $message = '', string $exception = '')
  * @method static void validBase64Binary(mixed $value, string $message = '', string $exception = '')
  * @method static void validBoolean(mixed $value, string $message = '', string $exception = '')
@@ -52,7 +53,8 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void validUnsignedShort(mixed $value, string $message = '', string $exception = '')
  * @method static void validYear(mixed $value, string $message = '', string $exception = '')
  * @method static void validYearMonth(mixed $value, string $message = '', string $exception = '')
- * @method static void nullOrValidAllowedXPathFilter(mixed $value, array $allowed_axes, array $allowed_functions, string $message = '', string $exception = '')
+ * @phpcs:ignore Generic.Files.LineLength.TooLong
+ * @method static void nullOrValidAllowedXPathFilter(mixed $value, string[] $allowed_axes, string[] $allowed_functions, string $message = '', string $exception = '')
  * @method static void nullOrValidAnyURI(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidBase64Binary(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidBoolean(mixed $value, string $message = '', string $exception = '')
@@ -95,7 +97,8 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void nullOrValidUnsignedShort(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidYear(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidYearMonth(mixed $value, string $message = '', string $exception = '')
- * @method static void allValidAllowedXPathFilter(mixed $value, array $allowed_axes, array $allowed_functions, string $message = '', string $exception = '')
+ * @phpcs:ignore Generic.Files.LineLength.TooLong
+ * @method static void allValidAllowedXPathFilter(mixed $value, string[] $allowed_axes, string[] $allowed_functions, string $message = '', string $exception = '')
  * @method static void allValidAnyURI(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidBase64Binary(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidBoolean(mixed $value, string $message = '', string $exception = '')

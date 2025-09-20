@@ -9,7 +9,9 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\Schema\NamespaceListValue;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
+
+use function strval;
 
 /**
  * Class \SimpleSAML\Test\XMLSchema\Type\Schema\NamespaceListValueTest
@@ -40,11 +42,11 @@ final class NamespaceListValueTest extends TestCase
      */
     public function testHelpers(): void
     {
-        $x = NamespaceListValue::fromEnum(NamespaceEnum::Any);
-        $this->assertEquals(NamespaceEnum::Any, $x->toEnum());
+        $x = NamespaceListValue::fromString(NS::ANY);
+        $this->assertEquals(NS::ANY, strval($x));
 
         $y = NameSpaceListValue::fromString('##any');
-        $this->assertEquals(NamespaceEnum::Any, $y->toEnum());
+        $this->assertEquals(NS::ANY, strval($y));
     }
 
 

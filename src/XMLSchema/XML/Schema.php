@@ -286,7 +286,6 @@ final class Schema extends AbstractOpenAttrs implements SchemaValidatableElement
 
         $topLevelElements = [];
         foreach ($beforeSchemaTopElements as $node) {
-            /** @var \DOMElement $node */
             if ($node instanceof DOMElement) {
                 if ($node->namespaceURI === C_XS::NS_XS && array_key_exists($node->localName, $beforeAllowed)) {
                     $topLevelElements[] = $beforeAllowed[$node->localName]::fromXML($node);
@@ -333,7 +332,6 @@ final class Schema extends AbstractOpenAttrs implements SchemaValidatableElement
 
         $schemaTopElements = [];
         foreach ($afterSchemaTopElements as $node) {
-            /** @var \DOMElement $node */
             if ($node instanceof DOMElement) {
                 if ($node->namespaceURI === C_XS::NS_XS && array_key_exists($node->localName, $afterAllowed)) {
                     $schemaTopElements[] = $afterAllowed[$node->localName]::fromXML($node);

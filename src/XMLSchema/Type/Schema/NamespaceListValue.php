@@ -8,7 +8,7 @@ use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\NMTokensValue;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
 
 use function explode;
 
@@ -32,42 +32,23 @@ class NamespaceListValue extends NMTokensValue
     {
         $sanitized = $this->sanitizeValue($value);
 
-        if ($sanitized !== NamespaceEnum::Any->value && $sanitized !== NamespaceEnum::Other->value) {
+        if ($sanitized !== NS::ANY && $sanitized !== NS::OTHER) {
             $list = explode(' ', $sanitized, C::UNBOUNDED_LIMIT);
 
             // After filtering the two special namespaces, only AnyURI's should be left
             $filtered = array_diff(
                 $list,
                 [
-                    NamespaceEnum::TargetNamespace->value,
-                    NamespaceEnum::Local->value,
+                    NS::TARGETNAMESPACE,
+                    NS::LOCAL,
                 ],
             );
             Assert::false(
-                in_array(NamespaceEnum::Any->value, $filtered) || in_array(NamespaceEnum::Other->value, $filtered),
+                in_array(NS::ANY, $filtered) || in_array(NS::OTHER, $filtered),
                 SchemaViolationException::class,
             );
             Assert::notEmpty($sanitized, SchemaViolationException::class);
             Assert::allValidAnyURI($filtered, SchemaViolationException::class);
         }
-    }
-
-
-    /**
-     * @param \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum $value
-     * @return static
-     */
-    public static function fromEnum(NamespaceEnum $value): static
-    {
-        return new static($value->value);
-    }
-
-
-    /**
-     * @return \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum $value
-     */
-    public function toEnum(): NamespaceEnum
-    {
-        return NamespaceEnum::from($this->getValue());
     }
 }

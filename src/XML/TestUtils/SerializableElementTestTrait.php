@@ -13,6 +13,7 @@ use function class_exists;
  * Test for Serializable XML classes to perform default serialization tests.
  *
  * @package simplesamlphp\xml-common
+ * @phpstan-ignore trait.unused
  */
 trait SerializableElementTestTrait
 {

@@ -10,7 +10,7 @@ use SimpleSAML\XML\ExtendableElementTrait;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XML\SerializableElementTrait;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
 
 /**
  * Empty shell class for testing ExtendableElementTrait.
@@ -36,13 +36,8 @@ class ExtendableElement extends AbstractElement implements SchemaValidatableElem
     /** @var string */
     public const SCHEMA = 'tests/resources/schemas/simplesamlphp.xsd';
 
-    /**
-     * @var (
-     *   \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|
-     *   array<int, \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>
-     * )
-     */
-    final public const XS_ANY_ELT_NAMESPACE = NamespaceEnum::Any;
+    /** @var string[]|string */
+    final public const XS_ANY_ELT_NAMESPACE = NS::ANY;
 
     /** @var array{array{string, string}} */
     final public const XS_ANY_ELT_EXCLUSIONS = [

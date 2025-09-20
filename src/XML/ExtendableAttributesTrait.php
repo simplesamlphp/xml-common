@@ -10,7 +10,7 @@ use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Type\StringValue;
-use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
+use SimpleSAML\XMLSchema\XML\Constants\NS;
 
 use function array_diff;
 use function array_map;
@@ -90,17 +90,12 @@ trait ExtendableAttributesTrait
      * NOTE: In case the namespace is ##any, this method will also return local non-namespaced attributes!
      *
      * @param \DOMElement $xml
-     * @param (
-     *   \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|
-     *   array<\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|
-     *   null
-     * ) $namespace
-     *
-     * @return array<int, \SimpleSAML\XML\Attribute> $attributes
+     * @param string|string[]|null $namespace
+     * @return array<int, \SimpleSAML\XML\Attribute>
      */
     protected static function getAttributesNSFromXML(
         DOMElement $xml,
-        NamespaceEnum|array|null $namespace = null,
+        string|array|null $namespace = null,
     ): array {
         $namespace = $namespace ?? self::XS_ANY_ATTR_NAMESPACE;
         $exclusionList = self::getAttributeExclusions();
@@ -109,16 +104,16 @@ trait ExtendableAttributesTrait
         // Validate namespace value
         if (!is_array($namespace)) {
             // Must be one of the predefined values
-            Assert::oneOf($namespace, NamespaceEnum::cases());
+            Assert::oneOf($namespace, NS::$PREDEFINED);
 
             foreach ($xml->attributes as $a) {
                 if (in_array([$a->namespaceURI, $a->localName], $exclusionList, true)) {
                     continue;
-                } elseif ($namespace === NamespaceEnum::Other && in_array($a->namespaceURI, [self::NS, null], true)) {
+                } elseif ($namespace === NS::OTHER && in_array($a->namespaceURI, [self::NS, null], true)) {
                     continue;
-                } elseif ($namespace === NamespaceEnum::TargetNamespace && $a->namespaceURI !== self::NS) {
+                } elseif ($namespace === NS::TARGETNAMESPACE && $a->namespaceURI !== self::NS) {
                     continue;
-                } elseif ($namespace === NamespaceEnum::Local && $a->namespaceURI !== null) {
+                } elseif ($namespace === NS::LOCAL && $a->namespaceURI !== null) {
                     continue;
                 }
 
@@ -133,16 +128,16 @@ trait ExtendableAttributesTrait
             // Array must be non-empty and cannot contain ##any or ##other
             Assert::notEmpty($namespace);
             Assert::allStringNotEmpty($namespace);
-            Assert::allNotSame($namespace, NamespaceEnum::Any);
-            Assert::allNotSame($namespace, NamespaceEnum::Other);
+            Assert::allNotSame($namespace, NS::ANY);
+            Assert::allNotSame($namespace, NS::OTHER);
 
             // Replace the ##targetedNamespace with the actual namespace
-            if (($key = array_search(NamespaceEnum::TargetNamespace, $namespace)) !== false) {
+            if (($key = array_search(NS::TARGETNAMESPACE, $namespace)) !== false) {
                 $namespace[$key] = self::NS;
             }
 
             // Replace the ##local with null
-            if (($key = array_search(NamespaceEnum::Local, $namespace)) !== false) {
+            if (($key = array_search(NS::LOCAL, $namespace)) !== false) {
                 $namespace[$key] = null;
             }
 
@@ -183,12 +178,12 @@ trait ExtendableAttributesTrait
         // Validate namespace value
         if (!is_array($namespace)) {
             // Must be one of the predefined values
-            Assert::oneOf($namespace, NamespaceEnum::cases());
+            Assert::oneOf($namespace, NS::$PREDEFINED);
         } else {
             // Array must be non-empty and cannot contain ##any or ##other
             Assert::notEmpty($namespace);
-            Assert::allNotSame($namespace, NamespaceEnum::Any);
-            Assert::allNotSame($namespace, NamespaceEnum::Other);
+            Assert::allNotSame($namespace, NS::ANY);
+            Assert::allNotSame($namespace, NS::OTHER);
         }
 
         // Get namespaces for all attributes
@@ -203,7 +198,7 @@ trait ExtendableAttributesTrait
             $attributes,
         );
 
-        if ($namespace === NamespaceEnum::Local) {
+        if ($namespace === NS::LOCAL) {
             // If ##local then all namespaces must be null
             Assert::allNull($actual_namespaces);
         } elseif (is_array($namespace)) {
@@ -211,12 +206,12 @@ trait ExtendableAttributesTrait
             $allowed_namespaces = $namespace;
 
             // Replace the ##targetedNamespace with the actual namespace
-            if (($key = array_search(NamespaceEnum::TargetNamespace, $allowed_namespaces)) !== false) {
+            if (($key = array_search(NS::TARGETNAMESPACE, $allowed_namespaces)) !== false) {
                 $allowed_namespaces[$key] = self::NS;
             }
 
             // Replace the ##local with null
-            if (($key = array_search(NamespaceEnum::Local, $allowed_namespaces)) !== false) {
+            if (($key = array_search(NS::LOCAL, $allowed_namespaces)) !== false) {
                 $allowed_namespaces[$key] = null;
             }
 
@@ -230,13 +225,13 @@ trait ExtendableAttributesTrait
                 ),
             );
         } else {
-            if ($namespace === NamespaceEnum::Other) {
+            if ($namespace === NS::OTHER) {
                 // All attributes must be namespaced, ergo non-null
                 Assert::allNotNull($actual_namespaces);
 
                 // Must be any namespace other than the parent element
                 Assert::allNotSame($actual_namespaces, self::NS);
-            } elseif ($namespace === NamespaceEnum::TargetNamespace) {
+            } elseif ($namespace === NS::TARGETNAMESPACE) {
                 // Must be the same namespace as the one of the parent element
                 Assert::allSame($actual_namespaces, self::NS);
             }
@@ -254,12 +249,9 @@ trait ExtendableAttributesTrait
 
 
     /**
-     * @return (
-     *   array<\SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum|string>|
-     *   \SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum
-     * )[]
+     * @return string[]|string
      */
-    public function getAttributeNamespace(): array|NamespaceEnum
+    public function getAttributeNamespace(): array|string
     {
         Assert::true(
             defined('self::XS_ANY_ATTR_NAMESPACE'),
