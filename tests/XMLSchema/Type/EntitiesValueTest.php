@@ -52,6 +52,17 @@ final class EntitiesValueTest extends TestCase
 
 
     /**
+     * Test stringification of the value
+     */
+    #[DependsOnClass(EntitiesTest::class)]
+    public function testStringification(): void
+    {
+        $entities = EntitiesValue::fromString("foo \nbar  baz");
+        $this->assertEquals('foo bar baz', strval($entities));
+    }
+
+
+    /**
      * @return array<string, array{0: true, 1: string}>
      */
     public static function provideValidEntities(): array

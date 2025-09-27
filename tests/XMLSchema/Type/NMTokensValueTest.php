@@ -52,6 +52,17 @@ final class NMTokensValueTest extends TestCase
 
 
     /**
+     * Test stringification of the value
+     */
+    #[DependsOnClass(NMTokensTest::class)]
+    public function testStringification(): void
+    {
+        $nmtokens = NMTokensValue::fromString("foo \nbar  baz");
+        $this->assertEquals('foo bar baz', strval($nmtokens));
+    }
+
+
+    /**
      * @return array<string, array{0: true, 1: string}>
      */
     public static function provideValidNMTokens(): array

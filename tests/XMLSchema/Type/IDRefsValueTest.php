@@ -52,6 +52,17 @@ final class IDRefsValueTest extends TestCase
 
 
     /**
+     * Test stringification of the value
+     */
+    #[DependsOnClass(IDRefsTest::class)]
+    public function testStringification(): void
+    {
+        $idrefs = IDRefsValue::fromString("foo \nbar  baz");
+        $this->assertEquals('foo bar baz', strval($idrefs));
+    }
+
+
+    /**
      * @return array<string, array{0: true, 1: string}>
      */
     public static function provideValidIDRefs(): array
