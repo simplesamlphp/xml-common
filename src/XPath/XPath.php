@@ -52,13 +52,15 @@ class XPath
      * @param \DOMNode $node  The XML node.
      * @param string $query The query.
      * @param \DOMXPath $xpCache The DOMXPath object
-     * @return array<int<0, max>, \DOMNameSpaceNode|\DOMNode|null> Array with matching DOM nodes.
+     * @return array<\DOMNode> Array with matching DOM nodes.
      */
     public static function xpQuery(DOMNode $node, string $query, DOMXPath $xpCache): array
     {
         $ret = [];
 
         $results = $xpCache->query($query, $node);
+        Assert::notFalse($results, 'Malformed XPath query or invalid contextNode provided.');
+
         for ($i = 0; $i < $results->length; $i++) {
             $ret[$i] = $results->item($i);
         }
