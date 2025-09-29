@@ -58,6 +58,7 @@ final class LanguageValueTest extends TestCase
     {
         return [
             'empty string' => [false, ''],
+            'whitespace' => [false, 'en- us'],
             'too long' => [false, 'toolongLanguage'],
         ];
     }

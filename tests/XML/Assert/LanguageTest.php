@@ -57,7 +57,8 @@ final class LanguageTest extends TestCase
     {
         return [
             'empty string' => [false, ''],
-            'too long' => [false, 'toolongLanguageuage'],
+            'whitespace' => [false, 'en- us'],
+            'too long' => [false, 'toolongLanguageCode'],
         ];
     }
 }
