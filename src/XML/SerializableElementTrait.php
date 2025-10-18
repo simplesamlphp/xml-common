@@ -41,6 +41,11 @@ trait SerializableElementTrait
         $doc = DOMDocumentFactory::fromString($xmlString);
         $doc->formatOutput = $this->formatOutput;
 
+        if (static::getNormalization() === true) {
+            $normalized = DOMDocumentFactory::normalizeDocument($doc);
+            return $normalized->saveXML($normalized->firstChild);
+        }
+
         return $doc->saveXML($doc->firstChild);
     }
 

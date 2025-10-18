@@ -1,0 +1,5 @@
+<root xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:ns1="http://example.com/ns1" xmlns:ns2="http://example.com/ns2" xmlns:ns3="http://example.com/ns3">
+    <ns1:element1>Content</ns1:element1>
+    <ns2:element2>Content in ns2</ns2:element2>
+    <ns3:element3>Content in ns3</ns3:element3>
+</root>

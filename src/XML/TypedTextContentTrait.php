@@ -104,7 +104,6 @@ trait TypedTextContentTrait
         }
 
         $e->textContent = strval($this->getContent());
-
         return $e;
     }
 

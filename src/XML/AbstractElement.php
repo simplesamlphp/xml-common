@@ -223,6 +223,24 @@ abstract class AbstractElement implements SerializableElementInterface
 
 
     /**
+     * Whether the element may be normalized.
+     *
+     * @return bool
+     */
+    public static function getNormalization(): bool
+    {
+        if (defined('static::NORMALIZATION')) {
+            $normalization = static::NORMALIZATION;
+        } else {
+            $normalization = true;
+        }
+
+        Assert::boolean($normalization, RuntimeException::class);
+        return $normalization;
+    }
+
+
+    /**
      * Test if an object, at the state it's in, would produce an empty XML-element
      *
      * @codeCoverageIgnore

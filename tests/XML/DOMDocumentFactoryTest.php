@@ -114,4 +114,17 @@ final class DOMDocumentFactoryTest extends TestCase
         );
         DOMDocumentFactory::fromString('');
     }
+
+
+    public function testNormalizeDocument(): void
+    {
+        $normalized = DOMDocumentFactory::fromFile('tests/resources/xml/domdocument_normalized.xml');
+        $notNormalized = DOMDocumentFactory::fromFile('tests/resources/xml/domdocument_not_normalized.xml');
+        $normalizedDoc = DOMDocumentFactory::normalizeDocument($notNormalized);
+
+        $this->assertEquals(
+            $normalized->saveXML($normalized),
+            $normalizedDoc->saveXML($normalizedDoc),
+        );
+    }
 }

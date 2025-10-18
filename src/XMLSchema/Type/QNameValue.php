@@ -6,6 +6,7 @@ namespace SimpleSAML\XMLSchema\Type;
 
 use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
+use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\Interface\AbstractAnySimpleType;
 
@@ -175,7 +176,7 @@ class QNameValue extends AbstractAnySimpleType
         }
 
         // Will return the default namespace (if any) when prefix is NULL
-        $namespaceURI = $element->lookupNamespaceUri($namespacePrefix);
+        $namespaceURI = DOMDocumentFactory::lookupNamespaceUri($element, $namespacePrefix);
 
         return new static('{' . $namespaceURI . '}' . ($namespacePrefix ? $namespacePrefix . ':' : '') . $localName);
     }

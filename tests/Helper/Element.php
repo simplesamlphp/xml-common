@@ -7,6 +7,7 @@ namespace SimpleSAML\Test\Helper;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractElement;
+use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Type\BooleanValue;
 use SimpleSAML\XMLSchema\Type\IntegerValue;
@@ -133,6 +134,7 @@ final class Element extends AbstractElement
             $e->setAttribute('otherText', strval($this->getOtherString()));
         }
 
-        return $e;
+        // @phpstan-ignore argument.type, return.type
+        return DOMDocumentFactory::normalizeDocument($e->ownerDocument)->documentElement;
     }
 }

@@ -6,6 +6,7 @@ namespace SimpleSAML\Test\Helper;
 
 use DOMElement;
 use SimpleSAML\XML\AbstractElement;
+use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\ExtendableElementTrait;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
@@ -76,7 +77,7 @@ class ExtendableElement extends AbstractElement implements SchemaValidatableElem
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {
-        $e = $this->instantiateParentElement();
+        $e = $this->instantiateParentElement($parent);
 
         foreach ($this->getElements() as $elt) {
             if (!$elt->isEmptyElement()) {
@@ -84,6 +85,7 @@ class ExtendableElement extends AbstractElement implements SchemaValidatableElem
             }
         }
 
-        return $e;
+        // @phpstan-ignore argument.type, return.type
+        return DOMDocumentFactory::normalizeDocument($e->ownerDocument)->documentElement;
     }
 }

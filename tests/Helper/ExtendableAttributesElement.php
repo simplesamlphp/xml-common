@@ -7,6 +7,7 @@ namespace SimpleSAML\Test\Helper;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractElement;
+use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\ExtendableAttributesTrait;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
@@ -85,6 +86,7 @@ class ExtendableAttributesElement extends AbstractElement implements SchemaValid
             $attr->toXML($e);
         }
 
-        return $e;
+        // @phpstan-ignore argument.type, return.type
+        return DOMDocumentFactory::normalizeDocument($e->ownerDocument)->documentElement;
     }
 }

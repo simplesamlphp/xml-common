@@ -24,6 +24,13 @@ final class Chunk implements SerializableElementInterface
 
 
     /**
+     * Whether the element may be normalized
+     *
+     * @var bool $normalization
+     */
+    protected bool $normalization = true;
+
+    /**
      * The localName of the element.
      *
      * @var string
@@ -56,6 +63,28 @@ final class Chunk implements SerializableElementInterface
         $this->setLocalName($xml->localName);
         $this->setNamespaceURI($xml->namespaceURI);
         $this->setPrefix($xml->prefix);
+    }
+
+
+    /**
+     * Collect the value of the normalization-property
+     *
+     * @return bool
+     */
+    public function getNormalization(): bool
+    {
+        return $this->normalization;
+    }
+
+
+    /**
+     * Set the value of the normalization-property
+     *
+     * @param bool $normalization
+     */
+    public function setNormalization(bool $normalization): void
+    {
+        $this->normalization = $normalization;
     }
 
 
@@ -254,7 +283,6 @@ final class Chunk implements SerializableElementInterface
         }
 
         $parent->appendChild($doc->importNode($this->getXML(), true));
-
         return $doc->documentElement;
     }
 }

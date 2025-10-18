@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use DOMDocument;
+use DOMElement;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Exception\IOException;
 use SimpleSAML\XML\Exception\RuntimeException;
 use SimpleSAML\XML\Exception\UnparseableXMLException;
+use SimpleSAML\XPath\XPath;
 
 use function file_get_contents;
 use function func_num_args;
@@ -16,6 +18,7 @@ use function libxml_clear_errors;
 use function libxml_set_external_entity_loader;
 use function libxml_use_internal_errors;
 use function sprintf;
+use function strpos;
 
 /**
  * @package simplesamlphp/xml-common
@@ -114,5 +117,84 @@ final class DOMDocumentFactory
     public static function create(string $version = '1.0', string $encoding = 'UTF-8'): DOMDocument
     {
         return new DOMDocument($version, $encoding);
+    }
+
+
+    /**
+     * @param \DOMDocument $doc
+     * @return \DOMDocument
+     */
+    public static function normalizeDocument(DOMDocument $doc): DOMDocument
+    {
+        // Get the root element
+        $root = $doc->documentElement;
+
+        // Collect all xmlns attributes from the document
+        $xpath = XPath::getXPath($doc);
+        $xmlnsAttributes = [];
+
+        // Register all namespaces to ensure XPath can handle them
+        foreach ($xpath->query('//namespace::*') as $node) {
+            $name = $node->nodeName === 'xmlns' ? 'xmlns' : $node->nodeName;
+            if ($name !== 'xmlns:xml') {
+                $xmlnsAttributes[$name] = $node->nodeValue;
+            }
+        }
+
+        // If no xmlns attributes found, return early with debug info
+        if (empty($xmlnsAttributes)) {
+            return $root->ownerDocument;
+        }
+
+        // Remove xmlns attributes from all elements
+        $nodes = $xpath->query('//*[namespace::*]');
+        foreach ($nodes as $node) {
+            if ($node instanceof DOMElement) {
+                $attributesToRemove = [];
+                foreach ($node->attributes as $attr) {
+                    if (strpos($attr->nodeName, 'xmlns') === 0 || $attr->nodeName === 'xmlns') {
+                        $attributesToRemove[] = $attr->nodeName;
+                    }
+                }
+                foreach ($attributesToRemove as $attrName) {
+                    $node->removeAttribute($attrName);
+                }
+            }
+        }
+
+        // Add all collected xmlns attributes to the root element
+        foreach ($xmlnsAttributes as $name => $value) {
+            $root->setAttribute($name, $value);
+        }
+
+        // Return the normalized XML
+        return static::fromString($root->ownerDocument->saveXML());
+    }
+
+
+    /**
+     * @param \DOMElement $elt
+     * @param string $prefix
+     * @return string|null
+     */
+    public static function lookupNamespaceURI(DOMElement $elt, string $prefix): ?string
+    {
+        // Get the root element
+        $root = $elt->ownerDocument->documentElement;
+
+        // Collect all xmlns attributes from the document
+        $xpath = XPath::getXPath($elt->ownerDocument);
+
+        // Register all namespaces to ensure XPath can handle them
+        $xmlnsAttributes = [];
+        foreach ($xpath->query('//namespace::*') as $node) {
+            $xmlnsAttributes[$node->localName] = $node->nodeValue;
+        }
+
+        if (array_key_exists($prefix, $xmlnsAttributes)) {
+            return $xmlnsAttributes[$prefix];
+        }
+
+        return null;
     }
 }
