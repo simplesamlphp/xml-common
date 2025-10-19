@@ -6,6 +6,7 @@ namespace SimpleSAML\XML\TestUtils;
 
 use DOMDocument;
 use PHPUnit\Framework\Attributes\Depends;
+use SimpleSAML\XML\DOMDocumentFactory;
 
 use function class_exists;
 
@@ -53,6 +54,12 @@ trait SchemaValidationTestTrait
 
             // Validate after serialization
             self::$testedClass::schemaValidate($serializedClass->ownerDocument, self::$schemaFile);
+
+            // Validate after normalization
+            if (self::$testedClass::getNormalization() === true) {
+                $normalizedDoc = DOMDocumentFactory::normalizeDocument($serializedClass->ownerDocument);
+                self::$testedClass::schemaValidate($normalizedDoc, self::$schemaFile);
+            }
 
             // If we got this far and no exceptions were thrown, consider this test passed!
             $this->addToAssertionCount(1);
