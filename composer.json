@@ -42,11 +42,11 @@
         "ext-pcre": "*",
         "ext-spl": "*",
 
-        "simplesamlphp/assert": "~1.9.0",
-        "simplesamlphp/composer-xmlprovider-installer": "~1.2.0"
+        "simplesamlphp/assert": "~1.9",
+        "simplesamlphp/composer-xmlprovider-installer": "~1.2"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp-test-framework": "~1.10.1"
+        "simplesamlphp/simplesamlphp-test-framework": "~1.10"
     },
     "support": {
         "issues": "https://github.com/simplesamlphp/xml-common/issues",
