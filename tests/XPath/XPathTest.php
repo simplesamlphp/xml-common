@@ -4,9 +4,15 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XPath;
 
+use DOMDocument;
+use DOMElement;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XPath\XPath;
+use Throwable;
+
+use function libxml_clear_errors;
+use function libxml_use_internal_errors;
 
 /**
  * Tests for the SimpleSAML\XPath\XPath helper.
@@ -17,7 +23,7 @@ final class XPathTest extends TestCase
     public function testGetXPathCachesPerDocumentAndRegistersCoreNamespaces(): void
     {
         // Doc A with an xml:space attribute to validate 'xml' prefix usage works
-        $docA = new \DOMDocument();
+        $docA = new DOMDocument();
         $docA->loadXML(<<<'XML'
 <?xml version="1.0" encoding="UTF-8"?>
 <root xml:space="preserve" xmlns:xml="http://www.w3.org/XML/1998/namespace">
@@ -26,7 +32,7 @@ final class XPathTest extends TestCase
 XML);
 
         // Doc B is different
-        $docB = new \DOMDocument();
+        $docB = new DOMDocument();
         $docB->loadXML(<<<'XML'
 <?xml version="1.0" encoding="UTF-8"?>
 <another><node/></another>
@@ -43,7 +49,7 @@ XML);
 
         // 'xml' prefix registered: query should be valid and return xml:space attribute
         $rootA = $docA->documentElement;
-        $this->assertInstanceOf(\DOMElement::class, $rootA);
+        $this->assertInstanceOf(DOMElement::class, $rootA);
         $attrs = XPath::xpQuery($rootA, '@xml:space', $xpA1);
         $this->assertCount(1, $attrs);
         $this->assertSame('preserve', $attrs[0]->nodeValue);
@@ -63,7 +69,7 @@ XML);
   </a>
 </r>
 XML;
-        $doc = new \DOMDocument();
+        $doc = new DOMDocument();
         $doc->loadXML($xml);
 
         // Use a deep context node to ensure ancestor-walk picks up xmlns:foo from root
@@ -80,29 +86,29 @@ XML;
 
     public function testXpQueryThrowsOnMalformedExpression(): void
     {
-        $doc = new \DOMDocument();
+        $doc = new DOMDocument();
         $doc->loadXML('<root><x/></root>');
         $xp = XPath::getXPath($doc);
 
-        // If xpQuery throws a specific exception, put that class here instead of \Throwable.
-        $this->expectException(\Throwable::class);
+        // If xpQuery throws a specific exception, put that class here instead of Throwable.
+        $this->expectException(Throwable::class);
         // Keep message assertion resilient to libxml version differences.
         $this->expectExceptionMessageMatches('/(XPath|expression).*invalid|malformed|error/i');
 
         // Malformed XPath: missing closing bracket
         $root = $doc->documentElement;
-        $this->assertInstanceOf(\DOMElement::class, $root);
+        $this->assertInstanceOf(DOMElement::class, $root);
 
         // Avoid emitting a PHP warning; let xpQuery surface it as an exception.
-        \libxml_use_internal_errors(true);
+        libxml_use_internal_errors(true);
         try {
             XPath::xpQuery($root, '//*[', $xp);
         } finally {
-            $errors = \libxml_get_errors();
+            $errors = libxml_get_errors();
             self::assertCount(1, $errors);
             self::assertEquals("Invalid expression\n", $errors[0]->message);
-            \libxml_clear_errors();
-            \libxml_use_internal_errors(false);
+            libxml_clear_errors();
+            libxml_use_internal_errors(false);
         }
     }
 }
