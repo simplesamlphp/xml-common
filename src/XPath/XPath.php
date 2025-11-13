@@ -71,8 +71,6 @@ class XPath
      */
     private static function registerAncestorNamespaces(DOMXPath $xp, DOMNode $node): void
     {
-        $xmlnsNs = 'http://www.w3.org/2000/xmlns/';
-
         // Avoid re-binding while walking upwards.
         $registered = [
             'xml' => true,
@@ -87,7 +85,7 @@ class XPath
         while ($current instanceof DOMElement) {
             if ($current->hasAttributes()) {
                 foreach ($current->attributes as $attr) {
-                    if ($attr->namespaceURI !== $xmlnsNs) {
+                    if ($attr->namespaceURI !== C_XML::NS_XMLNS) {
                         continue;
                     }
                     $prefix = $attr->localName; // e.g., 'slate' for xmlns:slate, 'xmlns' for default
