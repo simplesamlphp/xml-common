@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\XPath;
 
 use DOMDocument;
+use DOMElement;
 use DOMNode;
 use DOMXPath;
 use SimpleSAML\XML\Assert\Assert;
@@ -20,6 +21,12 @@ class XPath
 {
     /**
      * Get an instance of DOMXPath associated with a DOMNode
+     *
+     * - Reuses a cached DOMXPath per document.
+     * - Registers core XML-related namespaces: 'xml' and 'xs'.
+     * - Enriches the XPath with all prefixed xmlns declarations found on the
+     *   current node and its ancestors (up to the document element), so
+     *   custom prefixes declared anywhere up the tree can be used in queries.
      *
      * @param \DOMNode $node The associated node
      * @return \DOMXPath
@@ -42,7 +49,65 @@ class XPath
         $xpCache->registerNamespace('xml', C_XML::NS_XML);
         $xpCache->registerNamespace('xs', C_XS::NS_XS);
 
+        // Enrich with ancestor-declared prefixes for this document context.
+        self::registerAncestorNamespaces($xpCache, $node);
+
         return $xpCache;
+    }
+
+
+    /**
+     * Walk from the given node up to the document element, registering all prefixed xmlns declarations.
+     *
+     * Safety:
+     * - Only attributes in the XMLNS namespace (http://www.w3.org/2000/xmlns/).
+     * - Skip default xmlns (localName === 'xmlns') because XPath requires prefixes.
+     * - Skip empty URIs.
+     * - Do not override core 'xml' and 'xs' prefixes (already bound).
+     * - Nearest binding wins during this pass (prefixes are added once).
+     *
+     * @param \DOMXPath $xp
+     * @param \DOMNode  $node
+     */
+    private static function registerAncestorNamespaces(DOMXPath $xp, DOMNode $node): void
+    {
+        $xmlnsNs = 'http://www.w3.org/2000/xmlns/';
+
+        // Avoid re-binding while walking upwards.
+        $registered = [
+            'xml' => true,
+            'xs'  => true,
+        ];
+
+        // Start from the nearest element (or documentElement if a DOMDocument is passed).
+        $current = $node instanceof DOMDocument
+            ? $node->documentElement
+            : ($node instanceof DOMElement ? $node : $node->parentNode);
+
+        while ($current instanceof DOMElement) {
+            if ($current->hasAttributes()) {
+                foreach ($current->attributes as $attr) {
+                    if ($attr->namespaceURI !== $xmlnsNs) {
+                        continue;
+                    }
+                    $prefix = $attr->localName; // e.g., 'slate' for xmlns:slate, 'xmlns' for default
+                    $uri = (string) $attr->nodeValue;
+
+                    if (
+                        $prefix === null || $prefix === '' ||
+                        $prefix === 'xmlns' || $uri === '' ||
+                        isset($registered[$prefix])
+                    ) {
+                        continue;
+                    }
+
+                    $xp->registerNamespace($prefix, $uri);
+                    $registered[$prefix] = true;
+                }
+            }
+
+            $current = $current->parentNode instanceof DOMElement ? $current->parentNode : null;
+        }
     }
 
 

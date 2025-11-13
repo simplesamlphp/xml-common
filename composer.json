@@ -42,8 +42,7 @@
         "ext-pcre": "*",
         "ext-spl": "*",
 
-        "simplesamlphp/assert": "~1.9.0",
-        "simplesamlphp/composer-xmlprovider-installer": "~1.1.0"
+        "simplesamlphp/assert": "~1.9.0"
     },
     "require-dev": {
         "simplesamlphp/simplesamlphp-test-framework": "~1.10.1"
@@ -56,8 +55,23 @@
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "phpstan/extension-installer": true,
-            "simplesamlphp/composer-xmlprovider-installer": true
+            "phpstan/extension-installer": true
         }
+    },
+    "scripts": {
+        "pre-commit": [
+            "vendor/bin/phpcs -p",
+            "vendor/bin/composer-require-checker check --config-file=tools/composer-require-checker.json composer.json",
+            "vendor/bin/phpstan analyze -c phpstan.neon",
+            "vendor/bin/phpstan analyze -c phpstan-dev.neon",
+            "vendor/bin/composer-unused",
+            "vendor/bin/phpunit --no-coverage --testdox"
+        ],
+        "tests": [
+            "vendor/bin/phpunit --no-coverage"
+        ],
+        "propose-fix": [
+            "vendor/bin/phpcs --report=diff"
+        ]
     }
 }
