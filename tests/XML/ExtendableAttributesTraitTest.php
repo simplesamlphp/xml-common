@@ -88,7 +88,6 @@ final class ExtendableAttributesTraitTest extends TestCase
     public function testEmptyNamespaceArrayThrowsAnException(): void
     {
         $this->expectException(AssertionFailedException::class);
-        // @phpstan-ignore expr.resultUnused
         new class ([]) extends ExtendableAttributesElement {
             /**
              * @return array<int, string>|string
