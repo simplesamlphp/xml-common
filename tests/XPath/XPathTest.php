@@ -294,10 +294,11 @@ XML;
         $this->assertSame('ok', $nodes[0]->textContent);
     }
 
+
     /**
      * Provides relative file paths for the two XML variants.
      *
-     * @return array<int, array{0: string}>
+     * @return array<string, array{0: string}>
      */
     public static function xmlVariantsProviderForTopLevelSlatePerson(): array
     {
