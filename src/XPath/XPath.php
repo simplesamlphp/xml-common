@@ -21,6 +21,29 @@ use SimpleSAML\XMLSchema\Constants as C_XS;
 class XPath
 {
     /**
+     * Search for an element with a certain name among the children of a reference element.
+     *
+     * @param \DOMNode $ref The DOMDocument or DOMElement where encrypted data is expected to be found as a child.
+     * @param string $name The name (possibly prefixed) of the element we are looking for.
+     *
+     * @return \DOMElement|false The element we are looking for, or false when not found.
+     *
+     * @throws \RuntimeException If no DOM document is available.
+     */
+    public static function findElement(DOMNode $ref, string $name): DOMElement|false
+    {
+        $doc = $ref instanceof DOMDocument ? $ref : $ref->ownerDocument;
+        if ($doc === null) {
+            throw new RuntimeException('Cannot search, no DOMDocument available');
+        }
+
+        $nodeset = self::getXPath($doc)->query('./' . $name, $ref);
+
+        return $nodeset->item(0) ?? false;
+    }
+
+
+    /**
      * Get an instance of DOMXPath associated with a DOMNode
      *
      * - Reuses a cached DOMXPath per document.
@@ -30,9 +53,10 @@ class XPath
      *   custom prefixes declared anywhere up the tree can be used in queries.
      *
      * @param \DOMNode $node The associated node
+     * @param bool $autoregister Whether to scan descendant nodes for additional namespace declarations
      * @return \DOMXPath
      */
-    public static function getXPath(DOMNode $node): DOMXPath
+    public static function getXPath(DOMNode $node, bool $autoregister = false): DOMXPath
     {
         static $xpCache = null;
 
@@ -53,8 +77,10 @@ class XPath
         // Enrich with ancestor-declared prefixes for this document context.
         $prefixToUri = self::registerAncestorNamespaces($xpCache, $node);
 
-        // Single, bounded subtree scan to pick up descendant-only declarations.
-        self::registerSubtreePrefixes($xpCache, $node, $prefixToUri);
+        if ($autoregister) {
+            // Single, bounded subtree scan to pick up descendant-only declarations.
+            self::registerSubtreePrefixes($xpCache, $node, $prefixToUri);
+        }
 
         return $xpCache;
     }
@@ -142,18 +168,34 @@ class XPath
             return;
         }
 
-        $visited = 0;
+//        $visited = 0;
 
-        /** @var array<\DOMElement> $queue */
-        $queue = [$root];
+        /** @var array<array{0:\DOMElement,1:int}> $queue */
+        $queue = [[$root, 0]];
 
         while ($queue) {
             /** @var \DOMElement $el */
-            $el = array_shift($queue);
+            /** @var int $depth */
+            [$el, $depth] = array_shift($queue);
 
-            if (++$visited > C_XML::UNBOUNDED_LIMIT) {
-                throw new \RuntimeException(__METHOD__ . ': exceeded subtree traversal limit');
+            // Depth guard: cap traversal at UNBOUNDED_LIMIT (root = depth 0).
+            // Breaking here halts further descent to avoid pathological depth and excessive work,
+            // which is safer in production than risking runaway traversal or hard failures.
+            // Trade-off: deeper descendant-only prefixes may remain unregistered, so some
+            // prefixed XPath queries might fail; overall processing continues gracefully.
+            if ($depth >= C_XML::UNBOUNDED_LIMIT) {
+                break;
             }
+
+//            if (++$visited > C_XML::UNBOUNDED_LIMIT) {
+//                // Safety valve: stop further traversal to avoid unbounded work and noisy exceptions.
+//                // Returning here halts namespace registration for this subtree, which is safer in
+//                // production than risking pathological O(n) behavior or a hard failure (e.g. throwing
+//                // \RuntimeException(__METHOD__ . ': exceeded subtree traversal limit')).
+//                // Trade-off: some descendant-only prefixes may remain unregistered, so related XPath
+//                // queries might fail, but overall processing continues gracefully.
+//                break;
+//            }
 
             // Element prefix
             if ($el->prefix && !isset($prefixToUri[$el->prefix])) {
@@ -189,7 +231,7 @@ class XPath
             // Enqueue children (only DOMElement to keep types precise)
             foreach ($el->childNodes as $child) {
                 if ($child instanceof DOMElement) {
-                    $queue[] = $child;
+                    $queue[] = [$child, $depth + 1];
                 }
             }
         }

@@ -27,6 +27,7 @@ final class TypedTextContentTraitTest extends TestCase
         $elt = $doc->documentElement;
 
         $stringElt = StringElement::fromXML($elt);
+        // @phpstan-ignore-next-line
         $this->assertInstanceOf(StringElement::class, $stringElt);
     }
 
@@ -39,6 +40,7 @@ final class TypedTextContentTraitTest extends TestCase
         $elt = $doc->documentElement;
 
         $stringElt = BooleanElement::fromXML($elt);
+        // @phpstan-ignore-next-line
         $this->assertInstanceOf(BooleanElement::class, $stringElt);
     }
 

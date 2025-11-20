@@ -1,0 +1,23 @@
+<foo:serviceResponse xmlns:foo="https://example.org/foo">
+    <foo:authenticationSuccess xmlns:foo="https://example.org/foo">
+        <foo:user>jdoe</foo:user>
+
+        <!-- slate prefix declared only here (descendant), not on ancestors -->
+        <slate:person xmlns:slate="https://example.org/slate">12345_top</slate:person>
+
+        <foo:attributes>
+            <foo:authenticationDate>2025-11-07T22:00:24+02:00</foo:authenticationDate>
+            <foo:longTermAuthenticationRequestTokenUsed>true</foo:longTermAuthenticationRequestTokenUsed>
+            <foo:isFromNewLogin>true</foo:isFromNewLogin>
+            <foo:sn>Doe</foo:sn>
+            <foo:firstname>John</foo:firstname>
+            <foo:mail>jdoe@example.edu</foo:mail>
+            <foo:eduPersonPrincipalName>jdoe@example.edu</foo:eduPersonPrincipalName>
+
+            <!-- slate prefix declared only on each element -->
+            <slate:person xmlns:slate="https://example.org/slate">12345</slate:person>
+            <slate:round xmlns:slate="https://example.org/slate">Fall-2025</slate:round>
+            <slate:ref xmlns:slate="https://example.org/slate">ABC-123</slate:ref>
+        </foo:attributes>
+    </foo:authenticationSuccess>
+</foo:serviceResponse>

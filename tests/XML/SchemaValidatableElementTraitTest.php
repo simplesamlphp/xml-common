@@ -26,6 +26,7 @@ final class SchemaValidatableElementTraitTest extends TestCase
         $chunk = DOMDocumentFactory::fromFile($file);
 
         $document = StringElement::schemaValidate($chunk);
+        // @phpstan-ignore-next-line
         $this->assertInstanceOf(DOMDocument::class, $document);
     }
 
