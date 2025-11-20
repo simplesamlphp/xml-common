@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\Helper\Base64BinaryElement;
 use SimpleSAML\Test\Helper\BooleanElement;
@@ -19,6 +20,7 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
  */
 final class TypedTextContentTraitTest extends TestCase
 {
+    #[DoesNotPerformAssertions]
     public function testTypedContentPassesForString(): void
     {
         $file = 'tests/resources/xml/ssp_StringElement.xml';
@@ -27,11 +29,10 @@ final class TypedTextContentTraitTest extends TestCase
         $elt = $doc->documentElement;
 
         $stringElt = StringElement::fromXML($elt);
-        // @phpstan-ignore-next-line
-        $this->assertInstanceOf(StringElement::class, $stringElt);
     }
 
 
+    #[DoesNotPerformAssertions]
     public function testTypedContentPassesForBoolean(): void
     {
         $file = 'tests/resources/xml/ssp_BooleanElement.xml';
@@ -40,8 +41,6 @@ final class TypedTextContentTraitTest extends TestCase
         $elt = $doc->documentElement;
 
         $stringElt = BooleanElement::fromXML($elt);
-        // @phpstan-ignore-next-line
-        $this->assertInstanceOf(BooleanElement::class, $stringElt);
     }
 
 
