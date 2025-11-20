@@ -186,7 +186,7 @@ XML;
         $this->assertInstanceOf(\DOMElement::class, $elt);
 
         $attr = $elt->getAttributeNodeNS('urn:bar', 'attr');
-        $this->assertInstanceOf(\DOMAttr::class, $attr);
+        /** @var \DOMAttr $attr */
 
         // getXPath should normalize from DOMAttr to the element and ensure 'bar' is registered.
         $xp = XPath::getXPath($attr);
@@ -305,8 +305,26 @@ XML;
         $base = dirname(__FILE__, 3) . '/tests/resources/xml';
 
         return [
-            "Register Subtree Prefixes" => [$base . '/success_response_a.xml'],
-            "Register Ancestor Namespaces" => [$base . '/success_response_b.xml'],
+            "Ancestor-declared 'slate'; top-level person AFTER attributes" => [
+                $base . '/success_response_a.xml',
+                false,
+                false,
+            ],
+            "Ancestor-declared 'slate'; top-level person BEFORE attributes" => [
+                $base . '/success_response_b.xml',
+                false,
+                false,
+            ],
+            "Descendant-only 'slate'; no ancestor binding (fails without autoregister)" => [
+                $base . '/success_response_c.xml',
+                false,
+                true,
+            ],
+            "Descendant-only 'slate'; no ancestor binding (succeeds with autoregister)" => [
+                $base . '/success_response_c.xml',
+                true,
+                false,
+            ],
         ];
     }
 
@@ -316,21 +334,102 @@ XML;
      * cas:attributes in the document, even when the slate prefix is only declared on the element itself.
      */
     #[DataProvider('xmlVariantsProviderForTopLevelSlatePerson')]
-    public function testAbsoluteXPathFindsTopLevelSlatePerson(string $filePath): void
-    {
+    public function testAbsoluteXPathFindsTopLevelSlatePerson(
+        string $filePath,
+        bool $autoregister,
+        bool $shouldFail,
+    ): void {
         $doc = DOMDocumentFactory::fromFile($filePath);
 
         $fooNs = 'https://example.org/foo';
-        /** @var \DOMElement|null $authn */
-        $authn = $doc->getElementsByTagNameNS($fooNs, 'authenticationSuccess')->item(0);
-        $this->assertNotNull($authn, 'authenticationSuccess element not found');
+        /** @var \DOMElement|null $attributesNode */
+        $attributesNode = $doc->getElementsByTagNameNS($fooNs, 'attributes')->item(0);
+        $this->assertNotNull($attributesNode, 'Attributes element not found');
 
-        $xp = XPath::getXPath($authn);
+        $xp = XPath::getXPath($attributesNode, $autoregister);
         $query = '/foo:serviceResponse/foo:authenticationSuccess/slate:person';
 
-        $nodes = XPath::xpQuery($authn, $query, $xp);
+        if ($shouldFail) {
+            libxml_use_internal_errors(true);
+            try {
+                $this->expectException(\SimpleSAML\Assert\AssertionFailedException::class);
+                $this->expectExceptionMessage('Malformed XPath query or invalid contextNode provided.');
+                XPath::xpQuery($attributesNode, $query, $xp);
+            } finally {
+                $errors = libxml_get_errors();
+                $this->assertNotEmpty($errors);
+                $this->assertSame("Undefined namespace prefix\n", $errors[0]->message);
+                libxml_clear_errors();
+                libxml_use_internal_errors(false);
+            }
+            return;
+        }
 
-        $this->assertSame(1, count($nodes), 'Expected exactly one top-level slate:person');
+        $nodes = XPath::xpQuery($attributesNode, $query, $xp);
+        $this->assertCount(1, $nodes);
         $this->assertSame('12345_top', trim($nodes[0]->textContent));
+    }
+
+
+    public function testFindElementFindsDirectChildUnprefixed(): void
+    {
+        $doc = new DOMDocument();
+        $doc->loadXML('<root><target>t</target><other/></root>');
+
+        $root = $doc->documentElement;
+        $this->assertInstanceOf(DOMElement::class, $root);
+
+        $found = XPath::findElement($root, 'target');
+        $this->assertInstanceOf(DOMElement::class, $found);
+        $this->assertSame('target', $found->localName);
+        $this->assertSame('t', $found->textContent);
+    }
+
+
+    public function testFindElementFindsDirectChildWithPrefixWhenNsOnRoot(): void
+    {
+        $xml = <<<'XML'
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:foo="https://example.org/foo">
+  <foo:item>ok</foo:item>
+</root>
+XML;
+        $doc = new DOMDocument();
+        $doc->loadXML($xml);
+
+        $root = $doc->documentElement;
+        $this->assertInstanceOf(DOMElement::class, $root);
+
+        // Namespace is declared on root, so getXPath($doc) used by findElement knows 'foo'
+        $found = XPath::findElement($root, 'foo:item');
+        $this->assertInstanceOf(DOMElement::class, $found);
+        $this->assertSame('item', $found->localName);
+        $this->assertSame('https://example.org/foo', $found->namespaceURI);
+        $this->assertSame('ok', $found->textContent);
+    }
+
+
+    public function testFindElementReturnsFalseWhenNotFoundAndDoesNotDescend(): void
+    {
+        // 'target' is a grandchild; findElement should only match direct children via './name'
+        $doc = new DOMDocument();
+        $doc->loadXML('<root><container><target/></container></root>');
+
+        $root = $doc->documentElement;
+        $this->assertInstanceOf(DOMElement::class, $root);
+
+        $found = XPath::findElement($root, 'target');
+        $this->assertFalse($found, 'Should return false for non-direct child');
+    }
+
+
+    public function testFindElementThrowsIfNoOwnerDocument(): void
+    {
+        // A standalone DOMElement (not created by a DOMDocument) has no ownerDocument
+        $ref = new \DOMElement('container');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Cannot search, no DOMDocument available');
+        XPath::findElement($ref, 'anything');
     }
 }

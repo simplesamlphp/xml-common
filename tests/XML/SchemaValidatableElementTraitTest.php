@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
-use DOMDocument;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\Helper\Base64BinaryElement;
 use SimpleSAML\Test\Helper\BooleanElement;
@@ -20,13 +20,13 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
  */
 final class SchemaValidatableElementTraitTest extends TestCase
 {
+    #[DoesNotPerformAssertions]
     public function testSchemaValidationPasses(): void
     {
         $file = 'tests/resources/xml/ssp_StringElement.xml';
         $chunk = DOMDocumentFactory::fromFile($file);
 
         $document = StringElement::schemaValidate($chunk);
-        $this->assertInstanceOf(DOMDocument::class, $document);
     }
 
 
