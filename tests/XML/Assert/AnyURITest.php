@@ -49,6 +49,7 @@ final class AnyURITest extends TestCase
             'spaces' => [true, 'this is silly'],
             'empty' => [true, ''],
             'azure-common' => [true, 'https://sts.windows.net/{tenantid}/'],
+            'one' => [true, '1'],
         ];
     }
 }

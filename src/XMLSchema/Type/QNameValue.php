@@ -97,7 +97,8 @@ class QNameValue extends AbstractAnySimpleType
      */
     public function getValue(): string
     {
-        return $this->getNamespacePrefix() . ':' . $this->getLocalName();
+        $prefix = $this->getNamespacePrefix();
+        return ($prefix ? $prefix . ':' : '') . $this->getLocalName();
     }
 
 
