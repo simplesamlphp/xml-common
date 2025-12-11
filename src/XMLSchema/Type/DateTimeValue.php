@@ -6,6 +6,7 @@ namespace SimpleSAML\XMLSchema\Type;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use Psr\Clock\ClockInterface;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\Interface\AbstractAnySimpleType;
@@ -44,6 +45,15 @@ class DateTimeValue extends AbstractAnySimpleType
     protected function validateValue(string $value): void
     {
         Assert::validDateTime($this->sanitizeValue($value), SchemaViolationException::class);
+    }
+
+
+    /**
+     * @return static
+     */
+    public static function now(ClockInterface $clock): static
+    {
+        return static::fromDateTime($clock->now());
     }
 
 
