@@ -179,9 +179,6 @@ final class DOMDocumentFactory
      */
     public static function lookupNamespaceURI(DOMElement $elt, string $prefix): ?string
     {
-        // Get the root element
-        $root = $elt->ownerDocument->documentElement;
-
         // Collect all xmlns attributes from the document
         $xpath = XPath::getXPath($elt->ownerDocument);
 
