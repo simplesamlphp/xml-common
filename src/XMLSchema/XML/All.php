@@ -34,8 +34,7 @@ final class All extends AbstractAll implements
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'all';
+    public const string LOCALNAME = 'all';
 
 
     /**

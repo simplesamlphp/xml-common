@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait DoubleTrait
 {
-    /** @var string */
     private static string $double_regex = '/^
         (
             ([+-]?([0-9]+[.][0-9]*|[.][0-9]+)([e][+-]?[0-9]+)?)

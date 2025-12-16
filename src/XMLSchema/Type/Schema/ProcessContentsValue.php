@@ -21,7 +21,6 @@ class ProcessContentsValue extends NMTokenValue
      *
      * @param string $value The value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {
@@ -35,7 +34,6 @@ class ProcessContentsValue extends NMTokenValue
 
     /**
      * @param \SimpleSAML\XMLSchema\XML\Enumeration\ProcessContentsEnum $value
-     * @return static
      */
     public static function fromEnum(ProcessContentsEnum $value): static
     {

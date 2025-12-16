@@ -21,15 +21,11 @@ final class StringElement extends AbstractElement implements SchemaValidatableEl
     use TypedTextContentTrait;
 
 
-    /** @var string */
-    public const NS = 'urn:x-simplesamlphp:namespace';
+    public const string NS = 'urn:x-simplesamlphp:namespace';
 
-    /** @var string */
-    public const NS_PREFIX = 'ssp';
+    public const string NS_PREFIX = 'ssp';
 
-    /** @var string */
-    public const SCHEMA = 'tests/resources/schemas/simplesamlphp.xsd';
+    public const string SCHEMA = 'tests/resources/schemas/simplesamlphp.xsd';
 
-    /** @var string */
-    public const TEXTCONTENT_TYPE = StringValue::class;
+    public const string TEXTCONTENT_TYPE = StringValue::class;
 }

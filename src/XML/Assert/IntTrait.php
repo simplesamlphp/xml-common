@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait IntTrait
 {
-    /** @var string */
     private static string $int_regex = '/^
         (
             (

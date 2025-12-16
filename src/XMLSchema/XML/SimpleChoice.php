@@ -25,8 +25,7 @@ use function array_pop;
  */
 final class SimpleChoice extends AbstractSimpleExplicitGroup
 {
-    /** @var string */
-    public const LOCALNAME = 'choice';
+    public const string LOCALNAME = 'choice';
 
 
     /**

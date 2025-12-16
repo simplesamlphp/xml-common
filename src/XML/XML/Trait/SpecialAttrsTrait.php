@@ -13,6 +13,7 @@ use SimpleSAML\XML\Type\SpaceValue;
  * Trait grouping common functionality for elements that use the specialAttrs-attributeGroup.
  *
  * @package simplesamlphp/xml-common
+ *
  * @phpstan-ignore trait.unused
  */
 trait SpecialAttrsTrait
@@ -22,28 +23,28 @@ trait SpecialAttrsTrait
      *
      * @var \SimpleSAML\XML\Type\BaseValue|null
      */
-    protected ?BaseValue $base = null;
+    protected readonly ?BaseValue $base = null;
 
     /**
      * The id.
      *
      * @var \SimpleSAML\XML\Type\IDValue|null
      */
-    protected ?IDValue $id = null;
+    protected readonly ?IDValue $id = null;
 
     /**
      * The lang.
      *
      * @var \SimpleSAML\XML\Type\LangValue|null
      */
-    protected ?LangValue $lang = null;
+    protected readonly ?LangValue $lang = null;
 
     /**
      * The space.
      *
      * @var \SimpleSAML\XML\Type\SpaceValue|null
      */
-    protected ?SpaceValue $space = null;
+    protected readonly ?SpaceValue $space = null;
 
 
     /**

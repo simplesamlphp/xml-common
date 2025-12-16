@@ -36,8 +36,7 @@ final class Union extends AbstractAnnotated implements
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'union';
+    public const string LOCALNAME = 'union';
 
 
     /**

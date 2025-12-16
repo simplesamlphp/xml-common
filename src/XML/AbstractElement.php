@@ -25,7 +25,9 @@ use function strval;
  *
  * @package simplesamlphp/xml-common
  */
-abstract class AbstractElement implements SerializableElementInterface
+abstract class AbstractElement implements
+    SerializableElementInterface,
+    ElementInterface
 {
     use SerializableElementTrait;
 
@@ -34,7 +36,6 @@ abstract class AbstractElement implements SerializableElementInterface
      * Create a document structure for this element
      *
      * @param \DOMElement|null $parent The element we should append to.
-     * @return \DOMElement
      */
     public function instantiateParentElement(?DOMElement $parent = null): DOMElement
     {
@@ -117,7 +118,6 @@ abstract class AbstractElement implements SerializableElementInterface
      * Static method that processes a fully namespaced class name and returns the name of the class from it.
      *
      * @param string $class
-     * @return string
      */
     public static function getClassName(string $class): string
     {
@@ -129,8 +129,6 @@ abstract class AbstractElement implements SerializableElementInterface
 
     /**
      * Get the XML qualified name (prefix:name) of the element represented by this class.
-     *
-     * @return string
      */
     public function getQualifiedName(): string
     {
@@ -166,8 +164,6 @@ abstract class AbstractElement implements SerializableElementInterface
 
     /**
      * Get the namespace for the element.
-     *
-     * @return string|null
      */
     public static function getNamespaceURI(): ?string
     {
@@ -187,8 +183,6 @@ abstract class AbstractElement implements SerializableElementInterface
 
     /**
      * Get the namespace-prefix for the element.
-     *
-     * @return string
      */
     public static function getNamespacePrefix(): string
     {
@@ -206,8 +200,6 @@ abstract class AbstractElement implements SerializableElementInterface
 
     /**
      * Get the local name for the element.
-     *
-     * @return string
      */
     public static function getLocalName(): string
     {
@@ -224,8 +216,6 @@ abstract class AbstractElement implements SerializableElementInterface
 
     /**
      * Whether the element may be normalized.
-     *
-     * @return bool
      */
     public static function getNormalization(): bool
     {
@@ -244,7 +234,6 @@ abstract class AbstractElement implements SerializableElementInterface
      * Test if an object, at the state it's in, would produce an empty XML-element
      *
      * @codeCoverageIgnore
-     * @return bool
      */
     public function isEmptyElement(): bool
     {

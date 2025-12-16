@@ -25,8 +25,7 @@ final class Import extends AbstractAnnotated implements SchemaValidatableElement
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'import';
+    public const string LOCALNAME = 'import';
 
 
     /**

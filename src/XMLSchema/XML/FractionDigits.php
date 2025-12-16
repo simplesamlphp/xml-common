@@ -18,6 +18,5 @@ final class FractionDigits extends AbstractNumFacet implements SchemaValidatable
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'fractionDigits';
+    public const string LOCALNAME = 'fractionDigits';
 }

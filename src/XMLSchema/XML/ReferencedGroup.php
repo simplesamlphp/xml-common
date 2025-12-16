@@ -26,8 +26,7 @@ final class ReferencedGroup extends AbstractReferencedGroup implements
     NestedParticleInterface,
     TypeDefParticleInterface
 {
-    /** @var string */
-    public const LOCALNAME = 'group';
+    public const string LOCALNAME = 'group';
 
 
     /**

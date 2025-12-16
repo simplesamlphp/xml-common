@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait DecimalTrait
 {
-    /** @var string */
     private static string $decimal_regex = '/^[+-]?((\d+(\.\d*)?)|(\.\d+))$/D';
 
 

@@ -21,8 +21,7 @@ use function array_pop;
  */
 final class ComplexRestriction extends AbstractComplexRestrictionType
 {
-    /** @var string */
-    public const LOCALNAME = 'restriction';
+    public const string LOCALNAME = 'restriction';
 
 
     /**

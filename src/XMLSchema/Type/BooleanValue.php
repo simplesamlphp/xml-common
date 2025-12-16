@@ -16,15 +16,13 @@ use function in_array;
  */
 class BooleanValue extends AbstractAnySimpleType
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'boolean';
+    public const string SCHEMA_TYPE = 'boolean';
 
 
     /**
      * Sanitize the value.
      *
      * @param string $value  The unsanitized value
-     * @return string
      */
     protected function sanitizeValue(string $value): string
     {
@@ -37,7 +35,6 @@ class BooleanValue extends AbstractAnySimpleType
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {
@@ -47,8 +44,6 @@ class BooleanValue extends AbstractAnySimpleType
 
 
     /**
-     * @param boolean $value
-     * @return static
      */
     public static function fromBoolean(bool $value): static
     {
@@ -59,7 +54,6 @@ class BooleanValue extends AbstractAnySimpleType
 
 
     /**
-     * @return boolean $value
      */
     public function toBoolean(): bool
     {

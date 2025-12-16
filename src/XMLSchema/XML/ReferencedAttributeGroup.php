@@ -21,8 +21,7 @@ use function array_pop;
  */
 final class ReferencedAttributeGroup extends AbstractReferencedAttributeGroup
 {
-    /** @var string */
-    public const LOCALNAME = 'attributeGroup';
+    public const string LOCALNAME = 'attributeGroup';
 
 
     /**

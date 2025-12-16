@@ -14,16 +14,16 @@ class Constants
     /**
      * The namespace for XML.
      */
-    public const NS_XML = 'http://www.w3.org/XML/1998/namespace';
+    public const string NS_XML = 'http://www.w3.org/XML/1998/namespace';
 
     /**
      * The namespace for XMLNS declarations.
      */
-    public const NS_XMLNS = 'http://www.w3.org/2000/xmlns/';
+    public const string NS_XMLNS = 'http://www.w3.org/2000/xmlns/';
 
     /**
      * The maximum amount of child nodes this library is willing to handle.
      * By specification, this limit is 150K, but that opens up for denial of service.
      */
-    public const UNBOUNDED_LIMIT = 10000;
+    public const int UNBOUNDED_LIMIT = 10000;
 }

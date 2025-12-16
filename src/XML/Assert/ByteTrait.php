@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait ByteTrait
 {
-    /** @var string */
     private static string $byte_regex = '/^
         (
             (

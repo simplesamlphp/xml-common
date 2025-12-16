@@ -31,8 +31,7 @@ final class TopLevelComplexType extends AbstractTopLevelComplexType implements
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'complexType';
+    public const string LOCALNAME = 'complexType';
 
 
     /**

@@ -32,7 +32,6 @@ trait SchemaValidatableElementTrait
      *
      * @param \DOMDocument $document
      * @param string|null $schemaFile
-     * @return \DOMDocument
      *
      * @throws \SimpleSAML\XML\Exception\IOException
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException
@@ -71,8 +70,6 @@ trait SchemaValidatableElementTrait
     /**
      * Get the schema file that can validate this element.
      * The path must be relative to the project's base directory.
-     *
-     * @return string
      */
     public static function getSchemaFile(): string
     {

@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait DurationTrait
 {
-    /** @var string */
     private static string $duration_regex = '/^
         ([-+]?)
         P

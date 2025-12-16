@@ -9,6 +9,5 @@ namespace SimpleSAML\XMLSchema\Type;
  */
 class IDValue extends NCNameValue
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'ID';
+    public const string SCHEMA_TYPE = 'ID';
 }

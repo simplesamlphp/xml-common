@@ -14,10 +14,10 @@ class Constants extends \SimpleSAML\XML\Constants
     /**
      * The namespace for the XML Path Language 1.0
      */
-    public const XPATH10_URI = 'http://www.w3.org/TR/1999/REC-xpath-19991116';
+    public const string XPATH10_URI = 'http://www.w3.org/TR/1999/REC-xpath-19991116';
 
     /** @var array<string> */
-    public const ALL_AXES = [
+    public const array ALL_AXES = [
         'ancestor',
         'ancestor-or-self',
         'attribute',
@@ -34,7 +34,7 @@ class Constants extends \SimpleSAML\XML\Constants
     ];
 
     /** @var array<string> */
-    public const DEFAULT_ALLOWED_AXES = [
+    public const array DEFAULT_ALLOWED_AXES = [
         'ancestor',
         'ancestor-or-self',
         'attribute',
@@ -51,7 +51,7 @@ class Constants extends \SimpleSAML\XML\Constants
     ];
 
     /** @var array<string> */
-    public const ALL_FUNCTIONS = [
+    public const array ALL_FUNCTIONS = [
         'boolean',
         'ceiling',
         'concat',
@@ -83,7 +83,7 @@ class Constants extends \SimpleSAML\XML\Constants
     ];
 
     /** @var array<string> */
-    public const DEFAULT_ALLOWED_FUNCTIONS = [
+    public const array DEFAULT_ALLOWED_FUNCTIONS = [
         // 'boolean',
         // 'ceiling',
         // 'concat',
@@ -114,6 +114,5 @@ class Constants extends \SimpleSAML\XML\Constants
         // 'true',
     ];
 
-    /** @var int */
-    public const XPATH_FILTER_MAX_LENGTH = 100;
+    public const int XPATH_FILTER_MAX_LENGTH = 100;
 }

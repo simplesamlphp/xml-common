@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait ShortTrait
 {
-    /** @var string */
     private static string $short_regex = '/^
         (
             (

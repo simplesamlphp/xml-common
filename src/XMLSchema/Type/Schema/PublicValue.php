@@ -11,6 +11,5 @@ use SimpleSAML\XMLSchema\Type\TokenValue;
  */
 class PublicValue extends TokenValue
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'public';
+    public const string SCHEMA_TYPE = 'public';
 }

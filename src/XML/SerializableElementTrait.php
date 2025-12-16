@@ -21,16 +21,12 @@ trait SerializableElementTrait
      * Whether to format the string output of this element or not.
      *
      * Defaults to true. Override to disable output formatting.
-     *
-     * @var bool
      */
     protected bool $formatOutput = true;
 
 
     /**
      * Output the class as an XML-formatted string
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -91,7 +87,6 @@ trait SerializableElementTrait
      * Create XML from this class
      *
      * @param \DOMElement|null $parent
-     * @return \DOMElement
      */
     abstract public function toXML(?DOMElement $parent = null): DOMElement;
 }

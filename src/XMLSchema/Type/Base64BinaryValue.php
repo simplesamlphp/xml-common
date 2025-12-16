@@ -15,15 +15,13 @@ use function preg_replace;
  */
 class Base64BinaryValue extends AbstractAnySimpleType
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'base64Binary';
+    public const string SCHEMA_TYPE = 'base64Binary';
 
 
     /**
      * Sanitize the value.
      *
      * @param string $value  The unsanitized value
-     * @return string
      */
     protected function sanitizeValue(string $value): string
     {
@@ -36,7 +34,6 @@ class Base64BinaryValue extends AbstractAnySimpleType
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

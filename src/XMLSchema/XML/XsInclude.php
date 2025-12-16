@@ -25,8 +25,7 @@ final class XsInclude extends AbstractAnnotated implements SchemaValidatableElem
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'include';
+    public const string LOCALNAME = 'include';
 
 
     /**

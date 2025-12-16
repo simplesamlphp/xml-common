@@ -24,8 +24,7 @@ final class Annotation extends AbstractOpenAttrs implements SchemaValidatableEle
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'annotation';
+    public const string LOCALNAME = 'annotation';
 
 
     /**

@@ -20,17 +20,13 @@ final class Base64BinaryElement extends AbstractElement implements SchemaValidat
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const NS = 'urn:x-simplesamlphp:namespace';
+    public const string NS = 'urn:x-simplesamlphp:namespace';
 
-    /** @var string */
-    public const NS_PREFIX = 'ssp';
+    public const string NS_PREFIX = 'ssp';
 
-    /** @var string */
-    public const SCHEMA = 'tests/resources/schemas/deliberately-wrong-file.xsd';
+    public const string SCHEMA = 'tests/resources/schemas/deliberately-wrong-file.xsd';
 
-    /** @var string */
-    public const TEXTCONTENT_TYPE = AbstractElement::class; // Deliberately wrong class
+    public const string TEXTCONTENT_TYPE = AbstractElement::class; // Deliberately wrong class
 
 
     /**

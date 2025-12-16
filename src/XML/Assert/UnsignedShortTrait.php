@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait UnsignedShortTrait
 {
-    /** @var string */
     private static string $unsignedShort_regex = '/^
         (
             ([+]?0*)

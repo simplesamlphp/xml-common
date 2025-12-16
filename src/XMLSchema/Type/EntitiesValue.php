@@ -14,8 +14,7 @@ use SimpleSAML\XMLSchema\Type\Interface\ListTypeInterface;
  */
 class EntitiesValue extends TokenValue implements ListTypeInterface
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'ENTITIES';
+    public const string SCHEMA_TYPE = 'ENTITIES';
 
 
     /**
@@ -23,7 +22,6 @@ class EntitiesValue extends TokenValue implements ListTypeInterface
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

@@ -27,8 +27,7 @@ final class MinExclusive extends AbstractFacet implements SchemaValidatableEleme
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'minExclusive';
+    public const string LOCALNAME = 'minExclusive';
 
 
     /**

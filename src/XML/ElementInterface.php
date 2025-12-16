@@ -17,8 +17,6 @@ interface ElementInterface
 {
     /**
      * Get the XML qualified name (prefix:name) of the element represented by this class.
-     *
-     * @return string
      */
     public function getQualifiedName(): string;
 

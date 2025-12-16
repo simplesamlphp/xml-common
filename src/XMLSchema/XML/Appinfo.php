@@ -27,11 +27,10 @@ final class Appinfo extends AbstractXsElement implements SchemaValidatableElemen
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'appinfo';
+    public const string LOCALNAME = 'appinfo';
 
     /** The namespace-attribute for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_NAMESPACE = NS::OTHER;
+    public const array|string XS_ANY_ATTR_NAMESPACE = NS::OTHER;
 
 
     /**

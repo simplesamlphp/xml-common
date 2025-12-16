@@ -54,7 +54,6 @@ class XPath
      *
      * @param \DOMNode $node The associated node
      * @param bool $autoregister Whether to auto-register all namespaces used in the document
-     * @return \DOMXPath
      */
     public static function getXPath(DOMNode $node, bool $autoregister = false): DOMXPath
     {

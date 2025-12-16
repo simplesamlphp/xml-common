@@ -29,14 +29,13 @@ final class Documentation extends AbstractXsElement implements SchemaValidatable
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'documentation';
+    public const string LOCALNAME = 'documentation';
 
     /** The namespace-attribute for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_NAMESPACE = NS::OTHER;
+    public const string XS_ANY_ATTR_NAMESPACE = NS::OTHER;
 
     /** The exclusions for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_EXCLUSIONS = [
+    public const array XS_ANY_ATTR_EXCLUSIONS = [
         [C::NS_XML, 'lang'],
     ];
 

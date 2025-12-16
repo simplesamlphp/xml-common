@@ -19,8 +19,10 @@ final class XMLDumper
     {
         /** @var string $dump */
         $dump = $document->saveXML($document->documentElement);
+
         /** @var string $result */
         $result = preg_replace('/ *[\\r\\n] */', '', $dump);
+
         return $result;
     }
 }

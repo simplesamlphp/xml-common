@@ -20,7 +20,6 @@ class ReducedDerivationControlValue extends DerivationControlValue
      *
      * @param string $value The value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

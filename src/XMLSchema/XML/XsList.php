@@ -28,8 +28,7 @@ final class XsList extends AbstractAnnotated implements
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'list';
+    public const string LOCALNAME = 'list';
 
 
     /**

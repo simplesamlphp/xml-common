@@ -12,8 +12,7 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
  */
 class ShortValue extends IntValue
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'short';
+    public const string SCHEMA_TYPE = 'short';
 
 
     /**
@@ -21,7 +20,6 @@ class ShortValue extends IntValue
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

@@ -34,8 +34,7 @@ final class Any extends AbstractWildcard implements
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'any';
+    public const string LOCALNAME = 'any';
 
 
     /**

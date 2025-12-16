@@ -26,8 +26,7 @@ final class ComplexContent extends AbstractAnnotated implements SchemaValidatabl
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'complexContent';
+    public const string LOCALNAME = 'complexContent';
 
 
     /**

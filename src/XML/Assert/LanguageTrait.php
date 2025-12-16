@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait LanguageTrait
 {
-    /** @var string */
     private static string $language_regex = '/^([a-z]{2}|[i]-[a-z]+|[x]-[a-z]{1,8})(-[a-z]{1,8})*$/Di';
 
 

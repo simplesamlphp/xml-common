@@ -29,8 +29,7 @@ use function array_pop;
  */
 final class NarrowMaxMinElement extends AbstractNarrowMaxMin implements NestedParticleInterface
 {
-    /** @var string */
-    public const LOCALNAME = 'element';
+    public const string LOCALNAME = 'element';
 
 
     /**

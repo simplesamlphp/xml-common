@@ -27,8 +27,7 @@ final class MaxExclusive extends AbstractFacet implements SchemaValidatableEleme
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'maxExclusive';
+    public const string LOCALNAME = 'maxExclusive';
 
 
     /**

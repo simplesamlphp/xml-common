@@ -26,11 +26,9 @@ final class Selector extends AbstractAnnotated implements SchemaValidatableEleme
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'selector';
+    public const string LOCALNAME = 'selector';
 
 
-    /** @var string */
     public static string $selector_regex = '/^
         (
             (\.\/\/)?

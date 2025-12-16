@@ -18,7 +18,6 @@ abstract class AbstractAllNNIValue extends NonNegativeIntegerValue
      *
      * @param string $value The value
      * @throws \Exception on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

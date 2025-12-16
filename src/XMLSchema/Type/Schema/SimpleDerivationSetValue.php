@@ -16,8 +16,7 @@ use function explode;
  */
 class SimpleDerivationSetValue extends DerivationControlValue
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'simpleDerivationSet';
+    public const string SCHEMA_TYPE = 'simpleDerivationSet';
 
 
     /**
@@ -25,7 +24,6 @@ class SimpleDerivationSetValue extends DerivationControlValue
      *
      * @param string $value The value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

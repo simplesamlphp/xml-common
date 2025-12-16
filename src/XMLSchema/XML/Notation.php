@@ -30,8 +30,7 @@ final class Notation extends AbstractAnnotated implements
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'notation';
+    public const string LOCALNAME = 'notation';
 
 
     /**

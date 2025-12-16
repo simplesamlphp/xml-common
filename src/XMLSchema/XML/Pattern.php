@@ -18,6 +18,5 @@ final class Pattern extends AbstractNoFixedFacet implements SchemaValidatableEle
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'pattern';
+    public const string LOCALNAME = 'pattern';
 }

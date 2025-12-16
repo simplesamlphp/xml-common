@@ -27,8 +27,7 @@ final class Keyref extends AbstractKeybase implements IdentityConstraintInterfac
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'keyref';
+    public const string LOCALNAME = 'keyref';
 
 
     /**

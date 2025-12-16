@@ -26,8 +26,7 @@ final class AnyAttribute extends AbstractWildcard implements SchemaValidatableEl
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'anyAttribute';
+    public const string LOCALNAME = 'anyAttribute';
 
 
     /**

@@ -14,10 +14,10 @@ class Constants
     /**
      * The namespace for XML schema.
      */
-    public const NS_XS = 'http://www.w3.org/2001/XMLSchema';
+    public const string NS_XS = 'http://www.w3.org/2001/XMLSchema';
 
     /**
      * The namespace for XML schema instance.
      */
-    public const NS_XSI = 'http://www.w3.org/2001/XMLSchema-instance';
+    public const string NS_XSI = 'http://www.w3.org/2001/XMLSchema-instance';
 }

@@ -27,8 +27,7 @@ final class WhiteSpace extends AbstractFacet implements SchemaValidatableElement
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'whiteSpace';
+    public const string LOCALNAME = 'whiteSpace';
 
 
     /**

@@ -11,6 +11,5 @@ use SimpleSAML\XMLSchema\Type\Interface\AbstractAnySimpleType;
  */
 class StringValue extends AbstractAnySimpleType
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'string';
+    public const string SCHEMA_TYPE = 'string';
 }

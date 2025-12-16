@@ -26,11 +26,9 @@ final class Field extends AbstractAnnotated implements SchemaValidatableElementI
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'field';
+    public const string LOCALNAME = 'field';
 
 
-    /** @var string */
     public static string $field_regex = '/^
         (
             (\.\/\/)?

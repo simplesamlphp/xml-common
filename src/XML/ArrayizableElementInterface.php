@@ -15,7 +15,6 @@ interface ArrayizableElementInterface
      * Create a class from an array
      *
      * @param array<string, mixed> $data
-     * @return static
      */
     public static function fromArray(array $data): static;
 

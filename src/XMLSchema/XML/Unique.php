@@ -27,8 +27,7 @@ final class Unique extends AbstractKeybase implements IdentityConstraintInterfac
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'unique';
+    public const string LOCALNAME = 'unique';
 
 
     /**

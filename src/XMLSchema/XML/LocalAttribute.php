@@ -24,8 +24,7 @@ use function array_pop;
  */
 final class LocalAttribute extends AbstractAttribute
 {
-    /** @var string */
-    public const LOCALNAME = 'attribute';
+    public const string LOCALNAME = 'attribute';
 
 
     /**

@@ -11,6 +11,5 @@ use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
  */
 class MinOccursValue extends NonNegativeIntegerValue
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'minOccurs';
+    public const string SCHEMA_TYPE = 'minOccurs';
 }

@@ -22,11 +22,9 @@ use function strval;
  */
 final class Element extends AbstractElement
 {
-    /** @var string */
-    public const NS = 'urn:x-simplesamlphp:namespace';
+    public const string NS = 'urn:x-simplesamlphp:namespace';
 
-    /** @var string */
-    public const NS_PREFIX = 'ssp';
+    public const string NS_PREFIX = 'ssp';
 
 
     /**

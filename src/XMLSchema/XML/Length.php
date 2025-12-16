@@ -18,6 +18,5 @@ final class Length extends AbstractNumFacet implements SchemaValidatableElementI
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'length';
+    public const string LOCALNAME = 'length';
 }
