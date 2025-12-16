@@ -16,14 +16,11 @@ use function trim;
  */
 abstract class AbstractAnySimpleType implements ValueTypeInterface
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'anySimpleType';
+    public const string SCHEMA_TYPE = 'anySimpleType';
 
-    /** @var string */
-    public const SCHEMA_NAMESPACEURI = 'http://www.w3.org/2001/XMLSchema';
+    public const string SCHEMA_NAMESPACEURI = 'http://www.w3.org/2001/XMLSchema';
 
-    /** @var string */
-    public const SCHEMA_NAMESPACE_PREFIX = 'xs';
+    public const string SCHEMA_NAMESPACE_PREFIX = 'xs';
 
 
     /**
