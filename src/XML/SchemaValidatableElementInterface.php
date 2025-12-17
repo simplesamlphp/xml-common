@@ -18,7 +18,6 @@ interface SchemaValidatableElementInterface extends ElementInterface
      *
      * @param \DOMDocument $document
      * @param string|null $schemaFile
-     * @return \DOMDocument
      *
      * @throws \SimpleSAML\XML\Exception\IOException
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException

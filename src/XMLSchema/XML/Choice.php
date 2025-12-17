@@ -35,8 +35,7 @@ final class Choice extends AbstractExplicitGroup implements
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'choice';
+    public const string LOCALNAME = 'choice';
 
 
     /**

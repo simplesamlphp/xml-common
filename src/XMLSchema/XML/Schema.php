@@ -35,11 +35,10 @@ final class Schema extends AbstractOpenAttrs implements SchemaValidatableElement
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'schema';
+    public const string LOCALNAME = 'schema';
 
     /** The exclusions for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_EXCLUSIONS = [
+    public const array XS_ANY_ATTR_EXCLUSIONS = [
         [C_XML::NS_XML, 'lang'],
     ];
 

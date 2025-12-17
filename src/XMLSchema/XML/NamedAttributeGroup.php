@@ -31,8 +31,7 @@ final class NamedAttributeGroup extends AbstractNamedAttributeGroup implements
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'attributeGroup';
+    public const string LOCALNAME = 'attributeGroup';
 
 
     /**

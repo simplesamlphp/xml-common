@@ -28,8 +28,7 @@ final class Redefine extends AbstractOpenAttrs implements SchemaValidatableEleme
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'redefine';
+    public const string LOCALNAME = 'redefine';
 
 
     /**

@@ -23,8 +23,7 @@ use function array_pop;
  */
 final class SimpleSequence extends AbstractSimpleExplicitGroup
 {
-    /** @var string */
-    public const LOCALNAME = 'sequence';
+    public const string LOCALNAME = 'sequence';
 
 
     /**

@@ -21,10 +21,10 @@ abstract class AbstractAnyType extends AbstractXsElement
 
 
     /** The namespace-attribute for the xs:any element */
-    public const XS_ANY_ELT_NAMESPACE = NS::ANY;
+    public const string|array XS_ANY_ELT_NAMESPACE = NS::ANY;
 
     /** The namespace-attribute for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_NAMESPACE = NS::ANY;
+    public const string|array XS_ANY_ATTR_NAMESPACE = NS::ANY;
 
 
     /**

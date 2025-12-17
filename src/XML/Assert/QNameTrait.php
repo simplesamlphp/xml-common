@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait QNameTrait
 {
-    /** @var string */
     private static string $qname_regex = '/^([a-z_][\w.-]*)(:[a-z_][\w.-]*)?$/Di';
 
 

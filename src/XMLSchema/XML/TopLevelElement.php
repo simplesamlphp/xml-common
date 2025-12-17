@@ -32,8 +32,7 @@ final class TopLevelElement extends AbstractTopLevelElement implements SchemaVal
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'element';
+    public const string LOCALNAME = 'element';
 
 
     /**

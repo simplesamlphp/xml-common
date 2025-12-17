@@ -24,8 +24,7 @@ final class SimpleContent extends AbstractAnnotated implements SchemaValidatable
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'simpleContent';
+    public const string LOCALNAME = 'simpleContent';
 
 
     /**

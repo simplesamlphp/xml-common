@@ -30,8 +30,6 @@ trait DateTimeTrait
      * * ss is a two-integer-digit numeral that represents the whole seconds;
      * * '.' s+ (if present) represents the fractional seconds;
      * * zzzzzz (if present) represents the timezone (as described below).
-     *
-     * @var string
      */
     private static string $datetime_regex = '/^
         -?

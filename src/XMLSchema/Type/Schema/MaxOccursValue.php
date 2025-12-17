@@ -9,6 +9,5 @@ namespace SimpleSAML\XMLSchema\Type\Schema;
  */
 class MaxOccursValue extends AbstractAllNNIValue
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'maxOccurs';
+    public const string SCHEMA_TYPE = 'maxOccurs';
 }

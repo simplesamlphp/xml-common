@@ -14,8 +14,7 @@ use SimpleSAML\XMLSchema\Type\Interface\AttributeTypeInterface;
  */
 class IDValue extends BaseIDValue implements AttributeTypeInterface
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'xs:ID';
+    public const string SCHEMA_TYPE = 'xs:ID';
 
 
     /**

@@ -12,8 +12,7 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
  */
 class NonPositiveIntegerValue extends IntegerValue
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'nonPositiveInteger';
+    public const string SCHEMA_TYPE = 'nonPositiveInteger';
 
 
     /**
@@ -21,7 +20,6 @@ class NonPositiveIntegerValue extends IntegerValue
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

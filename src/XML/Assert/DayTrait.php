@@ -13,8 +13,6 @@ trait DayTrait
 {
     /**
      * Format: ---DD with optional timezone representation
-     *
-     * @var string
      */
     private static string $day_regex  = '/^
         ---

@@ -32,8 +32,7 @@ final class Restriction extends AbstractAnnotated implements
     use SimpleRestrictionModelTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'restriction';
+    public const string LOCALNAME = 'restriction';
 
 
     /**

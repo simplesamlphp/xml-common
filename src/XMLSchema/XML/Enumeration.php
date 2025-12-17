@@ -18,6 +18,5 @@ final class Enumeration extends AbstractNoFixedFacet implements SchemaValidatabl
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'enumeration';
+    public const string LOCALNAME = 'enumeration';
 }

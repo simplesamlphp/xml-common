@@ -27,8 +27,7 @@ final class MaxInclusive extends AbstractFacet implements SchemaValidatableEleme
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'maxInclusive';
+    public const string LOCALNAME = 'maxInclusive';
 
 
     /**

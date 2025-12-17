@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait PositiveIntegerTrait
 {
-    /** @var string */
     private static string $positiveInteger_regex = '/^([+]?0*)([1-9]\d*$)$/D';
 
 

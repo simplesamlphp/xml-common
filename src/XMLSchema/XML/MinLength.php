@@ -18,6 +18,5 @@ final class MinLength extends AbstractNumFacet implements SchemaValidatableEleme
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'minLength';
+    public const string LOCALNAME = 'minLength';
 }

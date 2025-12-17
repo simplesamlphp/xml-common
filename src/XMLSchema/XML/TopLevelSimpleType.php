@@ -31,8 +31,7 @@ final class TopLevelSimpleType extends AbstractTopLevelSimpleType implements
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'simpleType';
+    public const string LOCALNAME = 'simpleType';
 
 
     /**

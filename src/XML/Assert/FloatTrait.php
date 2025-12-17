@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait FloatTrait
 {
-    /** @var string */
     private static string $float_regex = '/^(([+-]?([0-9]+[.][0-9]*|[.][0-9]+)([e][+-]?[0-9]+)?)|NaN|[-]?FIN)$/D';
 
 

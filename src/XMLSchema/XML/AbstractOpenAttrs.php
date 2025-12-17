@@ -14,10 +14,10 @@ use SimpleSAML\XMLSchema\XML\Constants\NS;
 abstract class AbstractOpenAttrs extends AbstractAnyType
 {
     /** The namespace-attribute for the xs:any element */
-    public const XS_ANY_ELT_NAMESPACE = [];
+    public const array XS_ANY_ELT_NAMESPACE = [];
 
     /** The namespace-attribute for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_NAMESPACE = NS::OTHER;
+    public const string XS_ANY_ATTR_NAMESPACE = NS::OTHER;
 
 
     /**

@@ -17,8 +17,7 @@ use function strval;
  */
 class IntegerValue extends DecimalValue
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'integer';
+    public const string SCHEMA_TYPE = 'integer';
 
 
     /**
@@ -26,7 +25,6 @@ class IntegerValue extends DecimalValue
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {
@@ -38,7 +36,6 @@ class IntegerValue extends DecimalValue
      * Convert from integer
      *
      * @param int $value
-     * @return static
      */
     public static function fromInteger(int $value): static
     {
@@ -48,8 +45,6 @@ class IntegerValue extends DecimalValue
 
     /**
      * Convert to integer
-     *
-     * @return int
      */
     public function toInteger(): int
     {

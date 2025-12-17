@@ -13,15 +13,13 @@ use SimpleSAML\XMLSchema\Type\Interface\AbstractAnySimpleType;
  */
 class YearMonthValue extends AbstractAnySimpleType
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'gYearMonth';
+    public const string SCHEMA_TYPE = 'gYearMonth';
 
 
     /**
      * Sanitize the value.
      *
      * @param string $value  The unsanitized value
-     * @return string
      */
     protected function sanitizeValue(string $value): string
     {
@@ -34,7 +32,6 @@ class YearMonthValue extends AbstractAnySimpleType
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

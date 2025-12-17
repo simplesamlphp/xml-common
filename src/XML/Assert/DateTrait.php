@@ -21,8 +21,6 @@ trait DateTrait
      *
      * and the least upper bound of the interval is the timeline point represented (noncanonically) by:
      * '-' yyyy '-' mm '-' dd 'T24:00:00' zzzzzz?.
-     *
-     * @var string
      */
     private static string $date_regex  = '/^
         -?

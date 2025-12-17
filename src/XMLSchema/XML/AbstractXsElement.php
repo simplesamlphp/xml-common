@@ -14,12 +14,9 @@ use SimpleSAML\XMLSchema\Constants as C;
  */
 abstract class AbstractXsElement extends BaseElement
 {
-    /** @var string */
-    public const NS = C::NS_XS;
+    public const string NS = C::NS_XS;
 
-    /** @var string */
-    public const NS_PREFIX = 'xs';
+    public const string NS_PREFIX = 'xs';
 
-    /** @var string */
-    public const SCHEMA = 'resources/schemas/XMLSchema.xsd';
+    public const string SCHEMA = 'resources/schemas/XMLSchema.xsd';
 }

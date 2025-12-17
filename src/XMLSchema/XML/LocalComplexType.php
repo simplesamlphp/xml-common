@@ -24,8 +24,7 @@ use function array_pop;
  */
 final class LocalComplexType extends AbstractLocalComplexType
 {
-    /** @var string */
-    public const LOCALNAME = 'complexType';
+    public const string LOCALNAME = 'complexType';
 
 
     /**

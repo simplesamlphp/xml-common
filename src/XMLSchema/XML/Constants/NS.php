@@ -6,13 +6,13 @@ namespace SimpleSAML\XMLSchema\XML\Constants;
 
 final class NS
 {
-    public const ANY = '##any';
+    public const string ANY = '##any';
 
-    public const LOCAL = '##local';
+    public const string LOCAL = '##local';
 
-    public const OTHER = '##other';
+    public const string OTHER = '##other';
 
-    public const TARGETNAMESPACE = '##targetNamespace';
+    public const string TARGETNAMESPACE = '##targetNamespace';
 
 
     /** @var string[] */

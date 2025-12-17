@@ -19,7 +19,7 @@ use SimpleSAML\XMLSchema\XML\Interface\ParticleInterface;
 abstract class AbstractNamedGroup extends AbstractRealGroup
 {
     /** The namespace-attribute for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_NAMESPACE = NS::OTHER;
+    public const string XS_ANY_ATTR_NAMESPACE = NS::OTHER;
 
 
     /**

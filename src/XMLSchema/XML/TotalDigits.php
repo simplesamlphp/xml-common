@@ -27,8 +27,7 @@ final class TotalDigits extends AbstractNumFacet implements SchemaValidatableEle
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'totalDigits';
+    public const string LOCALNAME = 'totalDigits';
 
 
     /**

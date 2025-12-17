@@ -16,18 +16,15 @@ use SimpleSAML\XMLSchema\Type\Interface\AbstractAnySimpleType;
  */
 class DateTimeValue extends AbstractAnySimpleType
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'dateTime';
+    public const string SCHEMA_TYPE = 'dateTime';
 
-    /** @var string */
-    public const DATETIME_FORMAT = 'Y-m-d\\TH:i:sP';
+    public const string DATETIME_FORMAT = 'Y-m-d\\TH:i:sP';
 
 
     /**
      * Sanitize the value.
      *
      * @param string $value  The unsanitized value
-     * @return string
      */
     protected function sanitizeValue(string $value): string
     {
@@ -40,7 +37,6 @@ class DateTimeValue extends AbstractAnySimpleType
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {
@@ -49,7 +45,6 @@ class DateTimeValue extends AbstractAnySimpleType
 
 
     /**
-     * @return static
      */
     public static function now(ClockInterface $clock): static
     {
@@ -59,7 +54,6 @@ class DateTimeValue extends AbstractAnySimpleType
 
     /**
      * @param \DateTimeInterface $value
-     * @return static
      */
     public static function fromDateTime(DateTimeInterface $value): static
     {
@@ -68,7 +62,6 @@ class DateTimeValue extends AbstractAnySimpleType
 
 
     /**
-     * @return \DateTimeImmutable
      */
     public function toDateTime(): DateTimeImmutable
     {

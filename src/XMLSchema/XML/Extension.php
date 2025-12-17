@@ -21,8 +21,7 @@ use function array_pop;
  */
 final class Extension extends AbstractExtensionType
 {
-    /** @var string */
-    public const LOCALNAME = 'extension';
+    public const string LOCALNAME = 'extension';
 
 
     /**

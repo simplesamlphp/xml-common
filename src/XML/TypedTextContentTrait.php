@@ -23,29 +23,12 @@ use function strval;
  */
 trait TypedTextContentTrait
 {
-    /** @var \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface $content */
-    protected ValueTypeInterface $content;
-
-
     /**
      * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface $content
      */
     public function __construct(
-        ValueTypeInterface $content,
+        protected readonly ValueTypeInterface $content,
     ) {
-        $this->setContent($content);
-    }
-
-
-    /**
-     * Set the content of the element.
-     *
-     * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface $content  The value to go in the XML textContent
-     */
-    protected function setContent(ValueTypeInterface $content): void
-    {
-        Assert::isAOf($content, self::getTextContentType(), InvalidValueTypeException::class);
-        $this->content = $content;
     }
 
 
@@ -64,7 +47,6 @@ trait TypedTextContentTrait
      * Create a class from XML
      *
      * @param \DOMElement $xml
-     * @return static
      */
     public static function fromXML(DOMElement $xml): static
     {
@@ -87,7 +69,6 @@ trait TypedTextContentTrait
      * Create XML from this class
      *
      * @param \DOMElement|null $parent
-     * @return \DOMElement
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {
@@ -130,7 +111,6 @@ trait TypedTextContentTrait
      * Create a document structure for this element
      *
      * @param \DOMElement|null $parent The element we should append to.
-     * @return \DOMElement
      */
     abstract public function instantiateParentElement(?DOMElement $parent = null): DOMElement;
 }

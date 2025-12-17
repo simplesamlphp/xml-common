@@ -29,14 +29,12 @@ final class DOMDocumentFactory
      * @var non-negative-int
      * TODO: Add LIBXML_NO_XXE to the defaults when PHP 8.4.0 + libxml 2.13.0 become generally available
      */
-    public const DEFAULT_OPTIONS = \LIBXML_COMPACT | \LIBXML_NONET | \LIBXML_NSCLEAN;
+    public const int DEFAULT_OPTIONS = \LIBXML_COMPACT | \LIBXML_NONET | \LIBXML_NSCLEAN;
 
 
     /**
      * @param string $xml
      * @param non-negative-int $options
-     *
-     * @return \DOMDocument
      */
     public static function fromString(
         string $xml,
@@ -88,8 +86,6 @@ final class DOMDocumentFactory
     /**
      * @param string $file
      * @param non-negative-int $options
-     *
-     * @return \DOMDocument
      */
     public static function fromFile(
         string $file,
@@ -112,7 +108,6 @@ final class DOMDocumentFactory
     /**
      * @param string $version
      * @param string $encoding
-     * @return \DOMDocument
      */
     public static function create(string $version = '1.0', string $encoding = 'UTF-8'): DOMDocument
     {
@@ -122,7 +117,6 @@ final class DOMDocumentFactory
 
     /**
      * @param \DOMDocument $doc
-     * @return \DOMDocument
      */
     public static function normalizeDocument(DOMDocument $doc): DOMDocument
     {
@@ -175,7 +169,6 @@ final class DOMDocumentFactory
     /**
      * @param \DOMElement $elt
      * @param string $prefix
-     * @return string|null
      */
     public static function lookupNamespaceURI(DOMElement $elt, string $prefix): ?string
     {

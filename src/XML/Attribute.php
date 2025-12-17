@@ -44,8 +44,6 @@ final class Attribute implements ArrayizableElementInterface
 
     /**
      * Collect the value of the namespaceURI-property
-     *
-     * @return string|null
      */
     public function getNamespaceURI(): ?string
     {
@@ -55,8 +53,6 @@ final class Attribute implements ArrayizableElementInterface
 
     /**
      * Collect the value of the namespacePrefix-property
-     *
-     * @return string|null
      */
     public function getNamespacePrefix(): ?string
     {
@@ -66,8 +62,6 @@ final class Attribute implements ArrayizableElementInterface
 
     /**
      * Collect the value of the localName-property
-     *
-     * @return string
      */
     public function getAttrName(): string
     {
@@ -90,7 +84,6 @@ final class Attribute implements ArrayizableElementInterface
      * Create a class from XML
      *
      * @param \DOMAttr $attr
-     * @return static
      */
     public static function fromXML(DOMAttr $attr): static
     {
@@ -102,7 +95,6 @@ final class Attribute implements ArrayizableElementInterface
      * Create XML from this class
      *
      * @param \DOMElement $parent
-     * @return \DOMElement
      */
     public function toXML(DOMElement $parent): DOMElement
     {
@@ -135,7 +127,6 @@ final class Attribute implements ArrayizableElementInterface
      *   attrName: string,
      *   attrValue:  \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface,
      * } $data
-     * @return static
      */
     public static function fromArray(array $data): static
     {

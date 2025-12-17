@@ -13,15 +13,13 @@ use SimpleSAML\XMLSchema\Type\Interface\AbstractAnySimpleType;
  */
 class AnyURIValue extends AbstractAnySimpleType
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'anyURI';
+    public const string SCHEMA_TYPE = 'anyURI';
 
 
     /**
      * Sanitize the value.
      *
      * @param string $value  The unsanitized value
-     * @return string
      */
     protected function sanitizeValue(string $value): string
     {
@@ -34,7 +32,6 @@ class AnyURIValue extends AbstractAnySimpleType
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

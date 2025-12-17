@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait NMTokensTrait
 {
-    /** @var string */
     private static string $nmtokens_regex = '/^([\w.:-]+)([\s][\w.:-]+)*$/Du';
 
 

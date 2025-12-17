@@ -12,8 +12,7 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
  */
 class LanguageValue extends TokenValue
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'language';
+    public const string SCHEMA_TYPE = 'language';
 
 
     /**
@@ -21,7 +20,6 @@ class LanguageValue extends TokenValue
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

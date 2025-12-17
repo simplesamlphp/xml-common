@@ -14,8 +14,7 @@ use SimpleSAML\XMLSchema\Type\Interface\AttributeTypeInterface;
  */
 class BaseValue extends AnyURIValue implements AttributeTypeInterface
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'xs:anyURI';
+    public const string SCHEMA_TYPE = 'xs:anyURI';
 
 
     /**

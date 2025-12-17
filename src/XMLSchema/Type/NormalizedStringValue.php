@@ -9,15 +9,13 @@ namespace SimpleSAML\XMLSchema\Type;
  */
 class NormalizedStringValue extends StringValue
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'normalizedString';
+    public const string SCHEMA_TYPE = 'normalizedString';
 
 
     /**
      * Sanitize the value.
      *
      * @param string $value  The unsanitized value
-     * @return string
      */
     protected function sanitizeValue(string $value): string
     {

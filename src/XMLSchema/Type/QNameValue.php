@@ -17,20 +17,15 @@ use function preg_match;
  */
 class QNameValue extends AbstractAnySimpleType
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'QName';
+    public const string SCHEMA_TYPE = 'QName';
 
 
-    /** @var \SimpleSAML\XMLSchema\Type\AnyURIValue|null */
     protected ?AnyURIValue $namespaceURI;
 
-    /** @var \SimpleSAML\XMLSchema\Type\NCNameValue|null */
     protected ?NCNameValue $namespacePrefix;
 
-    /** @var \SimpleSAML\XMLSchema\Type\NCNameValue */
     protected NCNameValue $localName;
 
-    /** @var string */
     private static string $qname_regex = '/^
         (?:
           \{                 # Match a literal {
@@ -49,7 +44,6 @@ class QNameValue extends AbstractAnySimpleType
      * Sanitize the value.
      *
      * @param string $value  The unsanitized value
-     * @return string
      */
     protected function sanitizeValue(string $value): string
     {
@@ -62,7 +56,6 @@ class QNameValue extends AbstractAnySimpleType
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {
@@ -92,8 +85,6 @@ class QNameValue extends AbstractAnySimpleType
 
     /**
      * Get the value.
-     *
-     * @return string
      */
     public function getValue(): string
     {
@@ -139,7 +130,6 @@ class QNameValue extends AbstractAnySimpleType
      * @param \SimpleSAML\XMLSchema\Type\NCNameValue $localName
      * @param \SimpleSAML\XMLSchema\Type\AnyURIValue|null $namespaceURI
      * @param \SimpleSAML\XMLSchema\Type\NCNameValue|null $namespacePrefix
-     * @return static
      */
     public static function fromParts(
         NCNameValue $localName,

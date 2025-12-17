@@ -17,8 +17,7 @@ use function explode;
  */
 class NMTokensValue extends TokenValue implements ListTypeInterface
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'NMTOKENS';
+    public const string SCHEMA_TYPE = 'NMTOKENS';
 
 
     /**
@@ -26,7 +25,6 @@ class NMTokensValue extends TokenValue implements ListTypeInterface
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

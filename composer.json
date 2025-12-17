@@ -32,7 +32,7 @@
         }
     },
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
 
         "ext-bcmath": "*",
         "ext-date": "*",
@@ -47,7 +47,7 @@
         "simplesamlphp/composer-xmlprovider-installer": "~1.2"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp-test-framework": "~1.10"
+        "simplesamlphp/simplesamlphp-test-framework": "~1.11"
     },
     "support": {
         "issues": "https://github.com/simplesamlphp/xml-common/issues",

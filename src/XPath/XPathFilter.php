@@ -24,7 +24,6 @@ class XPathFilter
      * Remove the content from all single or double-quoted strings in $input, leaving only quotes.
      *
      * @param string $input
-     * @return string
      * @throws \SimpleSAML\XPath\Exception\RuntimeException
      */
     public static function removeStringContents(string $input): string

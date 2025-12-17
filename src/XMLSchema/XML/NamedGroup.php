@@ -33,8 +33,7 @@ final class NamedGroup extends AbstractNamedGroup implements
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'group';
+    public const string LOCALNAME = 'group';
 
 
     /**

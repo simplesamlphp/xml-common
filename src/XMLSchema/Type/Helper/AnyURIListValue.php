@@ -25,7 +25,6 @@ class AnyURIListValue extends AnyURIValue implements ListTypeInterface
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {
@@ -39,7 +38,6 @@ class AnyURIListValue extends AnyURIValue implements ListTypeInterface
      * Convert an array of xs:anyURI items into an AnyURIListValue
      *
      * @param string[] $uris
-     * @return static
      */
     public static function fromArray(array $uris): static
     {

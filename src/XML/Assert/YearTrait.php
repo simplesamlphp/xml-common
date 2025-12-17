@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait YearTrait
 {
-    /** @var string */
     private static string $year_regex = '/^
         -?
         ([1-9][0-9]*|[0-9]{4})

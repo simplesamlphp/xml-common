@@ -14,8 +14,7 @@ use SimpleSAML\XMLSchema\Type\LanguageValue;
  */
 class LangValue extends LanguageValue implements AttributeTypeInterface
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'xs:language';
+    public const string SCHEMA_TYPE = 'xs:language';
 
 
     /**

@@ -12,8 +12,7 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
  */
 class UnsignedByteValue extends NonNegativeIntegerValue
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'unsignedByte';
+    public const string SCHEMA_TYPE = 'unsignedByte';
 
 
     /**
@@ -21,7 +20,6 @@ class UnsignedByteValue extends NonNegativeIntegerValue
      *
      * @param string $value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

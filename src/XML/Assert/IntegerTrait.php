@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait IntegerTrait
 {
-    /** @var string */
     private static string $integer_regex = '/^[+-]?(\d+)$/D';
 
 

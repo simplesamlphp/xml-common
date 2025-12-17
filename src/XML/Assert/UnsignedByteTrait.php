@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait UnsignedByteTrait
 {
-    /** @var string */
     private static string $unsignedByte_regex = '/^(([+]?0*)(?:[1-9]|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])|0)$/D';
 
 

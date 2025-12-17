@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait EntitiesTrait
 {
-    /** @var string */
     private static string $entities_regex = '/^([a-z_][\w.-]*)([\s][a-z_][\w.-]*)*$/Dui';
 
 

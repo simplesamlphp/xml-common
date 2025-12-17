@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait LongTrait
 {
-    /** @var string */
     private static string $long_regex = '/^
         (
             ([-+]?[0]*)?

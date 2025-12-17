@@ -35,8 +35,7 @@ final class Sequence extends AbstractExplicitGroup implements
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'sequence';
+    public const string LOCALNAME = 'sequence';
 
 
     /**

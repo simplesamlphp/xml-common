@@ -25,23 +25,18 @@ class ExtendableElement extends AbstractElement implements SchemaValidatableElem
     use SerializableElementTrait;
 
 
-    /** @var string */
-    public const NS = 'urn:x-simplesamlphp:namespace';
+    public const string NS = 'urn:x-simplesamlphp:namespace';
 
-    /** @var string */
-    public const NS_PREFIX = 'ssp';
+    public const string NS_PREFIX = 'ssp';
 
-    /** @var string */
-    public const LOCALNAME = 'ExtendableElement';
+    public const string LOCALNAME = 'ExtendableElement';
 
-    /** @var string */
-    public const SCHEMA = 'tests/resources/schemas/simplesamlphp.xsd';
+    public const string SCHEMA = 'tests/resources/schemas/simplesamlphp.xsd';
 
-    /** @var string[]|string */
-    final public const XS_ANY_ELT_NAMESPACE = NS::ANY;
+    final public const string XS_ANY_ELT_NAMESPACE = NS::ANY;
 
     /** @var array{array{string, string}} */
-    final public const XS_ANY_ELT_EXCLUSIONS = [
+    final public const array XS_ANY_ELT_EXCLUSIONS = [
         ['urn:custom:other', 'Chunk'],
     ];
 

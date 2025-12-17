@@ -17,8 +17,7 @@ use function explode;
  */
 class NamespaceListValue extends NMTokensValue
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'namespaceList';
+    public const string SCHEMA_TYPE = 'namespaceList';
 
 
     /**
@@ -26,7 +25,6 @@ class NamespaceListValue extends NMTokensValue
      *
      * @param string $value The value
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

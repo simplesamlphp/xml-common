@@ -17,8 +17,7 @@ use function explode;
  */
 class BlockSetValue extends NMTokenValue
 {
-    /** @var string */
-    public const SCHEMA_TYPE = 'blockSet';
+    public const string SCHEMA_TYPE = 'blockSet';
 
 
     /**
@@ -26,7 +25,6 @@ class BlockSetValue extends NMTokenValue
      *
      * @param string $value The value
      * @throws \Exception on failure
-     * @return void
      */
     protected function validateValue(string $value): void
     {

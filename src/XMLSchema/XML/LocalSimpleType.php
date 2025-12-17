@@ -24,8 +24,7 @@ use function array_pop;
  */
 final class LocalSimpleType extends AbstractLocalSimpleType
 {
-    /** @var string */
-    public const LOCALNAME = 'simpleType';
+    public const string LOCALNAME = 'simpleType';
 
 
     /**

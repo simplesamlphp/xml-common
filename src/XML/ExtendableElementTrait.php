@@ -110,7 +110,6 @@ trait ExtendableElementTrait
      * Set an array with all elements present.
      *
      * @param \SimpleSAML\XML\SerializableElementInterface[] $elements
-     * @return void
      */
     protected function setElements(array $elements): void
     {

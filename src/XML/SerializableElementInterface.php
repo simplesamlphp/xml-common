@@ -15,16 +15,12 @@ interface SerializableElementInterface extends ElementInterface
 {
     /**
      * Output the class as an XML-formatted string
-     *
-     * @return string
      */
     public function __toString(): string;
 
 
     /**
      * Test if an object, at the state it's in, would produce an empty XML-element
-     *
-     * @return bool
      */
     public function isEmptyElement(): bool;
 
@@ -33,7 +29,6 @@ interface SerializableElementInterface extends ElementInterface
      * Create a class from XML
      *
      * @param \DOMElement $xml
-     * @return static
      */
     public static function fromXML(DOMElement $xml): static;
 
@@ -42,7 +37,6 @@ interface SerializableElementInterface extends ElementInterface
      * Create XML from this class
      *
      * @param \DOMElement|null $parent
-     * @return \DOMElement
      */
     public function toXML(?DOMElement $parent = null): DOMElement;
 }

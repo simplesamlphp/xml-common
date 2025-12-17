@@ -16,7 +16,7 @@ use SimpleSAML\XMLSchema\XML\Constants\NS;
 abstract class AbstractNamedAttributeGroup extends AbstractAttributeGroup
 {
     /** The namespace-attribute for the xs:anyAttribute element */
-    public const XS_ANY_ATTR_NAMESPACE = NS::OTHER;
+    public const string XS_ANY_ATTR_NAMESPACE = NS::OTHER;
 
 
     /**

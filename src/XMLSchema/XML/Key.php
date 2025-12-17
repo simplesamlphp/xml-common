@@ -24,8 +24,7 @@ final class Key extends AbstractKeybase implements IdentityConstraintInterface, 
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'key';
+    public const string LOCALNAME = 'key';
 
 
     /**

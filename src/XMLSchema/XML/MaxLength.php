@@ -18,6 +18,5 @@ final class MaxLength extends AbstractNumFacet implements SchemaValidatableEleme
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'maxLength';
+    public const string LOCALNAME = 'maxLength';
 }

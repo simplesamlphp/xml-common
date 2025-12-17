@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait NegativeIntegerTrait
 {
-    /** @var string */
     private static string $negativeInteger_regex = '/^(-\d+)$/D';
 
 

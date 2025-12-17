@@ -18,7 +18,9 @@ use SimpleSAML\XMLSchema\Type\StringValue;
  *
  * @package simplesamlphp/xml-common
  */
-final class Chunk implements SerializableElementInterface
+final class Chunk implements
+    SerializableElementInterface,
+    ElementInterface
 {
     use SerializableElementTrait;
 
@@ -68,8 +70,6 @@ final class Chunk implements SerializableElementInterface
 
     /**
      * Collect the value of the normalization-property
-     *
-     * @return bool
      */
     public function getNormalization(): bool
     {
@@ -90,8 +90,6 @@ final class Chunk implements SerializableElementInterface
 
     /**
      * Collect the value of the localName-property
-     *
-     * @return string
      */
     public function getLocalName(): string
     {
@@ -114,8 +112,6 @@ final class Chunk implements SerializableElementInterface
 
     /**
      * Collect the value of the namespaceURI-property
-     *
-     * @return string|null
      */
     public function getNamespaceURI(): ?string
     {
@@ -137,8 +133,6 @@ final class Chunk implements SerializableElementInterface
 
     /**
      * Get this \DOMElement.
-     *
-     * @return \DOMElement This element.
      */
     public function getXML(): DOMElement
     {
@@ -148,8 +142,6 @@ final class Chunk implements SerializableElementInterface
 
     /**
      * Collect the value of the prefix-property
-     *
-     * @return string
      */
     public function getPrefix(): string
     {
@@ -171,8 +163,6 @@ final class Chunk implements SerializableElementInterface
     /**
      * Get the XML qualified name (prefix:name, or just name when not prefixed)
      *  of the element represented by this class.
-     *
-     * @return string
      */
     public function getQualifiedName(): string
     {
@@ -242,8 +232,6 @@ final class Chunk implements SerializableElementInterface
 
     /**
      * Test if an object, at the state it's in, would produce an empty XML-element
-     *
-     * @return bool
      */
     public function isEmptyElement(): bool
     {
@@ -255,7 +243,6 @@ final class Chunk implements SerializableElementInterface
 
     /**
      * @param \DOMElement $xml
-     * @return static
      */
     public static function fromXML(DOMElement $xml): static
     {

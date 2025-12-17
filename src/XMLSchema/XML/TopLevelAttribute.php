@@ -33,8 +33,7 @@ final class TopLevelAttribute extends AbstractTopLevelAttribute implements
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'attribute';
+    public const string LOCALNAME = 'attribute';
 
 
     /**

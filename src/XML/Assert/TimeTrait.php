@@ -11,7 +11,6 @@ use InvalidArgumentException;
  */
 trait TimeTrait
 {
-    /** @var string */
     private static string $time_regex = '/^
         ([0-1][0-9]|2[0-4])
         :
