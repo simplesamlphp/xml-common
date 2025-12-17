@@ -14,6 +14,8 @@ class Random
 {
     /**
      * The fixed length of random identifiers.
+     *
+     * (43 - 1) / 2 = 21 → random_bytes(21) → 168 bits
      */
     public const int ID_LENGTH = 43;
 
