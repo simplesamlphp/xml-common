@@ -97,7 +97,7 @@ trait ExtendableAttributesTrait
         DOMElement $xml,
         string|array|null $namespace = null,
     ): array {
-        $namespace = $namespace ?? self::XS_ANY_ATTR_NAMESPACE;
+        $namespace = $namespace ?? static::XS_ANY_ATTR_NAMESPACE;
         $exclusionList = self::getAttributeExclusions();
         $attributes = [];
 
@@ -107,7 +107,11 @@ trait ExtendableAttributesTrait
             Assert::oneOf($namespace, NS::$PREDEFINED);
 
             foreach ($xml->attributes as $a) {
-                if (in_array([$a->namespaceURI, $a->localName], $exclusionList, true)) {
+                if (
+                    $exclusionList
+                    && (in_array([$a->namespaceURI, $a->localName], $exclusionList, true)
+                        || in_array([$a->namespaceURI, '*'], $exclusionList, true))
+                ) {
                     continue;
                 } elseif ($namespace === NS::OTHER && in_array($a->namespaceURI, [self::NS, null], true)) {
                     continue;
@@ -254,13 +258,13 @@ trait ExtendableAttributesTrait
     public function getAttributeNamespace(): array|string
     {
         Assert::true(
-            defined('self::XS_ANY_ATTR_NAMESPACE'),
+            defined('static::XS_ANY_ATTR_NAMESPACE'),
             self::getClassName(self::class)
             . '::XS_ANY_ATTR_NAMESPACE constant must be defined and set to the namespace for the xs:anyAttribute.',
             RuntimeException::class,
         );
 
-        return self::XS_ANY_ATTR_NAMESPACE;
+        return static::XS_ANY_ATTR_NAMESPACE;
     }
 
 
@@ -271,8 +275,8 @@ trait ExtendableAttributesTrait
      */
     public static function getAttributeExclusions(): array
     {
-        if (defined('self::XS_ANY_ATTR_EXCLUSIONS')) {
-            return self::XS_ANY_ATTR_EXCLUSIONS;
+        if (defined('static::XS_ANY_ATTR_EXCLUSIONS')) {
+            return static::XS_ANY_ATTR_EXCLUSIONS;
         }
 
         return [];

@@ -45,7 +45,7 @@ trait ExtendableElementTrait
         DOMElement $xml,
         string|array|null $namespace = null,
     ): array {
-        $namespace = $namespace ?? self::XS_ANY_ELT_NAMESPACE;
+        $namespace = $namespace ?? static::XS_ANY_ELT_NAMESPACE;
         $exclusionList = self::getElementExclusions();
         $registry = ElementRegistry::getInstance();
         $elements = [];
@@ -58,7 +58,11 @@ trait ExtendableElementTrait
             foreach ($xml->childNodes as $elt) {
                 if (!($elt instanceof DOMElement)) {
                     continue;
-                } elseif (in_array([$elt->namespaceURI, $elt->localName], $exclusionList, true)) {
+                } elseif (
+                    $exclusionList
+                    && (in_array([$elt->namespaceURI, $elt->localName], $exclusionList, true)
+                        || in_array([$elt->namespaceURI, '*'], $exclusionList, true))
+                ) {
                     continue;
                 } elseif ($namespace === NS::OTHER && in_array($elt->namespaceURI, [self::NS, null], true)) {
                     continue;
@@ -205,13 +209,13 @@ trait ExtendableElementTrait
     public function getElementNamespace(): array|string
     {
         Assert::true(
-            defined('self::XS_ANY_ELT_NAMESPACE'),
+            defined('static::XS_ANY_ELT_NAMESPACE'),
             self::getClassName(self::class)
             . '::XS_ANY_ELT_NAMESPACE constant must be defined and set to the namespace for the xs:any element.',
             RuntimeException::class,
         );
 
-        return self::XS_ANY_ELT_NAMESPACE;
+        return static::XS_ANY_ELT_NAMESPACE;
     }
 
 
@@ -222,8 +226,8 @@ trait ExtendableElementTrait
      */
     public static function getElementExclusions(): array
     {
-        if (defined('self::XS_ANY_ELT_EXCLUSIONS')) {
-            return self::XS_ANY_ELT_EXCLUSIONS;
+        if (defined('static::XS_ANY_ELT_EXCLUSIONS')) {
+            return static::XS_ANY_ELT_EXCLUSIONS;
         }
 
         return [];
