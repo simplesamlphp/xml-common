@@ -27,8 +27,21 @@ trait TypedTextContentTrait
      * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface $content
      */
     public function __construct(
-        protected ValueTypeInterface $content,
+        ValueTypeInterface $content,
     ) {
+        $this->setContent($content);
+    }
+
+
+    /**
+     * Set the content of the element.
+     *
+     * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface $content  The value to go in the XML textContent
+     */
+    protected function setContent(ValueTypeInterface $content): void
+    {
+        Assert::isAOf($content, self::getTextContentType(), InvalidValueTypeException::class);
+        $this->content = $content;
     }
 
 
