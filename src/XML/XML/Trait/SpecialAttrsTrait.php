@@ -23,28 +23,28 @@ trait SpecialAttrsTrait
      *
      * @var \SimpleSAML\XML\Type\BaseValue|null
      */
-    protected readonly ?BaseValue $base;
+    protected ?BaseValue $base;
 
     /**
      * The id.
      *
      * @var \SimpleSAML\XML\Type\IDValue|null
      */
-    protected readonly ?IDValue $id;
+    protected ?IDValue $id;
 
     /**
      * The lang.
      *
      * @var \SimpleSAML\XML\Type\LangValue|null
      */
-    protected readonly ?LangValue $lang;
+    protected ?LangValue $lang;
 
     /**
      * The space.
      *
      * @var \SimpleSAML\XML\Type\SpaceValue|null
      */
-    protected readonly ?SpaceValue $space;
+    protected ?SpaceValue $space;
 
 
     /**
