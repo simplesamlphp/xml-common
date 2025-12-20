@@ -27,7 +27,7 @@ trait TypedTextContentTrait
      * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface $content
      */
     public function __construct(
-        ValueTypeInterface $content,
+        protected ValueTypeInterface $content,
     ) {
         $this->setContent($content);
     }
