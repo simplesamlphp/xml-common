@@ -2,7 +2,7 @@
     "name": "simplesamlphp/xml-common",
     "description": "A library with classes and utilities for handling XML structures.",
     "type": "simplesamlphp-xmlprovider",
-    "keywords": ["saml", "xml"],
+    "keywords": ["xml", "xsd", "schema", "xpath"],
     "homepage": "http://simplesamlphp.org",
     "license": "LGPL-2.1-or-later",
     "authors": [
@@ -17,18 +17,18 @@
     ],
     "autoload": {
         "psr-4": {
-            "SimpleSAML\\XMLSchema\\": "src/XMLSchema",
-            "SimpleSAML\\XML\\": "src/XML",
-            "SimpleSAML\\XPath\\": "src/XPath"
+            "SimpleSAML\\XMLSchema\\": "src/XMLSchema/",
+            "SimpleSAML\\XML\\": "src/XML/",
+            "SimpleSAML\\XPath\\": "src/XPath/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SimpleSAML\\Test\\Helper\\": ["tests/Helper"],
-            "SimpleSAML\\Test\\Registry\\": ["tests/Registry"],
-            "SimpleSAML\\Test\\XML\\": ["tests/XML"],
-            "SimpleSAML\\Test\\XPath\\": ["tests/XPath"],
-            "SimpleSAML\\Test\\XMLSchema\\": ["tests/XMLSchema"]
+            "SimpleSAML\\Test\\Helper\\": ["tests/Helper/"],
+            "SimpleSAML\\Test\\Registry\\": ["tests/Registry/"],
+            "SimpleSAML\\Test\\XML\\": ["tests/XML/"],
+            "SimpleSAML\\Test\\XPath\\": ["tests/XPath/"],
+            "SimpleSAML\\Test\\XMLSchema\\": ["tests/XMLSchema/"]
         }
     },
     "require": {
