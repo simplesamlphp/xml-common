@@ -74,7 +74,7 @@ final class ElementRegistry
         $className = AbstractElement::getClassName($class);
         $namespace = $class::NS;
 
-        $this->registry[$namespace][$className] = $class;
+        $this->registry[$namespace ?? ''][$className] = $class;
     }
 
 
@@ -95,6 +95,6 @@ final class ElementRegistry
         Assert::nullOrValidURI($namespace, InvalidDOMElementException::class);
         Assert::validNCName($element, InvalidDOMElementException::class);
 
-        return $this->registry[$namespace][$element] ?? null;
+        return $this->registry[$namespace ?? ''][$element] ?? null;
     }
 }
