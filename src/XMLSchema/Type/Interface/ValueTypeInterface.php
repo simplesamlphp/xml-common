@@ -14,28 +14,28 @@ use Stringable;
 interface ValueTypeInterface extends Stringable
 {
     /**
-     * @return string
      */
     public function getValue(): string;
 
 
     /**
-     * @return string
      */
     public function getRawValue(): string;
 
 
     /**
-     * @param string $value
-     * @return static
      */
     public static function fromString(string $value): static;
 
 
     /**
      * Output the value as a string
-     *
-     * @return string
      */
     public function __toString(): string;
+
+
+    /**
+     * Get the type of the value
+     */
+    public function getType(): string;
 }

@@ -145,4 +145,13 @@ abstract class AbstractAnySimpleType implements ValueTypeInterface
 
         return strcmp($this->getValue(), $other->getValue()) === 0;
     }
+
+
+    /**
+     * Get the type of the value
+     */
+    public function getType(): string
+    {
+        return static::SCHEMA_NAMESPACE_PREFIX . ':' . static::SCHEMA_TYPE;
+    }
 }
