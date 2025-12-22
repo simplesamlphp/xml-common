@@ -9,6 +9,8 @@ use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\Constants as C;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMAttributeException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\Constants\NS;
 
@@ -204,7 +206,7 @@ trait ExtendableAttributesTrait
 
         if ($namespace === NS::LOCAL) {
             // If ##local then all namespaces must be null
-            Assert::allNull($actual_namespaces);
+            Assert::allNull($actual_namespaces, SchemaviolationException::class);
         } elseif (is_array($namespace)) {
             // Make a local copy of the property that we can edit
             $allowed_namespaces = $namespace;
@@ -227,25 +229,28 @@ trait ExtendableAttributesTrait
                     rtrim(implode(', ', $diff)),
                     self::NS,
                 ),
+                SchemaViolationException::class,
             );
         } else {
             if ($namespace === NS::OTHER) {
                 // All attributes must be namespaced, ergo non-null
-                Assert::allNotNull($actual_namespaces);
+                Assert::allNotNull($actual_namespaces, SchemaViolationException::class);
 
                 // Must be any namespace other than the parent element
-                Assert::allNotSame($actual_namespaces, self::NS);
+                Assert::allNotSame($actual_namespaces, self::NS, SchemaViolationException::class);
             } elseif ($namespace === NS::TARGETNAMESPACE) {
                 // Must be the same namespace as the one of the parent element
-                Assert::allSame($actual_namespaces, self::NS);
+                Assert::allSame($actual_namespaces, self::NS, SchemaViolationException::class);
             }
         }
 
         $exclusionList = self::getAttributeExclusions();
         foreach ($attributes as $i => $attr) {
-            if (in_array([$attr->getNamespaceURI(), $attr->getAttrName()], $exclusionList, true)) {
-                unset($attributes[$i]);
-            }
+            Assert::true(
+                !in_array([$attr->getNamespaceURI(), $attr->getAttrName()], $exclusionList, true)
+                && !in_array([$attr->getNamespaceURI(), '*'], $exclusionList, true),
+                InvalidDOMAttributeException::class,
+            );
         }
 
         $this->namespacedAttributes = $attributes;

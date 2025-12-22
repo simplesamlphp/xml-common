@@ -10,6 +10,8 @@ use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\Registry\ElementRegistry;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\XML\Constants\NS;
 
 use function array_diff;
@@ -17,6 +19,7 @@ use function array_map;
 use function array_search;
 use function defined;
 use function implode;
+use function in_array;
 use function is_array;
 use function rtrim;
 use function sprintf;
@@ -146,7 +149,7 @@ trait ExtendableElementTrait
 
         if ($namespace === NS::LOCAL) {
             // If ##local then all namespaces must be null
-            Assert::allNull($actual_namespaces);
+            Assert::allNull($actual_namespaces, SchemaViolationException::class);
         } elseif (is_array($namespace)) {
             // Make a local copy of the property that we can edit
             $allowed_namespaces = $namespace;
@@ -169,23 +172,26 @@ trait ExtendableElementTrait
                     rtrim(implode(', ', $diff)),
                     self::NS,
                 ),
+                SchemaViolationException::class,
             );
         } elseif ($namespace === NS::OTHER) {
             // Must be any namespace other than the parent element, excluding elements with no namespace
-            Assert::notInArray(null, $actual_namespaces);
-            Assert::allNotSame($actual_namespaces, self::NS);
+            Assert::notInArray(null, $actual_namespaces, SchemaViolationException::class);
+            Assert::allNotSame($actual_namespaces, self::NS, SchemaViolationException::class);
         } elseif ($namespace === NS::TARGETNAMESPACE) {
             // Must be the same namespace as the one of the parent element
-            Assert::allSame($actual_namespaces, self::NS);
+            Assert::allSame($actual_namespaces, self::NS, SchemaViolationexception::class);
         } else {
             // XS_ANY_NS_ANY
         }
 
         $exclusionList = self::getElementExclusions();
         foreach ($elements as $i => $elt) {
-            if (in_array([$elt->getNamespaceURI(), $elt->getLocalName()], $exclusionList, true)) {
-                unset($elements[$i]);
-            }
+            Assert::true(
+                !in_array([$elt->getNamespaceURI(), $elt->getLocalName()], $exclusionList, true)
+                && !in_array([$elt->getNamespaceURI(), '*'], $exclusionList, true),
+                InvalidDOMElementException::class,
+            );
         }
 
         $this->elements = $elements;

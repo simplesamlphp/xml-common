@@ -10,6 +10,7 @@ use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMAttributeException;
 use SimpleSAML\XMLSchema\Type\StringValue;
 
 use function dirname;
@@ -46,13 +47,27 @@ final class ExtendableAttributesTest extends TestCase
             [
                 new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr1', StringValue::fromString('testval1')),
                 new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr2', StringValue::fromString('testval2')),
-                new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr3', StringValue::fromString('testval3')),
             ],
         );
 
         $this->assertEquals(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
             strval($extendableElement),
+        );
+    }
+
+
+    /**
+     */
+    public function testMarshallingWithExcludedAttribute(): void
+    {
+        $this->expectException(InvalidDOMAttributeException::class);
+        new ExtendableAttributesElement(
+            [
+                new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr1', StringValue::fromString('testval1')),
+                new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr2', StringValue::fromString('testval2')),
+                new Attribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr3', StringValue::fromString('testval3')),
+            ],
         );
     }
 

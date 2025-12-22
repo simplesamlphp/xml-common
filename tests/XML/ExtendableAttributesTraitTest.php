@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\Test\Helper\ExtendableAttributesElement;
 use SimpleSAML\XML\Attribute;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\Constants\NS;
 
@@ -124,7 +125,7 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function testOtherNamespacePassingLocalThrowsAnException(): void
     {
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(SchemaViolationException::class);
         new class ([self::$local]) extends ExtendableAttributesElement {
             /**
              * @return array<int, string>|string
@@ -199,7 +200,7 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function testTargetNamespacePassingOtherThrowsAnException(): void
     {
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(SchemaViolationException::class);
         new class ([self::$other]) extends ExtendableAttributesElement {
             /**
              * @return array<int, string>|string
@@ -255,7 +256,7 @@ final class ExtendableAttributesTraitTest extends TestCase
      */
     public function testLocalNamespacePassingOtherThrowsAnException(): void
     {
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(SchemaViolationException::class);
         new class ([self::$other]) extends ExtendableAttributesElement {
             /**
              * @return array<int, string>|string

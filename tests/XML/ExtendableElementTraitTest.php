@@ -10,6 +10,7 @@ use SimpleSAML\Test\Helper\ExtendableElement;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\ElementInterface;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\XML\Constants\NS;
 
 /**
@@ -139,7 +140,7 @@ XML
      */
     public function testOtherNamespacePassingLocalThrowsAnException(): void
     {
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(SchemaViolationException::class);
         new class ([self::$local]) extends ExtendableElement {
             /**
              * @return array<int, string>|string
@@ -214,7 +215,7 @@ XML
      */
     public function testTargetNamespacePassingOtherThrowsAnException(): void
     {
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(SchemaViolationException::class);
         new class ([self::$other]) extends ExtendableElement {
             /**
              * @return array<int, string>|string
@@ -270,7 +271,7 @@ XML
      */
     public function testLocalNamespacePassingTargetThrowsAnException(): void
     {
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(SchemaViolationException::class);
         new class ([self::$target]) extends ExtendableElement {
             /**
              * @return array<int, string>|string
@@ -288,7 +289,7 @@ XML
      */
     public function testLocalNamespacePassingOtherThrowsAnException(): void
     {
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(SchemaViolationException::class);
         new class ([self::$other]) extends ExtendableElement {
             /**
              * @return array<int, string>|string

@@ -10,6 +10,7 @@ use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 
 use function dirname;
 use function strval;
@@ -47,6 +48,36 @@ final class ExtendableElementTest extends TestCase
         $dummyDocument2 = DOMDocumentFactory::fromString(
             '<dummy:Chunk xmlns:dummy="urn:custom:dummy">some</dummy:Chunk>',
         );
+
+        /** @var \DOMElement $dummyElement1 */
+        $dummyElement1 = $dummyDocument1->documentElement;
+        /** @var \DOMElement $dummyElement2 */
+        $dummyElement2 = $dummyDocument2->documentElement;
+
+        $extendableElement = new ExtendableElement(
+            [
+                new Chunk($dummyElement1),
+                new Chunk($dummyElement2),
+            ],
+        );
+
+        $this->assertEquals(
+            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+            strval($extendableElement),
+        );
+    }
+
+
+    /**
+     */
+    public function testMarshallingWithExcludedElement(): void
+    {
+        $dummyDocument1 = DOMDocumentFactory::fromString(
+            '<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>',
+        );
+        $dummyDocument2 = DOMDocumentFactory::fromString(
+            '<dummy:Chunk xmlns:dummy="urn:custom:dummy">some</dummy:Chunk>',
+        );
         $dummyDocument3 = DOMDocumentFactory::fromString(
             '<other:Chunk xmlns:other="urn:custom:other">some</other:Chunk>',
         );
@@ -58,17 +89,13 @@ final class ExtendableElementTest extends TestCase
         /** @var \DOMElement $dummyElement3 */
         $dummyElement3 = $dummyDocument3->documentElement;
 
-        $extendableElement = new ExtendableElement(
+        $this->expectException(InvalidDOMElementException::class);
+        new ExtendableElement(
             [
                 new Chunk($dummyElement1),
                 new Chunk($dummyElement2),
                 new Chunk($dummyElement3),
             ],
-        );
-
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($extendableElement),
         );
     }
 
