@@ -48,11 +48,19 @@ final class AnyURIValueTest extends TestCase
         $this->assertTrue(AnyURIValue::fromString('hello')->equals(AnyURIValue::fromString('hello')));
         $this->assertTrue(AnyURIValue::fromString('hello')->equals(StringValue::fromString('hello')));
         $this->assertTrue(AnyURIValue::fromString('hello')->equals('hello'));
+        $this->assertTrue(
+            AnyURIValue::fromString('https://simplesamlphp.org/index.html')
+              ->equals('https://simplesamlphp.org:443/index.html'),
+        );
 
         // Assert that two different values are not equal
         $this->assertFalse(AnyURIValue::fromString('hello')->equals(AnyURIValue::fromString('world')));
         $this->assertFalse(AnyURIValue::fromString('hello')->equals(StringValue::fromString('world')));
         $this->assertFalse(AnyURIValue::fromString('hello')->equals('world'));
+        $this->assertFalse(
+            AnyURIValue::fromString('https://simplesamlphp.org:8443/index.html')
+              ->equals('https://simplesamlphp.org:443/index.html'),
+        );
     }
 
 

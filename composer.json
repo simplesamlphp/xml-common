@@ -42,6 +42,7 @@
         "ext-pcre": "*",
         "ext-spl": "*",
 
+        "guzzlehttp/psr7": "~2.8",
         "psr/clock": "~1.0",
         "simplesamlphp/assert": "~1.9",
         "simplesamlphp/composer-xmlprovider-installer": "~1.2"
