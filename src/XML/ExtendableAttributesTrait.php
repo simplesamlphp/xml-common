@@ -93,7 +93,7 @@ trait ExtendableAttributesTrait
      *
      * @param \DOMElement $xml
      * @param string|string[]|null $namespace
-     * @return array<int, \SimpleSAML\XML\Attribute>
+     * @return list<\SimpleSAML\XML\Attribute>
      */
     protected static function getAttributesNSFromXML(
         DOMElement $xml,

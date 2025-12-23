@@ -143,7 +143,7 @@ abstract class AbstractElement implements
      * Extract localized names from the children of a given element.
      *
      * @param \DOMElement $parent The element we want to search.
-     * @return array<static> An array of objects of this class.
+     * @return list<static> An array of objects of this class.
      */
     public static function getChildrenOfClass(DOMElement $parent): array
     {
