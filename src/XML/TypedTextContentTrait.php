@@ -57,6 +57,17 @@ trait TypedTextContentTrait
 
 
     /**
+     * Create a class from string
+     */
+    public static function fromString(string $text): static
+    {
+        $type = self::getTextContentType();
+
+        return new static($type::fromString($text));
+    }
+
+
+    /**
      * Create a class from XML
      *
      * @param \DOMElement $xml

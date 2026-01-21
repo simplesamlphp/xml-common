@@ -23,6 +23,13 @@ final class TypedTextContentTraitTest extends TestCase
     #[DoesNotPerformAssertions]
     public function testTypedContentPassesForString(): void
     {
+        $stringElt = StringElement::fromString('some string');
+    }
+
+
+    #[DoesNotPerformAssertions]
+    public function testTypedContentPassesForStringElement(): void
+    {
         $file = 'tests/resources/xml/ssp_StringElement.xml';
         $doc = DOMDocumentFactory::fromFile($file);
         /** @var \DOMElement $elt */
@@ -33,7 +40,7 @@ final class TypedTextContentTraitTest extends TestCase
 
 
     #[DoesNotPerformAssertions]
-    public function testTypedContentPassesForBoolean(): void
+    public function testTypedContentPassesForBooleanElement(): void
     {
         $file = 'tests/resources/xml/ssp_BooleanElement.xml';
         $doc = DOMDocumentFactory::fromFile($file);
