@@ -24,6 +24,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "SimpleSAML\\Test\\Container\\": ["tests/Container/"],
             "SimpleSAML\\Test\\Helper\\": ["tests/Helper/"],
             "SimpleSAML\\Test\\Registry\\": ["tests/Registry/"],
             "SimpleSAML\\Test\\XML\\": ["tests/XML/"],

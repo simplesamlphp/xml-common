@@ -8,13 +8,12 @@ use DOMText;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\TestContainerTestTrait;
 use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Type\AnyURIValue;
-use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\AbstractXsElement;
 use SimpleSAML\XMLSchema\XML\Documentation;
 
@@ -33,6 +32,7 @@ final class DocumentationTest extends TestCase
 {
     use SchemaValidationTestTrait;
     use SerializableElementTestTrait;
+    use TestContainerTestTrait;
 
 
     /**
@@ -44,6 +44,8 @@ final class DocumentationTest extends TestCase
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 3) . '/resources/xml/xs/documentation.xml',
         );
+
+        self::instantiateTestContainer();
     }
 
 
@@ -59,14 +61,13 @@ final class DocumentationTest extends TestCase
         $text = new DOMText('Some Documentation');
         $document->appendChild($text);
 
-        $attr1 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr1', StringValue::fromString('value1'));
         $lang = LangValue::fromString('nl');
 
         $documentation = new Documentation(
             $document->childNodes,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr1],
+            [self::$testContainer->getXMLAttribute(1)],
         );
 
         $this->assertEquals(

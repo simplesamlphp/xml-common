@@ -1,7 +1,7 @@
 <xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ssp="urn:x-simplesamlphp:namespace" ssp:attr4="value4" id="phpunit_sequence">
   <xs:annotation ssp:attr3="value3" id="phpunit_annotation">
-    <xs:appinfo source="urn:x-simplesamlphp:source" ssp:attr1="value1">Application Information</xs:appinfo>
-    <xs:appinfo source="urn:x-simplesamlphp:source" ssp:attr2="value2">Other Application Information</xs:appinfo>
+    <xs:appinfo source="urn:x-simplesamlphp:source" ssp:attr1="value1">Application Information (1)</xs:appinfo>
+    <xs:appinfo source="urn:x-simplesamlphp:source" ssp:attr2="value2">Application Information (2)</xs:appinfo>
     <xs:documentation xmlns:xml="http://www.w3.org/XML/1998/namespace" source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr1="value1">Some Documentation</xs:documentation>
     <xs:documentation xmlns:xml="http://www.w3.org/XML/1998/namespace" source="urn:x-simplesamlphp:source" xml:lang="nl" ssp:attr2="value2">Other Documentation</xs:documentation>
   </xs:annotation>

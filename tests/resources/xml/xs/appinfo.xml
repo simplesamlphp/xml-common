@@ -1,1 +1,1 @@
-<xs:appinfo xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ssp="urn:x-simplesamlphp:namespace" source="urn:x-simplesamlphp:source" ssp:attr1="value1">Application Information</xs:appinfo>
+<xs:appinfo xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ssp="urn:x-simplesamlphp:namespace" source="urn:x-simplesamlphp:source" ssp:attr1="value1">Application Information (1)</xs:appinfo>

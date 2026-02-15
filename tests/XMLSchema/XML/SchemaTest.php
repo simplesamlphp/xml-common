@@ -8,10 +8,10 @@ use DOMText;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\TestContainerTestTrait;
 use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Constants as C;
 use SimpleSAML\XMLSchema\Type\AnyURIValue;
@@ -56,6 +56,7 @@ final class SchemaTest extends TestCase
 {
     use SchemaValidationTestTrait;
     use SerializableElementTestTrait;
+    use TestContainerTestTrait;
 
 
     /**
@@ -67,6 +68,8 @@ final class SchemaTest extends TestCase
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 3) . '/resources/xml/xs/schema.xml',
         );
+
+        self::instantiateTestContainer();
     }
 
 
@@ -90,50 +93,45 @@ final class SchemaTest extends TestCase
         $attributeText = new DOMText('Attribute');
         $attributeDocument->appendChild($attributeText);
 
-        $attr1 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr1', StringValue::fromString('value1'));
-        $attr2 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr2', StringValue::fromString('value2'));
-        $attr3 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr3', StringValue::fromString('value3'));
-        $attr4 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr4', StringValue::fromString('value4'));
         $lang = LangValue::fromString('nl');
 
         $documentation1 = new Documentation(
             $importDocument->childNodes,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr2],
+            [self::$testContainer->getXMLAttribute(2)],
         );
         $documentation2 = new Documentation(
             $elementDocument->childNodes,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr2],
+            [self::$testContainer->getXMLAttribute(2)],
         );
         $documentation3 = new Documentation(
             $attributeDocument->childNodes,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr2],
+            [self::$testContainer->getXMLAttribute(2)],
         );
-
         $annotation1 = new Annotation(
             [],
             [$documentation1],
             IDValue::fromString('phpunit_annotation1'),
-            [$attr1],
+            [self::$testContainer->getXMLAttribute(1)],
         );
 
         $annotation2 = new Annotation(
             [],
             [$documentation2],
             IDValue::fromString('phpunit_annotation2'),
-            [$attr1],
+            [self::$testContainer->getXMLAttribute(1)],
         );
 
         $annotation3 = new Annotation(
             [],
             [$documentation3],
             IDValue::fromString('phpunit_annotation3'),
-            [$attr1],
+            [self::$testContainer->getXMLAttribute(1)],
         );
 
         // Import
@@ -142,7 +140,7 @@ final class SchemaTest extends TestCase
             AnyURIValue::fromString('file:///tmp/schema.xsd'),
             null,
             IDValue::fromString('phpunit_import'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         // Element
@@ -160,14 +158,14 @@ final class SchemaTest extends TestCase
             StringValue::fromString('.//annotation'),
             null,
             IDValue::fromString('phpunit_selector'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         $field = new Field(
             StringValue::fromString('@id'),
             null,
             IDValue::fromString('phpunit_field'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         $keyref = new Keyref(
@@ -177,7 +175,7 @@ final class SchemaTest extends TestCase
             [$field],
             null,
             IDValue::fromString('phpunit_keyref'),
-            [$attr3],
+            [self::$testContainer->getXMLAttribute(3)],
         );
 
         $topLevelElement = new TopLevelElement(
@@ -191,7 +189,7 @@ final class SchemaTest extends TestCase
             block: BlockSetValue::fromString('#all'),
             annotation: null,
             id: IDValue::fromString('phpunit_localElement'),
-            namespacedAttributes: [$attr4],
+            namespacedAttributes: [self::$testContainer->getXMLAttribute(4)],
         );
 
         // Attribute
@@ -199,7 +197,7 @@ final class SchemaTest extends TestCase
             $restriction,
             null,
             IDValue::fromString('phpunit_simpleType'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         $attribute = new TopLevelAttribute(
@@ -210,7 +208,7 @@ final class SchemaTest extends TestCase
             $simpleType,
             null,
             IDValue::fromString('phpunit_attribute'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         $schema = new Schema(
@@ -232,7 +230,7 @@ final class SchemaTest extends TestCase
             FormChoiceValue::fromEnum(FormChoiceEnum::Unqualified),
             IDValue::fromString('phpunit_schema'),
             LangValue::fromString('en'),
-            [$attr3],
+            [self::$testContainer->getXMLAttribute(3)],
         );
 
         $this->assertEquals(

@@ -8,10 +8,10 @@ use DOMText;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\TestContainerTestTrait;
 use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Type\AnyURIValue;
 use SimpleSAML\XMLSchema\Type\BooleanValue;
@@ -68,6 +68,7 @@ final class AllTest extends TestCase
 {
     use SchemaValidationTestTrait;
     use SerializableElementTestTrait;
+    use TestContainerTestTrait;
 
 
     /**
@@ -79,6 +80,8 @@ final class AllTest extends TestCase
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 3) . '/resources/xml/xs/all.xml',
         );
+
+        self::instantiateTestContainer();
     }
 
 
@@ -106,24 +109,20 @@ final class AllTest extends TestCase
         $attributeGroupText = new DOMText('AttributeGroup');
         $attributeGroupDocument->appendChild($attributeGroupText);
 
-        $attr1 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr1', StringValue::fromString('value1'));
-        $attr2 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr2', StringValue::fromString('value2'));
-        $attr3 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr3', StringValue::fromString('value3'));
-        $attr4 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr4', StringValue::fromString('value4'));
         $lang = LangValue::fromString('nl');
 
         $documentation1 = new Documentation(
             $simpleTypeDocument->childNodes,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr2],
+            [self::$testContainer->getXMLAttribute(2)],
         );
 
         $annotation1 = new Annotation(
             [],
             [$documentation1],
             IDValue::fromString('phpunit_annotation1'),
-            [$attr1],
+            [self::$testContainer->getXMLAttribute(1)],
         );
 
         $restriction = new Restriction(
@@ -131,7 +130,6 @@ final class AllTest extends TestCase
             [],
             QNameValue::fromString('{http://www.w3.org/2001/XMLSchema}xs:nonNegativeInteger'),
         );
-
 
         // TopLevelSimpleType
         $localSimpleType = new LocalSimpleType(
@@ -149,7 +147,7 @@ final class AllTest extends TestCase
             SimpleDerivationSetValue::fromString('#all'),
             null,
             IDValue::fromString('phpunit_simpleType'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         // TopLevelComplexType
@@ -164,7 +162,7 @@ final class AllTest extends TestCase
             QNameValue::fromString("{http://www.w3.org/2001/XMLSchema}xs:nestedParticle"),
             null,
             IDValue::fromString('phpunit_group1'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         $topLevelComplexType = new TopLevelComplexType(
@@ -187,7 +185,7 @@ final class AllTest extends TestCase
             $anyAttribute1,
             null,
             IDValue::fromString('phpunit_complexType'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         // Group
@@ -195,14 +193,14 @@ final class AllTest extends TestCase
             StringValue::fromString('.//annotation'),
             null,
             IDValue::fromString('phpunit_selector'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         $field = new Field(
             StringValue::fromString('@id'),
             null,
             IDValue::fromString('phpunit_field'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         $keyref = new Keyref(
@@ -212,7 +210,7 @@ final class AllTest extends TestCase
             [$field],
             null,
             IDValue::fromString('phpunit_keyref'),
-            [$attr3],
+            [self::$testContainer->getXMLAttribute(3)],
         );
 
         $narrowMaxMinElement = new NarrowMaxMinElement(
@@ -228,7 +226,7 @@ final class AllTest extends TestCase
             form: FormChoiceValue::fromEnum(FormChoiceEnum::Qualified),
             annotation: null,
             id: IDValue::fromString('phpunit_localElement'),
-            namespacedAttributes: [$attr4],
+            namespacedAttributes: [self::$testContainer->getXMLAttribute(4)],
         );
 
         $all = new All(
@@ -237,7 +235,7 @@ final class AllTest extends TestCase
             [$narrowMaxMinElement],
             $annotation1,
             IDValue::fromString('phpunit_all'),
-            [$attr3],
+            [self::$testContainer->getXMLAttribute(3)],
         );
 
         $this->assertEquals(

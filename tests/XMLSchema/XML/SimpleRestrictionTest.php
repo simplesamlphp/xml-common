@@ -8,9 +8,9 @@ use DOMText;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\TestContainerTestTrait;
 use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Type\AnyURIValue;
 use SimpleSAML\XMLSchema\Type\BooleanValue;
@@ -30,7 +30,6 @@ use SimpleSAML\XMLSchema\XML\AbstractSimpleRestrictionType;
 use SimpleSAML\XMLSchema\XML\AbstractXsElement;
 use SimpleSAML\XMLSchema\XML\Annotation;
 use SimpleSAML\XMLSchema\XML\AnyAttribute;
-use SimpleSAML\XMLSchema\XML\Appinfo;
 use SimpleSAML\XMLSchema\XML\Constants\NS;
 use SimpleSAML\XMLSchema\XML\Documentation;
 use SimpleSAML\XMLSchema\XML\Enumeration;
@@ -71,6 +70,7 @@ use function strval;
 final class SimpleRestrictionTest extends TestCase
 {
     use SerializableElementTestTrait;
+    use TestContainerTestTrait;
 
 
     /**
@@ -82,6 +82,8 @@ final class SimpleRestrictionTest extends TestCase
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 3) . '/resources/xml/xs/simpleRestriction.xml',
         );
+
+        self::instantiateTestContainer();
     }
 
 
@@ -93,14 +95,6 @@ final class SimpleRestrictionTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $appinfoDocument = DOMDocumentFactory::create();
-        $text = new DOMText('Application Information');
-        $appinfoDocument->appendChild($text);
-
-        $otherAppinfoDocument = DOMDocumentFactory::create();
-        $otherText = new DOMText('Other Application Information');
-        $otherAppinfoDocument->appendChild($otherText);
-
         $documentationDocument = DOMDocumentFactory::create();
         $text = new DOMText('Some Documentation');
         $documentationDocument->appendChild($text);
@@ -109,41 +103,28 @@ final class SimpleRestrictionTest extends TestCase
         $text = new DOMText('Other Documentation');
         $otherDocumentationDocument->appendChild($text);
 
-        $attr1 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr1', StringValue::fromString('value1'));
-        $attr2 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr2', StringValue::fromString('value2'));
-        $attr3 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr3', StringValue::fromString('value3'));
-        $attr4 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr4', StringValue::fromString('value4'));
         $lang = LangValue::fromString('nl');
-
-        $appinfo1 = new Appinfo(
-            $appinfoDocument->childNodes,
-            AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr1],
-        );
-        $appinfo2 = new Appinfo(
-            $otherAppinfoDocument->childNodes,
-            AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr2],
-        );
+        $appinfo1 = self::$testContainer->getAppinfo(1);
+        $appinfo2 = self::$testContainer->getAppinfo(2);
 
         $documentation1 = new Documentation(
             $documentationDocument->childNodes,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr1],
+            [self::$testContainer->getXMLAttribute(1)],
         );
         $documentation2 = new Documentation(
             $otherDocumentationDocument->childNodes,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr2],
+            [self::$testContainer->getXMLAttribute(2)],
         );
 
         $annotation = new Annotation(
             [$appinfo1, $appinfo2],
             [$documentation1, $documentation2],
             IDValue::fromString('phpunit_annotation'),
-            [$attr3],
+            [self::$testContainer->getXMLAttribute(3)],
         );
 
         $anyAttribute = new AnyAttribute(
@@ -163,7 +144,7 @@ final class SimpleRestrictionTest extends TestCase
             $restriction,
             null,
             IDValue::fromString('phpunit_simpleType'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         $facets = [
@@ -172,82 +153,82 @@ final class SimpleRestrictionTest extends TestCase
                 BooleanValue::fromBoolean(true),
                 null,
                 IDValue::fromString('phpunit_maxexclusive'),
-                [$attr4],
+                [self::$testContainer->getXMLAttribute(4)],
             ),
             new MaxInclusive(
                 StringValue::fromString('1024'),
                 BooleanValue::fromBoolean(true),
                 null,
                 IDValue::fromString('phpunit_maxinclusive'),
-                [$attr4],
+                [self::$testContainer->getXMLAttribute(4)],
             ),
             new MinExclusive(
                 StringValue::fromString('128'),
                 BooleanValue::fromBoolean(true),
                 null,
                 IDValue::fromString('phpunit_minexclusive'),
-                [$attr4],
+                [self::$testContainer->getXMLAttribute(4)],
             ),
             new MinInclusive(
                 StringValue::fromString('128'),
                 BooleanValue::fromBoolean(true),
                 null,
                 IDValue::fromString('phpunit_mininclusive'),
-                [$attr4],
+                [self::$testContainer->getXMLAttribute(4)],
             ),
             new TotalDigits(
                 PositiveIntegerValue::fromInteger(2),
                 BooleanValue::fromBoolean(true),
                 null,
                 IDValue::fromString('phpunit_totalDigits'),
-                [$attr4],
+                [self::$testContainer->getXMLAttribute(4)],
             ),
             new FractionDigits(
                 NonNegativeIntegerValue::fromInteger(2),
                 BooleanValue::fromBoolean(true),
                 null,
                 IDValue::fromString('phpunit_fractionDigits'),
-                [$attr4],
+                [self::$testContainer->getXMLAttribute(4)],
             ),
             new Length(
                 NonNegativeIntegerValue::fromInteger(512),
                 BooleanValue::fromBoolean(true),
                 null,
                 IDValue::fromString('phpunit_length'),
-                [$attr4],
+                [self::$testContainer->getXMLAttribute(4)],
             ),
             new MaxLength(
                 NonNegativeIntegerValue::fromInteger(1024),
                 BooleanValue::fromBoolean(true),
                 null,
                 IDValue::fromString('phpunit_maxlength'),
-                [$attr4],
+                [self::$testContainer->getXMLAttribute(4)],
             ),
             new MinLength(
                 NonNegativeIntegerValue::fromInteger(128),
                 BooleanValue::fromBoolean(true),
                 null,
                 IDValue::fromString('phpunit_minlength'),
-                [$attr4],
+                [self::$testContainer->getXMLAttribute(4)],
             ),
             new Enumeration(
                 StringValue::fromString('dummy'),
                 null,
                 IDValue::fromString('phpunit_enumeration'),
-                [$attr4],
+                [self::$testContainer->getXMLAttribute(4)],
             ),
             new WhiteSpace(
                 WhiteSpaceValue::fromEnum(WhiteSpaceEnum::Collapse),
                 BooleanValue::fromBoolean(true),
                 null,
                 IDValue::fromString('phpunit_whitespace'),
-                [$attr4],
+                [self::$testContainer->getXMLAttribute(4)],
             ),
             new Pattern(
                 StringValue::fromString('[A-Za-z0-9]'),
                 null,
                 IDValue::fromString('phpunit_pattern'),
-                [$attr4],
+                [self::$testContainer->getXMLAttribute(4)],
             ),
         ];
 
@@ -267,7 +248,7 @@ final class SimpleRestrictionTest extends TestCase
             $anyAttribute,
             $annotation,
             IDValue::fromString('phpunit_restriction'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         $this->assertEquals(

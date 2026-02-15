@@ -8,24 +8,22 @@ use DOMText;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\TestContainerTestTrait;
 use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Type\AnyURIValue;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\Type\Schema\SimpleDerivationSetValue;
-use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\AbstractAnnotated;
 use SimpleSAML\XMLSchema\XML\AbstractOpenAttrs;
 use SimpleSAML\XMLSchema\XML\AbstractSimpleType;
 use SimpleSAML\XMLSchema\XML\AbstractTopLevelSimpleType;
 use SimpleSAML\XMLSchema\XML\AbstractXsElement;
 use SimpleSAML\XMLSchema\XML\Annotation;
-use SimpleSAML\XMLSchema\XML\Appinfo;
 use SimpleSAML\XMLSchema\XML\Documentation;
 use SimpleSAML\XMLSchema\XML\LocalSimpleType;
 use SimpleSAML\XMLSchema\XML\Restriction;
@@ -51,6 +49,7 @@ final class TopLevelSimpleTypeTest extends TestCase
 {
     use SchemaValidationTestTrait;
     use SerializableElementTestTrait;
+    use TestContainerTestTrait;
 
 
     /**
@@ -62,6 +61,8 @@ final class TopLevelSimpleTypeTest extends TestCase
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 3) . '/resources/xml/xs/topLevelSimpleType.xml',
         );
+
+        self::instantiateTestContainer();
     }
 
 
@@ -73,14 +74,6 @@ final class TopLevelSimpleTypeTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $appinfoDocument = DOMDocumentFactory::create();
-        $text = new DOMText('Application Information');
-        $appinfoDocument->appendChild($text);
-
-        $otherAppinfoDocument = DOMDocumentFactory::create();
-        $otherText = new DOMText('Other Application Information');
-        $otherAppinfoDocument->appendChild($otherText);
-
         $documentationDocument = DOMDocumentFactory::create();
         $text = new DOMText('Some Documentation');
         $documentationDocument->appendChild($text);
@@ -89,41 +82,28 @@ final class TopLevelSimpleTypeTest extends TestCase
         $text = new DOMText('Other Documentation');
         $otherDocumentationDocument->appendChild($text);
 
-        $attr1 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr1', StringValue::fromString('value1'));
-        $attr2 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr2', StringValue::fromString('value2'));
-        $attr3 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr3', StringValue::fromString('value3'));
-        $attr4 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr4', StringValue::fromString('value4'));
         $lang = LangValue::fromString('nl');
-
-        $appinfo1 = new Appinfo(
-            $appinfoDocument->childNodes,
-            AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr1],
-        );
-        $appinfo2 = new Appinfo(
-            $otherAppinfoDocument->childNodes,
-            AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr2],
-        );
+        $appinfo1 = self::$testContainer->getAppinfo(1);
+        $appinfo2 = self::$testContainer->getAppinfo(2);
 
         $documentation1 = new Documentation(
             $documentationDocument->childNodes,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr1],
+            [self::$testContainer->getXMLAttribute(1)],
         );
         $documentation2 = new Documentation(
             $otherDocumentationDocument->childNodes,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr2],
+            [self::$testContainer->getXMLAttribute(2)],
         );
 
         $annotation = new Annotation(
             [$appinfo1, $appinfo2],
             [$documentation1, $documentation2],
             IDValue::fromString('phpunit_annotation'),
-            [$attr3],
+            [self::$testContainer->getXMLAttribute(3)],
         );
 
         $restriction = new Restriction(
@@ -147,7 +127,7 @@ final class TopLevelSimpleTypeTest extends TestCase
             SimpleDerivationSetValue::fromString('#all'),
             $annotation,
             IDValue::fromString('phpunit_simpleType'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         $this->assertEquals(

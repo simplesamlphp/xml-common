@@ -8,10 +8,10 @@ use DOMText;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\TestContainerTestTrait;
 use SimpleSAML\XML\Type\LangValue;
 use SimpleSAML\XMLSchema\Type\AnyURIValue;
 use SimpleSAML\XMLSchema\Type\IDValue;
@@ -23,7 +23,6 @@ use SimpleSAML\XMLSchema\XML\AbstractKeybase;
 use SimpleSAML\XMLSchema\XML\AbstractOpenAttrs;
 use SimpleSAML\XMLSchema\XML\AbstractXsElement;
 use SimpleSAML\XMLSchema\XML\Annotation;
-use SimpleSAML\XMLSchema\XML\Appinfo;
 use SimpleSAML\XMLSchema\XML\Documentation;
 use SimpleSAML\XMLSchema\XML\Field;
 use SimpleSAML\XMLSchema\XML\Keyref;
@@ -47,6 +46,7 @@ final class KeyrefTest extends TestCase
 {
     use SchemaValidationTestTrait;
     use SerializableElementTestTrait;
+    use TestContainerTestTrait;
 
 
     /**
@@ -58,6 +58,8 @@ final class KeyrefTest extends TestCase
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 3) . '/resources/xml/xs/keyref.xml',
         );
+
+        self::instantiateTestContainer();
     }
 
 
@@ -69,14 +71,6 @@ final class KeyrefTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $appinfoDocument = DOMDocumentFactory::create();
-        $text = new DOMText('Application Information');
-        $appinfoDocument->appendChild($text);
-
-        $otherAppinfoDocument = DOMDocumentFactory::create();
-        $otherText = new DOMText('Other Application Information');
-        $otherAppinfoDocument->appendChild($otherText);
-
         $documentationDocument = DOMDocumentFactory::create();
         $text = new DOMText('Some Documentation');
         $documentationDocument->appendChild($text);
@@ -85,68 +79,55 @@ final class KeyrefTest extends TestCase
         $text = new DOMText('Other Documentation');
         $otherDocumentationDocument->appendChild($text);
 
-        $attr1 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr1', StringValue::fromString('value1'));
-        $attr2 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr2', StringValue::fromString('value2'));
-        $attr3 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr3', StringValue::fromString('value3'));
-        $attr4 = new XMLAttribute('urn:x-simplesamlphp:namespace', 'ssp', 'attr4', StringValue::fromString('value4'));
         $lang = LangValue::fromString('nl');
-
-        $appinfo1 = new Appinfo(
-            $appinfoDocument->childNodes,
-            AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr1],
-        );
-        $appinfo2 = new Appinfo(
-            $otherAppinfoDocument->childNodes,
-            AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr2],
-        );
+        $appinfo1 = self::$testContainer->getAppinfo(1);
+        $appinfo2 = self::$testContainer->getAppinfo(2);
 
         $documentation1 = new Documentation(
             $documentationDocument->childNodes,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr1],
+            [self::$testContainer->getXMLAttribute(1)],
         );
 
         $documentation2 = new Documentation(
             $otherDocumentationDocument->childNodes,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
-            [$attr2],
+            [self::$testContainer->getXMLAttribute(2)],
         );
 
         $annotation1 = new Annotation(
             [$appinfo1, $appinfo2],
             [$documentation1, $documentation2],
             IDValue::fromString('phpunit_annotation1'),
-            [$attr3],
+            [self::$testContainer->getXMLAttribute(3)],
         );
         $annotation2 = new Annotation(
             [$appinfo1, $appinfo2],
             [$documentation1, $documentation2],
             IDValue::fromString('phpunit_annotation2'),
-            [$attr3],
+            [self::$testContainer->getXMLAttribute(3)],
         );
         $annotation3 = new Annotation(
             [$appinfo1, $appinfo2],
             [$documentation1, $documentation2],
             IDValue::fromString('phpunit_annotation3'),
-            [$attr3],
+            [self::$testContainer->getXMLAttribute(3)],
         );
 
         $selector = new Selector(
             StringValue::fromString('.//annotation'),
             $annotation2,
             IDValue::fromString('phpunit_selector'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         $field = new Field(
             StringValue::fromString('@id'),
             $annotation3,
             IDValue::fromString('phpunit_field'),
-            [$attr4],
+            [self::$testContainer->getXMLAttribute(4)],
         );
 
         $keyref = new Keyref(
@@ -156,7 +137,7 @@ final class KeyrefTest extends TestCase
             [$field],
             $annotation1,
             IDValue::fromString('phpunit_keyref'),
-            [$attr3],
+            [self::$testContainer->getXMLAttribute(3)],
         );
 
         $this->assertEquals(
