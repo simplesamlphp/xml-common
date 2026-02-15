@@ -43,7 +43,7 @@ final class NameTest extends TestCase
         return [
             'valid' => [true, 'Snoopy'],
             'diacritical' => [true, 'fööbár'],
-            'urn' => [true, 'urn:myAttributeName'],
+            'urn' => [true, 'urn:mace:dir:attribute-def:cn'],
             'start with colon' => [true, ':CMS'],
             'start with dash' => [true, '-1950-10-04'],
         ];
