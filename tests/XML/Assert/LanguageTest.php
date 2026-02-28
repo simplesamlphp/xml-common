@@ -43,9 +43,10 @@ final class LanguageTest extends TestCase
         return [
             'one part' => [true, 'es'],
             'two parts' => [true, 'en-US'],
-            'many parts' => [true, 'es-this-goes-on-forever'],
-            'x-case' => [true, 'x-klingon'],
-            'i-case' => [true, 'i-sami-no'],
+            'many parts' => [true, 'tlh-Kore-AQ-fonipa'],
+            'three-letter primary code' => [true, 'nso'],
+            'x-case' => [true, 'x-my-custom-language'],
+            'i-case' => [true, 'i-klingon'],
         ];
     }
 
@@ -59,6 +60,7 @@ final class LanguageTest extends TestCase
             'empty string' => [false, ''],
             'whitespace' => [false, 'en- us'],
             'too long' => [false, 'toolongLanguageCode'],
+            'not-grandfathered' => [false, 'i-sami-no'],
         ];
     }
 }
