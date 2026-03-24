@@ -7,8 +7,10 @@ namespace SimpleSAML\Test\XML\Assert;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\Assert\Assert;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+
+use function chr;
 
 /**
  * Class \SimpleSAML\Test\XML\Assert\StringTest
@@ -28,7 +30,7 @@ final class StringTest extends TestCase
         try {
             Assert::validString($str);
             $this->assertTrue($shouldPass);
-        } catch (AssertionFailedException $e) {
+        } catch (SchemaViolationException $e) {
             $this->assertFalse($shouldPass);
         }
     }
@@ -42,6 +44,9 @@ final class StringTest extends TestCase
         return [
             'preserve spaces' => [true, '  Snoopy  '],
             'replace whitespace' => [true, "  Snoopy\t\n\rrulez  "],
+            'html' => [true, "<em>SimpleSAMLphp</em>"],
+            'unicode' => [true, 'ünïcöde €Φ汉'],
+            'invalid character' => [false, "Valid text with " . chr(0) . " invalid null byte"],
         ];
     }
 }
