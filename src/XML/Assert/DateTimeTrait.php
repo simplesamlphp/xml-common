@@ -30,6 +30,19 @@ trait DateTimeTrait
      * * ss is a two-integer-digit numeral that represents the whole seconds;
      * * '.' s+ (if present) represents the fractional seconds;
      * * zzzzzz (if present) represents the timezone (as described below).
+     *
+     * Except for trailing fractional zero digits in the seconds representation, '24:00:00' time representations,
+     * and timezone (for timezoned values), the mapping from literals to values is one-to-one.
+     * Where there is more than one possible representation, the canonical representation is as follows:
+
+     * The 2-digit numeral representing the hour must not be '24';
+     * The fractional second string, if present, must not end in '0';
+     * for timezoned values, the timezone must be represented with 'Z' (All timezoned dateTime values are UTC.).
+     *
+     *
+     * Note: we're restricting decimal seconds to 12, although strictly the standards allow an infite number.
+     *
+     * We know for a fact that Apereo CAS v7.0.x uses 9 decimals
      */
     private static string $datetime_regex = '/^
         -?
@@ -49,10 +62,10 @@ trait DateTimeTrait
                 (02-(0[1-9]|(1|2)[0-9]))
         )
         T
-        ([0-1][0-9]|2[0-4])
+        ([0-1][0-9]|2[0-3])
         :(0[0-9]|[1-5][0-9])
         :(0[0-9]|[1-5][0-9])
-        (\.[0-9]{0,6})?
+        (\.[0-9]{0,11}[1-9])?
         (
             [+-]([0-1][0-9]|2[0-4])
             :(0[0-9]|[1-5][0-9])

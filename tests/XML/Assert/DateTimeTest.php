@@ -48,7 +48,7 @@ final class DateTimeTest extends TestCase
             'valid with negative value' => [true, '-2001-10-26T21:32:52'],
             'valid with subseconds' => [true, '2001-10-26T21:32:52.12679'],
             'valid with more than four digit year' => [true, '-22001-10-26T21:32:52+02:00'],
-            'valid with sub-seconds' => [true, '2001-10-26T21:32:52.12679'],
+            'valid with up to twelve sub-seconds' => [true, '2001-10-26T21:32:52.126798764382'],
         ];
     }
 
@@ -62,9 +62,12 @@ final class DateTimeTest extends TestCase
             'missing time' => [false, '2001-10-26'],
             'missing second' => [false, '2001-10-26T21:32'],
             'hour out of range' => [false, '2001-10-26T25:32:52+02:00'],
+            'hour twenty-four' => [false, '2001-10-26T24:32:52+02:00'],
             'year 0000' => [false, '0000-10-26T25:32:52+02:00'],
             'prefixed zero' => [false, '02001-10-26T25:32:52+02:00'],
             'wrong format' => [false, '01-10-26T21:32'],
+            'too many sub-seconds' => [false, '2001-10-26T21:32:52.1267987643821'],
+            'sub-seconds ending with zero' => [false, '2001-10-26T21:32:52.12670'],
         ];
     }
 }
