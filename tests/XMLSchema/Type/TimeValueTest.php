@@ -48,7 +48,11 @@ final class TimeValueTest extends TestCase
         return [
             'whitespace collapse' =>  [true, "\n  21:32:52.12679\t "],
             'trailing sub-second zero' => [true, '21:32:52.1230'],
-            'all trailing sub-second zero' => [true, '21:32:52.00'],
+            'trailing sub-second zero with timezone' => [true, '21:32:52.1230+00:00'],
+            'trailing sub-second zero with timezone Zulu' => [true, '21:32:52.1230Z'],
+            'all trailing sub-second all zero' => [true, '21:32:52.00'],
+            'all trailing sub-second all zero with timezone' => [true, '21:32:52.00+00:00'],
+            'all trailing sub-second all zero with timezone Zulu' => [true, '21:32:52.00Z'],
         ];
     }
 

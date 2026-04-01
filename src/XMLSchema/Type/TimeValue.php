@@ -32,9 +32,9 @@ class TimeValue extends AbstractAnySimpleType
         // Trim any trailing zero's from the sub-seconds
         $decimal = strrpos($normalized, '.');
         if ($decimal !== false) {
-            $timezone = strrpos($normalized, '+') ?? strrpos($normalized, '-') ?? strrpos($normalized, 'Z');
+            $timezone = strrpos($normalized, '+') ?: strrpos($normalized, '-') ?: strrpos($normalized, 'Z');
             if ($timezone !== false) {
-                $subseconds = substr($normalized, $decimal + 1, strlen($normalized) - $timezone);
+                $subseconds = substr($normalized, $decimal + $timezone, strlen($normalized) - $timezone);
             } else {
                 $subseconds = substr($normalized, $decimal + 1);
             }

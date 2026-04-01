@@ -33,15 +33,18 @@ class DateTimeValue extends AbstractAnySimpleType
     protected function sanitizeValue(string $value): string
     {
         $normalized = static::collapseWhitespace(static::normalizeWhitespace($value));
-
         // Trim any trailing zero's from the sub-seconds
         $decimal = strrpos($normalized, '.');
         if ($decimal !== false) {
-            $timezone = strrpos($normalized, '+') ?? strrpos($normalized, '-') ?? strrpos($normalized, 'Z');
+            @list($dateValue, $timeValue) = explode('T', $normalized);
+            Assert::notNull($dateValue);
+            Assert::notNull($timeValue);
+
+            $timezone = strrpos($timeValue, '+') ?: strrpos($timeValue, '-') ?: strrpos($timeValue, 'Z');
             if ($timezone !== false) {
-                $subseconds = substr($normalized, $decimal + 1, strlen($normalized) - $timezone);
+                $subseconds = substr($timeValue, $decimal + $timezone, strlen($timeValue) - $timezone);
             } else {
-                $subseconds = substr($normalized, $decimal + 1);
+                $subseconds = substr($timeValue, $decimal + 1);
             }
 
             $subseconds = rtrim($subseconds, '0');
