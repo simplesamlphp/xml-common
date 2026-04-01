@@ -11,6 +11,10 @@ use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\Interface\AbstractAnySimpleType;
 
+use function rtrim;
+use function strlen;
+use function substr;
+
 /**
  * @package simplesaml/xml-common
  */
@@ -28,7 +32,28 @@ class DateTimeValue extends AbstractAnySimpleType
      */
     protected function sanitizeValue(string $value): string
     {
-        return static::collapseWhitespace(static::normalizeWhitespace($value));
+        $normalized = static::collapseWhitespace(static::normalizeWhitespace($value));
+
+        // Trim any trailing zero's from the sub-seconds
+        $decimal = strrpos($normalized, '.');
+        if ($decimal !== false) {
+            $timezone = strrpos($normalized, '+') ?? strrpos($normalized, '-') ?? strrpos($normalized, 'Z');
+            if ($timezone !== false) {
+                $subseconds = substr($normalized, $decimal + 1, strlen($normalized) - $timezone);
+            } else {
+                $subseconds = substr($normalized, $decimal + 1);
+            }
+
+            $subseconds = rtrim($subseconds, '0');
+            if ($subseconds === '') {
+                return substr($normalized, 0, $decimal);
+            }
+            return substr($normalized, 0, $decimal + 1)
+              . $subseconds
+              . (($timezone === false) ? '' : substr($normalized, $timezone));
+        }
+
+        return $normalized;
     }
 
 

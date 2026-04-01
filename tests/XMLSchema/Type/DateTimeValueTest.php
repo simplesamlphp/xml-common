@@ -61,6 +61,8 @@ final class DateTimeValueTest extends TestCase
     {
         return [
             'whitespace collapse' => [true, ' 2001-10-26T21:32:52 '],
+            'trailing sub-second zero' => [true, '2001-10-26T21:32:52.1230'],
+            'all trailing sub-second zero' => [true, '2001-10-26T21:32:52.00'],
         ];
     }
 
