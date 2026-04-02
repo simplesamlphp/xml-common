@@ -47,6 +47,7 @@ final class TimeTest extends TestCase
             'valid time with 00:00 timezone' => [true, '19:32:52+00:00'],
             'valid time with sub-seconds' =>  [true, '21:32:52.12679'],
             'valid with up to twelve sub-seconds' => [true, '21:32:52.126798764382'],
+            'sub-seconds ending with zero' => [true, '21:32:52.12670'],
         ];
     }
 
@@ -62,7 +63,6 @@ final class TimeTest extends TestCase
             'invalid hour twenty-four' => [false, '24:25:10'],
             'invalid invalid format' => [false, '1:20:10'],
             'too many sub-seconds' => [false, '21:32:52.1267987643821'],
-            'sub-seconds ending with zero' => [false, '21:32:52.12670'],
         ];
     }
 }

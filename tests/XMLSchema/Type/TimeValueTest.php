@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XMLSchema\Type\Builtin;
 
+use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
@@ -37,6 +38,28 @@ final class TimeValueTest extends TestCase
         } catch (SchemaViolationException $e) {
             $this->assertFalse($shouldPass);
         }
+    }
+
+
+    /**
+     * Test the fromDateTime function
+     */
+    #[DependsOnClass(TimeTest::class)]
+    public function testFromDateTime(): void
+    {
+        $t = new DateTimeImmutable('00:00:00+00:00');
+
+        $timeValue = TimeValue::fromDateTime($t);
+        $this->assertEquals('00:00:00+00:00', $timeValue->getValue());
+    }
+
+
+    /**
+     */
+    public function testSubSeconds(): void
+    {
+        $timeValue = TimeValue::fromString('21:32:52.00');
+        $this->assertEquals('21:32:52', $timeValue->getValue());
     }
 
 

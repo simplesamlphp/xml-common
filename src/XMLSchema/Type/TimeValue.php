@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\Type;
 
+use DateTimeImmutable;
+use DateTimeInterface;
+use Psr\Clock\ClockInterface;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\Interface\AbstractAnySimpleType;
 
-use function rtrim;
-use function strlen;
-use function substr;
+use function preg_replace;
 
 /**
  * @package simplesaml/xml-common
@@ -19,6 +20,7 @@ class TimeValue extends AbstractAnySimpleType
 {
     public const string SCHEMA_TYPE = 'time';
 
+    public const string DATETIME_FORMAT = 'H:i:s.uP';
 
     /**
      * Sanitize the value.
@@ -29,26 +31,10 @@ class TimeValue extends AbstractAnySimpleType
     {
         $normalized = static::collapseWhitespace(static::normalizeWhitespace($value));
 
-        // Trim any trailing zero's from the sub-seconds
-        $decimal = strrpos($normalized, '.');
-        if ($decimal !== false) {
-            $timezone = strrpos($normalized, '+') ?: strrpos($normalized, '-') ?: strrpos($normalized, 'Z');
-            if ($timezone !== false) {
-                $subseconds = substr($normalized, $decimal + $timezone, strlen($normalized) - $timezone);
-            } else {
-                $subseconds = substr($normalized, $decimal + 1);
-            }
+        $sanitized = preg_replace('/\.0+/', '', $normalized);
+        $sanitized = preg_replace('/\.(?!\d)/', '', $sanitized);
 
-            $subseconds = rtrim($subseconds, '0');
-            if ($subseconds === '') {
-                return substr($normalized, 0, $decimal);
-            }
-            return substr($normalized, 0, $decimal + 1)
-              . $subseconds
-              . (($timezone === false) ? '' : substr($normalized, $timezone));
-        }
-
-        return $normalized;
+        return $sanitized;
     }
 
 
@@ -61,5 +47,30 @@ class TimeValue extends AbstractAnySimpleType
     protected function validateValue(string $value): void
     {
         Assert::validTime($this->sanitizeValue($value), SchemaViolationException::class);
+    }
+
+
+    /**
+     */
+    public static function now(ClockInterface $clock): static
+    {
+        return static::fromDateTime($clock->now());
+    }
+
+
+    /**
+     * @param \DateTimeInterface $value
+     */
+    public static function fromDateTime(DateTimeInterface $value): static
+    {
+        return new static($value->format(static::DATETIME_FORMAT));
+    }
+
+
+    /**
+     */
+    public function toDateTime(): DateTimeImmutable
+    {
+        return new DateTimeImmutable($this->getValue());
     }
 }
