@@ -55,6 +55,36 @@ final class DateTimeValueTest extends TestCase
 
 
     /**
+     */
+    public function testSubSeconds(): void
+    {
+        // Strip sub-second trailing zero's and make sure the decimal sign is removed
+        $dateTimeValue = DateTimeValue::fromString('2001-10-26T21:32:52.00');
+        $this->assertEquals('2001-10-26T21:32:52', $dateTimeValue->getValue());
+
+        // Strip sub-second trailing zero's
+        $dateTimeValue = DateTimeValue::fromString('2001-10-26T21:32:52.12300');
+        $this->assertEquals('2001-10-26T21:32:52.123', $dateTimeValue->getValue());
+
+        // Strip sub-seconds over microsecond precision
+        $dateTimeValue = DateTimeValue::fromString('2001-10-26T21:32:52.1234567');
+        $this->assertEquals('2001-10-26T21:32:52.123456', $dateTimeValue->getValue());
+
+        // Strip sub-second trailing zero's and make sure the decimal sign is removed
+        $dateTimeValue = DateTimeValue::fromString('2001-10-26T21:32:52.00Z');
+        $this->assertEquals('2001-10-26T21:32:52Z', $dateTimeValue->getValue());
+
+        // Strip sub-seconds over microsecond precision with timezone
+        $dateTimeValue = DateTimeValue::fromString('2001-10-26T21:32:52.1234567+01:00');
+        $this->assertEquals('2001-10-26T21:32:52.123456+01:00', $dateTimeValue->getValue());
+
+        // Strip sub-seconds over microsecond precision with timezone Zulu
+        $dateTimeValue = DateTimeValue::fromString('2001-10-26T21:32:52.1234567Z');
+        $this->assertEquals('2001-10-26T21:32:52.123456Z', $dateTimeValue->getValue());
+    }
+
+
+    /**
      * @return array<string, array{0: true, 1: string}>
      */
     public static function provideValidDateTime(): array

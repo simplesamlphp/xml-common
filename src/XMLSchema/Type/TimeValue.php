@@ -31,11 +31,11 @@ class TimeValue extends AbstractAnySimpleType
     protected function sanitizeValue(string $value): string
     {
         $normalized = static::collapseWhitespace(static::normalizeWhitespace($value));
+        $sanitized = preg_replace('/\.(\d{0,6})\d*/', '.$1', $normalized);
 
-        $sanitized = preg_replace('/\.0+/', '', $normalized);
-        $sanitized = preg_replace('/\.(?!\d)/', '', $sanitized);
-
-        return $sanitized;
+        // Remove all trailing zeros after the dot, and remove the dot if only zeros were present
+        $sanitized = preg_replace('/\.(?=\d)(?:\d*?[1-9])?\K0+(?=[^0-9]|$)/', '', $sanitized);
+        return preg_replace('/\.(?!\d)/', '', $sanitized);
     }
 
 

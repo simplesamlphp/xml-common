@@ -58,8 +58,29 @@ final class TimeValueTest extends TestCase
      */
     public function testSubSeconds(): void
     {
+        // Strip sub-second trailing zero's and make sure the decimal sign is removed
         $timeValue = TimeValue::fromString('21:32:52.00');
         $this->assertEquals('21:32:52', $timeValue->getValue());
+
+        // Strip sub-second trailing zero's
+        $timeValue = TimeValue::fromString('21:32:52.12300');
+        $this->assertEquals('21:32:52.123', $timeValue->getValue());
+
+        // Strip sub-seconds over microsecond precision
+        $timeValue = TimeValue::fromString('21:32:52.1234567');
+        $this->assertEquals('21:32:52.123456', $timeValue->getValue());
+
+        // Strip sub-second trailing zero's and make sure the decimal sign is removed
+        $timeValue = TimeValue::fromString('21:32:52.00Z');
+        $this->assertEquals('21:32:52Z', $timeValue->getValue());
+
+        // Strip sub-seconds over microsecond precision with timezone
+        $timeValue = TimeValue::fromString('21:32:52.1234567+01:00');
+        $this->assertEquals('21:32:52.123456+01:00', $timeValue->getValue());
+
+        // Strip sub-seconds over microsecond precision with timezone Zulu
+        $timeValue = TimeValue::fromString('21:32:52.1234567Z');
+        $this->assertEquals('21:32:52.123456Z', $timeValue->getValue());
     }
 
 
