@@ -41,6 +41,23 @@ final class IDValueTest extends TestCase
 
 
     /**
+     * Test for IDValue::generateID().
+     */
+    public function testGenerateID(): void
+    {
+        // check that it always starts with an underscore if no prefix is set
+        $this->assertStringStartsWith('_', IDValue::generateID()->getValue());
+        // check the length
+        $this->assertEquals(IDValue::ID_LENGTH, strlen(IDValue::generateID()->getValue()));
+
+        // check that it always starts with the prefix if set
+        $this->assertStringStartsWith('abc', IDValue::generateID('abc')->getValue());
+        // check the length
+        $this->assertEquals((IDValue::ID_LENGTH - 1) + strlen('abc'), strlen(IDValue::generateID('abc')->getValue()));
+    }
+
+
+    /**
      * @return array<string, array{0: true, 1: string}>
      */
     public static function provideValidID(): array
