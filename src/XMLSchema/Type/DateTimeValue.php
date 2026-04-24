@@ -11,6 +11,8 @@ use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\Interface\AbstractAnySimpleType;
 
+use function preg_replace;
+
 /**
  * @package simplesaml/xml-common
  */
@@ -18,7 +20,7 @@ class DateTimeValue extends AbstractAnySimpleType
 {
     public const string SCHEMA_TYPE = 'dateTime';
 
-    public const string DATETIME_FORMAT = 'Y-m-d\\TH:i:sP';
+    public const string DATETIME_FORMAT = 'Y-m-d\\TH:i:s.uP';
 
 
     /**
@@ -28,7 +30,12 @@ class DateTimeValue extends AbstractAnySimpleType
      */
     protected function sanitizeValue(string $value): string
     {
-        return static::collapseWhitespace(static::normalizeWhitespace($value));
+        $normalized = static::collapseWhitespace(static::normalizeWhitespace($value));
+        $sanitized = preg_replace('/\.(\d{0,6})\d*/', '.$1', $normalized);
+
+        // Remove all trailing zeros after the dot, and remove the dot if only zeros were present
+        $sanitized = preg_replace('/\.(?=\d)(?:\d*?[1-9])?\K0+(?=[^0-9]|$)/', '', $sanitized);
+        return preg_replace('/\.(?!\d)/', '', $sanitized);
     }
 
 
