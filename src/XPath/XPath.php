@@ -124,7 +124,7 @@ class XPath
                     if ($attr->namespaceURI !== C_XML::NS_XMLNS) {
                         continue;
                     }
-                    $prefix = $attr->localName;
+                    $prefix = $attr->prefix;
                     $uri = (string) $attr->nodeValue;
 
                     if (
