@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMDocument;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Exception\IOException;
 use SimpleSAML\XML\Exception\RuntimeException;
@@ -30,13 +30,13 @@ trait SchemaValidatableElementTrait
     /**
      * Validate the given DOMDocument against the schema set for this element
      *
-     * @param \DOMDocument $document
+     * @param \Dom\Document $document
      * @param string|null $schemaFile
      *
      * @throws \SimpleSAML\XML\Exception\IOException
      * @throws \SimpleSAML\XMLSchema\Exception\SchemaViolationException
      */
-    public static function schemaValidate(DOMDocument $document, ?string $schemaFile = null): DOMDocument
+    public static function schemaValidate(Dom\Document $document, ?string $schemaFile = null): Dom\Document
     {
         $internalErrors = libxml_use_internal_errors(true);
         libxml_clear_errors();

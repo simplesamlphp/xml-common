@@ -16,6 +16,7 @@ use SimpleSAML\XMLSchema\Type\IntegerValue;
 use SimpleSAML\XMLSchema\Type\StringValue;
 
 use function dirname;
+use function strval;
 
 /**
  * Class \SimpleSAML\XML\AbstractElementTest
@@ -52,7 +53,7 @@ final class AbstractElementTest extends TestCase
         );
 
         $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
             $element,
         );
     }
@@ -62,7 +63,7 @@ final class AbstractElementTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        /** @var \DOMElement $elt */
+        /** @var \Dom\Element $elt */
         $elt = self::$xmlRepresentation->documentElement;
         $element = Element::fromXML($elt);
 
@@ -77,7 +78,7 @@ final class AbstractElementTest extends TestCase
      */
     public function testGetAttribute(): void
     {
-        /** @var \DOMElement $xml */
+        /** @var \Dom\Element $xml */
         $xml = self::$xmlRepresentation->documentElement;
 
         // Get mandatory attributes
@@ -139,7 +140,7 @@ final class AbstractElementTest extends TestCase
      */
     public function testGetAttributeThrowsExceptionOnMissingAttribute(): void
     {
-        /** @var \DOMElement $xml */
+        /** @var \Dom\Element $xml */
         $xml = self::$xmlRepresentation->documentElement;
         $xml = clone $xml;
         $xml->removeAttribute('text');
@@ -153,7 +154,7 @@ final class AbstractElementTest extends TestCase
      */
     public function testGetBooleanAttributeThrowsExceptionOnMissingAttribute(): void
     {
-        /** @var \DOMElement $xml */
+        /** @var \Dom\Element $xml */
         $xml = self::$xmlRepresentation->documentElement;
         $xml = clone $xml;
         $xml->removeAttribute('boolean');
@@ -167,7 +168,7 @@ final class AbstractElementTest extends TestCase
      */
     public function testGetIntegerAttributeThrowsExceptionOnMissingAttribute(): void
     {
-        /** @var \DOMElement $xml */
+        /** @var \Dom\Element $xml */
         $xml = self::$xmlRepresentation->documentElement;
         $xml = clone $xml;
         $xml->removeAttribute('integer');

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
 use SimpleSAML\XMLSchema\Type\StringValue;
 
@@ -24,7 +24,7 @@ interface ElementInterface
     /**
      * Get the value of an attribute from a given element.
      *
-     * @param \DOMElement $xml The element where we should search for the attribute.
+     * @param \Dom\Element $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param string      $type The type of the attribute value
      * @return \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface
@@ -32,7 +32,7 @@ interface ElementInterface
      * @throws \SimpleSAML\XMLSchema\Exception\MissingAttributeException if the attribute is missing from the element
      */
     public static function getAttribute(
-        DOMElement $xml,
+        Dom\Element $xml,
         string $name,
         string $type = StringValue::class,
     ): ValueTypeInterface;
@@ -41,7 +41,7 @@ interface ElementInterface
     /**
      * Get the value of an attribute from a given element.
      *
-     * @param \DOMElement $xml The element where we should search for the attribute.
+     * @param \Dom\Element $xml The element where we should search for the attribute.
      * @param string      $name The name of the attribute.
      * @param string      $type The type of the attribute value
      * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface|null $default
@@ -49,7 +49,7 @@ interface ElementInterface
      * @return \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface|null
      */
     public static function getOptionalAttribute(
-        DOMElement $xml,
+        Dom\Element $xml,
         string $name,
         string $type = StringValue::class,
         ?ValueTypeInterface $default = null,

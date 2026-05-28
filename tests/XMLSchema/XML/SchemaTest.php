@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\Test\XML;
 
-use DOMText;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -81,34 +80,26 @@ final class SchemaTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $importDocument = DOMDocumentFactory::create();
-        $importText = new DOMText('Import');
-        $importDocument->appendChild($importText);
-
-        $elementDocument = DOMDocumentFactory::create();
-        $elementText = new DOMText('Element');
-        $elementDocument->appendChild($elementText);
-
-        $attributeDocument = DOMDocumentFactory::create();
-        $attributeText = new DOMText('Attribute');
-        $attributeDocument->appendChild($attributeText);
+        $importText = self::$testContainer->getDOMText('Import');
+        $elementText = self::$testContainer->getDOMText('Element');
+        $attributeText = self::$testContainer->getDOMText('Attribute');
 
         $lang = LangValue::fromString('nl');
 
         $documentation1 = new Documentation(
-            $importDocument->childNodes,
+            $importText,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
             [self::$testContainer->getXMLAttribute(2)],
         );
         $documentation2 = new Documentation(
-            $elementDocument->childNodes,
+            $elementText,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
             [self::$testContainer->getXMLAttribute(2)],
         );
         $documentation3 = new Documentation(
-            $attributeDocument->childNodes,
+            $attributeText,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
             [self::$testContainer->getXMLAttribute(2)],
@@ -234,7 +225,7 @@ final class SchemaTest extends TestCase
         );
 
         $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
             strval($schema),
         );
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\InvalidValueTypeException;
@@ -70,9 +70,9 @@ trait TypedTextContentTrait
     /**
      * Create a class from XML
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -92,9 +92,9 @@ trait TypedTextContentTrait
     /**
      * Create XML from this class
      *
-     * @param \DOMElement|null $parent
+     * @param \Dom\Element|null $parent
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = $this->instantiateParentElement($parent);
 
@@ -134,7 +134,7 @@ trait TypedTextContentTrait
     /**
      * Create a document structure for this element
      *
-     * @param \DOMElement|null $parent The element we should append to.
+     * @param \Dom\Element|null $parent The element we should append to.
      */
-    abstract public function instantiateParentElement(?DOMElement $parent = null): DOMElement;
+    abstract public function instantiateParentElement(?Dom\Element $parent = null): Dom\Element;
 }

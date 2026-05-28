@@ -44,12 +44,12 @@ final class ChunkTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        /** @var \DOMElement $xml */
+        /** @var \Dom\Element $xml */
         $xml = self::$xmlRepresentation->documentElement;
         $chunk = new Chunk($xml);
 
         $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
             strval($chunk),
         );
     }
@@ -59,7 +59,7 @@ final class ChunkTest extends TestCase
      */
     public function testUnmarshalling(): void
     {
-        /** @var \DOMElement $xml */
+        /** @var \Dom\Element $xml */
         $xml = self::$xmlRepresentation->documentElement;
         $chunk = new Chunk($xml);
 

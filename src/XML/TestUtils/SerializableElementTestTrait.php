@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\TestUtils;
 
-use DOMDocument;
+use Dom;
 use PHPUnit\Framework\Attributes\Depends;
 
 use function class_exists;
@@ -20,8 +20,8 @@ trait SerializableElementTestTrait
     /** @var class-string */
     protected static string $testedClass;
 
-    /** @var \DOMDocument */
-    protected static DOMDocument $xmlRepresentation;
+    /** @var \Dom\XMLDocument */
+    protected static Dom\XMLDocument $xmlRepresentation;
 
 
     /**
@@ -49,7 +49,7 @@ trait SerializableElementTestTrait
             $elt = self::$testedClass::fromXML(self::$xmlRepresentation->documentElement);
 
             $this->assertEquals(
-                self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+                self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
                 strval($elt),
             );
         }
@@ -75,7 +75,7 @@ trait SerializableElementTestTrait
             );
         } else {
             $this->assertEquals(
-                self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+                self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
                 strval(unserialize(serialize(self::$testedClass::fromXML(self::$xmlRepresentation->documentElement)))),
             );
         }

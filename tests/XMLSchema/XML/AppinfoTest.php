@@ -57,7 +57,7 @@ final class AppinfoTest extends TestCase
         $appinfo = self::$testContainer->getAppinfo(1);
 
         $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
             strval($appinfo),
         );
 

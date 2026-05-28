@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMElement;
+use Dom;
 use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Attribute;
@@ -91,12 +91,12 @@ trait ExtendableAttributesTrait
      * The namespace defaults to the XS_ANY_ATTR_NAMESPACE constant on the element.
      * NOTE: In case the namespace is ##any, this method will also return local non-namespaced attributes!
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @param string|string[]|null $namespace
      * @return list<\SimpleSAML\XML\Attribute>
      */
     protected static function getAttributesNSFromXML(
-        DOMElement $xml,
+        Dom\Element $xml,
         string|array|null $namespace = null,
     ): array {
         $namespace = $namespace ?? static::XS_ANY_ATTR_NAMESPACE;

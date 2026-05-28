@@ -51,7 +51,7 @@ final class ExtendableAttributesTest extends TestCase
         );
 
         $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
             strval($extendableElement),
         );
     }
@@ -76,7 +76,7 @@ final class ExtendableAttributesTest extends TestCase
      */
     public function testGetAttributesNSFromXML(): void
     {
-        /** @var \DOMElement $element */
+        /** @var \Dom\Element $element */
         $element = self::$xmlRepresentation->documentElement;
 
         $elt = ExtendableAttributesElement::fromXML($element);

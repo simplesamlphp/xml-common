@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XPath;
 
-use DOMDocument;
-use DOMElement;
-use DOMNode;
-use DOMXPath;
-use RuntimeException;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C_XML;
+use SimpleSAML\XML\Exception\RuntimeException;
 use SimpleSAML\XMLSchema\Constants as C_XS;
 
 /**
@@ -23,16 +20,16 @@ class XPath
     /**
      * Search for an element with a certain name among the children of a reference element.
      *
-     * @param \DOMNode $ref The DOMDocument or DOMElement where encrypted data is expected to be found as a child.
+     * @param \Dom\Node $ref The DOMDocument or DOMElement where encrypted data is expected to be found as a child.
      * @param string $name The name (possibly prefixed) of the element we are looking for.
      *
-     * @return \DOMElement|false The element we are looking for, or false when not found.
+     * @return \Dom\Element|false The element we are looking for, or false when not found.
      *
      * @throws \RuntimeException If no DOM document is available.
      */
-    public static function findElement(DOMNode $ref, string $name): DOMElement|false
+    public static function findElement(Dom\Node $ref, string $name): Dom\Element|false
     {
-        $doc = $ref instanceof DOMDocument ? $ref : $ref->ownerDocument;
+        $doc = $ref instanceof Dom\Document ? $ref : $ref->ownerDocument;
         if ($doc === null) {
             throw new RuntimeException('Cannot search, no DOMDocument available');
         }
@@ -44,22 +41,22 @@ class XPath
 
 
     /**
-     * Get an instance of DOMXPath associated with a DOMNode
+     * Get an instance of Dom\XPath associated with a DOMNode
      *
-     * - Reuses a cached DOMXPath per document.
+     * - Reuses a cached Dom\XPath per document.
      * - Registers core XML-related namespaces: 'xml' and 'xs'.
      * - Enriches the XPath with all prefixed xmlns declarations found on the
      *   current node and its ancestors (up to the document element), so
      *   custom prefixes declared anywhere up the tree can be used in queries.
      *
-     * @param \DOMNode $node The associated node
+     * @param \Dom\Node $node The associated node
      * @param bool $autoregister Whether to auto-register all namespaces used in the document
      */
-    public static function getXPath(DOMNode $node, bool $autoregister = false): DOMXPath
+    public static function getXPath(Dom\Node $node, bool $autoregister = false): Dom\XPath
     {
         static $xpCache = null;
 
-        if ($node instanceof DOMDocument) {
+        if ($node instanceof Dom\Document) {
             $doc = $node;
         } else {
             $doc = $node->ownerDocument;
@@ -67,7 +64,7 @@ class XPath
         }
 
         if ($xpCache === null || !$xpCache->document->isSameNode($doc)) {
-            $xpCache = new DOMXPath($doc);
+            $xpCache = new Dom\XPath($doc);
         }
 
         $xpCache->registerNamespace('xml', C_XML::NS_XML);
@@ -95,11 +92,11 @@ class XPath
      * - Do not override core 'xml' and 'xs' prefixes (already bound).
      * - Nearest binding wins during this pass (prefixes are added once).
      *
-     * @param \DOMXPath $xp
-     * @param \DOMNode  $node
+     * @param \Dom\XPath $xp
+     * @param \Dom\Node  $node
      * @return array<string,string> Map of prefix => namespace URI that are bound after this pass
      */
-    private static function registerAncestorNamespaces(DOMXPath $xp, DOMNode $node): array
+    private static function registerAncestorNamespaces(Dom\XPath $xp, Dom\Node $node): array
     {
         // Track prefix => uri to feed into subtree scan. Seed with core bindings.
         $prefixToUri = [
@@ -108,13 +105,13 @@ class XPath
         ];
 
         // Start from the nearest element (or documentElement if a DOMDocument is passed).
-        $current = $node instanceof DOMDocument
+        $current = $node instanceof Dom\Document
             ? $node->documentElement
-            : ($node instanceof DOMElement ? $node : $node->parentNode);
+            : ($node instanceof Dom\Element ? $node : $node->parentNode);
 
         $steps = 0;
 
-        while ($current instanceof DOMElement) {
+        while ($current instanceof Dom\Element) {
             if (++$steps > C_XML::UNBOUNDED_LIMIT) {
                 throw new RuntimeException(__METHOD__ . ': exceeded ancestor traversal limit');
             }
@@ -124,13 +121,11 @@ class XPath
                     if ($attr->namespaceURI !== C_XML::NS_XMLNS) {
                         continue;
                     }
-                    $prefix = $attr->localName;
+                    $prefix = $attr->prefix;
                     $uri = (string) $attr->nodeValue;
 
                     if (
-                        $prefix === null || $prefix === '' ||
-                        $prefix === 'xmlns' || $uri === '' ||
-                        isset($prefixToUri[$prefix])
+                        $prefix === '' || $prefix === null || $prefix === 'xmlns' || $uri === '' || isset($prefixToUri[$prefix])
                     ) {
                         continue;
                     }
@@ -153,27 +148,27 @@ class XPath
      * - Skips 'xmlns' and empty URIs.
      * - Bounded by UNBOUNDED_LIMIT.
      *
-     * @param \DOMXPath $xp
-     * @param \DOMNode  $node
+     * @param \Dom\XPath $xp
+     * @param \Dom\Node  $node
      * @param array<string,string> $prefixToUri
      */
-    private static function registerSubtreePrefixes(DOMXPath $xp, DOMNode $node, array $prefixToUri): void
+    private static function registerSubtreePrefixes(Dom\XPath $xp, Dom\Node $node, array $prefixToUri): void
     {
-        $root = $node instanceof DOMDocument
+        $root = $node instanceof Dom\Document
             ? $node->documentElement
-            : ($node instanceof DOMElement ? $node : $node->parentNode);
+            : ($node instanceof Dom\Element ? $node : $node->parentNode);
 
-        if (!$root instanceof DOMElement) {
+        if (!$root instanceof Dom\Element) {
             return;
         }
 
 //        $visited = 0;
 
-        /** @var array<array{0:\DOMElement,1:int}> $queue */
+        /** @var array<array{0:\Dom\Element,1:int}> $queue */
         $queue = [[$root, 0]];
 
         while ($queue) {
-            /** @var \DOMElement $el */
+            /** @var \Dom\Element $el */
             /** @var int $depth */
             [$el, $depth] = array_shift($queue);
 
@@ -227,9 +222,9 @@ class XPath
                 }
             }
 
-            // Enqueue children (only DOMElement to keep types precise)
+            // Enqueue children (only Dom\Element to keep types precise)
             foreach ($el->childNodes as $child) {
-                if ($child instanceof DOMElement) {
+                if ($child instanceof Dom\Element) {
                     $queue[] = [$child, $depth + 1];
                 }
             }
@@ -240,12 +235,12 @@ class XPath
     /**
      * Do an XPath query on an XML node.
      *
-     * @param \DOMNode $node  The XML node.
+     * @param \Dom\Node $node  The XML node.
      * @param string $query The query.
-     * @param \DOMXPath $xpCache The DOMXPath object
-     * @return array<\DOMNode> Array with matching DOM nodes.
+     * @param \Dom\XPath $xpCache The Dom\XPath object
+     * @return array<\Dom\Node> Array with matching DOM nodes.
      */
-    public static function xpQuery(DOMNode $node, string $query, DOMXPath $xpCache): array
+    public static function xpQuery(Dom\Node $node, string $query, Dom\XPath $xpCache): array
     {
         $ret = [];
 

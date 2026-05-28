@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMAttr;
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
 use SimpleSAML\XMLSchema\Type\StringValue;
@@ -83,9 +82,9 @@ final class Attribute implements ArrayizableElementInterface
     /**
      * Create a class from XML
      *
-     * @param \DOMAttr $attr
+     * @param \Dom\Attr $attr
      */
-    public static function fromXML(DOMAttr $attr): static
+    public static function fromXML(Dom\Attr $attr): static
     {
         return new static($attr->namespaceURI, $attr->prefix, $attr->localName, StringValue::fromString($attr->value));
     }
@@ -94,9 +93,9 @@ final class Attribute implements ArrayizableElementInterface
     /**
      * Create XML from this class
      *
-     * @param \DOMElement $parent
+     * @param \Dom\Element $parent
      */
-    public function toXML(DOMElement $parent): DOMElement
+    public function toXML(Dom\Element $parent): Dom\Element
     {
         if ($this->getNamespaceURI() !== null && !$parent->lookupPrefix($this->getNamespacePrefix())) {
             $parent->setAttributeNS(

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\TestUtils;
 
-use DOMDocument;
+use Dom;
 use PHPUnit\Framework\Attributes\Depends;
 use SimpleSAML\XML\DOMDocumentFactory;
 
@@ -24,8 +24,8 @@ trait SchemaValidationTestTrait
     /** @var class-string */
     protected static string $testedClass;
 
-    /** @var \DOMDocument */
-    protected static DOMDocument $xmlRepresentation;
+    /** @var \Dom\XMLDocument */
+    protected static Dom\XMLDocument $xmlRepresentation;
 
 
     /**

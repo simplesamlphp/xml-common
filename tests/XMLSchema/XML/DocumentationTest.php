@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\Test\XML;
 
-use DOMText;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -57,21 +56,18 @@ final class DocumentationTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $document = DOMDocumentFactory::create();
-        $text = new DOMText('Some Documentation');
-        $document->appendChild($text);
-
+        $documentationText = self::$testContainer->getDOMText('Some Documentation');
         $lang = LangValue::fromString('nl');
 
         $documentation = new Documentation(
-            $document->childNodes,
+            $documentationText,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
             [self::$testContainer->getXMLAttribute(1)],
         );
 
         $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
             strval($documentation),
         );
 

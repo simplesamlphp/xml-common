@@ -49,9 +49,9 @@ final class ExtendableElementTest extends TestCase
             '<dummy:Chunk xmlns:dummy="urn:custom:dummy">some</dummy:Chunk>',
         );
 
-        /** @var \DOMElement $dummyElement1 */
+        /** @var \Dom\Element $dummyElement1 */
         $dummyElement1 = $dummyDocument1->documentElement;
-        /** @var \DOMElement $dummyElement2 */
+        /** @var \Dom\Element $dummyElement2 */
         $dummyElement2 = $dummyDocument2->documentElement;
 
         $extendableElement = new ExtendableElement(
@@ -62,7 +62,7 @@ final class ExtendableElementTest extends TestCase
         );
 
         $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
             strval($extendableElement),
         );
     }
@@ -82,11 +82,11 @@ final class ExtendableElementTest extends TestCase
             '<other:Chunk xmlns:other="urn:custom:other">some</other:Chunk>',
         );
 
-        /** @var \DOMElement $dummyElement1 */
+        /** @var \Dom\Element $dummyElement1 */
         $dummyElement1 = $dummyDocument1->documentElement;
-        /** @var \DOMElement $dummyElement2 */
+        /** @var \Dom\Element $dummyElement2 */
         $dummyElement2 = $dummyDocument2->documentElement;
-        /** @var \DOMElement $dummyElement3 */
+        /** @var \Dom\Element $dummyElement3 */
         $dummyElement3 = $dummyDocument3->documentElement;
 
         $this->expectException(InvalidDOMElementException::class);
@@ -104,7 +104,7 @@ final class ExtendableElementTest extends TestCase
      */
     public function testGetChildElementsFromXML(): void
     {
-        /** @var \DOMElement $element */
+        /** @var \Dom\Element $element */
         $element = self::$xmlRepresentation->documentElement;
 
         $elt = ExtendableElement::fromXML($element);

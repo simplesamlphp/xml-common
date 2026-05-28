@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\Test\XML;
 
-use DOMText;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -93,26 +92,12 @@ final class AllTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $simpleTypeDocument = DOMDocumentFactory::create();
-        $simpleTypeText = new DOMText('SimpleType');
-        $simpleTypeDocument->appendChild($simpleTypeText);
-
-        $complexTypeDocument = DOMDocumentFactory::create();
-        $complexTypeText = new DOMText('ComplexType');
-        $complexTypeDocument->appendChild($complexTypeText);
-
-        $groupDocument = DOMDocumentFactory::create();
-        $groupText = new DOMText('Group');
-        $groupDocument->appendChild($groupText);
-
-        $attributeGroupDocument = DOMDocumentFactory::create();
-        $attributeGroupText = new DOMText('AttributeGroup');
-        $attributeGroupDocument->appendChild($attributeGroupText);
+        $simpleTypeText = self::$testContainer->getDOMText('SimpleType');
 
         $lang = LangValue::fromString('nl');
 
         $documentation1 = new Documentation(
-            $simpleTypeDocument->childNodes,
+            $simpleTypeText,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
             [self::$testContainer->getXMLAttribute(2)],
@@ -239,7 +224,7 @@ final class AllTest extends TestCase
         );
 
         $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
             strval($all),
         );
 

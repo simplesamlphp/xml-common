@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\Test\XML;
 
-use DOMText;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -77,26 +76,21 @@ final class NamedAttributeGroupTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $documentationDocument = DOMDocumentFactory::create();
-        $text = new DOMText('Some Documentation');
-        $documentationDocument->appendChild($text);
-
-        $otherDocumentationDocument = DOMDocumentFactory::create();
-        $text = new DOMText('Other Documentation');
-        $otherDocumentationDocument->appendChild($text);
+        $documentationText = self::$testContainer->getDOMText('Some Documentation');
+        $otherDocumentationText = self::$testContainer->getDOMText('Other Documentation');
 
         $lang = LangValue::fromString('nl');
         $appinfo1 = self::$testContainer->getAppinfo(1);
         $appinfo2 = self::$testContainer->getAppinfo(2);
 
         $documentation1 = new Documentation(
-            $documentationDocument->childNodes,
+            $documentationText,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
             [self::$testContainer->getXMLAttribute(1)],
         );
         $documentation2 = new Documentation(
-            $otherDocumentationDocument->childNodes,
+            $otherDocumentationText,
             $lang,
             AnyURIValue::fromString('urn:x-simplesamlphp:source'),
             [self::$testContainer->getXMLAttribute(2)],
@@ -134,7 +128,7 @@ final class NamedAttributeGroupTest extends TestCase
         );
 
         $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
             strval($attributeGroup),
         );
 

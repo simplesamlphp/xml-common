@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Container;
 
-use DOMText;
+use Dom;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XMLSchema\Type\AnyURIValue;
 use SimpleSAML\XMLSchema\XML\Appinfo;
@@ -26,22 +26,41 @@ trait XMLSchemaElementsTrait
     /** @var array<positive-int, \SimpleSAML\XMLSchema\XML\Appinfo> */
     protected array $appinfo = [];
 
+    /** @var array<non-empty-string, \Dom\Text> */
+    protected array $domText = [];
+
 
     /** @param positive-int $x */
     public function getAppinfo(int $x = 1): Appinfo
     {
         if (!array_key_exists($x, $this->appinfo)) {
-            $appinfoDocument = DOMDocumentFactory::create();
-            $text = new DOMText(sprintf('Application Information (%d)', $x));
-            $appinfoDocument->appendChild($text);
+            $domTextNode = $this->getDOMText(sprintf('Application Information (%d)', $x));
 
             $this->appinfo[$x] = new Appinfo(
-                $appinfoDocument->childNodes,
+                $domTextNode,
                 AnyURIValue::fromString(static::SOURCE),
                 [$this->getXMLAttribute($x)],
             );
         }
 
         return $this->appinfo[$x];
+    }
+
+
+    /** @param non-empty-string $text */
+    public function getDOMText(string $text): Dom\NodeList
+    {
+        if (!array_key_exists($text, $this->domText)) {
+            $doc = DOMDocumentFactory::create();
+
+            $elt = $doc->createElement('root');
+            $domText = $doc->createTextNode($text);
+
+            $elt->appendChild($domText);
+
+            $this->domText[$text] = $elt->childNodes;
+        }
+
+        return $this->domText[$text];
     }
 }

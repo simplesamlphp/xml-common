@@ -4,19 +4,15 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMDocument;
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
+use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\Exception\IOException;
 use SimpleSAML\XML\Exception\RuntimeException;
-use SimpleSAML\XML\Exception\UnparseableXMLException;
 use SimpleSAML\XPath\XPath;
 
 use function file_get_contents;
 use function func_num_args;
-use function libxml_clear_errors;
-use function libxml_set_external_entity_loader;
-use function libxml_use_internal_errors;
 use function sprintf;
 use function strpos;
 
@@ -27,7 +23,7 @@ final class DOMDocumentFactory
 {
     /**
      * @var non-negative-int
-     * TODO: Add LIBXML_NO_XXE to the defaults when PHP 8.4.0 + libxml 2.13.0 become generally available
+     * TODO: Add LIBXML_NO_XXE to the defaults when libxml 2.13.0 become generally available
      */
     public const int DEFAULT_OPTIONS = \LIBXML_COMPACT | \LIBXML_NOENT | \LIBXML_NONET | \LIBXML_NSCLEAN;
 
@@ -39,8 +35,7 @@ final class DOMDocumentFactory
     public static function fromString(
         string $xml,
         int $options = self::DEFAULT_OPTIONS,
-    ): DOMDocument {
-        libxml_set_external_entity_loader(null);
+    ): Dom\XMLDocument {
         Assert::notWhitespaceOnly($xml);
         Assert::notRegex(
             $xml,
@@ -49,27 +44,13 @@ final class DOMDocumentFactory
             RuntimeException::class,
         );
 
-        $internalErrors = libxml_use_internal_errors(true);
-        libxml_clear_errors();
-
         // If LIBXML_NO_XXE is available and option not set
         if (func_num_args() === 1 && defined('LIBXML_NO_XXE')) {
             $options |= \LIBXML_NO_XXE;
         }
 
         $domDocument = self::create();
-        $loaded = $domDocument->loadXML($xml, $options);
-
-        libxml_use_internal_errors($internalErrors);
-
-        if (!$loaded) {
-            $error = libxml_get_last_error();
-            libxml_clear_errors();
-
-            throw new UnparseableXMLException($error);
-        }
-
-        libxml_clear_errors();
+        $loaded = $domDocument->createFromString($xml, $options);
 
         foreach ($domDocument->childNodes as $child) {
             Assert::false(
@@ -79,7 +60,7 @@ final class DOMDocumentFactory
             );
         }
 
-        return $domDocument;
+        return $loaded;
     }
 
 
@@ -90,7 +71,7 @@ final class DOMDocumentFactory
     public static function fromFile(
         string $file,
         int $options = self::DEFAULT_OPTIONS,
-    ): DOMDocument {
+    ): Dom\XMLDocument {
         error_clear_last();
         $xml = @file_get_contents($file);
         if ($xml === false) {
@@ -106,19 +87,18 @@ final class DOMDocumentFactory
 
 
     /**
-     * @param string $version
      * @param string $encoding
      */
-    public static function create(string $version = '1.0', string $encoding = 'UTF-8'): DOMDocument
+    public static function create(string $encoding = 'UTF-8'): Dom\XMLDocument
     {
-        return new DOMDocument($version, $encoding);
+        return Dom\XMLDocument::createEmpty($encoding);
     }
 
 
     /**
-     * @param \DOMDocument $doc
+     * @param \Dom\XMLDocument $doc
      */
-    public static function normalizeDocument(DOMDocument $doc): DOMDocument
+    public static function normalizeDocument(Dom\XMLDocument $doc): Dom\XMLDocument
     {
         // Get the root element
         $root = $doc->documentElement;
@@ -128,28 +108,30 @@ final class DOMDocumentFactory
         $xmlnsAttributes = [];
 
         // Register all namespaces to ensure XPath can handle them
-        foreach ($xpath->query('//namespace::*') as $node) {
-            $name = $node->nodeName === 'xmlns' ? 'xmlns' : $node->nodeName;
-            if ($name !== 'xmlns:xml') {
-                $xmlnsAttributes[$name] = $node->nodeValue;
+        foreach ($xpath->query('//*[namespace::*]') as $node) {
+            $name = 'xmlns:' . $node->prefix;
+            // Both prefix and namespaceURI NULL equals the default xmlns:xml namespace
+            if ($node->prefix !== null && $node->namespaceURI !== null) {
+                $xmlnsAttributes[$name] = $node->namespaceURI;
             }
         }
 
         // If no xmlns attributes found, return early with debug info
         if (empty($xmlnsAttributes)) {
-            return $root->ownerDocument;
+            return $doc;
         }
 
         // Remove xmlns attributes from all elements
         $nodes = $xpath->query('//*[namespace::*]');
         foreach ($nodes as $node) {
-            if ($node instanceof DOMElement) {
+            if ($node instanceof Dom\Element) {
                 $attributesToRemove = [];
                 foreach ($node->attributes as $attr) {
                     if (strpos($attr->nodeName, 'xmlns') === 0 || $attr->nodeName === 'xmlns') {
-                        $attributesToRemove[] = $attr->nodeName;
+                        $attributesToRemove[] = $attr->namespaceURI;
                     }
                 }
+
                 foreach ($attributesToRemove as $attrName) {
                     $node->removeAttribute($attrName);
                 }
@@ -161,28 +143,37 @@ final class DOMDocumentFactory
             $root->setAttribute($name, $value);
         }
 
+        // Get the normalized string
+        /** @var \Dom\XMLDocument $ownerDocument */
+        $ownerDocument = $root->ownerDocument;
+
         // Return the normalized XML
-        return static::fromString($root->ownerDocument->saveXML());
+        return static::fromString($ownerDocument->saveXml($ownerDocument->documentElement));
     }
 
 
     /**
-     * @param \DOMElement $elt
-     * @param string $prefix
+     * @param \Dom\Element $elt
+     * @param string|null $prefix
      */
-    public static function lookupNamespaceURI(DOMElement $elt, string $prefix): ?string
+    public static function lookupNamespaceURI(Dom\Element $elt, ?string $prefix): ?string
     {
-        // Collect all xmlns attributes from the document
-        $xpath = XPath::getXPath($elt->ownerDocument);
-
-        // Register all namespaces to ensure XPath can handle them
-        $xmlnsAttributes = [];
-        foreach ($xpath->query('//namespace::*') as $node) {
-            $xmlnsAttributes[$node->localName] = $node->nodeValue;
+        // Reserved namespace, so we don't have to look for long
+        if ($prefix === 'xml') {
+            return C::NS_XML;
+        } elseif ($prefix === 'xmlns') {
+            return C::NS_XMLNS;
         }
 
-        if (array_key_exists($prefix, $xmlnsAttributes)) {
-            return $xmlnsAttributes[$prefix];
+
+        /** @var \Dom\NamespaceInfo[] $namespaces */
+        $namespaces = $elt->ownerDocument->documentElement->getInScopeNamespaces();
+
+        $xmlnsAttributes = [];
+        foreach ($namespaces as $ns) {
+            if ($ns->prefix === $prefix) {
+                return $ns->namespaceURI;
+            }
         }
 
         return null;
