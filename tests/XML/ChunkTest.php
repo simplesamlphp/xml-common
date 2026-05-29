@@ -28,8 +28,6 @@ final class ChunkTest extends TestCase
     use SerializableElementTestTrait;
 
 
-    /**
-     */
     public static function setUpBeforeClass(): void
     {
         self::$testedClass = Chunk::class;
@@ -40,33 +38,45 @@ final class ChunkTest extends TestCase
     }
 
 
-    /**
-     */
     public function testMarshalling(): void
     {
-        /** @var \Dom\Element $xml */
         $xml = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $xml);
+
         $chunk = new Chunk($xml);
 
-        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $representationRoot = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $representationRoot);
+
+        $expectedXml = self::$xmlRepresentation->saveXml($representationRoot);
+        $this->assertNotSame('', $expectedXml);
+        /** @var non-empty-string $expectedXml */
+
         $actualXml = strval($chunk);
+        $this->assertNotSame('', $actualXml);
+        /** @var non-empty-string $actualXml */
 
         $expectedDoc = DOMDocumentFactory::fromString($expectedXml);
         $actualDoc = DOMDocumentFactory::fromString($actualXml);
 
+        $expectedRoot = $expectedDoc->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $expectedRoot);
+
+        $actualRoot = $actualDoc->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $actualRoot);
+
         $this->assertSame(
-            $expectedDoc->documentElement->C14N(),
-            $actualDoc->documentElement->C14N(),
+            $expectedRoot->C14N(),
+            $actualRoot->C14N(),
         );
     }
 
 
-    /**
-     */
     public function testUnmarshalling(): void
     {
-        /** @var \Dom\Element $xml */
         $xml = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $xml);
+
         $chunk = new Chunk($xml);
 
         $this->assertEquals($chunk->getLocalName(), 'Element');

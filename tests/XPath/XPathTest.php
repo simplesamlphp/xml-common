@@ -323,6 +323,8 @@ XML;
      * Ensure that absolute XPath '/foo:serviceResponse/foo:authenticationSuccess/slate:person'
      * finds the same top-level slate:person regardless of whether it appears before or after
      * cas:attributes in the document, even when the slate prefix is only declared on the element itself.
+     *
+     * @param non-empty-string $filePath
      */
     #[DataProvider('xmlVariantsProviderForTopLevelSlatePerson')]
     public function testAbsoluteXPathFindsTopLevelSlatePerson(
