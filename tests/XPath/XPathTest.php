@@ -10,9 +10,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\Exception\RuntimeException;
 use SimpleSAML\XPath\XPath;
-use Throwable;
 
 use function libxml_clear_errors;
 use function libxml_use_internal_errors;

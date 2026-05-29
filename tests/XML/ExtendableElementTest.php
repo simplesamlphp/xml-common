@@ -61,9 +61,15 @@ final class ExtendableElementTest extends TestCase
             ],
         );
 
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $actualXml = strval($extendableElement);
+
+        $expectedDoc = DOMDocumentFactory::fromString($expectedXml);
+        $actualDoc = DOMDocumentFactory::fromString($actualXml);
+
         $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($extendableElement),
+            $expectedDoc->documentElement->C14N(),
+            $actualDoc->documentElement->C14N(),
         );
     }
 

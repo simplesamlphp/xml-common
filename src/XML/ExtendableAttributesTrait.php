@@ -109,6 +109,10 @@ trait ExtendableAttributesTrait
             Assert::oneOf($namespace, NS::$PREDEFINED);
 
             foreach ($xml->attributes as $a) {
+                if ($a->namespaceURI === 'http://www.w3.org/2000/xmlns/') {
+                    continue;
+                }
+
                 if (
                     $exclusionList
                     && (in_array([$a->namespaceURI, $a->localName], $exclusionList, true)
@@ -148,6 +152,10 @@ trait ExtendableAttributesTrait
             }
 
             foreach ($xml->attributes as $a) {
+                if ($a->namespaceURI === 'http://www.w3.org/2000/xmlns/') {
+                    continue;
+                }
+
                 if (in_array([$a->namespaceURI, $a->localName], $exclusionList, true)) {
                     continue;
                 } elseif (!in_array($a->namespaceURI, $namespace, true)) {

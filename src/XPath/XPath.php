@@ -125,7 +125,11 @@ class XPath
                     $uri = (string) $attr->nodeValue;
 
                     if (
-                        $prefix === '' || $prefix === null || $prefix === 'xmlns' || $uri === '' || isset($prefixToUri[$prefix])
+                        $prefix === ''
+                        || $prefix === null
+                        || $prefix === 'xmlns'
+                        || $uri === ''
+                        || isset($prefixToUri[$prefix])
                     ) {
                         continue;
                     }

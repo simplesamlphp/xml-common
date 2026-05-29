@@ -26,7 +26,7 @@ trait XMLSchemaElementsTrait
     /** @var array<positive-int, \SimpleSAML\XMLSchema\XML\Appinfo> */
     protected array $appinfo = [];
 
-    /** @var array<non-empty-string, \Dom\Text> */
+    /** @var array<non-empty-string, \Dom\NodeList> */
     protected array $domText = [];
 
 

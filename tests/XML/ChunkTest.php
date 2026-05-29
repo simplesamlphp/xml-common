@@ -48,9 +48,15 @@ final class ChunkTest extends TestCase
         $xml = self::$xmlRepresentation->documentElement;
         $chunk = new Chunk($xml);
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($chunk),
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $actualXml = strval($chunk);
+
+        $expectedDoc = DOMDocumentFactory::fromString($expectedXml);
+        $actualDoc = DOMDocumentFactory::fromString($actualXml);
+
+        $this->assertSame(
+            $expectedDoc->documentElement->C14N(),
+            $actualDoc->documentElement->C14N(),
         );
     }
 

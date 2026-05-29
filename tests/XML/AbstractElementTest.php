@@ -52,9 +52,15 @@ final class AbstractElementTest extends TestCase
             StringValue::fromString('otherText'),
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            $element,
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $actualXml = strval($element);
+
+        $expectedDoc = DOMDocumentFactory::fromString($expectedXml);
+        $actualDoc = DOMDocumentFactory::fromString($actualXml);
+
+        $this->assertSame(
+            $expectedDoc->documentElement->C14N(),
+            $actualDoc->documentElement->C14N(),
         );
     }
 
@@ -88,7 +94,7 @@ final class AbstractElementTest extends TestCase
         $this->assertEquals('2', Element::getAttribute($xml, 'integer', IntegerValue::class));
 
         // Get optional attributes
-        $this->assertEquals('text', Element::getOptionalAttribute($xml, 'text', StringValue::Class));
+        $this->assertEquals('text', Element::getOptionalAttribute($xml, 'text', StringValue::class));
         $this->assertEquals('otherText', Element::getOptionalAttribute($xml, 'otherText', StringValue::class));
         $this->assertEquals('false', Element::getOptionalAttribute($xml, 'boolean', BooleanValue::class));
         $this->assertEquals('2', Element::getOptionalAttribute($xml, 'integer', IntegerValue::class));

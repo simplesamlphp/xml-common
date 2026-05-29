@@ -122,9 +122,9 @@ final class DOMDocumentFactoryTest extends TestCase
         $notNormalized = DOMDocumentFactory::fromFile('tests/resources/xml/domdocument_not_normalized.xml');
         $normalizedDoc = DOMDocumentFactory::normalizeDocument($notNormalized);
 
-        $this->assertEquals(
-            $normalized->saveXml($normalized),
-            $normalizedDoc->saveXml($normalizedDoc),
+        $this->assertSame(
+            $normalized->documentElement->C14N(),
+            $normalizedDoc->documentElement->C14N(),
         );
     }
 }
