@@ -109,10 +109,12 @@ final class DOMDocumentFactory
 
         // Register all namespaces to ensure XPath can handle them
         foreach ($xpath->query('//*[namespace::*]') as $node) {
-            $name = 'xmlns:' . $node->prefix;
-            // Both prefix and namespaceURI NULL equals the default xmlns:xml namespace
-            if ($node->prefix !== null && $node->namespaceURI !== null) {
-                $xmlnsAttributes[$name] = $node->namespaceURI;
+            if ($node instanceof Dom\Element) {
+                $name = 'xmlns:' . $node->prefix;
+                // Both prefix and namespaceURI NULL equals the default xmlns:xml namespace
+                if ($node->prefix !== null && $node->namespaceURI !== null) {
+                    $xmlnsAttributes[$name] = $node->namespaceURI;
+                }
             }
         }
 
