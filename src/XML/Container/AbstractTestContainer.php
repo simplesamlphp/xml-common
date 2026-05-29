@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\Container;
 
+use Dom;
 use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Type\LangValue;
@@ -28,4 +29,7 @@ abstract class AbstractTestContainer implements TestContainerInterface
 
 
     abstract public function getXMLAttribute(int $x = 1): XMLAttribute;
+
+
+    abstract public function getDOMText(string $text): Dom\NodeList;
 }
