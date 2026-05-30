@@ -7,7 +7,6 @@ namespace SimpleSAML\XML;
 use Dom;
 use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
-use SimpleSAML\XML\Attribute;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMAttributeException;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
@@ -109,7 +108,7 @@ trait ExtendableAttributesTrait
             Assert::oneOf($namespace, NS::$PREDEFINED);
 
             foreach ($xml->attributes as $a) {
-                if ($a->namespaceURI === 'http://www.w3.org/2000/xmlns/') {
+                if ($a->namespaceURI === C::NS_XMLNS) {
                     continue;
                 }
 
@@ -152,7 +151,7 @@ trait ExtendableAttributesTrait
             }
 
             foreach ($xml->attributes as $a) {
-                if ($a->namespaceURI === 'http://www.w3.org/2000/xmlns/') {
+                if ($a->namespaceURI === C::NS_XMLNS) {
                     continue;
                 }
 
