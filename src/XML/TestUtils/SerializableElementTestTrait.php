@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace SimpleSAML\XML\TestUtils;
 
 use Dom;
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\Depends;
+use SimpleSAML\XML\DOMDocumentFactory;
 
 use function class_exists;
+use function strval;
 
 /**
  * Test for Serializable XML classes to perform default serialization tests.
@@ -48,7 +51,7 @@ trait SerializableElementTestTrait
         } else {
             $elt = self::$testedClass::fromXML(self::$xmlRepresentation->documentElement);
 
-            $this->assertEquals(
+            $this->assertXmlStringEquals(
                 self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
                 strval($elt),
             );
@@ -74,10 +77,25 @@ trait SerializableElementTestTrait
                 . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested',
             );
         } else {
-            $this->assertEquals(
+            $this->assertXmlStringEquals(
                 self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
                 strval(unserialize(serialize(self::$testedClass::fromXML(self::$xmlRepresentation->documentElement)))),
             );
         }
+    }
+
+
+    private function assertXmlStringEquals(string $expectedXml, string $actualXml): void
+    {
+        $expectedDoc = DOMDocumentFactory::fromString($expectedXml);
+        $actualDoc = DOMDocumentFactory::fromString($actualXml);
+
+        Assert::assertNotNull($expectedDoc->documentElement);
+        Assert::assertNotNull($actualDoc->documentElement);
+
+        Assert::assertSame(
+            $expectedDoc->documentElement->C14N(),
+            $actualDoc->documentElement->C14N(),
+        );
     }
 }

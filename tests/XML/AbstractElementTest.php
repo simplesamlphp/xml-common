@@ -29,8 +29,6 @@ final class AbstractElementTest extends TestCase
     use SerializableElementTestTrait;
 
 
-    /**
-     */
     public static function setUpBeforeClass(): void
     {
         self::$testedClass = Element::class;
@@ -41,8 +39,6 @@ final class AbstractElementTest extends TestCase
     }
 
 
-    /**
-     */
     public function testMarshalling(): void
     {
         $element = new Element(
@@ -52,19 +48,38 @@ final class AbstractElementTest extends TestCase
             StringValue::fromString('otherText'),
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            $element,
+        $representationRoot = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $representationRoot);
+
+        $expectedXml = self::$xmlRepresentation->saveXml($representationRoot);
+        $this->assertNotSame('', $expectedXml);
+        /** @var non-empty-string $expectedXml */
+
+        $actualXml = strval($element);
+        $this->assertNotSame('', $actualXml);
+        /** @var non-empty-string $actualXml */
+
+        $expectedDoc = DOMDocumentFactory::fromString($expectedXml);
+        $actualDoc = DOMDocumentFactory::fromString($actualXml);
+
+        $expectedRoot = $expectedDoc->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $expectedRoot);
+
+        $actualRoot = $actualDoc->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $actualRoot);
+
+        $this->assertSame(
+            $expectedRoot->C14N(),
+            $actualRoot->C14N(),
         );
     }
 
 
-    /**
-     */
     public function testUnmarshalling(): void
     {
-        /** @var \Dom\Element $elt */
         $elt = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $elt);
+
         $element = Element::fromXML($elt);
 
         $this->assertEquals('2', $element->getInteger());
@@ -74,12 +89,10 @@ final class AbstractElementTest extends TestCase
     }
 
 
-    /**
-     */
     public function testGetAttribute(): void
     {
-        /** @var \Dom\Element $xml */
         $xml = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $xml);
 
         // Get mandatory attributes
         $this->assertEquals('text', Element::getAttribute($xml, 'text', StringValue::class));
@@ -88,7 +101,7 @@ final class AbstractElementTest extends TestCase
         $this->assertEquals('2', Element::getAttribute($xml, 'integer', IntegerValue::class));
 
         // Get optional attributes
-        $this->assertEquals('text', Element::getOptionalAttribute($xml, 'text', StringValue::Class));
+        $this->assertEquals('text', Element::getOptionalAttribute($xml, 'text', StringValue::class));
         $this->assertEquals('otherText', Element::getOptionalAttribute($xml, 'otherText', StringValue::class));
         $this->assertEquals('false', Element::getOptionalAttribute($xml, 'boolean', BooleanValue::class));
         $this->assertEquals('2', Element::getOptionalAttribute($xml, 'integer', IntegerValue::class));
@@ -136,12 +149,11 @@ final class AbstractElementTest extends TestCase
     }
 
 
-    /**
-     */
     public function testGetAttributeThrowsExceptionOnMissingAttribute(): void
     {
-        /** @var \Dom\Element $xml */
         $xml = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $xml);
+
         $xml = clone $xml;
         $xml->removeAttribute('text');
 
@@ -150,12 +162,11 @@ final class AbstractElementTest extends TestCase
     }
 
 
-    /**
-     */
     public function testGetBooleanAttributeThrowsExceptionOnMissingAttribute(): void
     {
-        /** @var \Dom\Element $xml */
         $xml = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $xml);
+
         $xml = clone $xml;
         $xml->removeAttribute('boolean');
 
@@ -164,12 +175,11 @@ final class AbstractElementTest extends TestCase
     }
 
 
-    /**
-     */
     public function testGetIntegerAttributeThrowsExceptionOnMissingAttribute(): void
     {
-        /** @var \Dom\Element $xml */
         $xml = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $xml);
+
         $xml = clone $xml;
         $xml->removeAttribute('integer');
 

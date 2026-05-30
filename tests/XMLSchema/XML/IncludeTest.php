@@ -97,9 +97,10 @@ final class IncludeTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($include),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($include);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

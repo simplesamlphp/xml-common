@@ -136,10 +136,11 @@ final class LocalComplexTypeTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($localComplexType),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($localComplexType);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
 
         $this->assertFalse($localComplexType->isEmptyElement());
     }

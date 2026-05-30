@@ -126,9 +126,10 @@ final class LocalAttributeTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($attribute),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($attribute);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

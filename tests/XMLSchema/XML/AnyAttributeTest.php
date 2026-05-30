@@ -104,9 +104,10 @@ final class AnyAttributeTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($anyAttribute),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($anyAttribute);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

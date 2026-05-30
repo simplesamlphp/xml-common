@@ -245,9 +245,10 @@ final class SimpleRestrictionTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($simpleRestriction),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($simpleRestriction);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

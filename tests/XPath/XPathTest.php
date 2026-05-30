@@ -10,9 +10,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\Exception\RuntimeException;
 use SimpleSAML\XPath\XPath;
-use Throwable;
 
 use function libxml_clear_errors;
 use function libxml_use_internal_errors;
@@ -325,6 +323,8 @@ XML;
      * Ensure that absolute XPath '/foo:serviceResponse/foo:authenticationSuccess/slate:person'
      * finds the same top-level slate:person regardless of whether it appears before or after
      * cas:attributes in the document, even when the slate prefix is only declared on the element itself.
+     *
+     * @param non-empty-string $filePath
      */
     #[DataProvider('xmlVariantsProviderForTopLevelSlatePerson')]
     public function testAbsoluteXPathFindsTopLevelSlatePerson(

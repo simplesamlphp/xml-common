@@ -112,6 +112,8 @@ final class DOMDocumentFactoryTest extends TestCase
         $this->expectExceptionMessage(
             'Expected a non-whitespace string. Got: ""',
         );
+
+        /** @phpstan-ignore-next-line argument.type */
         DOMDocumentFactory::fromString('');
     }
 
@@ -122,9 +124,15 @@ final class DOMDocumentFactoryTest extends TestCase
         $notNormalized = DOMDocumentFactory::fromFile('tests/resources/xml/domdocument_not_normalized.xml');
         $normalizedDoc = DOMDocumentFactory::normalizeDocument($notNormalized);
 
-        $this->assertEquals(
-            $normalized->saveXml($normalized),
-            $normalizedDoc->saveXml($normalizedDoc),
+        $normalizedRoot = $normalized->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $normalizedRoot);
+
+        $normalizedDocRoot = $normalizedDoc->documentElement;
+        $this->assertInstanceOf(\Dom\Element::class, $normalizedDocRoot);
+
+        $this->assertSame(
+            $normalizedRoot->C14N(),
+            $normalizedDocRoot->C14N(),
         );
     }
 }

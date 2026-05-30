@@ -88,10 +88,11 @@ final class AnnotationTest extends TestCase
             [self::$testContainer->getXMLAttribute(3)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($annotation),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($annotation);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
 
         $this->assertFalse($annotation->isEmptyElement());
     }

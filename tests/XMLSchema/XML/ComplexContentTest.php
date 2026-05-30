@@ -142,10 +142,11 @@ final class ComplexContentTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($complexContent),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($complexContent);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
 
         $this->assertFalse($complexContent->isEmptyElement());
     }

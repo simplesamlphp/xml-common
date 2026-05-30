@@ -132,11 +132,12 @@ final class UniqueTest extends TestCase
             [self::$testContainer->getXMLAttribute(3)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($unique),
-        );
-
         $this->assertFalse($unique->isEmptyElement());
+
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($unique);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

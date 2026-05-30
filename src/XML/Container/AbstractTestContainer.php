@@ -31,5 +31,9 @@ abstract class AbstractTestContainer implements TestContainerInterface
     abstract public function getXMLAttribute(int $x = 1): XMLAttribute;
 
 
+    /**
+     * @param non-empty-string $text
+     * @return \Dom\NodeList<\Dom\Node>
+     */
     abstract public function getDOMText(string $text): Dom\NodeList;
 }

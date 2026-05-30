@@ -102,9 +102,10 @@ final class MaxInclusiveTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($maxInclusive),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($maxInclusive);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

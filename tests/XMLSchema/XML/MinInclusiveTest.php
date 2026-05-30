@@ -102,9 +102,10 @@ final class MinInclusiveTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($minInclusive),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($minInclusive);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

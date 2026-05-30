@@ -102,9 +102,10 @@ final class ReferencedGroupTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($referencedGroup),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($referencedGroup);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

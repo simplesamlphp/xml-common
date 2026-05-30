@@ -104,9 +104,10 @@ final class MaxLengthTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($MaxLength),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($MaxLength);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

@@ -161,9 +161,10 @@ final class NarrowMaxMinElementTest extends TestCase
             namespacedAttributes: [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($narrowMaxMinElement),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($narrowMaxMinElement);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

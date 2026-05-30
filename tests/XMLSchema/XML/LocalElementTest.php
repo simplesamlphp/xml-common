@@ -159,10 +159,11 @@ final class LocalElementTest extends TestCase
             namespacedAttributes: [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($localElement),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($localElement);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
 
         $this->assertFalse($localElement->isEmptyElement());
     }
