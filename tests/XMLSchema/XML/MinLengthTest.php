@@ -104,9 +104,10 @@ final class MinLengthTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($minLength),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($minLength);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

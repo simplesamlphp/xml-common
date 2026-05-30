@@ -107,9 +107,10 @@ final class SimpleSequenceTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($sequence),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($sequence);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

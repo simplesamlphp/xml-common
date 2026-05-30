@@ -134,9 +134,10 @@ final class ComplexRestrictionTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($complexRestriction),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($complexRestriction);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

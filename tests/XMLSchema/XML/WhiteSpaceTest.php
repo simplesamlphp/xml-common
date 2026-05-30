@@ -103,9 +103,10 @@ final class WhiteSpaceTest extends TestCase
             [self::$testContainer->getXMLAttribute(4)],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
-            strval($whiteSpace),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($whiteSpace);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }
