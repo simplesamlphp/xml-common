@@ -32,7 +32,7 @@ final class TypedTextContentTraitTest extends TestCase
     {
         $file = 'tests/resources/xml/ssp_StringElement.xml';
         $doc = DOMDocumentFactory::fromFile($file);
-        /** @var \DOMElement $elt */
+        /** @var \Dom\Element $elt */
         $elt = $doc->documentElement;
 
         $stringElt = StringElement::fromXML($elt);
@@ -44,7 +44,7 @@ final class TypedTextContentTraitTest extends TestCase
     {
         $file = 'tests/resources/xml/ssp_BooleanElement.xml';
         $doc = DOMDocumentFactory::fromFile($file);
-        /** @var \DOMElement $elt */
+        /** @var \Dom\Element $elt */
         $elt = $doc->documentElement;
 
         $stringElt = BooleanElement::fromXML($elt);
@@ -55,7 +55,7 @@ final class TypedTextContentTraitTest extends TestCase
     {
         $file = 'tests/resources/xml/ssp_BooleanElement.xml';
         $doc = DOMDocumentFactory::fromFile($file);
-        /** @var \DOMElement $elt */
+        /** @var \Dom\Element $elt */
         $elt = $doc->documentElement;
         $elt->textContent = 'not-a-boolean';
 
@@ -69,7 +69,7 @@ final class TypedTextContentTraitTest extends TestCase
         // Base64Binary has a TEXTCONTENT_TYPE that makes no sense
         $file = 'tests/resources/xml/ssp_Base64BinaryElement.xml';
         $doc = DOMDocumentFactory::fromFile($file);
-        /** @var \DOMElement $elt */
+        /** @var \Dom\Element $elt */
         $elt = $doc->documentElement;
 
         $this->expectException(InvalidValueTypeException::class);

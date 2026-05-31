@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use Dom;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Chunk;
@@ -28,8 +29,6 @@ final class ChunkTest extends TestCase
     use SerializableElementTestTrait;
 
 
-    /**
-     */
     public static function setUpBeforeClass(): void
     {
         self::$testedClass = Chunk::class;
@@ -40,27 +39,45 @@ final class ChunkTest extends TestCase
     }
 
 
-    /**
-     */
     public function testMarshalling(): void
     {
-        /** @var \DOMElement $xml */
         $xml = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $xml);
+
         $chunk = new Chunk($xml);
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($chunk),
+        $representationRoot = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $representationRoot);
+
+        $expectedXml = self::$xmlRepresentation->saveXml($representationRoot);
+        $this->assertNotSame('', $expectedXml);
+        /** @var non-empty-string $expectedXml */
+
+        $actualXml = strval($chunk);
+        $this->assertNotSame('', $actualXml);
+        /** @var non-empty-string $actualXml */
+
+        $expectedDoc = DOMDocumentFactory::fromString($expectedXml);
+        $actualDoc = DOMDocumentFactory::fromString($actualXml);
+
+        $expectedRoot = $expectedDoc->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $expectedRoot);
+
+        $actualRoot = $actualDoc->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $actualRoot);
+
+        $this->assertSame(
+            $expectedRoot->C14N(),
+            $actualRoot->C14N(),
         );
     }
 
 
-    /**
-     */
     public function testUnmarshalling(): void
     {
-        /** @var \DOMElement $xml */
         $xml = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $xml);
+
         $chunk = new Chunk($xml);
 
         $this->assertEquals($chunk->getLocalName(), 'Element');

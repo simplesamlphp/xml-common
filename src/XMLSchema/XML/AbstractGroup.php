@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Type\IDValue;
@@ -91,10 +91,10 @@ abstract class AbstractGroup extends AbstractAnnotated
     /**
      * Add this Group to an XML element.
      *
-     * @param \DOMElement|null $parent The element we should append this Group to.
-     * @return \DOMElement
+     * @param \Dom\Element|null $parent The element we should append this Group to.
+     * @return \Dom\Element
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::toXML($parent);
 

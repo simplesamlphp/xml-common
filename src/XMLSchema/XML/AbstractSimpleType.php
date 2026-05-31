@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\Schema\SimpleDerivationSetValue;
@@ -83,10 +83,10 @@ abstract class AbstractSimpleType extends AbstractAnnotated
     /**
      * Add this SimpleType to an XML element.
      *
-     * @param \DOMElement|null $parent The element we should append this SimpleType to.
-     * @return \DOMElement
+     * @param \Dom\Element|null $parent The element we should append this SimpleType to.
+     * @return \Dom\Element
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::toXML($parent);
 

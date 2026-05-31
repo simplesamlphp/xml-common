@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\TestUtils;
 
-use DOMDocument;
-use PHPUnit\Framework\Attributes\Depends;
+use Dom;
+use SimpleSAML\XML\DOMDocumentFactory;
 
 use function class_exists;
+use function strval;
 
 /**
  * Test for Serializable XML classes to perform default serialization tests.
@@ -20,8 +21,8 @@ trait SerializableElementTestTrait
     /** @var class-string */
     protected static string $testedClass;
 
-    /** @var \DOMDocument */
-    protected static DOMDocument $xmlRepresentation;
+    /** @var \Dom\XMLDocument */
+    protected static Dom\XMLDocument $xmlRepresentation;
 
 
     /**
@@ -48,8 +49,8 @@ trait SerializableElementTestTrait
         } else {
             $elt = self::$testedClass::fromXML(self::$xmlRepresentation->documentElement);
 
-            $this->assertEquals(
-                self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+            $this->assertXmlStringEquals(
+                self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
                 strval($elt),
             );
         }
@@ -59,8 +60,6 @@ trait SerializableElementTestTrait
     /**
      * Test serialization / unserialization.
      */
-    #[Depends('testMarshalling')]
-    #[Depends('testUnmarshalling')]
     public function testSerialization(): void
     {
         if (!class_exists(self::$testedClass)) {
@@ -74,10 +73,25 @@ trait SerializableElementTestTrait
                 . ':$xmlRepresentation to a DOMDocument representing the XML-class being tested',
             );
         } else {
-            $this->assertEquals(
-                self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+            $this->assertXmlStringEquals(
+                self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement),
                 strval(unserialize(serialize(self::$testedClass::fromXML(self::$xmlRepresentation->documentElement)))),
             );
         }
+    }
+
+
+    private function assertXmlStringEquals(string $expectedXml, string $actualXml): void
+    {
+        $expectedDoc = DOMDocumentFactory::fromString($expectedXml);
+        $actualDoc = DOMDocumentFactory::fromString($actualXml);
+
+        $this->assertNotNull($expectedDoc->documentElement);
+        $this->assertNotNull($actualDoc->documentElement);
+
+        $this->assertEquals(
+            $expectedDoc->documentElement->C14N(),
+            $actualDoc->documentElement->C14N(),
+        );
     }
 }

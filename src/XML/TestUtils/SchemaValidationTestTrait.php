@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\TestUtils;
 
-use DOMDocument;
-use PHPUnit\Framework\Attributes\Depends;
+use Dom;
 use SimpleSAML\XML\DOMDocumentFactory;
 
 use function class_exists;
@@ -24,14 +23,13 @@ trait SchemaValidationTestTrait
     /** @var class-string */
     protected static string $testedClass;
 
-    /** @var \DOMDocument */
-    protected static DOMDocument $xmlRepresentation;
+    /** @var \Dom\XMLDocument */
+    protected static Dom\XMLDocument $xmlRepresentation;
 
 
     /**
      * Test schema validation.
      */
-    #[Depends('testSerialization')]
     public function testSchemaValidation(): void
     {
         if (!class_exists(self::$testedClass)) {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\DOMDocumentFactory;
 
 use function array_pop;
@@ -32,19 +32,22 @@ trait SerializableElementTrait
     {
         $xml = $this->toXML();
 
-        $xmlString = $xml->ownerDocument->saveXML();
+        /** @var \Dom\XMLDocument $ownerDocument */
+        $ownerDocument = $xml->ownerDocument;
+        $xmlString = $ownerDocument->saveXml($ownerDocument->documentElement);
 
         $doc = DOMDocumentFactory::fromString($xmlString);
         $doc->formatOutput = $this->formatOutput;
 
         if (static::getNormalization() === true) {
+            /** @var \Dom\XMLDocument $normalized */
             $normalized = DOMDocumentFactory::normalizeDocument($doc);
-            $normalized->normalizeDocument();
-            return $normalized->saveXML($normalized->firstChild);
+            $normalized->normalize();
+            return $normalized->saveXml($normalized->firstChild);
         }
 
-        $doc->normalizeDocument();
-        return $doc->saveXML($doc->firstChild);
+        $doc->normalize();
+        return $doc->saveXml($doc->firstChild);
     }
 
 
@@ -58,7 +61,9 @@ trait SerializableElementTrait
     public function __serialize(): array
     {
         $xml = $this->toXML();
-        return [$xml->ownerDocument->saveXML($xml)];
+        /** @var \Dom\XMLDocument $ownerDocument */
+        $ownerDocument = $xml->ownerDocument;
+        return [$ownerDocument->saveXml($xml)];
     }
 
 
@@ -86,7 +91,7 @@ trait SerializableElementTrait
     /**
      * Create XML from this class
      *
-     * @param \DOMElement|null $parent
+     * @param \Dom\Element|null $parent
      */
-    abstract public function toXML(?DOMElement $parent = null): DOMElement;
+    abstract public function toXML(?Dom\Element $parent = null): Dom\Element;
 }

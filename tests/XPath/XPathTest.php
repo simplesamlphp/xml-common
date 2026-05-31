@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XPath;
 
-use DOMDocument;
-use DOMElement;
-use DOMText;
+use Dom;
+use Error;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XPath\XPath;
-use Throwable;
 
 use function libxml_clear_errors;
 use function libxml_use_internal_errors;
@@ -26,8 +25,7 @@ final class XPathTest extends TestCase
     public function testGetXPathCachesPerDocumentAndRegistersCoreNamespaces(): void
     {
         // Doc A with an xml:space attribute to validate 'xml' prefix usage works
-        $docA = new DOMDocument();
-        $docA->loadXML(<<<'XML'
+        $docA = DOMDocumentFactory::fromString(<<<'XML'
 <?xml version="1.0" encoding="UTF-8"?>
 <root xml:space="preserve" xmlns:xml="http://www.w3.org/XML/1998/namespace">
   <child>value</child>
@@ -35,8 +33,7 @@ final class XPathTest extends TestCase
 XML);
 
         // Doc B is different
-        $docB = new DOMDocument();
-        $docB->loadXML(<<<'XML'
+        $docB = DOMDocumentFactory::fromString(<<<'XML'
 <?xml version="1.0" encoding="UTF-8"?>
 <another><node/></another>
 XML);
@@ -52,7 +49,7 @@ XML);
 
         // 'xml' prefix registered: query should be valid and return xml:space attribute
         $rootA = $docA->documentElement;
-        $this->assertInstanceOf(DOMElement::class, $rootA);
+        $this->assertInstanceOf(Dom\Element::class, $rootA);
         $attrs = XPath::xpQuery($rootA, '@xml:space', $xpA1);
         $this->assertCount(1, $attrs);
         $this->assertSame('preserve', $attrs[0]->nodeValue);
@@ -72,12 +69,11 @@ XML);
   </a>
 </r>
 XML;
-        $doc = new DOMDocument();
-        $doc->loadXML($xml);
+        $doc = DOMDocumentFactory::fromString($xml);
 
         // Use a deep context node to ensure ancestor-walk picks up xmlns:foo from root
         $context = $doc->getElementsByTagName('b')->item(0);
-        $this->assertInstanceOf(\DOMElement::class, $context);
+        $this->assertInstanceOf(Dom\Element::class, $context);
 
         $xp = XPath::getXPath($context);
 
@@ -89,18 +85,17 @@ XML;
 
     public function testXpQueryThrowsOnMalformedExpression(): void
     {
-        $doc = new DOMDocument();
-        $doc->loadXML('<root><x/></root>');
+        $doc = DOMDocumentFactory::fromString('<root><x/></root>');
         $xp = XPath::getXPath($doc);
 
         // If xpQuery throws a specific exception, put that class here instead of Throwable.
-        $this->expectException(Throwable::class);
+        $this->expectException(Error::class);
         // Keep message assertion resilient to libxml version differences.
-        $this->expectExceptionMessageMatches('/(XPath|expression).*invalid|malformed|error/i');
+        $this->expectExceptionMessage('Could not evaluate XPath expression');
 
         // Malformed XPath: missing closing bracket
         $root = $doc->documentElement;
-        $this->assertInstanceOf(DOMElement::class, $root);
+        $this->assertInstanceOf(Dom\Element::class, $root);
 
         // Avoid emitting a PHP warning; let xpQuery surface it as an exception.
         libxml_use_internal_errors(true);
@@ -129,11 +124,10 @@ XML;
 </root>
 XML;
 
-        $doc = new DOMDocument();
-        $doc->loadXML($xml);
+        $doc = DOMDocumentFactory::fromString($xml);
 
         $context = $doc->getElementsByTagName('ctx')->item(0);
-        $this->assertInstanceOf(DOMElement::class, $context);
+        $this->assertInstanceOf(Dom\Element::class, $context);
 
         $xp = XPath::getXPath($context);
 
@@ -152,14 +146,13 @@ XML;
   <a><foo:item>ok</foo:item></a>
 </r>
 XML;
-        $doc = new DOMDocument();
-        $doc->loadXML($xml);
+        $doc = DOMDocumentFactory::fromString($xml);
 
         $item = $doc->getElementsByTagNameNS('https://example.org/foo', 'item')->item(0);
-        $this->assertInstanceOf(DOMElement::class, $item);
+        $this->assertInstanceOf(Dom\Element::class, $item);
 
-        $text = $item->firstChild; // DOMText node inside <foo:item>
-        $this->assertInstanceOf(DOMText::class, $text);
+        $text = $item->firstChild; // Dom\Text node inside <foo:item>
+        $this->assertInstanceOf(Dom\Text::class, $text);
 
         // getXPath should handle a non-element node, normalize to the nearest element ancestor,
         // and register the 'foo' namespace so a prefixed query works.
@@ -179,24 +172,23 @@ XML;
   <bar:elt bar:attr="v"><x/></bar:elt>
 </root>
 XML;
-        $doc = new DOMDocument();
-        $doc->loadXML($xml);
+        $doc = DOMDocumentFactory::fromString($xml);
 
         $elt = $doc->getElementsByTagNameNS('urn:bar', 'elt')->item(0);
-        $this->assertInstanceOf(\DOMElement::class, $elt);
+        $this->assertInstanceOf(Dom\Element::class, $elt);
 
         $attr = $elt->getAttributeNodeNS('urn:bar', 'attr');
-        /** @var \DOMAttr $attr */
+        /** @var \Dom\Attr $attr */
 
-        // getXPath should normalize from DOMAttr to the element and ensure 'bar' is registered.
+        // getXPath should normalize from \Dom\Attr to the element and ensure 'bar' is registered.
         $xp = XPath::getXPath($attr);
 
         $nodes = XPath::xpQuery($attr, 'ancestor::bar:elt', $xp);
         $this->assertCount(1, $nodes);
 
         // Ensure we have an element before calling element-only methods.
-        $this->assertInstanceOf(\DOMElement::class, $nodes[0]);
-        /** @var \DOMElement $el */
+        $this->assertInstanceOf(Dom\Element::class, $nodes[0]);
+        /** @var \Dom\Element $el */
         $el = $nodes[0];
         $this->assertSame('v', $el->getAttributeNS('urn:bar', 'attr'));
     }
@@ -212,20 +204,19 @@ XML;
   <a><b>t</b></a>
 </root>
 XML;
-        $doc = new DOMDocument();
-        $doc->loadXML($xml);
+        $doc = DOMDocumentFactory::fromString($xml);
 
         $context = $doc->documentElement?->getElementsByTagName('b')->item(0);
-        $this->assertInstanceOf(\DOMElement::class, $context);
+        $this->assertInstanceOf(Dom\Element::class, $context);
 
         $xp = XPath::getXPath($context);
 
         // Using 'xmlns' as a prefix should fail because the code skips binding it.
         libxml_use_internal_errors(true);
         try {
-            $this->expectException(\Throwable::class);
+            $this->expectException(Error::class);
             // The XPath helper wraps libxml errors into a generic message:
-            $this->expectExceptionMessage('Malformed XPath query or invalid contextNode provided.');
+            $this->expectExceptionMessage('Could not evaluate XPath expression');
             XPath::xpQuery($context, 'xmlns:b', $xp);
         } finally {
             $errors = libxml_get_errors();
@@ -248,15 +239,14 @@ XML;
         // Attempting to use the 'empty' prefix should fail because it wasn't registered.
         libxml_use_internal_errors(true);
         try {
-            $doc = new DOMDocument();
-            $doc->loadXML($xml);
+            $doc = DOMDocumentFactory::fromString($xml);
             $context = $doc->getElementsByTagName('child')->item(0);
-            $this->assertInstanceOf(\DOMElement::class, $context);
+            $this->assertInstanceOf(Dom\Element::class, $context);
 
             $xp = XPath::getXPath($context);
-            $this->expectException(\Throwable::class);
+            $this->expectException(Error::class);
             // The XPath helper wraps libxml errors into a generic message:
-            $this->expectExceptionMessage('Malformed XPath query or invalid contextNode provided.');
+            $this->expectExceptionMessage('Could not evaluate XPath expression');
             XPath::xpQuery($context, 'empty:whatever', $xp);
         } finally {
             $errors = libxml_get_errors();
@@ -271,18 +261,19 @@ XML;
     public function testXmlnsPrefixedDeclarationRegistersNamespaceViaAttributeBranch(): void
     {
         // Build DOM programmatically to ensure xmlns:foo exists as attribute.
-        $doc = new DOMDocument('1.0', 'UTF-8');
+        $doc = DOMDocumentFactory::create();
         $root = $doc->createElement('root');
         $doc->appendChild($root);
 
         // Add xmlns:foo on the root (attribute-branch should detect and register)
-        $root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:foo', 'https://example.org/foo');
+        $root->setAttributeNS(C::NS_XMLNS, 'xmlns:foo', 'https://example.org/foo');
 
         // Deep subtree that uses foo prefix but the context node itself is unprefixed
         $ctx = $doc->createElement('ctx');
         $root->appendChild($ctx);
 
-        $fooItem = $doc->createElementNS('https://example.org/foo', 'foo:item', 'ok');
+        $fooItem = $doc->createElementNS('https://example.org/foo', 'foo:item');
+        $fooItem->textContent = 'ok';
         $ctx->appendChild($fooItem);
 
         // Use the unprefixed context to ensure ancestor-walk is required.
@@ -328,10 +319,13 @@ XML;
         ];
     }
 
+
     /**
      * Ensure that absolute XPath '/foo:serviceResponse/foo:authenticationSuccess/slate:person'
      * finds the same top-level slate:person regardless of whether it appears before or after
      * cas:attributes in the document, even when the slate prefix is only declared on the element itself.
+     *
+     * @param non-empty-string $filePath
      */
     #[DataProvider('xmlVariantsProviderForTopLevelSlatePerson')]
     public function testAbsoluteXPathFindsTopLevelSlatePerson(
@@ -342,7 +336,7 @@ XML;
         $doc = DOMDocumentFactory::fromFile($filePath);
 
         $fooNs = 'https://example.org/foo';
-        /** @var \DOMElement|null $attributesNode */
+        /** @var \Dom\Element|null $attributesNode */
         $attributesNode = $doc->getElementsByTagNameNS($fooNs, 'attributes')->item(0);
         $this->assertNotNull($attributesNode, 'Attributes element not found');
 
@@ -352,8 +346,8 @@ XML;
         if ($shouldFail) {
             libxml_use_internal_errors(true);
             try {
-                $this->expectException(\SimpleSAML\Assert\AssertionFailedException::class);
-                $this->expectExceptionMessage('Malformed XPath query or invalid contextNode provided.');
+                $this->expectException(Error::class);
+                $this->expectExceptionMessage('Could not evaluate XPath expression');
                 XPath::xpQuery($attributesNode, $query, $xp);
             } finally {
                 $errors = libxml_get_errors();
@@ -367,20 +361,19 @@ XML;
 
         $nodes = XPath::xpQuery($attributesNode, $query, $xp);
         $this->assertCount(1, $nodes);
-        $this->assertSame('12345_top', trim($nodes[0]->textContent));
+        $this->assertSame('12345_top', trim((string)$nodes[0]->textContent));
     }
 
 
     public function testFindElementFindsDirectChildUnprefixed(): void
     {
-        $doc = new DOMDocument();
-        $doc->loadXML('<root><target>t</target><other/></root>');
+        $doc = DOMDocumentFactory::fromString('<root><target>t</target><other/></root>');
 
         $root = $doc->documentElement;
-        $this->assertInstanceOf(DOMElement::class, $root);
+        $this->assertInstanceOf(Dom\Element::class, $root);
 
         $found = XPath::findElement($root, 'target');
-        $this->assertInstanceOf(DOMElement::class, $found);
+        $this->assertInstanceOf(Dom\Element::class, $found);
         $this->assertSame('target', $found->localName);
         $this->assertSame('t', $found->textContent);
     }
@@ -394,15 +387,13 @@ XML;
   <foo:item>ok</foo:item>
 </root>
 XML;
-        $doc = new DOMDocument();
-        $doc->loadXML($xml);
-
+        $doc = DOMDocumentFactory::fromString($xml);
         $root = $doc->documentElement;
-        $this->assertInstanceOf(DOMElement::class, $root);
+        $this->assertInstanceOf(Dom\Element::class, $root);
 
         // Namespace is declared on root, so getXPath($doc) used by findElement knows 'foo'
         $found = XPath::findElement($root, 'foo:item');
-        $this->assertInstanceOf(DOMElement::class, $found);
+        $this->assertInstanceOf(Dom\Element::class, $found);
         $this->assertSame('item', $found->localName);
         $this->assertSame('https://example.org/foo', $found->namespaceURI);
         $this->assertSame('ok', $found->textContent);
@@ -412,24 +403,12 @@ XML;
     public function testFindElementReturnsFalseWhenNotFoundAndDoesNotDescend(): void
     {
         // 'target' is a grandchild; findElement should only match direct children via './name'
-        $doc = new DOMDocument();
-        $doc->loadXML('<root><container><target/></container></root>');
+        $doc = DOMDocumentFactory::fromString('<root><container><target/></container></root>');
 
         $root = $doc->documentElement;
-        $this->assertInstanceOf(DOMElement::class, $root);
+        $this->assertInstanceOf(Dom\Element::class, $root);
 
         $found = XPath::findElement($root, 'target');
         $this->assertFalse($found, 'Should return false for non-direct child');
-    }
-
-
-    public function testFindElementThrowsIfNoOwnerDocument(): void
-    {
-        // A standalone DOMElement (not created by a DOMDocument) has no ownerDocument
-        $ref = new \DOMElement('container');
-
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Cannot search, no DOMDocument available');
-        XPath::findElement($ref, 'anything');
     }
 }
