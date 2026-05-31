@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use Dom;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\Helper\ExtendableAttributesElement;
 use SimpleSAML\XML\Attribute;
@@ -47,7 +48,7 @@ final class ExtendableAttributesTest extends TestCase
         );
 
         $representationRoot = self::$xmlRepresentation->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $representationRoot);
+        $this->assertInstanceOf(Dom\Element::class, $representationRoot);
 
         $expectedXml = self::$xmlRepresentation->saveXml($representationRoot);
         $this->assertNotSame('', $expectedXml);
@@ -61,10 +62,10 @@ final class ExtendableAttributesTest extends TestCase
         $actualDoc = DOMDocumentFactory::fromString($actualXml);
 
         $expectedRoot = $expectedDoc->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $expectedRoot);
+        $this->assertInstanceOf(Dom\Element::class, $expectedRoot);
 
         $actualRoot = $actualDoc->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $actualRoot);
+        $this->assertInstanceOf(Dom\Element::class, $actualRoot);
 
         $this->assertEquals(
             $expectedRoot->C14N(),
@@ -89,7 +90,7 @@ final class ExtendableAttributesTest extends TestCase
     public function testGetAttributesNSFromXML(): void
     {
         $element = self::$xmlRepresentation->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $element);
+        $this->assertInstanceOf(Dom\Element::class, $element);
 
         $elt = ExtendableAttributesElement::fromXML($element);
         $attributes = $elt->getAttributesNS();

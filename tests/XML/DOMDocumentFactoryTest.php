@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use Dom;
 use DOMException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
@@ -125,10 +126,10 @@ final class DOMDocumentFactoryTest extends TestCase
         $normalizedDoc = DOMDocumentFactory::normalizeDocument($notNormalized);
 
         $normalizedRoot = $normalized->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $normalizedRoot);
+        $this->assertInstanceOf(Dom\Element::class, $normalizedRoot);
 
         $normalizedDocRoot = $normalizedDoc->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $normalizedDocRoot);
+        $this->assertInstanceOf(Dom\Element::class, $normalizedDocRoot);
 
         $this->assertSame(
             $normalizedRoot->C14N(),

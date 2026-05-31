@@ -1,7 +1,5 @@
 {
     "symbol-whitelist": [
-        "LIBXML_NO_XXE",
-        "PHPUnit\\Framework\\Attributes\\Depends",
-        "PHPUnit\\Framework\\Assert"
+        "LIBXML_NO_XXE"
     ]
 }

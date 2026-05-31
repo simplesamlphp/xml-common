@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use Dom;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Chunk;
@@ -41,12 +42,12 @@ final class ChunkTest extends TestCase
     public function testMarshalling(): void
     {
         $xml = self::$xmlRepresentation->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $xml);
+        $this->assertInstanceOf(Dom\Element::class, $xml);
 
         $chunk = new Chunk($xml);
 
         $representationRoot = self::$xmlRepresentation->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $representationRoot);
+        $this->assertInstanceOf(Dom\Element::class, $representationRoot);
 
         $expectedXml = self::$xmlRepresentation->saveXml($representationRoot);
         $this->assertNotSame('', $expectedXml);
@@ -60,10 +61,10 @@ final class ChunkTest extends TestCase
         $actualDoc = DOMDocumentFactory::fromString($actualXml);
 
         $expectedRoot = $expectedDoc->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $expectedRoot);
+        $this->assertInstanceOf(Dom\Element::class, $expectedRoot);
 
         $actualRoot = $actualDoc->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $actualRoot);
+        $this->assertInstanceOf(Dom\Element::class, $actualRoot);
 
         $this->assertSame(
             $expectedRoot->C14N(),
@@ -75,7 +76,7 @@ final class ChunkTest extends TestCase
     public function testUnmarshalling(): void
     {
         $xml = self::$xmlRepresentation->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $xml);
+        $this->assertInstanceOf(Dom\Element::class, $xml);
 
         $chunk = new Chunk($xml);
 

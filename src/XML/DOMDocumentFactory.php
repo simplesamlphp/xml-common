@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use Dom;
+use DOMException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\Exception\IOException;
@@ -86,7 +87,7 @@ final class DOMDocumentFactory
          * @throws \DOMException
          */
             static function (int $severity, string $message): never {
-                throw new \DOMException($message);
+                throw new DOMException($message);
             },
         );
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use Dom;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\Helper\ExtendableElement;
 use SimpleSAML\XML\Chunk;
@@ -45,10 +46,10 @@ final class ExtendableElementTest extends TestCase
         );
 
         $dummyElement1 = $dummyDocument1->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $dummyElement1);
+        $this->assertInstanceOf(Dom\Element::class, $dummyElement1);
 
         $dummyElement2 = $dummyDocument2->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $dummyElement2);
+        $this->assertInstanceOf(Dom\Element::class, $dummyElement2);
 
         $extendableElement = new ExtendableElement(
             [
@@ -58,7 +59,7 @@ final class ExtendableElementTest extends TestCase
         );
 
         $representationRoot = self::$xmlRepresentation->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $representationRoot);
+        $this->assertInstanceOf(Dom\Element::class, $representationRoot);
 
         $expectedXml = self::$xmlRepresentation->saveXml($representationRoot);
         $this->assertNotSame('', $expectedXml);
@@ -72,10 +73,10 @@ final class ExtendableElementTest extends TestCase
         $actualDoc = DOMDocumentFactory::fromString($actualXml);
 
         $expectedRoot = $expectedDoc->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $expectedRoot);
+        $this->assertInstanceOf(Dom\Element::class, $expectedRoot);
 
         $actualRoot = $actualDoc->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $actualRoot);
+        $this->assertInstanceOf(Dom\Element::class, $actualRoot);
 
         $this->assertEquals(
             $expectedRoot->C14N(),
@@ -97,13 +98,13 @@ final class ExtendableElementTest extends TestCase
         );
 
         $dummyElement1 = $dummyDocument1->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $dummyElement1);
+        $this->assertInstanceOf(Dom\Element::class, $dummyElement1);
 
         $dummyElement2 = $dummyDocument2->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $dummyElement2);
+        $this->assertInstanceOf(Dom\Element::class, $dummyElement2);
 
         $dummyElement3 = $dummyDocument3->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $dummyElement3);
+        $this->assertInstanceOf(Dom\Element::class, $dummyElement3);
 
         $this->expectException(InvalidDOMElementException::class);
         new ExtendableElement(
@@ -119,7 +120,7 @@ final class ExtendableElementTest extends TestCase
     public function testGetChildElementsFromXML(): void
     {
         $element = self::$xmlRepresentation->documentElement;
-        $this->assertInstanceOf(\Dom\Element::class, $element);
+        $this->assertInstanceOf(Dom\Element::class, $element);
 
         $elt = ExtendableElement::fromXML($element);
         /** @var \SimpleSAML\XML\Chunk[] $elements */

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace SimpleSAML\XML\TestUtils;
 
 use Dom;
-use PHPUnit\Framework\Assert;
-use PHPUnit\Framework\Attributes\Depends;
 use SimpleSAML\XML\DOMDocumentFactory;
 
 use function class_exists;
@@ -62,8 +60,6 @@ trait SerializableElementTestTrait
     /**
      * Test serialization / unserialization.
      */
-    #[Depends('testMarshalling')]
-    #[Depends('testUnmarshalling')]
     public function testSerialization(): void
     {
         if (!class_exists(self::$testedClass)) {
@@ -90,10 +86,10 @@ trait SerializableElementTestTrait
         $expectedDoc = DOMDocumentFactory::fromString($expectedXml);
         $actualDoc = DOMDocumentFactory::fromString($actualXml);
 
-        Assert::assertNotNull($expectedDoc->documentElement);
-        Assert::assertNotNull($actualDoc->documentElement);
+        $this->assertNotNull($expectedDoc->documentElement);
+        $this->assertNotNull($actualDoc->documentElement);
 
-        Assert::assertSame(
+        $this->assertEquals(
             $expectedDoc->documentElement->C14N(),
             $actualDoc->documentElement->C14N(),
         );
