@@ -98,19 +98,16 @@ final class Attribute implements ArrayizableElementInterface
      */
     public function toXML(Dom\Element $parent): Dom\Element
     {
-        if ($this->getNamespaceURI() !== null && !$parent->lookupPrefix($this->getNamespacePrefix())) {
-            $parent->setAttributeNS(
-                C::NS_XMLNS,
-                'xmlns:' . $this->getNamespacePrefix(),
-                $this->getNamespaceURI(),
-            );
+        $prefix = $this->getNamespacePrefix();
+        $namespaceURI = $this->getNamespaceURI();
+
+        if ($namespaceURI !== null && !in_array($prefix, ['xml', 'xmlns']) && !$parent->lookupPrefix($prefix)) {
+            $parent->setAttributeNS(C::NS_XMLNS, 'xmlns:' . $prefix, $namespaceURI);
         }
 
         $parent->setAttributeNS(
-            $this->getNamespaceURI(),
-            !in_array($this->getNamespacePrefix(), ['', null])
-                ? ($this->getNamespacePrefix() . ':' . $this->getAttrName())
-                : $this->getAttrName(),
+            $namespaceURI,
+            !in_array($prefix, ['', null]) ? ($prefix . ':' . $this->getAttrName()) : $this->getAttrName(),
             strval($this->getAttrValue()),
         );
 
