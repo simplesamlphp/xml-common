@@ -9,6 +9,7 @@ use Error;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XPath\XPath;
 
@@ -265,7 +266,7 @@ XML;
         $doc->appendChild($root);
 
         // Add xmlns:foo on the root (attribute-branch should detect and register)
-        $root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:foo', 'https://example.org/foo');
+        $root->setAttributeNS(C::NS_XMLNS, 'xmlns:foo', 'https://example.org/foo');
 
         // Deep subtree that uses foo prefix but the context node itself is unprefixed
         $ctx = $doc->createElement('ctx');

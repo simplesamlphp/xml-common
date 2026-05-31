@@ -6,6 +6,7 @@ namespace SimpleSAML\XML;
 
 use Dom;
 use SimpleSAML\XML\Assert\Assert;
+use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
 use SimpleSAML\XMLSchema\Type\StringValue;
 
@@ -99,7 +100,7 @@ final class Attribute implements ArrayizableElementInterface
     {
         if ($this->getNamespaceURI() !== null && !$parent->lookupPrefix($this->getNamespacePrefix())) {
             $parent->setAttributeNS(
-                'http://www.w3.org/2000/xmlns/',
+                C::NS_XMLNS,
                 'xmlns:' . $this->getNamespacePrefix(),
                 $this->getNamespaceURI(),
             );
