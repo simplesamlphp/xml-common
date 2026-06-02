@@ -6,6 +6,7 @@ namespace SimpleSAML\XML;
 
 use Dom;
 use SimpleSAML\XML\Assert\Assert;
+use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\InvalidValueTypeException;
@@ -100,12 +101,14 @@ trait TypedTextContentTrait
         $e = $this->instantiateParentElement($parent);
 
         if ($this->getTextContentType() === QNameValue::class) {
-            if (!$e->lookupPrefix($this->getContent()->getNamespaceURI()->getValue())) {
-                $e->setAttributeNS(
+            if (!$e->lookupPrefix($this->getContent()->getNamespacePrefix()->getValue())) {
+                $namespace = new XMLAttribute(
                     C::NS_XMLNS,
-                    'xmlns:' . $this->getContent()->getNamespacePrefix()->getValue(),
-                    $this->getContent()->getNamespaceURI()->getValue(),
+                    'xmlns',
+                    $this->getContent()->getNamespacePrefix()->getValue(),
+                    $this->getContent()->getNamespaceURI(),
                 );
+                $namespace->toXML($e);
             }
         }
 
