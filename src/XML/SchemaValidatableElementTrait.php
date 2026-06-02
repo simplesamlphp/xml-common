@@ -51,12 +51,6 @@ trait SchemaValidatableElementTrait
                 throw new \LogicException('Schema validation requires an instance of Dom\\XMLDocument.');
             }
 
-            /**
-             * Validates using a legacy \DOMDocument round-trip (serialize + re-parse) before running schema validation.
-             * This avoids false negatives seen with Dom\Document::schemaValidate(), especially around xs:QName
-             * prefix scope. Validation is performed against the exact serialized XML that would be
-             * exchanged externally.
-             */
             $root = $document->documentElement;
             if ($root === null) {
                 throw new SchemaViolationException('The document has no document element.');
@@ -67,6 +61,14 @@ trait SchemaValidatableElementTrait
                 throw new SchemaViolationException('Could not serialize XML for schema validation.');
             }
 
+            /**
+             * Validates using a legacy \DOMDocument round-trip (serialize + re-parse) before running schema validation.
+             * This avoids false negatives seen with Dom\Document::schemaValidate(), especially around xs:QName
+             * prefix scope. Validation is performed against the exact serialized XML that would be
+             * exchanged externally.
+             * TODO: Revisit when Dom\Document::schemaValidate() reliably handles xs:QName prefix scope
+             *       (avoid legacy \DOMDocument round-trip).
+             */
             $legacy = new \DOMDocument('1.0', 'UTF-8');
             $legacy->preserveWhiteSpace = true;
             $legacy->formatOutput = false;
