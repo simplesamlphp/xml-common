@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\XML;
 
 use Dom;
-use Dom\XMLDocument;
+use LogicException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Exception\IOException;
 use SimpleSAML\XML\Exception\RuntimeException;
@@ -47,8 +47,8 @@ trait SchemaValidatableElementTrait
                 $schemaFile = self::getSchemaFile();
             }
 
-            if (!$document instanceof XMLDocument) {
-                throw new \LogicException('Schema validation requires an instance of Dom\\XMLDocument.');
+            if (!$document instanceof Dom\XMLDocument) {
+                throw new LogicException('Schema validation requires an instance of Dom\\XMLDocument.');
             }
 
             $root = $document->documentElement;
