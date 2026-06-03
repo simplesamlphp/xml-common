@@ -97,7 +97,7 @@ final class DOMDocumentFactory
             restore_error_handler();
         }
 
-        foreach ($domDocument->childNodes as $child) {
+        foreach ($loaded->childNodes as $child) {
             Assert::false(
                 $child->nodeType === \XML_DOCUMENT_TYPE_NODE,
                 'Dangerous XML detected, DOCTYPE nodes are not allowed in the XML body',
@@ -245,7 +245,7 @@ final class DOMDocumentFactory
         }
 
         /** @var \Dom\NamespaceInfo[] $namespaces */
-        $namespaces = $elt->ownerDocument->documentElement->getInScopeNamespaces();
+        $namespaces = $elt->getInScopeNamespaces();
 
         foreach ($namespaces as $ns) {
             if ($ns->prefix === $prefix) {
