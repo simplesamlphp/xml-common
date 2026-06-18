@@ -23,7 +23,7 @@ class XPathValue extends StringValue
     {
         $dom = new Dom\XPath(DOMDocumentFactory::create());
 
-        $result = $dom->evaluate($content);
-        Assert::isInstanceOf($result, Dom\NodeList::class);
+        $result = @$dom->evaluate($content);
+        Assert::isInstanceOf($result, Dom\NodeList::class, \RuntimeException::class);
     }
 }
