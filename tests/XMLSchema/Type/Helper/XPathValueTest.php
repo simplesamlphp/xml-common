@@ -35,7 +35,7 @@ final class XPathValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: string, 1: string}>
+     * @return array<string, array{0: bool, 1: string}>
      */
     public static function provideXPath(): array
     {
