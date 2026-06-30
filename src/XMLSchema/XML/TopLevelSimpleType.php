@@ -16,8 +16,8 @@ use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\Schema\SimpleDerivationSetValue;
 use SimpleSAML\XMLSchema\XML\Interface\RedefinableInterface;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the abstract simpleType.
@@ -63,7 +63,7 @@ final class TopLevelSimpleType extends AbstractTopLevelSimpleType implements
             $derivation[0],
             self::getAttribute($xml, 'name', NCNameValue::class),
             self::getOptionalAttribute($xml, 'final', SimpleDerivationSetValue::class, null),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

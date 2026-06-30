@@ -15,7 +15,7 @@ use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\XML\Interface\NestedParticleInterface;
 use SimpleSAML\XMLSchema\XML\Interface\TypeDefParticleInterface;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Class representing the group-element.
@@ -52,7 +52,7 @@ final class ReferencedGroup extends AbstractReferencedGroup implements
 
         return new static(
             reference: self::getAttribute($xml, 'ref', QNameValue::class),
-            annotation: array_pop($annotation),
+            annotation: array_last($annotation),
             id: self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             namespacedAttributes: self::getAttributesNSFromXML($xml),
         );

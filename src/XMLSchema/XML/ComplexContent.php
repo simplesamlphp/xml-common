@@ -13,6 +13,7 @@ use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\BooleanValue;
 use SimpleSAML\XMLSchema\Type\IDValue;
 
+use function array_last;
 use function array_merge;
 use function strval;
 
@@ -111,7 +112,7 @@ final class ComplexContent extends AbstractAnnotated implements SchemaValidatabl
         return new static(
             $content[0],
             self::getOptionalAttribute($xml, 'mixed', BooleanValue::class, null),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

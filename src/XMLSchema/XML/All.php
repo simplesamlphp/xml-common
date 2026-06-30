@@ -19,7 +19,7 @@ use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
 use SimpleSAML\XMLSchema\XML\Interface\ParticleInterface;
 use SimpleSAML\XMLSchema\XML\Interface\TypeDefParticleInterface;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Class representing the all-element.
@@ -69,7 +69,7 @@ final class All extends AbstractAll implements
             self::getOptionalAttribute($xml, 'minCount', MinOccursValue::class, null),
             self::getOptionalAttribute($xml, 'maxCount', MaxOccursValue::class, null),
             $narrowMaxMin,
-            annotation: array_pop($annotation),
+            annotation: array_last($annotation),
             id: self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             namespacedAttributes: self::getAttributesNSFromXML($xml),
         );

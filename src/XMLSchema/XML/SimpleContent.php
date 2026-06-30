@@ -12,6 +12,7 @@ use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\IDValue;
 
+use function array_last;
 use function array_merge;
 
 /**
@@ -95,7 +96,7 @@ final class SimpleContent extends AbstractAnnotated implements SchemaValidatable
 
         return new static(
             $content[0],
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

@@ -15,6 +15,7 @@ use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\XML\Interface\SimpleDerivationInterface;
 use SimpleSAML\XMLSchema\XML\Trait\SimpleRestrictionModelTrait;
 
+use function array_last;
 use function array_merge;
 use function is_null;
 use function strval;
@@ -130,10 +131,10 @@ final class Restriction extends AbstractAnnotated implements
         );
 
         return new static(
-            array_pop($simpleType),
+            array_last($simpleType),
             $facets,
             self::getOptionalAttribute($xml, 'base', QNameValue::class),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

@@ -14,8 +14,8 @@ use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\Schema\DerivationSetValue;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the xs:complexType element.
@@ -90,11 +90,11 @@ final class LocalComplexType extends AbstractLocalComplexType
 
         return new static(
             self::getOptionalAttribute($xml, 'mixed', BooleanValue::class, null),
-            array_pop($content),
-            array_pop($particles),
+            array_last($content),
+            array_last($particles),
             $attributes,
-            array_pop($anyAttribute),
-            array_pop($annotation),
+            array_last($anyAttribute),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

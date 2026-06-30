@@ -13,6 +13,7 @@ use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\AnyURIValue;
 use SimpleSAML\XMLSchema\Type\IDValue;
 
+use function array_last;
 use function strval;
 
 /**
@@ -76,7 +77,7 @@ final class XsInclude extends AbstractAnnotated implements SchemaValidatableElem
 
         return new static(
             self::getAttribute($xml, 'schemaLocation', AnyURIValue::class),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

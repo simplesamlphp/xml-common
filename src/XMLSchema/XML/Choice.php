@@ -19,8 +19,8 @@ use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
 use SimpleSAML\XMLSchema\XML\Interface\NestedParticleInterface;
 use SimpleSAML\XMLSchema\XML\Interface\TypeDefParticleInterface;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the choice-element.
@@ -74,7 +74,7 @@ final class Choice extends AbstractExplicitGroup implements
             self::getOptionalAttribute($xml, 'minOccurs', MinOccursValue::class, null),
             self::getOptionalAttribute($xml, 'maxOccurs', MaxOccursValue::class, null),
             $particles,
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

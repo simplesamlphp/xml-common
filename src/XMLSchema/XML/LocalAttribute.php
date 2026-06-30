@@ -15,7 +15,7 @@ use SimpleSAML\XMLSchema\Type\Schema\FormChoiceValue;
 use SimpleSAML\XMLSchema\Type\Schema\UseValue;
 use SimpleSAML\XMLSchema\Type\StringValue;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Class representing the attribute-element.
@@ -55,8 +55,8 @@ final class LocalAttribute extends AbstractAttribute
             self::getOptionalAttribute($xml, 'default', StringValue::class, null),
             self::getOptionalAttribute($xml, 'fixed', StringValue::class, null),
             self::getOptionalAttribute($xml, 'form', FormChoiceValue::class, null),
-            array_pop($simpleType),
-            array_pop($annotation),
+            array_last($simpleType),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

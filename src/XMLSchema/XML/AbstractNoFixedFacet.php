@@ -12,7 +12,7 @@ use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
 use SimpleSAML\XMLSchema\Type\StringValue;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Abstract class representing the facet-type.
@@ -58,7 +58,7 @@ abstract class AbstractNoFixedFacet extends AbstractFacet
 
         return new static(
             self::getAttribute($xml, 'value', StringValue::class),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

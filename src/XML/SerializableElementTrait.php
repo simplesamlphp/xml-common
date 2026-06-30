@@ -7,7 +7,7 @@ namespace SimpleSAML\XML;
 use Dom;
 use SimpleSAML\XML\DOMDocumentFactory;
 
-use function array_pop;
+use function array_last;
 use function get_object_vars;
 
 /**
@@ -78,7 +78,7 @@ trait SerializableElementTrait
     public function __unserialize(array $serialized): void
     {
         $xml = static::fromXML(
-            DOMDocumentFactory::fromString(array_pop($serialized))->documentElement,
+            DOMDocumentFactory::fromString(array_last($serialized))->documentElement,
         );
 
         $vars = get_object_vars($xml);

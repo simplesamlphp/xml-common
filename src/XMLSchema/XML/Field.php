@@ -14,6 +14,7 @@ use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\StringValue;
 
+use function array_last;
 use function strval;
 
 /**
@@ -91,7 +92,7 @@ final class Field extends AbstractAnnotated implements SchemaValidatableElementI
 
         return new static(
             self::getAttribute($xml, 'xpath', StringValue::class),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

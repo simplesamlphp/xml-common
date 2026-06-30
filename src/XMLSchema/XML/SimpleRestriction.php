@@ -11,8 +11,8 @@ use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the simple version of the xs:restriction.
@@ -81,11 +81,11 @@ final class SimpleRestriction extends AbstractSimpleRestrictionType
 
         return new static(
             self::getAttribute($xml, 'base', QNameValue::class),
-            array_pop($localSimpleType),
+            array_last($localSimpleType),
             $facets,
             $attributes,
-            array_pop($anyAttribute),
-            array_pop($annotation),
+            array_last($anyAttribute),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

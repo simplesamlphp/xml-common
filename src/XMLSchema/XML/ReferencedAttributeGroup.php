@@ -12,7 +12,7 @@ use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Class representing the attributeGroup-element.
@@ -47,7 +47,7 @@ final class ReferencedAttributeGroup extends AbstractReferencedAttributeGroup
 
         return new static(
             self::getAttribute($xml, 'ref', QNameValue::class),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

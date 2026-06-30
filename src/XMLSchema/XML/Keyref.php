@@ -15,6 +15,7 @@ use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\XML\Interface\IdentityConstraintInterface;
 
+use function array_last;
 use function strval;
 
 /**
@@ -92,7 +93,7 @@ final class Keyref extends AbstractKeybase implements IdentityConstraintInterfac
             self::getAttribute($xml, 'name', NCNameValue::class),
             $selector[0],
             $field,
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

@@ -16,8 +16,8 @@ use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\Schema\DerivationSetValue;
 use SimpleSAML\XMLSchema\XML\Interface\RedefinableInterface;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the xs:complexType element.
@@ -88,11 +88,11 @@ final class TopLevelComplexType extends AbstractTopLevelComplexType implements
             self::getOptionalAttribute($xml, 'abstract', BooleanValue::class, null),
             self::getOptionalAttribute($xml, 'final', DerivationSetValue::class, null),
             self::getOptionalAttribute($xml, 'block', DerivationSetValue::class, null),
-            array_pop($content),
-            array_pop($particles),
+            array_last($content),
+            array_last($particles),
             $attributes,
-            array_pop($anyAttribute),
-            array_pop($annotation),
+            array_last($anyAttribute),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

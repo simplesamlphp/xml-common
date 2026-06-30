@@ -19,8 +19,8 @@ use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
 use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\Interface\NestedParticleInterface;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the local element-element.
@@ -74,7 +74,7 @@ final class LocalElement extends AbstractLocalElement implements NestedParticleI
         return new static(
             self::getOptionalAttribute($xml, 'name', NCNameValue::class, null),
             self::getOptionalAttribute($xml, 'ref', QNameValue::class, null),
-            array_pop($localType),
+            array_last($localType),
             $identityConstraint,
             self::getOptionalAttribute($xml, 'type', QNameValue::class, null),
             self::getOptionalAttribute($xml, 'minOccurs', MinOccursValue::class, null),
@@ -84,7 +84,7 @@ final class LocalElement extends AbstractLocalElement implements NestedParticleI
             self::getOptionalAttribute($xml, 'nillable', BooleanValue::class, null),
             self::getOptionalAttribute($xml, 'block', BlockSetValue::class, null),
             self::getOptionalAttribute($xml, 'form', FormChoiceValue::class, null),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

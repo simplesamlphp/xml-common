@@ -15,8 +15,8 @@ use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
 use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the choice-element.
@@ -69,7 +69,7 @@ final class SimpleChoice extends AbstractSimpleExplicitGroup
 
         return new static(
             nestedParticles: $particles,
-            annotation: array_pop($annotation),
+            annotation: array_last($annotation),
             id: self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             namespacedAttributes: self::getAttributesNSFromXML($xml),
         );
