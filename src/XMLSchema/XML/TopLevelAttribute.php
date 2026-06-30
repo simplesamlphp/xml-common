@@ -19,7 +19,7 @@ use SimpleSAML\XMLSchema\Type\Schema\UseValue;
 use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\Interface\SchemaTopInterface;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Class representing the attribute-element.
@@ -71,8 +71,8 @@ final class TopLevelAttribute extends AbstractTopLevelAttribute implements
             self::getOptionalAttribute($xml, 'type', QNameValue::class, null),
             self::getOptionalAttribute($xml, 'default', StringValue::class, null),
             self::getOptionalAttribute($xml, 'fixed', StringValue::class, null),
-            array_pop($simpleType),
-            array_pop($annotation),
+            array_last($simpleType),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

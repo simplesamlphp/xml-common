@@ -16,8 +16,8 @@ use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\XML\Interface\RedefinableInterface;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the attributeGroup-element.
@@ -64,8 +64,8 @@ final class NamedAttributeGroup extends AbstractNamedAttributeGroup implements
         return new static(
             self::getAttribute($xml, 'name', NCNameValue::class),
             $attributes,
-            array_pop($anyAttribute),
-            array_pop($annotation),
+            array_last($anyAttribute),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

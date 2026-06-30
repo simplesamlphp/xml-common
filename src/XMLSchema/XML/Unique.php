@@ -15,7 +15,7 @@ use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\XML\Interface\IdentityConstraintInterface;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Class representing the unique-element.
@@ -79,7 +79,7 @@ final class Unique extends AbstractKeybase implements IdentityConstraintInterfac
             self::getAttribute($xml, 'name', NCNameValue::class),
             $selector[0],
             $field,
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

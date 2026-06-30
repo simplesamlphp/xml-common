@@ -18,7 +18,7 @@ use SimpleSAML\XMLSchema\Type\Schema\ProcessContentsValue;
 use SimpleSAML\XMLSchema\XML\Interface\NestedParticleInterface;
 use SimpleSAML\XMLSchema\XML\Trait\OccursTrait;
 
-use function array_pop;
+use function array_last;
 use function strval;
 
 /**
@@ -97,7 +97,7 @@ final class Any extends AbstractWildcard implements
         return new static(
             self::getOptionalAttribute($xml, 'namespace', NamespaceListValue::class, null),
             self::getOptionalAttribute($xml, 'processContents', ProcessContentsValue::class, null),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
             self::getOptionalAttribute($xml, 'minOccurs', MinOccursValue::class, null),
