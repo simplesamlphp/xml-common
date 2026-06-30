@@ -14,8 +14,8 @@ use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\Schema\SimpleDerivationSetValue;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the abstract simpleType.
@@ -60,7 +60,7 @@ final class LocalSimpleType extends AbstractLocalSimpleType
 
         return new static(
             $derivation[0],
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

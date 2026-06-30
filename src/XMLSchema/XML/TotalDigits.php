@@ -15,7 +15,7 @@ use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\PositiveIntegerValue;
 use SimpleSAML\XMLSchema\XML\Interface\FacetInterface;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Class representing the totalDigits element
@@ -50,7 +50,7 @@ final class TotalDigits extends AbstractNumFacet implements SchemaValidatableEle
         return new static(
             self::getAttribute($xml, 'value', PositiveIntegerValue::class),
             self::getOptionalAttribute($xml, 'fixed', BooleanValue::class, null),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

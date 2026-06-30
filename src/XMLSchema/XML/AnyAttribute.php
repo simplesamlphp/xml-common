@@ -14,7 +14,7 @@ use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\Schema\NamespaceListValue;
 use SimpleSAML\XMLSchema\Type\Schema\ProcessContentsValue;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Class representing the anyAttribute element
@@ -49,7 +49,7 @@ final class AnyAttribute extends AbstractWildcard implements SchemaValidatableEl
         return new static(
             self::getOptionalAttribute($xml, 'namespace', NamespaceListValue::class, null),
             self::getOptionalAttribute($xml, 'processContents', ProcessContentsValue::class, null),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

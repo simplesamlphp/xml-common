@@ -14,6 +14,7 @@ use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\XML\Interface\SimpleDerivationInterface;
 
+use function array_last;
 use function strval;
 
 /**
@@ -114,9 +115,9 @@ final class XsList extends AbstractAnnotated implements
         Assert::maxCount($simpleType, 1, TooManyElementsException::class);
 
         return new static(
-            array_pop($simpleType),
+            array_last($simpleType),
             self::getOptionalAttribute($xml, 'itemType', QNameValue::class),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

@@ -19,8 +19,8 @@ use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\Interface\SimpleDerivationInterface;
 
 use function array_fill;
+use function array_last;
 use function array_map;
-use function array_pop;
 use function implode;
 use function strval;
 
@@ -144,7 +144,7 @@ final class Union extends AbstractAnnotated implements
         return new static(
             LocalSimpleType::getChildrenOfClass($xml),
             $memberTypes,
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

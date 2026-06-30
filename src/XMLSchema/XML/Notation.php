@@ -16,6 +16,7 @@ use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\Schema\PublicValue;
 use SimpleSAML\XMLSchema\XML\Interface\SchemaTopInterface;
 
+use function array_last;
 use function strval;
 
 /**
@@ -133,7 +134,7 @@ final class Notation extends AbstractAnnotated implements
             self::getAttribute($xml, 'name', NCNameValue::class),
             self::getOptionalAttribute($xml, 'public', PublicValue::class, null),
             self::getOptionalAttribute($xml, 'system', AnyURIValue::class, null),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

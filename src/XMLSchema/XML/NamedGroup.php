@@ -18,8 +18,8 @@ use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
 use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
 use SimpleSAML\XMLSchema\XML\Interface\RedefinableInterface;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the group-element.
@@ -78,7 +78,7 @@ final class NamedGroup extends AbstractNamedGroup implements
         return new static(
             $particle[0],
             name: self::getAttribute($xml, 'name', NCNameValue::class),
-            annotation: array_pop($annotation),
+            annotation: array_last($annotation),
             id: self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             namespacedAttributes: self::getAttributesNSFromXML($xml),
         );
