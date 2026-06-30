@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
@@ -72,30 +72,15 @@ final class Selector extends AbstractAnnotated implements SchemaValidatableEleme
 
 
     /**
-     * Add this Selector to an XML element.
-     *
-     * @param \DOMElement|null $parent The element we should append this selector to.
-     * @return \DOMElement
-     */
-    public function toXML(?DOMElement $parent = null): DOMElement
-    {
-        $e = parent::toXML($parent);
-        $e->setAttribute('xpath', strval($this->getXPath()));
-
-        return $e;
-    }
-
-
-    /**
      * Create an instance of this object from its XML representation.
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @return static
      *
      * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -109,5 +94,20 @@ final class Selector extends AbstractAnnotated implements SchemaValidatableEleme
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );
+    }
+
+
+    /**
+     * Add this Selector to an XML element.
+     *
+     * @param \Dom\Element|null $parent The element we should append this selector to.
+     * @return \Dom\Element
+     */
+    public function toXML(?Dom\Element $parent = null): Dom\Element
+    {
+        $e = parent::toXML($parent);
+        $e->setAttribute('xpath', strval($this->getXPath()));
+
+        return $e;
     }
 }

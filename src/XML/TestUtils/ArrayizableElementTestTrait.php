@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML\TestUtils;
 
-use PHPUnit\Framework\Attributes\Depends;
-
 use function class_exists;
 
 /**
@@ -26,7 +24,6 @@ trait ArrayizableElementTestTrait
     /**
      * Test arrayization / de-arrayization
      */
-    #[Depends('testMarshalling')]
     public function testArrayization(): void
     {
         if (!class_exists(self::$testedClass)) {

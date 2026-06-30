@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\SerializableElementTrait;
@@ -57,10 +57,10 @@ final class Chunk implements
     /**
      * Create an XML Chunk from a copy of the given \DOMElement.
      *
-     * @param \DOMElement $xml The element we should copy.
+     * @param \Dom\Element $xml The element we should copy.
      */
     public function __construct(
-        protected DOMElement $xml,
+        protected Dom\Element $xml,
     ) {
         $this->setLocalName($xml->localName);
         $this->setNamespaceURI($xml->namespaceURI);
@@ -132,9 +132,9 @@ final class Chunk implements
 
 
     /**
-     * Get this \DOMElement.
+     * Get this \Dom\Element.
      */
-    public function getXML(): DOMElement
+    public function getXML(): Dom\Element
     {
         return $this->xml;
     }
@@ -180,7 +180,7 @@ final class Chunk implements
      * Get the value of an attribute from a given element.
      *
      * @template T of \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface
-     * @param \DOMElement     $xml The element where we should search for the attribute.
+     * @param \Dom\Element     $xml The element where we should search for the attribute.
      * @param string          $name The name of the attribute.
      * @param class-string<T> $type The type of the attribute value.
      * @return T
@@ -188,7 +188,7 @@ final class Chunk implements
      * @throws \SimpleSAML\XMLSchema\Exception\MissingAttributeException if the attribute is missing from the element
      */
     public static function getAttribute(
-        DOMElement $xml,
+        Dom\Element $xml,
         string $name,
         string $type = StringValue::class,
     ): ValueTypeInterface {
@@ -209,7 +209,7 @@ final class Chunk implements
      * Get the value of an attribute from a given element.
      *
      * @template T of \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface
-     * @param \DOMElement  $xml The element where we should search for the attribute.
+     * @param \Dom\Element  $xml The element where we should search for the attribute.
      * @param string       $name The name of the attribute.
      * @param class-string<T> $type The type of the attribute value.
      * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface|null $default
@@ -217,7 +217,7 @@ final class Chunk implements
      * @return ($default is \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface ? T : T|null)
      */
     public static function getOptionalAttribute(
-        DOMElement $xml,
+        Dom\Element $xml,
         string $name,
         string $type = StringValue::class,
         ?ValueTypeInterface $default = null,
@@ -235,16 +235,16 @@ final class Chunk implements
      */
     public function isEmptyElement(): bool
     {
-        /** @var \DOMElement $xml */
+        /** @var \Dom\Element $xml */
         $xml = $this->getXML();
         return ($xml->childNodes->length === 0) && ($xml->attributes->count() === 0);
     }
 
 
     /**
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         return new static($xml);
     }
@@ -253,10 +253,10 @@ final class Chunk implements
     /**
      * Append this XML element to a different XML element.
      *
-     * @param  \DOMElement|null $parent The element we should append this element to.
-     * @return \DOMElement The new element.
+     * @param  \Dom\Element|null $parent The element we should append this element to.
+     * @return \Dom\Element The new element.
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         if ($parent === null) {
             $doc = DOMDocumentFactory::create();

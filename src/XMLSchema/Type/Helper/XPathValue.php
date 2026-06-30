@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\Type\Helper;
 
-use DOMNodeList;
-use DOMXPath;
+use Dom;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XMLSchema\Type\StringValue;
@@ -22,9 +21,9 @@ class XPathValue extends StringValue
      */
     protected function validateValue(string $content): void
     {
-        $dom = new DOMXPath(DOMDocumentFactory::create());
+        $dom = new Dom\XPath(DOMDocumentFactory::create());
 
-        $result = $dom->evaluate($content);
-        Assert::isInstanceOf($result, DOMNodeList::class);
+        $result = @$dom->evaluate($content);
+        Assert::isInstanceOf($result, Dom\NodeList::class, \RuntimeException::class);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use Dom;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\Helper\ExtendableAttributesElement;
 use SimpleSAML\XML\Attribute;
@@ -27,8 +28,6 @@ final class ExtendableAttributesTest extends TestCase
     use SerializableElementTestTrait;
 
 
-    /**
-     */
     public static function setUpBeforeClass(): void
     {
         self::$testedClass = ExtendableAttributesElement::class;
@@ -39,8 +38,6 @@ final class ExtendableAttributesTest extends TestCase
     }
 
 
-    /**
-     */
     public function testMarshalling(): void
     {
         $extendableElement = new ExtendableAttributesElement(
@@ -50,15 +47,33 @@ final class ExtendableAttributesTest extends TestCase
             ],
         );
 
+        $representationRoot = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $representationRoot);
+
+        $expectedXml = self::$xmlRepresentation->saveXml($representationRoot);
+        $this->assertNotSame('', $expectedXml);
+        /** @var non-empty-string $expectedXml */
+
+        $actualXml = strval($extendableElement);
+        $this->assertNotSame('', $actualXml);
+        /** @var non-empty-string $actualXml */
+
+        $expectedDoc = DOMDocumentFactory::fromString($expectedXml);
+        $actualDoc = DOMDocumentFactory::fromString($actualXml);
+
+        $expectedRoot = $expectedDoc->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $expectedRoot);
+
+        $actualRoot = $actualDoc->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $actualRoot);
+
         $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($extendableElement),
+            $expectedRoot->C14N(),
+            $actualRoot->C14N(),
         );
     }
 
 
-    /**
-     */
     public function testMarshallingWithExcludedAttribute(): void
     {
         $this->expectException(InvalidDOMAttributeException::class);
@@ -72,12 +87,10 @@ final class ExtendableAttributesTest extends TestCase
     }
 
 
-    /**
-     */
     public function testGetAttributesNSFromXML(): void
     {
-        /** @var \DOMElement $element */
         $element = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $element);
 
         $elt = ExtendableAttributesElement::fromXML($element);
         $attributes = $elt->getAttributesNS();

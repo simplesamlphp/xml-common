@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XMLSchema\Type\Builtin;
 
+use Error;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XMLSchema\Type\Helper\XPathValue;
 
 /**
@@ -28,7 +28,7 @@ final class XPathValueTest extends TestCase
         try {
             $value = XPathValue::fromString($xpath);
             $this->assertTrue($shouldPass);
-        } catch (AssertionFailedException $e) {
+        } catch (Error) {
             $this->assertFalse($shouldPass);
         }
     }

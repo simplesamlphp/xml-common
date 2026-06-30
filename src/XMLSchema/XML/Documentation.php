@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
-use DOMNodeList;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\ExtendableAttributesTrait;
@@ -43,13 +42,13 @@ final class Documentation extends AbstractXsElement implements SchemaValidatable
     /**
      * Documentation constructor
      *
-     * @param \DOMNodeList<\DOMNode> $content
+     * @param \Dom\NodeList<\Dom\Node> $content
      * @param \SimpleSAML\XML\Type\LangValue|null $lang
      * @param \SimpleSAML\XMLSchema\Type\AnyURIValue|null $source
      * @param array<\SimpleSAML\XML\Attribute> $namespacedAttributes
      */
     final public function __construct(
-        protected DOMNodeList $content,
+        protected Dom\NodeList $content,
         protected ?LangValue $lang = null,
         protected ?AnyURIValue $source = null,
         array $namespacedAttributes = [],
@@ -62,9 +61,9 @@ final class Documentation extends AbstractXsElement implements SchemaValidatable
     /**
      * Get the content property.
      *
-     * @return \DOMNodeList<\DOMNode>
+     * @return \Dom\NodeList<\Dom\Node>
      */
-    public function getContent(): DOMNodeList
+    public function getContent(): Dom\NodeList
     {
         return $this->content;
     }
@@ -109,13 +108,13 @@ final class Documentation extends AbstractXsElement implements SchemaValidatable
     /**
      * Create an instance of this object from its XML representation.
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @return static
      *
      * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -136,10 +135,10 @@ final class Documentation extends AbstractXsElement implements SchemaValidatable
     /**
      * Add this Documentation to an XML element.
      *
-     * @param \DOMElement|null $parent The element we should append this Documentation to.
-     * @return \DOMElement
+     * @param \Dom\Element|null $parent The element we should append this Documentation to.
+     * @return \Dom\Element
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::instantiateParentElement($parent);
 

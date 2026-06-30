@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
@@ -98,10 +98,10 @@ final class Annotation extends AbstractOpenAttrs implements SchemaValidatableEle
     /**
      * Create a class from XML
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @return static
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -118,10 +118,10 @@ final class Annotation extends AbstractOpenAttrs implements SchemaValidatableEle
     /**
      * Add this Annotation to an XML element.
      *
-     * @param \DOMElement|null $parent The element we should append this Annotation to.
-     * @return \DOMElement
+     * @param \Dom\Element|null $parent The element we should append this Annotation to.
+     * @return \Dom\Element
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::toXML($parent);
 
