@@ -69,28 +69,13 @@ trait SchemaValidatableElementTrait
                 throw new SchemaViolationException('Could not serialize XML root for schema validation.');
             }
 
-            // 1) Legacy validation (authoritative for now)
-            $legacyResult = self::schemaValidateWithLegacyDom($xmlRoot, $schemaFile);
-
-            if ($legacyResult['ok'] === false) {
+            $domResult = self::schemaValidateWithDomDocument($document, $schemaFile);
+            if ($domResult['ok'] === false) {
                 throw new SchemaViolationException(sprintf(
                     "XML schema validation errors:\n - %s",
-                    implode("\n - ", $legacyResult['errors'] ?: ['no libxml errors reported']),
+                    implode("\n - ", $domResult['errors'] ?: ['no libxml errors reported']),
                 ));
             }
-
-            // 2) New validation (temporarily disabled)
-            //
-            // NOTE: Dom\Document::schemaValidate() can produce false negatives in some cases.
-            // See: https://github.com/php/php-src/issues/22219
-            //
-            // $domResult = self::schemaValidateWithDomDocument($document, $schemaFile);
-            // if ($domResult['ok'] === false) {
-            //     throw new SchemaViolationException(sprintf(
-            //         "XML schema validation errors:\n - %s",
-            //         implode("\n - ", $domResult['errors'] ?: ['no libxml errors reported']),
-            //     ));
-            // }
 
             return $document;
         } finally {
