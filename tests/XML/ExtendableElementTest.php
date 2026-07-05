@@ -78,7 +78,7 @@ final class ExtendableElementTest extends TestCase
         $actualRoot = $actualDoc->documentElement;
         $this->assertInstanceOf(Dom\Element::class, $actualRoot);
 
-        $this->assertEquals(
+        $this->assertXmlStringEqualsXmlString(
             $expectedRoot->C14N(),
             $actualRoot->C14N(),
         );

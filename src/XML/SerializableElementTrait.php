@@ -31,23 +31,18 @@ trait SerializableElementTrait
     public function __toString(): string
     {
         $xml = $this->toXML();
-
-        /** @var \Dom\XMLDocument $ownerDocument */
-        $ownerDocument = $xml->ownerDocument;
-        $xmlString = $ownerDocument->saveXml($ownerDocument->documentElement);
-
-        $doc = DOMDocumentFactory::fromString($xmlString);
-        $doc->formatOutput = $this->formatOutput;
+        $doc = $xml->ownerDocument;
 
         if (static::getNormalization() === true) {
-            /** @var \Dom\XMLDocument $normalized */
             $normalized = DOMDocumentFactory::normalizeDocument($doc);
-            $normalized->normalize();
-            return $normalized->saveXml($normalized->firstChild);
+            $normalized->formatOutput = $this->formatOutput;
+            return $normalized->saveXml($normalized->documentElement);
         }
 
-        $doc->normalize();
-        return $doc->saveXml($doc->firstChild);
+        // Non-normalized path
+        $doc->formatOutput = $this->formatOutput;
+        $doc->normalizeDocument();
+        return $doc->saveXml($doc->documentElement);
     }
 
 

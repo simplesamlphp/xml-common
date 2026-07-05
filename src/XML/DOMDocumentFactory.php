@@ -16,7 +16,6 @@ use function file_get_contents;
 use function restore_error_handler;
 use function set_error_handler;
 use function sprintf;
-use function strpos;
 
 /**
  * @package simplesamlphp/xml-common
@@ -168,53 +167,47 @@ final class DOMDocumentFactory
      * @return \Dom\XMLDocument The same document instance, potentially modified. If the document has no root element
      *                          or no namespace declarations to normalize, it is returned unchanged.
      */
-    public static function normalizeDocument(Dom\XMLDocument $doc): Dom\XMLDocument
+    public static function normalizeDocument(Dom\Document $doc): Dom\Document
     {
-        // Get the root element
         $root = $doc->documentElement;
         if ($root === null) {
             return $doc;
         }
 
         $xpath = XPath::getXPath($doc);
+
         $xmlnsAttributes = [];
 
-        // Collect namespace declarations needed for prefixed elements in the document
-        foreach ($xpath->query('//*[namespace::*]') as $node) {
-            if ($node instanceof Dom\Element) {
-                $name = 'xmlns:' . $node->prefix;
-                // Both prefix and namespaceURI NULL equals the default xmlns:xml namespace
-                if ($node->prefix !== null && $node->namespaceURI !== null) {
-                    $xmlnsAttributes[$name] = $node->namespaceURI;
+        // More reliable collection: look for attributes starting with xmlns on every element
+        foreach ($xpath->query('//*') as $element) {
+            if ($element instanceof Dom\Element) {
+                foreach ($element->attributes as $attr) {
+                    if (str_starts_with($attr->nodeName, 'xmlns')) {
+                        $name = $attr->nodeName;
+                        $value = $attr->nodeValue;
+                        $xmlnsAttributes[$name] = $value;
+                    }
                 }
             }
         }
 
-        // If no xmlns attributes found, return early with debug info
-        if (empty($xmlnsAttributes)) {
-            return $doc;
-        }
-
-        // Remove xmlns attributes from all elements (proper XMLNS namespace removal)
-        foreach ($xpath->query('//*[namespace::*]') as $node) {
-            if (!$node instanceof Dom\Element) {
-                continue;
-            }
-
-            foreach ($node->attributes as $attr) {
-                if ($attr->namespaceURI === C::NS_XMLNS) {
-                    $node->removeAttributeNS(C::NS_XMLNS, $attr->localName);
-                    continue;
+        // Remove from all elements
+        foreach ($xpath->query('//*') as $element) {
+            if ($element instanceof Dom\Element) {
+                $toRemove = [];
+                foreach ($element->attributes as $attr) {
+                    if (str_starts_with($attr->nodeName, 'xmlns')) {
+                        $toRemove[] = $attr->nodeName;
+                    }
                 }
 
-                if (strpos($attr->nodeName, 'xmlns') === 0 || $attr->nodeName === 'xmlns') {
-                    // Fallback for implementations that still expose xmlns attrs without namespaceURI
-                    $node->removeAttribute($attr->nodeName);
+                foreach ($toRemove as $name) {
+                    $element->removeAttribute($name);
                 }
             }
         }
 
-        // Add all collected xmlns attributes to the root element
+        // Re-attach to root
         foreach ($xmlnsAttributes as $name => $value) {
             $root->setAttributeNS(C::NS_XMLNS, $name, $value);
         }
