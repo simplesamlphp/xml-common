@@ -31,7 +31,9 @@ trait SerializableElementTrait
     public function __toString(): string
     {
         $xml = $this->toXML();
+
         $doc = $xml->ownerDocument;
+        $doc = Dom\XMLDocument::createFromString($doc->saveXml($doc->documentElement));
 
         if (static::getNormalization() === true) {
             $normalized = DOMDocumentFactory::normalizeDocument($doc);
@@ -41,7 +43,6 @@ trait SerializableElementTrait
 
         // Non-normalized path
         $doc->formatOutput = $this->formatOutput;
-        $doc->normalizeDocument();
         return $doc->saveXml($doc->documentElement);
     }
 
