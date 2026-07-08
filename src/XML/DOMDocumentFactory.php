@@ -145,11 +145,12 @@ final class DOMDocumentFactory
 
 
     /**
+     * @param string $version
      * @param string $encoding
      */
-    public static function create(string $encoding = 'UTF-8'): Dom\XMLDocument
+    public static function create(string $version = '1.0', string $encoding = 'UTF-8'): Dom\XMLDocument
     {
-        return Dom\XMLDocument::createEmpty($encoding);
+        return Dom\XMLDocument::createEmpty($version, $encoding);
     }
 
 
