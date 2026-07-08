@@ -212,7 +212,7 @@ final class DOMDocumentFactory
             $root->setAttributeNS(C::NS_XMLNS, $name, $value);
         }
 
-        return $doc;
+        return Dom\XMLDocument::createFromString($doc->saveXml($doc->documentElement));
     }
 
 

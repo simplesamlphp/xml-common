@@ -43,6 +43,7 @@ trait SerializableElementTrait
 
         // Non-normalized path
         $doc->formatOutput = $this->formatOutput;
+        $doc = Dom\XMLDocument::createFromString($doc->saveXml($doc->documentElement));
         return $doc->saveXml($doc->documentElement);
     }
 
