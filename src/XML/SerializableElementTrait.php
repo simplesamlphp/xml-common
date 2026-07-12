@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\DOMDocumentFactory;
 
 use function array_last;
@@ -32,19 +32,20 @@ trait SerializableElementTrait
     {
         $xml = $this->toXML();
 
-        $xmlString = $xml->ownerDocument->saveXML();
-
-        $doc = DOMDocumentFactory::fromString($xmlString);
-        $doc->formatOutput = $this->formatOutput;
+        /** @var \Dom\XMLDocument $doc */
+        $doc = $xml->ownerDocument;
+        $doc = Dom\XMLDocument::createFromString($doc->saveXml($doc->documentElement));
 
         if (static::getNormalization() === true) {
             $normalized = DOMDocumentFactory::normalizeDocument($doc);
-            $normalized->normalizeDocument();
-            return $normalized->saveXML($normalized->firstChild);
+            $normalized->formatOutput = $this->formatOutput;
+            return $normalized->saveXml($normalized->documentElement);
         }
 
-        $doc->normalizeDocument();
-        return $doc->saveXML($doc->firstChild);
+        // Non-normalized path
+        $doc->formatOutput = $this->formatOutput;
+        $doc = Dom\XMLDocument::createFromString($doc->saveXml($doc->documentElement));
+        return $doc->saveXml($doc->documentElement);
     }
 
 
@@ -58,7 +59,9 @@ trait SerializableElementTrait
     public function __serialize(): array
     {
         $xml = $this->toXML();
-        return [$xml->ownerDocument->saveXML($xml)];
+        /** @var \Dom\XMLDocument $ownerDocument */
+        $ownerDocument = $xml->ownerDocument;
+        return [$ownerDocument->saveXml($xml)];
     }
 
 
@@ -86,7 +89,7 @@ trait SerializableElementTrait
     /**
      * Create XML from this class
      *
-     * @param \DOMElement|null $parent
+     * @param \Dom\Element|null $parent
      */
-    abstract public function toXML(?DOMElement $parent = null): DOMElement;
+    abstract public function toXML(?Dom\Element $parent = null): Dom\Element;
 }

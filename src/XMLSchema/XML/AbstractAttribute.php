@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\ProtocolViolationException;
 use SimpleSAML\XMLSchema\Type\IDValue;
@@ -137,10 +137,10 @@ abstract class AbstractAttribute extends AbstractAnnotated
     /**
      * Add this Attribute to an XML element.
      *
-     * @param \DOMElement|null $parent The element we should append this facet to.
-     * @return \DOMElement
+     * @param \Dom\Element|null $parent The element we should append this facet to.
+     * @return \Dom\Element
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::toXML($parent);
 

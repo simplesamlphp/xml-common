@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\Helper;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\DOMDocumentFactory;
@@ -55,10 +55,10 @@ class ExtendableAttributesElement extends AbstractElement implements SchemaValid
     /**
      * Create a class from XML
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @return static
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, 'ExtendableAttributesElement', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, 'urn:x-simplesamlphp:namespace', InvalidDOMElementException::class);
@@ -70,10 +70,10 @@ class ExtendableAttributesElement extends AbstractElement implements SchemaValid
     /**
      * Create XML from this class
      *
-     * @param \DOMElement|null $parent
-     * @return \DOMElement
+     * @param \Dom\Element|null $parent
+     * @return \Dom\Element
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = $this->instantiateParentElement($parent);
 

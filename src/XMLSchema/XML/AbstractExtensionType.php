@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\XML\Interface\TypeDefParticleInterface;
@@ -72,10 +72,10 @@ abstract class AbstractExtensionType extends AbstractAnnotated
     /**
      * Add this ExtensionType to an XML element.
      *
-     * @param \DOMElement|null $parent The element we should append this ExtensionType to.
-     * @return \DOMElement
+     * @param \Dom\Element|null $parent The element we should append this ExtensionType to.
+     * @return \Dom\Element
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::toXML($parent);
 

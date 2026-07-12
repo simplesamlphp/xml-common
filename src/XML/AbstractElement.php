@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMElement;
+use Dom;
 use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\SerializableElementTrait;
@@ -35,9 +35,9 @@ abstract class AbstractElement implements
     /**
      * Create a document structure for this element
      *
-     * @param \DOMElement|null $parent The element we should append to.
+     * @param \Dom\Element|null $parent The element we should append to.
      */
-    public function instantiateParentElement(?DOMElement $parent = null): DOMElement
+    public function instantiateParentElement(?Dom\Element $parent = null): Dom\Element
     {
         $qualifiedName = $this->getQualifiedName();
         $namespace = static::getNamespaceURI();
@@ -59,7 +59,7 @@ abstract class AbstractElement implements
 
     /**
      * @template T of \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface
-     * @param \DOMElement     $xml The element where we should search for the attribute.
+     * @param \Dom\Element    $xml The element where we should search for the attribute.
      * @param string          $name The name of the attribute.
      * @param class-string<T> $type The type of the attribute value.
      * @return T
@@ -67,7 +67,7 @@ abstract class AbstractElement implements
      * @throws \SimpleSAML\XMLSchema\Exception\MissingAttributeException if the attribute is missing from the element
      */
     public static function getAttribute(
-        DOMElement $xml,
+        Dom\Element $xml,
         string $name,
         string $type = StringValue::class,
     ): ValueTypeInterface {
@@ -91,7 +91,7 @@ abstract class AbstractElement implements
      * Get the value of an attribute from a given element.
      *
      * @template T of \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface
-     * @param \DOMElement  $xml The element where we should search for the attribute.
+     * @param \Dom\Element  $xml The element where we should search for the attribute.
      * @param string       $name The name of the attribute.
      * @param class-string<T> $type The type of the attribute value.
      * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface|null $default
@@ -99,7 +99,7 @@ abstract class AbstractElement implements
      * @return ($default is \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface ? T : T|null)
      */
     public static function getOptionalAttribute(
-        DOMElement $xml,
+        Dom\Element $xml,
         string $name,
         string $type = StringValue::class,
         ?ValueTypeInterface $default = null,
@@ -142,15 +142,15 @@ abstract class AbstractElement implements
     /**
      * Extract localized names from the children of a given element.
      *
-     * @param \DOMElement $parent The element we want to search.
+     * @param \Dom\Element $parent The element we want to search.
      * @return list<static> An array of objects of this class.
      */
-    public static function getChildrenOfClass(DOMElement $parent): array
+    public static function getChildrenOfClass(Dom\Element $parent): array
     {
         $ret = [];
         foreach ($parent->childNodes as $node) {
             if (
-                $node instanceof DOMElement
+                $node instanceof Dom\Element
                 && $node->namespaceURI === static::getNamespaceURI()
                 && $node->localName === static::getLocalName()
             ) {

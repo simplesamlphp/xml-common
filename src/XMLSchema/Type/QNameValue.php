@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\Type;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
@@ -152,11 +152,11 @@ class QNameValue extends AbstractAnySimpleType
 
     /**
      * @param string $qName
-     * @param \DOMElement $element
+     * @param \Dom\Element $element
      */
     public static function fromDocument(
         string $qName,
-        DOMElement $element,
+        Dom\Element $element,
     ): static {
         $namespacePrefix = null;
         if (str_contains($qName, ':')) {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C_XML;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
@@ -106,13 +106,13 @@ final class Redefine extends AbstractOpenAttrs implements SchemaValidatableEleme
     /**
      * Create an instance of this object from its XML representation.
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @return static
      *
      * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -127,7 +127,7 @@ final class Redefine extends AbstractOpenAttrs implements SchemaValidatableEleme
 
         $redefineElements = [];
         foreach ($xml->childNodes as $node) {
-            if ($node instanceof DOMElement) {
+            if ($node instanceof Dom\Element) {
                 if ($node->namespaceURI === C_XS::NS_XS && array_key_exists($node->localName, $allowed)) {
                     $redefineElements[] = $allowed[$node->localName]::fromXML($node);
                 }
@@ -146,10 +146,10 @@ final class Redefine extends AbstractOpenAttrs implements SchemaValidatableEleme
     /**
      * Add this Schema to an XML element.
      *
-     * @param \DOMElement|null $parent The element we should append this Schema to.
-     * @return \DOMElement
+     * @param \Dom\Element|null $parent The element we should append this Schema to.
+     * @return \Dom\Element
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::toXML($parent);
         $e->setAttribute('schemaLocation', strval($this->getSchemaLocation()));

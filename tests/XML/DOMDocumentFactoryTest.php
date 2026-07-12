@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use Dom;
+use DOMException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\Exception\UnparseableXMLException;
 
 use function strval;
 
@@ -23,7 +24,7 @@ final class DOMDocumentFactoryTest extends TestCase
 {
     public function testNotXmlStringRaisesAnException(): void
     {
-        $this->expectException(UnparseableXMLException::class);
+        $this->expectException(DOMException::class);
         DOMDocumentFactory::fromString('this is not xml');
     }
 
@@ -34,7 +35,7 @@ final class DOMDocumentFactoryTest extends TestCase
 
         $document = DOMDocumentFactory::fromString($xml);
 
-        $this->assertXmlStringEqualsXmlString($xml, strval($document->saveXML()));
+        $this->assertXmlStringEqualsXmlString($xml, strval($document->saveXml()));
     }
 
 
@@ -48,7 +49,7 @@ final class DOMDocumentFactoryTest extends TestCase
 
     public function testFileThatDoesNotContainXMLCannotBeLoaded(): void
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(DOMException::class);
         DOMDocumentFactory::fromFile('tests/resources/xml/domdocument_invalid_xml.xml');
     }
 
@@ -58,7 +59,7 @@ final class DOMDocumentFactoryTest extends TestCase
         $file = 'tests/resources/xml/domdocument_valid_xml.xml';
         $document = DOMDocumentFactory::fromFile($file);
 
-        $this->assertXmlStringEqualsXmlFile($file, strval($document->saveXML()));
+        $this->assertXmlStringEqualsXmlFile($file, strval($document->saveXml()));
     }
 
 
@@ -112,6 +113,8 @@ final class DOMDocumentFactoryTest extends TestCase
         $this->expectExceptionMessage(
             'Expected a non-whitespace string. Got: ""',
         );
+
+        /** @phpstan-ignore-next-line argument.type */
         DOMDocumentFactory::fromString('');
     }
 
@@ -122,9 +125,15 @@ final class DOMDocumentFactoryTest extends TestCase
         $notNormalized = DOMDocumentFactory::fromFile('tests/resources/xml/domdocument_not_normalized.xml');
         $normalizedDoc = DOMDocumentFactory::normalizeDocument($notNormalized);
 
-        $this->assertEquals(
-            $normalized->saveXML($normalized),
-            $normalizedDoc->saveXML($normalizedDoc),
+        $normalizedRoot = $normalized->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $normalizedRoot);
+
+        $normalizedDocRoot = $normalizedDoc->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $normalizedDocRoot);
+
+        $this->assertSame(
+            $normalizedRoot->C14N(),
+            $normalizedDocRoot->C14N(),
         );
     }
 }

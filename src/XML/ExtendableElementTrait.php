@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMElement;
+use Dom;
 use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Chunk;
@@ -40,12 +40,12 @@ trait ExtendableElementTrait
      * The namespace defaults to the XS_ANY_ELT_NAMESPACE constant on the element.
      * NOTE: In case the namespace is ##any, this method will also return local non-namespaced elements!
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @param string|string[]|null $namespace
      * @return list<\SimpleSAML\XML\SerializableElementInterface> $elements
      */
     protected static function getChildElementsFromXML(
-        DOMElement $xml,
+        Dom\Element $xml,
         string|array|null $namespace = null,
     ): array {
         $namespace = $namespace ?? static::XS_ANY_ELT_NAMESPACE;
@@ -59,7 +59,7 @@ trait ExtendableElementTrait
             Assert::oneOf($namespace, NS::$PREDEFINED);
 
             foreach ($xml->childNodes as $elt) {
-                if (!($elt instanceof DOMElement)) {
+                if (!($elt instanceof Dom\Element)) {
                     continue;
                 } elseif (
                     $exclusionList
@@ -96,7 +96,7 @@ trait ExtendableElementTrait
             }
 
             foreach ($xml->childNodes as $elt) {
-                if (!($elt instanceof DOMElement)) {
+                if (!($elt instanceof Dom\Element)) {
                     continue;
                 } elseif (in_array([$elt->namespaceURI, $elt->localName], $exclusionList, true)) {
                     continue;

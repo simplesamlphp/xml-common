@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\Schema\NamespaceListValue;
 use SimpleSAML\XMLSchema\Type\Schema\ProcessContentsValue;
@@ -76,10 +76,10 @@ abstract class AbstractWildcard extends AbstractAnnotated
     /**
      * Add this Wildcard to an XML element.
      *
-     * @param \DOMElement|null $parent The element we should append this Wildcard to.
-     * @return \DOMElement
+     * @param \Dom\Element|null $parent The element we should append this Wildcard to.
+     * @return \Dom\Element
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::toXML($parent);
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
-use DOMDocument;
+use Dom;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\XML\Attribute;
@@ -25,8 +25,8 @@ final class AttributeTest extends TestCase
     use ArrayizableElementTestTrait;
 
 
-    /** @var \DOMDocument */
-    protected static DOMDocument $xmlRepresentation;
+    /** @var \Dom\XMLDocument */
+    protected static Dom\Document $xmlRepresentation;
 
 
     /**
@@ -99,14 +99,16 @@ final class AttributeTest extends TestCase
         );
 
         $doc = DOMDocumentFactory::fromString('<root />');
-        /** @var \DOMElement $docElement */
+        /** @var \Dom\Element $docElement */
         $docElement = $doc->documentElement;
 
         $elt = $extendableAttribute->toXML($docElement);
+        /** @var \Dom\XMLDocument $ownerDocument */
+        $ownerDocument = $elt->ownerDocument;
 
         $this->assertStringContainsString(
-            strval(self::$xmlRepresentation->saveXML()),
-            strval($elt->ownerDocument?->saveXML()),
+            strval(self::$xmlRepresentation->saveXml()),
+            strval($ownerDocument->saveXml()),
         );
     }
 
@@ -115,8 +117,9 @@ final class AttributeTest extends TestCase
      */
     public function testUnmarshallingXML(): void
     {
-        /** @var \DOMElement $elt */
+        /** @var \Dom\Element $elt */
         $elt = self::$xmlRepresentation->documentElement;
+        /** @var \Dom\Attr $attr */
         $attr = $elt->getAttributeNodeNS('urn:x-simplesamlphp:phpunit', 'test1');
         $extendableAttribute = Attribute::fromXML($attr);
 
