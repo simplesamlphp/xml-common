@@ -79,7 +79,9 @@ final class ExtendableElementTest extends TestCase
         $this->assertInstanceOf(Dom\Element::class, $actualRoot);
 
         $this->assertXmlStringEqualsXmlString(
+            /** @phpstan-ignore argument.type */
             $expectedRoot->C14N(),
+            /** @phpstan-ignore argument.type */
             $actualRoot->C14N(),
         );
     }
