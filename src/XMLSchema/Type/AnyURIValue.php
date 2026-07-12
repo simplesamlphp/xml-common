@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\Type;
 
-use GuzzleHttp\Psr7\Uri;
-use GuzzleHttp\Psr7\UriNormalizer;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\Interface\AbstractAnySimpleType;
 use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
+use Uri\Rfc3986\Uri;
 
 /**
  * @package simplesaml/xml-common
@@ -57,6 +56,6 @@ class AnyURIValue extends AbstractAnySimpleType
         $selfUri = new Uri($this->getValue());
         $otherUri = new Uri($other->getValue());
 
-        return UriNormalizer::isEquivalent($selfUri, $otherUri);
+        return $selfUri->equals($otherUri);
     }
 }
