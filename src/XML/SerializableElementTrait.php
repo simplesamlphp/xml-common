@@ -32,6 +32,7 @@ trait SerializableElementTrait
     {
         $xml = $this->toXML();
 
+        /** @var \Dom\XMLDocument $doc */
         $doc = $xml->ownerDocument;
         $doc = Dom\XMLDocument::createFromString($doc->saveXml($doc->documentElement));
 
