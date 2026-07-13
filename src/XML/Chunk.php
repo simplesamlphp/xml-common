@@ -55,7 +55,7 @@ final class Chunk implements
 
 
     /**
-     * Create an XML Chunk from a copy of the given \DOMElement.
+     * Create an XML Chunk from a copy of the given \Dom\Element.
      *
      * @param \Dom\Element $xml The element we should copy.
      */
