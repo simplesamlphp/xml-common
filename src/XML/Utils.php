@@ -6,7 +6,7 @@ namespace SimpleSAML\XML;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 
 use function trim;
@@ -23,18 +23,18 @@ class Utils
      *
      * Extract localized strings from a set of nodes.
      *
-     * @param \DOMElement $parent The element that contains the localized strings.
+     * @param \Dom\Element $parent The element that contains the localized strings.
      * @param string $namespaceURI The namespace URI the localized strings should have.
      * @param string $localName The localName of the localized strings.
      * @return array<string, string> Localized strings.
      */
-    public static function extractLocalizedStrings(DOMElement $parent, string $namespaceURI, string $localName): array
+    public static function extractLocalizedStrings(Dom\Element $parent, string $namespaceURI, string $localName): array
     {
         $ret = [];
         foreach ($parent->childNodes as $node) {
-            if ($node->namespaceURI !== $namespaceURI || $node->localName !== $localName) {
+            if (!($node instanceof Dom\Element)) {
                 continue;
-            } elseif (!($node instanceof DOMElement)) {
+            } elseif ($node->namespaceURI !== $namespaceURI || $node->localName !== $localName) {
                 continue;
             }
 
@@ -55,16 +55,17 @@ class Utils
      *
      * Extract strings from a set of nodes.
      *
-     * @param \DOMElement $parent The element that contains the localized strings.
+     * @param \Dom\Element $parent The element that contains the localized strings.
      * @param string $namespaceURI The namespace URI the string elements should have.
      * @param string $localName The localName of the string elements.
      * @return string[] The string values of the various nodes.
      */
-    public static function extractStrings(DOMElement $parent, string $namespaceURI, string $localName): array
+    public static function extractStrings(Dom\Element $parent, string $namespaceURI, string $localName): array
     {
         $ret = [];
         foreach ($parent->childNodes as $node) {
-            if ($node->namespaceURI !== $namespaceURI || $node->localName !== $localName) {
+            if (!($node instanceof Dom\Element)) {
+            } elseif ($node->namespaceURI !== $namespaceURI || $node->localName !== $localName) {
                 continue;
             }
             $ret[] = trim($node->textContent);
@@ -79,18 +80,18 @@ class Utils
      *
      * Append string element.
      *
-     * @param \DOMElement $parent The parent element we should append the new nodes to.
+     * @param \Dom\Element $parent The parent element we should append the new nodes to.
      * @param string $namespace The namespace of the created element.
      * @param string $name The name of the created element.
      * @param string $value The value of the element.
-     * @return \DOMElement The generated element.
+     * @return \Dom\Element The generated element.
      */
     public static function addString(
-        DOMElement $parent,
+        Dom\Element $parent,
         string $namespace,
         string $name,
         string $value,
-    ): DOMElement {
+    ): Dom\Element {
         $doc = $parent->ownerDocument;
         Assert::notNull($doc);
 
@@ -107,14 +108,14 @@ class Utils
      *
      * Append string elements.
      *
-     * @param \DOMElement $parent The parent element we should append the new nodes to.
+     * @param \Dom\Element $parent The parent element we should append the new nodes to.
      * @param string $namespace The namespace of the created elements
      * @param string $name The name of the created elements
      * @param bool $localized Whether the strings are localized, and should include the xml:lang attribute.
      * @param string[] $values The values we should create the elements from.
      */
     public static function addStrings(
-        DOMElement $parent,
+        Dom\Element $parent,
         string $namespace,
         string $name,
         bool $localized,

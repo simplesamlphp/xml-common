@@ -56,10 +56,11 @@ final class AppinfoTest extends TestCase
     {
         $appinfo = self::$testContainer->getAppinfo(1);
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($appinfo),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($appinfo);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
 
         $this->assertFalse($appinfo->isEmptyElement());
     }

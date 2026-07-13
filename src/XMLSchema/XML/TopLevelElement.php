@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
@@ -22,6 +22,8 @@ use SimpleSAML\XMLSchema\Type\Schema\MaxOccursValue;
 use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
 use SimpleSAML\XMLSchema\Type\StringValue;
 
+use function array_last;
+
 /**
  * Class representing the topLevelElement-type.
  *
@@ -38,13 +40,13 @@ final class TopLevelElement extends AbstractTopLevelElement implements SchemaVal
     /**
      * Create an instance of this object from its XML representation.
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @return static
      *
      * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -84,7 +86,7 @@ final class TopLevelElement extends AbstractTopLevelElement implements SchemaVal
 
         return new static(
             self::getAttribute($xml, 'name', NCNameValue::class),
-            array_pop($localType),
+            array_last($localType),
             $identityConstraint,
             self::getOptionalAttribute($xml, 'type', QNameValue::class, null),
             self::getOptionalAttribute($xml, 'substitutionGroup', QNameValue::class, null),
@@ -94,7 +96,7 @@ final class TopLevelElement extends AbstractTopLevelElement implements SchemaVal
             self::getOptionalAttribute($xml, 'abstract', BooleanValue::class, null),
             self::getOptionalAttribute($xml, 'final', DerivationSetValue::class, null),
             self::getOptionalAttribute($xml, 'block', BlockSetValue::class, null),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

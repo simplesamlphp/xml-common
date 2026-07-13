@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XML;
 
-use DOMElement;
+use Dom;
 
 /**
  * interface class to be implemented by all the classes that represent a serializable XML element
@@ -28,15 +28,15 @@ interface SerializableElementInterface extends ElementInterface
     /**
      * Create a class from XML
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      */
-    public static function fromXML(DOMElement $xml): static;
+    public static function fromXML(Dom\Element $xml): static;
 
 
     /**
      * Create XML from this class
      *
-     * @param \DOMElement|null $parent
+     * @param \Dom\Element|null $parent
      */
-    public function toXML(?DOMElement $parent = null): DOMElement;
+    public function toXML(?Dom\Element $parent = null): Dom\Element;
 }

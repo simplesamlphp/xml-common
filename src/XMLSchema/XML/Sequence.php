@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
@@ -19,8 +19,8 @@ use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
 use SimpleSAML\XMLSchema\XML\Interface\NestedParticleInterface;
 use SimpleSAML\XMLSchema\XML\Interface\TypeDefParticleInterface;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the sequence-element.
@@ -41,13 +41,13 @@ final class Sequence extends AbstractExplicitGroup implements
     /**
      * Create an instance of this object from its XML representation.
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @return static
      *
      * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -74,7 +74,7 @@ final class Sequence extends AbstractExplicitGroup implements
             self::getOptionalAttribute($xml, 'minOccurs', MinOccursValue::class, null),
             self::getOptionalAttribute($xml, 'maxOccurs', MaxOccursValue::class, null),
             $particles,
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
@@ -15,7 +15,7 @@ use SimpleSAML\XMLSchema\Type\Schema\FormChoiceValue;
 use SimpleSAML\XMLSchema\Type\Schema\UseValue;
 use SimpleSAML\XMLSchema\Type\StringValue;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Class representing the attribute-element.
@@ -30,13 +30,13 @@ final class LocalAttribute extends AbstractAttribute
     /**
      * Create an instance of this object from its XML representation.
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @return static
      *
      * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -55,8 +55,8 @@ final class LocalAttribute extends AbstractAttribute
             self::getOptionalAttribute($xml, 'default', StringValue::class, null),
             self::getOptionalAttribute($xml, 'fixed', StringValue::class, null),
             self::getOptionalAttribute($xml, 'form', FormChoiceValue::class, null),
-            array_pop($simpleType),
-            array_pop($annotation),
+            array_last($simpleType),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

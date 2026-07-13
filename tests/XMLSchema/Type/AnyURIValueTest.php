@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SimpleSAML\Test\XMLSchema\Type\Builtin;
+namespace SimpleSAML\Test\XMLSchema\Type;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -50,7 +50,7 @@ final class AnyURIValueTest extends TestCase
         $this->assertTrue(AnyURIValue::fromString('hello')->equals('hello'));
         $this->assertTrue(
             AnyURIValue::fromString('https://simplesamlphp.org/index.html')
-              ->equals('https://simplesamlphp.org:443/index.html'),
+              ->equals('HTTPS://simplesamlphp.org/index.html'),
         );
 
         // Assert that two different values are not equal

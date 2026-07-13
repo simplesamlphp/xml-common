@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
@@ -18,7 +18,7 @@ use SimpleSAML\XMLSchema\Type\Schema\ProcessContentsValue;
 use SimpleSAML\XMLSchema\XML\Interface\NestedParticleInterface;
 use SimpleSAML\XMLSchema\XML\Trait\OccursTrait;
 
-use function array_pop;
+use function array_last;
 use function strval;
 
 /**
@@ -80,13 +80,13 @@ final class Any extends AbstractWildcard implements
     /**
      * Create an instance of this object from its XML representation.
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @return static
      *
      * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -97,7 +97,7 @@ final class Any extends AbstractWildcard implements
         return new static(
             self::getOptionalAttribute($xml, 'namespace', NamespaceListValue::class, null),
             self::getOptionalAttribute($xml, 'processContents', ProcessContentsValue::class, null),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
             self::getOptionalAttribute($xml, 'minOccurs', MinOccursValue::class, null),
@@ -109,10 +109,10 @@ final class Any extends AbstractWildcard implements
     /**
      * Add this Wildcard to an XML element.
      *
-     * @param \DOMElement|null $parent The element we should append this Wildcard to.
-     * @return \DOMElement
+     * @param \Dom\Element|null $parent The element we should append this Wildcard to.
+     * @return \Dom\Element
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::toXML($parent);
 

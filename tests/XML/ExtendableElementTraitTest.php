@@ -65,13 +65,13 @@ XML
             ,
         );
 
-        /** @var \DOMElement $emptyElement */
+        /** @var \Dom\Element $emptyElement */
         $emptyElement = $emptyDocument->documentElement;
-        /** @var \DOMElement $localElement */
+        /** @var \Dom\Element $localElement */
         $localElement = $localDocument->documentElement;
-        /** @var \DOMElement $targetElement */
+        /** @var \Dom\Element $targetElement */
         $targetElement = $targetDocument->documentElement;
-        /** @var \DOMElement $otherElement */
+        /** @var \Dom\Element $otherElement */
         $otherElement = $otherDocument->documentElement;
 
         self::$empty = new Chunk($emptyElement);

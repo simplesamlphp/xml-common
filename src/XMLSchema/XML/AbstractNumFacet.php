@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
@@ -12,6 +12,8 @@ use SimpleSAML\XMLSchema\Type\BooleanValue;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
 use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
+
+use function array_last;
 
 /**
  * Abstract class representing the facet-type.
@@ -45,13 +47,13 @@ abstract class AbstractNumFacet extends AbstractFacet
     /**
      * Create an instance of this object from its XML representation.
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @return static
      *
      * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -62,7 +64,7 @@ abstract class AbstractNumFacet extends AbstractFacet
         return new static(
             self::getAttribute($xml, 'value', NonNegativeIntegerValue::class),
             self::getOptionalAttribute($xml, 'fixed', BooleanValue::class, null),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

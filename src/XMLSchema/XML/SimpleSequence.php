@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
@@ -13,8 +13,8 @@ use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the sequence-element.
@@ -29,13 +29,13 @@ final class SimpleSequence extends AbstractSimpleExplicitGroup
     /**
      * Create an instance of this object from its XML representation.
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @return static
      *
      * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -67,7 +67,7 @@ final class SimpleSequence extends AbstractSimpleExplicitGroup
 
         return new static(
             nestedParticles: $particles,
-            annotation: array_pop($annotation),
+            annotation: array_last($annotation),
             id: self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             namespacedAttributes: self::getAttributesNSFromXML($xml),
         );

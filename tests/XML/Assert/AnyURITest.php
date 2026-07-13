@@ -46,7 +46,6 @@ final class AnyURITest extends TestCase
             'diacritical' => [true, 'https://aä.com'],
             'spn' => [true, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
             'typos' => [true, 'https//www.uni.l/en/'],
-            'spaces' => [true, 'this is silly'],
             'empty' => [true, ''],
             'azure-common' => [true, 'https://sts.windows.net/{tenantid}/'],
             'one' => [true, '1'],

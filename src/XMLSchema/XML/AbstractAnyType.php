@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\ExtendableAttributesTrait;
 use SimpleSAML\XML\ExtendableElementTrait;
 use SimpleSAML\XMLSchema\XML\Constants\NS;
@@ -57,10 +57,10 @@ abstract class AbstractAnyType extends AbstractXsElement
     /**
      * Add this AnyType to an XML element.
      *
-     * @param \DOMElement|null $parent The element we should append this anyType to.
-     * @return \DOMElement
+     * @param \Dom\Element|null $parent The element we should append this anyType to.
+     * @return \Dom\Element
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::instantiateParentElement($parent);
 

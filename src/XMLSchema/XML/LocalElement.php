@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
@@ -19,8 +19,8 @@ use SimpleSAML\XMLSchema\Type\Schema\MinOccursValue;
 use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSchema\XML\Interface\NestedParticleInterface;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the local element-element.
@@ -35,13 +35,13 @@ final class LocalElement extends AbstractLocalElement implements NestedParticleI
     /**
      * Create an instance of this object from its XML representation.
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @return static
      *
      * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -74,7 +74,7 @@ final class LocalElement extends AbstractLocalElement implements NestedParticleI
         return new static(
             self::getOptionalAttribute($xml, 'name', NCNameValue::class, null),
             self::getOptionalAttribute($xml, 'ref', QNameValue::class, null),
-            array_pop($localType),
+            array_last($localType),
             $identityConstraint,
             self::getOptionalAttribute($xml, 'type', QNameValue::class, null),
             self::getOptionalAttribute($xml, 'minOccurs', MinOccursValue::class, null),
@@ -84,7 +84,7 @@ final class LocalElement extends AbstractLocalElement implements NestedParticleI
             self::getOptionalAttribute($xml, 'nillable', BooleanValue::class, null),
             self::getOptionalAttribute($xml, 'block', BlockSetValue::class, null),
             self::getOptionalAttribute($xml, 'form', FormChoiceValue::class, null),
-            array_pop($annotation),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );

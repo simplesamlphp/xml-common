@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\XML;
 
+use Dom;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Test\Helper\ExtendableElement;
 use SimpleSAML\XML\Chunk;
@@ -26,20 +27,15 @@ final class ExtendableElementTest extends TestCase
     use SerializableElementTestTrait;
 
 
-    /**
-     */
     public static function setUpBeforeClass(): void
     {
         self::$testedClass = ExtendableElement::class;
 
-        self::$xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(__FILE__, 2) . '/resources/xml/ssp_ExtendableElement.xml',
-        );
+        $fixturePath = dirname(__FILE__, 2) . '/resources/xml/ssp_ExtendableElement.xml';
+        self::$xmlRepresentation = DOMDocumentFactory::fromFile($fixturePath);
     }
 
 
-    /**
-     */
     public function testMarshalling(): void
     {
         $dummyDocument1 = DOMDocumentFactory::fromString(
@@ -49,10 +45,11 @@ final class ExtendableElementTest extends TestCase
             '<dummy:Chunk xmlns:dummy="urn:custom:dummy">some</dummy:Chunk>',
         );
 
-        /** @var \DOMElement $dummyElement1 */
         $dummyElement1 = $dummyDocument1->documentElement;
-        /** @var \DOMElement $dummyElement2 */
+        $this->assertInstanceOf(Dom\Element::class, $dummyElement1);
+
         $dummyElement2 = $dummyDocument2->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $dummyElement2);
 
         $extendableElement = new ExtendableElement(
             [
@@ -61,15 +58,35 @@ final class ExtendableElementTest extends TestCase
             ],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($extendableElement),
+        $representationRoot = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $representationRoot);
+
+        $expectedXml = self::$xmlRepresentation->saveXml($representationRoot);
+        $this->assertNotSame('', $expectedXml);
+        /** @var non-empty-string $expectedXml */
+
+        $actualXml = strval($extendableElement);
+        $this->assertNotSame('', $actualXml);
+        /** @var non-empty-string $actualXml */
+
+        $expectedDoc = DOMDocumentFactory::fromString($expectedXml);
+        $actualDoc = DOMDocumentFactory::fromString($actualXml);
+
+        $expectedRoot = $expectedDoc->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $expectedRoot);
+
+        $actualRoot = $actualDoc->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $actualRoot);
+
+        $this->assertXmlStringEqualsXmlString(
+            /** @phpstan-ignore argument.type */
+            $expectedRoot->C14N(),
+            /** @phpstan-ignore argument.type */
+            $actualRoot->C14N(),
         );
     }
 
 
-    /**
-     */
     public function testMarshallingWithExcludedElement(): void
     {
         $dummyDocument1 = DOMDocumentFactory::fromString(
@@ -82,12 +99,14 @@ final class ExtendableElementTest extends TestCase
             '<other:Chunk xmlns:other="urn:custom:other">some</other:Chunk>',
         );
 
-        /** @var \DOMElement $dummyElement1 */
         $dummyElement1 = $dummyDocument1->documentElement;
-        /** @var \DOMElement $dummyElement2 */
+        $this->assertInstanceOf(Dom\Element::class, $dummyElement1);
+
         $dummyElement2 = $dummyDocument2->documentElement;
-        /** @var \DOMElement $dummyElement3 */
+        $this->assertInstanceOf(Dom\Element::class, $dummyElement2);
+
         $dummyElement3 = $dummyDocument3->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $dummyElement3);
 
         $this->expectException(InvalidDOMElementException::class);
         new ExtendableElement(
@@ -100,12 +119,10 @@ final class ExtendableElementTest extends TestCase
     }
 
 
-    /**
-     */
     public function testGetChildElementsFromXML(): void
     {
-        /** @var \DOMElement $element */
         $element = self::$xmlRepresentation->documentElement;
+        $this->assertInstanceOf(Dom\Element::class, $element);
 
         $elt = ExtendableElement::fromXML($element);
         /** @var \SimpleSAML\XML\Chunk[] $elements */

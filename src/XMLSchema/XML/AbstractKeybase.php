@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Exception\MissingElementException;
@@ -92,10 +92,10 @@ abstract class AbstractKeybase extends AbstractAnnotated
     /**
      * Add this Keybase to an XML element.
      *
-     * @param \DOMElement|null $parent The element we should append this Keybase to.
-     * @return \DOMElement
+     * @param \Dom\Element|null $parent The element we should append this Keybase to.
+     * @return \Dom\Element
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::toXML($parent);
         $e->setAttribute('name', strval($this->getName()));

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\XMLSchema\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
@@ -14,8 +14,8 @@ use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\Schema\DerivationSetValue;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing the xs:complexType element.
@@ -30,13 +30,13 @@ final class LocalComplexType extends AbstractLocalComplexType
     /**
      * Create an instance of this object from its XML representation.
      *
-     * @param \DOMElement $xml
+     * @param \Dom\Element $xml
      * @return static
      *
      * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -90,11 +90,11 @@ final class LocalComplexType extends AbstractLocalComplexType
 
         return new static(
             self::getOptionalAttribute($xml, 'mixed', BooleanValue::class, null),
-            array_pop($content),
-            array_pop($particles),
+            array_last($content),
+            array_last($particles),
             $attributes,
-            array_pop($anyAttribute),
-            array_pop($annotation),
+            array_last($anyAttribute),
+            array_last($annotation),
             self::getOptionalAttribute($xml, 'id', IDValue::class, null),
             self::getAttributesNSFromXML($xml),
         );
