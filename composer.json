@@ -42,6 +42,7 @@
         "ext-libxml": "*",
         "ext-pcre": "*",
         "ext-spl": "*",
+        "ext-uri": "*",
 
         "psr/clock": "~1.0",
         "simplesamlphp/assert": "~3.0",
