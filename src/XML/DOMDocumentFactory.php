@@ -29,7 +29,7 @@ final class DOMDocumentFactory
      *
      * @var non-negative-int
      */
-    public const int DEFAULT_OPTIONS_BASE = \LIBXML_COMPACT | \LIBXML_NOENT | \LIBXML_NONET | \LIBXML_NSCLEAN;
+    public const int DEFAULT_OPTIONS_BASE = \LIBXML_COMPACT | \LIBXML_NONET | \LIBXML_NSCLEAN;
 
 
     /**
