@@ -13,7 +13,14 @@ use RuntimeException;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\XML\DOMDocumentFactory;
 
+use function bin2hex;
+use function file_put_contents;
+use function getmypid;
+use function is_file;
+use function mb_convert_encoding;
+use function random_bytes;
 use function strval;
+use function sys_get_temp_dir;
 
 /**
  * @package simplesamlphp\xml-common
@@ -22,6 +29,145 @@ use function strval;
 #[Group('domdocument')]
 final class DOMDocumentFactoryTest extends TestCase
 {
+    private string $secretFile;
+    private string $marker;
+
+
+    protected function setUp(): void
+    {
+        $this->marker = 'XXE_TEST_MARKER_' . bin2hex(random_bytes(16));
+        $this->secretFile = sys_get_temp_dir() . '/xml-common-xxe-test-' . getmypid() . '.txt';
+        file_put_contents($this->secretFile, $this->marker);
+    }
+
+
+    protected function tearDown(): void
+    {
+        if (is_file($this->secretFile)) {
+            unlink($this->secretFile);
+        }
+    }
+
+
+    /**
+     * Classic external-entity payload aimed at a file we control.
+     * The factory must reject the document; the marker must never appear.
+     */
+    public function testExternalEntityCannotReadLocalFileUsingDefaultOptions(): void
+    {
+        // file:// URI pointing at our temporary secret
+        $uri = 'file://' . $this->secretFile;
+
+        $payload = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE foo [
+  <!ELEMENT foo ANY>
+  <!ENTITY xxe SYSTEM "{$uri}">
+]>
+<foo>&xxe;</foo>
+XML;
+
+        $doc = new DOMDocument();
+        $doc->loadXML($payload, DOMDocumentFactory::DEFAULT_OPTIONS);
+        // If we reach here the protection failed – check that the secret did not leak into the document.
+        $xml = $doc->saveXml();
+        $this->assertStringNotContainsString(
+            $this->marker,
+            $xml,
+            'XXE succeeded: local file content was expanded into the document'
+        );
+    }
+
+
+    /**
+     * Classic external-entity payload aimed at a file we control.
+     * The factory must reject the document; the marker must never appear.
+     */
+    public function testExternalEntityCannotReadLocalFileUsingNonDefaultOptions(): void
+    {
+        // file:// URI pointing at our temporary secret
+        $uri = 'file://' . $this->secretFile;
+
+        $payload = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE foo [
+  <!ELEMENT foo ANY>
+  <!ENTITY xxe SYSTEM "{$uri}">
+]>
+<foo>&xxe;</foo>
+XML;
+
+        $doc = new DOMDocument();
+        $doc->loadXML($payload, DOMDocumentFactory::DEFAULT_OPTIONS | \LIBXML_NOENT);
+        // Check that the secret did leak into the document.
+        $xml = $doc->saveXml();
+        $this->assertStringContainsString(
+            $this->marker,
+            $xml,
+            'XXE succeeded: local file content was expanded into the document'
+        );
+    }
+
+
+    /**
+     * Same idea with a UTF-16LE encoded payload.
+     */
+    public function testUtf16ExternalEntityCannotReadLocalFileUsingDefaultOptions(): void
+    {
+        $uri = 'file://' . $this->secretFile;
+
+        $utf8 = <<<XML
+<?xml version="1.0" encoding="UTF-16"?>
+<!DOCTYPE foo [
+  <!ELEMENT foo ANY>
+  <!ENTITY xxe SYSTEM "{$uri}">
+]>
+<foo>&xxe;</foo>
+XML;
+
+        $payload = "\xFF\xFE" . mb_convert_encoding($utf8, 'UTF-16LE', 'UTF-8');
+
+        $doc = new DOMDocument();
+        $doc->loadXML($payload, DOMDocumentFactory::DEFAULT_OPTIONS);
+        // If we reach here the protection failed – check that the secret did not leak into the document.
+        $xml = $doc->saveXml();
+        $this->assertStringNotContainsString(
+            $this->marker,
+            $xml,
+            'XXE succeeded: local file content was expanded into the document'
+        );
+    }
+
+
+    /**
+     * Same idea with a UTF-16LE encoded payload.
+     */
+    public function testUtf16ExternalEntityCannotReadLocalFileUsingNonDefaultOptions(): void
+    {
+        $uri = 'file://' . $this->secretFile;
+
+        $utf8 = <<<XML
+<?xml version="1.0" encoding="UTF-16"?>
+<!DOCTYPE foo [
+  <!ELEMENT foo ANY>
+  <!ENTITY xxe SYSTEM "{$uri}">
+]>
+<foo>&xxe;</foo>
+XML;
+
+        $payload = "\xFF\xFE" . mb_convert_encoding($utf8, 'UTF-16LE', 'UTF-8');
+
+        $doc = new DOMDocument();
+        $doc->loadXML($payload, DOMDocumentFactory::DEFAULT_OPTIONS | \LIBXML_NOENT);
+        // Check that the secret did leak into the document.
+        $xml = mb_convert_encoding($doc->saveXml(), 'UTF-8', 'UTF-16LE');
+        $this->assertStringContainsString(
+            $this->marker,
+            $xml,
+            'XXE succeeded: local file content was expanded into the document'
+        );
+    }
+
     public function testNotXmlStringRaisesAnException(): void
     {
         $this->expectException(DOMException::class);
