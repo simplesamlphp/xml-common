@@ -67,8 +67,7 @@ final class DOMDocumentFactoryTest extends TestCase
 <foo>&xxe;</foo>
 XML;
 
-        $doc = new DOMDocument();
-        $doc->loadXML($payload, DOMDocumentFactory::DEFAULT_OPTIONS);
+        $doc = Dom\XMLDocument::createFromString($payload, DOMDocumentFactory::getDefaultOptions());
         // If we reach here the protection failed – check that the secret did not leak into the document.
         $xml = $doc->saveXml();
         $this->assertStringNotContainsString(
@@ -97,8 +96,7 @@ XML;
 <foo>&xxe;</foo>
 XML;
 
-        $doc = new DOMDocument();
-        $doc->loadXML($payload, DOMDocumentFactory::DEFAULT_OPTIONS | \LIBXML_NOENT);
+        $doc = Dom\XMLDocument::createFromString($payload, DOMDocumentFactory::getDefaultOptions() | \LIBXML_NOENT);
         // Check that the secret did leak into the document.
         $xml = $doc->saveXml();
         $this->assertStringContainsString(
@@ -127,8 +125,7 @@ XML;
 
         $payload = "\xFF\xFE" . mb_convert_encoding($utf8, 'UTF-16LE', 'UTF-8');
 
-        $doc = new DOMDocument();
-        $doc->loadXML($payload, DOMDocumentFactory::DEFAULT_OPTIONS);
+        $doc = Dom\XMLDocument::createFromString($payload, DOMDocumentFactory::getDefaultOptions());
         // If we reach here the protection failed – check that the secret did not leak into the document.
         $xml = $doc->saveXml();
         $this->assertStringNotContainsString(
@@ -157,8 +154,7 @@ XML;
 
         $payload = "\xFF\xFE" . mb_convert_encoding($utf8, 'UTF-16LE', 'UTF-8');
 
-        $doc = new DOMDocument();
-        $doc->loadXML($payload, DOMDocumentFactory::DEFAULT_OPTIONS | \LIBXML_NOENT);
+        $doc = Dom\XMLDocument::createFromString($payload, DOMDocumentFactory::getDefaultOptions() | \LIBXML_NOENT);
         // Check that the secret did leak into the document.
         $xml = mb_convert_encoding($doc->saveXml(), 'UTF-8', 'UTF-16LE');
         $this->assertStringContainsString(
