@@ -30,6 +30,7 @@ use function sys_get_temp_dir;
 final class DOMDocumentFactoryTest extends TestCase
 {
     private string $secretFile;
+
     private string $marker;
 
 
@@ -73,7 +74,7 @@ XML;
         $this->assertStringNotContainsString(
             $this->marker,
             $xml,
-            'XXE succeeded: local file content was expanded into the document'
+            'XXE succeeded: local file content was expanded into the document',
         );
     }
 
@@ -102,7 +103,7 @@ XML;
         $this->assertStringContainsString(
             $this->marker,
             $xml,
-            'XXE succeeded: local file content was expanded into the document'
+            'XXE succeeded: local file content was expanded into the document',
         );
     }
 
@@ -131,7 +132,7 @@ XML;
         $this->assertStringNotContainsString(
             $this->marker,
             $xml,
-            'XXE succeeded: local file content was expanded into the document'
+            'XXE succeeded: local file content was expanded into the document',
         );
     }
 
@@ -160,9 +161,10 @@ XML;
         $this->assertStringContainsString(
             $this->marker,
             $xml,
-            'XXE succeeded: local file content was expanded into the document'
+            'XXE succeeded: local file content was expanded into the document',
         );
     }
+
 
     public function testNotXmlStringRaisesAnException(): void
     {
