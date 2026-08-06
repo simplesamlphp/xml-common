@@ -49,7 +49,7 @@ trait DateTrait
         parent::regex(
             $value,
             self::$date_regex,
-            $message ?: '%s is not a valid xs:date',
+            $message ?: '"%s" is not a valid xs:date',
             InvalidArgumentException::class,
         );
     }

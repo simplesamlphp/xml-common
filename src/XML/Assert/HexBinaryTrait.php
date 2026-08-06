@@ -23,7 +23,7 @@ trait HexBinaryTrait
         parent::regex(
             $value,
             self::$hexbin_regex,
-            $message ?: '%s is not a valid xs:hexBinary',
+            $message ?: '"%s" is not a valid xs:hexBinary',
             InvalidArgumentException::class,
         );
     }

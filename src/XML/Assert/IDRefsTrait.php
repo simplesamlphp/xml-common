@@ -23,7 +23,7 @@ trait IDRefsTrait
         parent::regex(
             $value,
             self::$idrefs_regex,
-            $message ?: '%s is not a valid xs:IDREFS',
+            $message ?: '"%s" is not a valid xs:IDREFS',
             InvalidArgumentException::class,
         );
     }

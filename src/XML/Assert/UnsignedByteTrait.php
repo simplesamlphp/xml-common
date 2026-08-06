@@ -23,7 +23,7 @@ trait UnsignedByteTrait
         parent::regex(
             $value,
             self::$unsignedByte_regex,
-            $message ?: '%s is not a valid xs:unsignedByte',
+            $message ?: '"%s" is not a valid xs:unsignedByte',
             InvalidArgumentException::class,
         );
     }

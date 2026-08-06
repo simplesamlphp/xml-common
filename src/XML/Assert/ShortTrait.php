@@ -44,7 +44,7 @@ trait ShortTrait
         parent::regex(
             $value,
             self::$short_regex,
-            $message ?: '%s is not a valid xs:short',
+            $message ?: '"%s" is not a valid xs:short',
             InvalidArgumentException::class,
         );
     }

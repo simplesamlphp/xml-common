@@ -23,7 +23,7 @@ trait NameTrait
         parent::regex(
             $value,
             self::$name_regex,
-            $message ?: '%s is not a valid xs:Name',
+            $message ?: '"%s" is not a valid xs:Name',
             InvalidArgumentException::class,
         );
     }

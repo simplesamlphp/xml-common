@@ -46,7 +46,7 @@ trait ByteTrait
         parent::regex(
             $value,
             self::$byte_regex,
-            $message ?: '%s is not a valid xs:byte',
+            $message ?: '"%s" is not a valid xs:byte',
             InvalidArgumentException::class,
         );
     }

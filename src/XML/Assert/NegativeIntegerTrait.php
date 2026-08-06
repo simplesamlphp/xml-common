@@ -23,7 +23,7 @@ trait NegativeIntegerTrait
         parent::regex(
             $value,
             self::$negativeInteger_regex,
-            $message ?: '%s is not a valid xs:negativeInteger',
+            $message ?: '"%s" is not a valid xs:negativeInteger',
             InvalidArgumentException::class,
         );
     }

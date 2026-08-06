@@ -23,7 +23,7 @@ trait FloatTrait
         parent::regex(
             $value,
             self::$float_regex,
-            $message ?: '%s is not a valid xs:float',
+            $message ?: '"%s" is not a valid xs:float',
             InvalidArgumentException::class,
         );
     }

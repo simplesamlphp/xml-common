@@ -51,7 +51,7 @@ trait UnsignedLongTrait
         parent::regex(
             $value,
             self::$unsignedLong_regex,
-            $message ?: '%s is not a valid xs:unsignedLong',
+            $message ?: '"%s" is not a valid xs:unsignedLong',
             InvalidArgumentException::class,
         );
     }

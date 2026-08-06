@@ -53,7 +53,7 @@ trait LongTrait
         parent::regex(
             $value,
             self::$long_regex,
-            $message ?: '%s is not a valid xs:long',
+            $message ?: '"%s" is not a valid xs:long',
             InvalidArgumentException::class,
         );
     }

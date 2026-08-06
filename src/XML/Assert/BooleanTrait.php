@@ -20,7 +20,7 @@ trait BooleanTrait
         parent::oneOf(
             $value,
             ['true', 'false', '1', '0'],
-            $message ?: '%s is not a valid xs:boolean',
+            $message ?: '"%s" is not a valid xs:boolean',
             InvalidArgumentException::class,
         );
     }

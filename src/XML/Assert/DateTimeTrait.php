@@ -74,7 +74,7 @@ trait DateTimeTrait
         parent::regex(
             $value,
             self::$datetime_regex,
-            $message ?: '%s is not a valid xs:dateTime',
+            $message ?: '"%s" is not a valid xs:dateTime',
             InvalidArgumentException::class,
         );
     }

@@ -42,7 +42,7 @@ trait LanguageTrait
         Assert::regex(
             $value,
             self::$language_regex,
-            $message ?: '%s is not a valid xs:language',
+            $message ?: '"%s" is not a valid xs:language',
             InvalidArgumentException::class,
         );
     }

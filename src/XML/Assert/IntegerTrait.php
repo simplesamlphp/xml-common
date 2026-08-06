@@ -23,7 +23,7 @@ trait IntegerTrait
         parent::regex(
             $value,
             self::$integer_regex,
-            $message ?: '%s is not a valid xs:integer',
+            $message ?: '"%s" is not a valid xs:integer',
             InvalidArgumentException::class,
         );
     }

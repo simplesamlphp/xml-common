@@ -19,7 +19,7 @@ trait EntityTrait
     {
         Assert::validNCName(
             $value,
-            $message ?: '%s is not a valid xs:Entity',
+            $message ?: '"%s" is not a valid xs:Entity',
             InvalidArgumentException::class,
         );
     }

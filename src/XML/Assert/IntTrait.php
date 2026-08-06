@@ -54,7 +54,7 @@ trait IntTrait
         parent::regex(
             $value,
             self::$int_regex,
-            $message ?: '%s is not a valid xs:int',
+            $message ?: '"%s" is not a valid xs:int',
             InvalidArgumentException::class,
         );
     }

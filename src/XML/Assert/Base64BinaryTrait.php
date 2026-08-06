@@ -19,7 +19,7 @@ trait Base64BinaryTrait
     {
         parent::validBase64(
             $value,
-            $message ?: '%s is not a valid xs:base64Binary',
+            $message ?: '"%s" is not a valid xs:base64Binary',
             InvalidArgumentException::class,
         );
     }

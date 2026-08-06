@@ -23,7 +23,7 @@ trait NMTokenTrait
         Assert::regex(
             $value,
             self::$nmtoken_regex,
-            $message ?: '%s is not a valid xs:NMTOKEN',
+            $message ?: '"%s" is not a valid xs:NMTOKEN',
             InvalidArgumentException::class,
         );
     }

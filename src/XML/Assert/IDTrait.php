@@ -19,7 +19,7 @@ trait IDTrait
     {
         Assert::validNCName(
             $value,
-            $message ?: '%s is not a valid xs:ID',
+            $message ?: '"%s" is not a valid xs:ID',
             InvalidArgumentException::class,
         );
     }

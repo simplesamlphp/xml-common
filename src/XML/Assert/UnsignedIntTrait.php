@@ -42,7 +42,7 @@ trait UnsignedIntTrait
         parent::regex(
             $value,
             self::$unsignedInt_regex,
-            $message ?: '%s is not a valid xs:unsignedInt',
+            $message ?: '"%s" is not a valid xs:unsignedInt',
             InvalidArgumentException::class,
         );
     }

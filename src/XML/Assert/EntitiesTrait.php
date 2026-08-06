@@ -23,7 +23,7 @@ trait EntitiesTrait
         Assert::regex(
             $value,
             self::$entities_regex,
-            $message ?: '%s is not a valid xs:ENTITIES',
+            $message ?: '"%s" is not a valid xs:ENTITIES',
             InvalidArgumentException::class,
         );
     }

@@ -37,7 +37,7 @@ trait UnsignedShortTrait
         parent::regex(
             $value,
             self::$unsignedShort_regex,
-            $message ?: '%s is not a valid xs:unsignedShort',
+            $message ?: '"%s" is not a valid xs:unsignedShort',
             InvalidArgumentException::class,
         );
     }

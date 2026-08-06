@@ -47,7 +47,7 @@ trait TimeTrait
         parent::regex(
             $value,
             self::$time_regex,
-            $message ?: '%s is not a valid xs:time',
+            $message ?: '"%s" is not a valid xs:time',
             InvalidArgumentException::class,
         );
     }

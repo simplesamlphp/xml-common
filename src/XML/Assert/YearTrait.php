@@ -30,7 +30,7 @@ trait YearTrait
         parent::regex(
             $value,
             self::$year_regex,
-            $message ?: '%s is not a valid xs:gYear',
+            $message ?: '"%s" is not a valid xs:gYear',
             InvalidArgumentException::class,
         );
     }

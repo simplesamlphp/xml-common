@@ -23,7 +23,7 @@ trait NCNameTrait
         parent::regex(
             $value,
             self::$ncname_regex,
-            $message ?: '%s is not a valid xs:NCName',
+            $message ?: '"%s" is not a valid xs:NCName',
             InvalidArgumentException::class,
         );
     }

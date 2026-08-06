@@ -19,7 +19,7 @@ trait AnyURITrait
     {
         parent::validURI(
             $value,
-            $message ?: '%s is not a valid xs:anyURI',
+            $message ?: '"%s" is not a valid xs:anyURI',
             InvalidArgumentException::class,
         );
     }

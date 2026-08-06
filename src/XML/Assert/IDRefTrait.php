@@ -19,7 +19,7 @@ trait IDRefTrait
     {
         Assert::validNCName(
             $value,
-            $message ?: '%s is not a xs:IDREF',
+            $message ?: '"%s" is not a xs:IDREF',
             InvalidArgumentException::class,
         );
     }

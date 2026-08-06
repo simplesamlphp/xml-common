@@ -23,7 +23,7 @@ trait DecimalTrait
         parent::regex(
             $value,
             self::$decimal_regex,
-            $message ?: '%s is not a valid xs:decimal',
+            $message ?: '"%s" is not a valid xs:decimal',
             InvalidArgumentException::class,
         );
     }

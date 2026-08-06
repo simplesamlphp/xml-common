@@ -28,7 +28,7 @@ trait DoubleTrait
         parent::regex(
             $value,
             self::$double_regex,
-            $message ?: '%s is not a valid xs:double',
+            $message ?: '"%s" is not a valid xs:double',
             InvalidArgumentException::class,
         );
     }

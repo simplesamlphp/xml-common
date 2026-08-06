@@ -23,7 +23,7 @@ trait QNameTrait
         parent::regex(
             $value,
             self::$qname_regex,
-            $message ?: '%s is not a valid xs:QName',
+            $message ?: '"%s" is not a valid xs:QName',
             InvalidArgumentException::class,
         );
     }

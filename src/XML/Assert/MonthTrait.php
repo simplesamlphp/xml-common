@@ -26,7 +26,7 @@ trait MonthTrait
         parent::regex(
             $value,
             self::$month_regex,
-            $message ?: '%s is not a valid xs:gMonth',
+            $message ?: '"%s" is not a valid xs:gMonth',
             InvalidArgumentException::class,
         );
     }

@@ -34,7 +34,7 @@ trait DurationTrait
         parent::regex(
             $value,
             self::$duration_regex,
-            $message ?: '%s is not a valid xs:duration',
+            $message ?: '"%s" is not a valid xs:duration',
             InvalidArgumentException::class,
         );
     }

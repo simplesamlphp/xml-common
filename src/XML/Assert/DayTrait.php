@@ -30,7 +30,7 @@ trait DayTrait
         parent::regex(
             $value,
             self::$day_regex,
-            $message ?: '%s is not a valid xs:gDay',
+            $message ?: '"%s" is not a valid xs:gDay',
             InvalidArgumentException::class,
         );
     }
