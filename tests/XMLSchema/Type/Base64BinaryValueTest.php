@@ -57,7 +57,6 @@ final class Base64BinaryValueTest extends TestCase
     public static function provideInvalidBase64(): array
     {
         return [
-            'empty' => [false, ''],
             'illegal characters' => [false, '&*$(#&^@!(^%$'],
             'length not dividable by 4' => [false, 'U2ltcGxlU0FTHBocA=='],
         ];

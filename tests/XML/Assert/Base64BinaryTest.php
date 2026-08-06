@@ -41,6 +41,8 @@ final class Base64BinaryTest extends TestCase
     public static function provideValidBase64(): array
     {
         return [
+            // empty string is a valid lexical representation
+            'empty' => [true, ''],
             'valid' => [true, 'U2ltcGxlU0FNTHBocA=='],
         ];
     }
@@ -52,7 +54,6 @@ final class Base64BinaryTest extends TestCase
     public static function provideInvalidBase64(): array
     {
         return [
-            'empty' => [false, ''],
             'illegal characters' => [false, '&*$(#&^@!(^%$'],
             'length not dividable by 4' => [false, 'U2ltcGxlU0FTHBocA=='],
             'whitespace' => [false, 'U2ltcGxl U0FNTHBocA=='],
