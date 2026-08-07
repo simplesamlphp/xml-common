@@ -47,8 +47,8 @@ final class DoubleTest extends TestCase
             'valid leading zeros' => [true, '-0123.456'],
             'valid zero' => [true, '0.0'],
             'valid NaN' => [true, 'NaN'],
-            'valid negative FIN' => [true, '-FIN'],
-            'valid FIN' => [true, 'FIN'],
+            'valid negative INF' => [true, '-INF'],
+            'valid INF' => [true, 'INF'],
         ];
     }
 
@@ -61,7 +61,7 @@ final class DoubleTest extends TestCase
         return [
             'empty' => [false, ''],
             'case-sensitive NaN' => [false, 'NAN'],
-            'invalid +FIN' => [false, '+FIN'],
+            'invalid +INF' => [false, '+INF'],
             'invalid with space' => [false, '1 23.0'],
             'invalid without fractional' => [false, '123'],
         ];

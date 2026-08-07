@@ -59,7 +59,7 @@ final class DoubleValueTest extends TestCase
         return [
             'empty' => [false, ''],
             'case-sensitive NaN' => [false, 'NAN'],
-            'invalid +FIN' => [false, '+FIN'],
+            'invalid +INF' => [false, '+INF'],
             'invalid without fractional' => [false, '123'],
         ];
     }
