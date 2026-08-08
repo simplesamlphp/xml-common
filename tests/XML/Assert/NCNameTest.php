@@ -46,6 +46,7 @@ final class NCNameTest extends TestCase
             'valid contains dashes' => [true, '_1950-10-04_10-00'],
             'valid contains dots' => [true, 'Te.st'],
             'valid contains diacriticals' => [true, 'fööbár'],
+            'valid contains ideographs' => [true, '東京'],
             'valid prefixed v4 UUID' => [true, '_5425e58e-e799-4884-92cc-ca64ecede32f'],
         ];
     }

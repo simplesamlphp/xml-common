@@ -46,8 +46,11 @@ final class QNameTest extends TestCase
             '1st part containing dash' => [true, 'som-e:Test'],
             '2nd part containing dash' => [true, 'some:T-est'],
             'both parts containing dash' => [true, 'so-me:T-est'],
+            'single character unprefixed' => [true, 'a'],
             // A single NCName is also a valid QName
             'no colon' => [true, 'Test'],
+            'unicode' => [true, 'café:élément'],
+            'ideographs' => [true, '東京:品'],
         ];
     }
 
@@ -61,8 +64,11 @@ final class QNameTest extends TestCase
             'start 2nd part with dash' => [false, 'some:-Test'],
             'start both parts with dash' => [false, '-some:-Test'],
             'start with colon' => [false, ':test'],
+            'end with colon' => [false, 'test:'],
+            'empty string' => [false, ''],
             'multiple colons' => [false, 'test:test:test'],
             'start with digit' => [false, '1Test'],
+            'colon' => [false, ':'],
             'wildcard' => [false, 'Te*st'],
             // Trailing newlines are forbidden
             'trailing newline' => [false, "some:Test\n"],
