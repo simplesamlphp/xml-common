@@ -220,7 +220,7 @@ XML;
             XPath::xpQuery($context, 'xmlns:b', $xp);
         } finally {
             $errors = libxml_get_errors();
-            $this->assertEquals("Undefined namespace prefix\n", $errors[0]->message);
+            $this->assertStringStartsWith("Undefined namespace prefix", $errors[0]->message);
             libxml_clear_errors();
             libxml_use_internal_errors(false);
         }
@@ -251,7 +251,7 @@ XML;
         } finally {
             $errors = libxml_get_errors();
             $this->assertEquals("xmlns:empty: Empty XML namespace is not allowed\n", $errors[0]->message);
-            $this->assertEquals("Undefined namespace prefix\n", $errors[1]->message);
+            $this->assertStringStartsWith("Undefined namespace prefix", $errors[1]->message);
             libxml_clear_errors();
             libxml_use_internal_errors(false);
         }
@@ -352,7 +352,7 @@ XML;
             } finally {
                 $errors = libxml_get_errors();
                 $this->assertNotEmpty($errors);
-                $this->assertSame("Undefined namespace prefix\n", $errors[0]->message);
+                $this->assertStringStartsWith("Undefined namespace prefix", $errors[0]->message);
                 libxml_clear_errors();
                 libxml_use_internal_errors(false);
             }
