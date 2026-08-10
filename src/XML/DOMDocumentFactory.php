@@ -82,9 +82,9 @@ final class DOMDocumentFactory
 
         // Convert parser warnings/notices into DOMException to avoid PHP warnings leaking into test output
         set_error_handler(
-        /**
-         * @throws \DOMException
-         */
+            /**
+             * @throws \DOMException
+             */
             static function (int $severity, string $message): never {
                 throw new DOMException($message);
             },
