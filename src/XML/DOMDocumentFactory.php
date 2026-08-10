@@ -91,7 +91,7 @@ final class DOMDocumentFactory
         );
 
         try {
-            $loaded = $domDocument->createFromString($xml, $options);
+            $loaded = $domDocument->createFromString($xml, $options, $domDocument->characterSet);
         } finally {
             restore_error_handler();
         }
@@ -213,7 +213,8 @@ final class DOMDocumentFactory
             $root->setAttributeNS(C::NS_XMLNS, $name, $value);
         }
 
-        return Dom\XMLDocument::createFromString($doc->saveXml($doc->documentElement));
+        $options = self::getDefaultOptions();
+        return Dom\XMLDocument::createFromString($doc->saveXml($doc->documentElement), $options, $doc->characterSet);
     }
 
 
