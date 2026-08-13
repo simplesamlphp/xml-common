@@ -42,6 +42,7 @@ final class AnyURITest extends TestCase
         return [
             'urn' => [true, 'urn:x-simplesamlphp:phpunit'],
             'same-doc' => [true, '#_53d830ab1be17291a546c95c7f1cdf8d3d23c959e6'],
+            'dot-int-scheme' => [true, 'app.example:///oauth-callback'],
             'url' => [true, 'https://www.simplesamlphp.org'],
             'diacritical' => [true, 'https://aä.com'],
             'spn' => [true, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
