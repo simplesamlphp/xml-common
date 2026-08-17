@@ -111,6 +111,21 @@ final class Attribute implements ArrayizableElementInterface
             strval($this->getAttrValue()),
         );
 
+        // An xsi:type attribute (but really any attribute) that contains a QNameValue must also have
+        // a namespace-declaration for the prefix within the scope of the element
+        $qName = $this->getAttrValue();
+        if ($qName instanceof QNameValue) {
+            $qNamePrefix = $qName->getNamespacePrefix();
+            if ($qNamePrefix !== null && !$parent->lookupPrefix($qNamePrefix->getValue)) {
+                $parent->setAttributeNS(
+                    $qName->getNamespaceURI()->getValue(),
+                    'xmlns',
+                    $qNamePrefix->getValue(),
+                    $qname->getNamespaceURI()->getValue(),
+                );
+            }
+        }
+
         return $parent;
     }
 
