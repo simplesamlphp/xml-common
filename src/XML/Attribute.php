@@ -8,6 +8,7 @@ use Dom;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 use SimpleSAML\XMLSchema\Type\StringValue;
 
 use function array_keys;
@@ -110,6 +111,20 @@ final class Attribute implements ArrayizableElementInterface
             !in_array($prefix, ['', null]) ? ($prefix . ':' . $this->getAttrName()) : $this->getAttrName(),
             strval($this->getAttrValue()),
         );
+
+        // An xsi:type attribute (but really any attribute) that contains a QNameValue must also have
+        // a namespace-declaration for the prefix within the scope of the element
+        $qName = $this->getAttrValue();
+        if ($qName instanceof QNameValue) {
+            $qNamePrefix = $qName->getNamespacePrefix();
+            if ($qNamePrefix !== null && !$parent->lookupPrefix($qNamePrefix->getValue)) {
+                $parent->setAttributeNS(
+                    C::NS_XMLNS,
+                    'xmlns:' . $qNamePrefix->getValue(),
+                    $qName->getNamespaceURI()->getValue(),
+                );
+            }
+        }
 
         return $parent;
     }
