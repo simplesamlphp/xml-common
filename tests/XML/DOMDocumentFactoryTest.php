@@ -98,7 +98,7 @@ XML;
 
         $options = DOMDocumentFactory::getDefaultOptions();
         if (defined('LIBXML_NO_XXE')) {
-            $options &= \LIBXML_NO_XXE;
+            $options &= ~\LIBXML_NO_XXE;
         }
 
         $doc = Dom\XMLDocument::createFromString($payload, $options | \LIBXML_NOENT);
@@ -161,7 +161,7 @@ XML;
 
         $options = DOMDocumentFactory::getDefaultOptions();
         if (defined('LIBXML_NO_XXE')) {
-            $options &= \LIBXML_NO_XXE;
+            $options &= ~\LIBXML_NO_XXE;
         }
 
         $doc = Dom\XMLDocument::createFromString($payload, $options | \LIBXML_NOENT);
