@@ -77,6 +77,7 @@ final class IntegerOverflowTest extends TestCase
         ];
     }
 
+
     public function testToIntegerWithNonWellFormedIntegerStringThrowsException(): void
     {
         $this->expectException(SchemaViolationException::class);
@@ -87,5 +88,4 @@ final class IntegerOverflowTest extends TestCase
         $value->expects($this->once())->method('getRawValue')->willReturn('0x42');
         $value->toInteger();
     }
-
 }
