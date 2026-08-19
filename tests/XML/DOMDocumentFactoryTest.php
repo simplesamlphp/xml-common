@@ -96,7 +96,12 @@ XML;
 <foo>&xxe;</foo>
 XML;
 
-        $doc = Dom\XMLDocument::createFromString($payload, DOMDocumentFactory::getDefaultOptions() | \LIBXML_NOENT);
+        $options = DOMDocumentFactory::getDefaultOptions();
+        if (defined('LIBXML_NO_XXE')) {
+            $options &= ~\LIBXML_NO_XXE;
+        }
+
+        $doc = Dom\XMLDocument::createFromString($payload, $options | \LIBXML_NOENT);
         // Check that the secret did leak into the document.
         $xml = $doc->saveXml();
         $this->assertStringContainsString(
@@ -154,7 +159,12 @@ XML;
 
         $payload = "\xFF\xFE" . mb_convert_encoding($utf8, 'UTF-16LE', 'UTF-8');
 
-        $doc = Dom\XMLDocument::createFromString($payload, DOMDocumentFactory::getDefaultOptions() | \LIBXML_NOENT);
+        $options = DOMDocumentFactory::getDefaultOptions();
+        if (defined('LIBXML_NO_XXE')) {
+            $options &= ~\LIBXML_NO_XXE;
+        }
+
+        $doc = Dom\XMLDocument::createFromString($payload, $options | \LIBXML_NOENT);
         // Check that the secret did leak into the document.
         $xml = mb_convert_encoding((string)$doc->saveXml(), 'UTF-8', 'UTF-16LE');
         $this->assertStringContainsString(
