@@ -50,7 +50,14 @@ class IntegerValue extends DecimalValue
     {
         $value = $this->getValue();
 
-        if (bccomp($value, strval(PHP_INT_MAX)) === 1) {
+        try {
+            $tooHigh = bccomp($value, (string)PHP_INT_MAX, 0) === 1;
+            $tooLow  = bccomp($value, (string)PHP_INT_MIN, 0) === -1;
+        } catch (\ValueError $e) {
+            throw new SchemaViolationException("Not a well-formed integer string.", previous: $e);
+        }
+
+        if ($tooHigh || $tooLow) {
             throw new RuntimeException("Cannot convert to integer: out of bounds.");
         }
 
