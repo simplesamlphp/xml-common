@@ -57,6 +57,7 @@ final class LanguageTest extends TestCase
     public static function provideInvalidLanguage(): array
     {
         return [
+            'control-character' => [false, "e\x01n"],
             'empty string' => [false, ''],
             'whitespace' => [false, 'en- us'],
             'too long' => [false, 'toolongLanguageCode'],
