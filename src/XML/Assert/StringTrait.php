@@ -49,6 +49,7 @@ trait StringTrait
         Assert::regex(
             $value,
             self::$string_regex,
+            $message ?: '"%s" is not a valid xs:string',
             SchemaViolationException::class,
         );
     }
