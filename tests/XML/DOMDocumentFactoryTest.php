@@ -7,6 +7,7 @@ namespace SimpleSAML\Test\XML;
 use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresOperatingSystemFamily;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use SimpleSAML\Assert\AssertionFailedException;
@@ -30,6 +31,7 @@ use function sys_get_temp_dir;
 final class DOMDocumentFactoryTest extends TestCase
 {
     private string $secretFile;
+
     private string $marker;
 
 
@@ -70,11 +72,11 @@ XML;
         $doc = new DOMDocument();
         $doc->loadXML($payload, DOMDocumentFactory::DEFAULT_OPTIONS);
         // If we reach here the protection failed – check that the secret did not leak into the document.
-        $xml = $doc->saveXml();
+        $xml = (string)$doc->saveXml();
         $this->assertStringNotContainsString(
             $this->marker,
             $xml,
-            'XXE succeeded: local file content was expanded into the document'
+            'XXE succeeded: local file content was expanded into the document',
         );
     }
 
@@ -83,6 +85,7 @@ XML;
      * Classic external-entity payload aimed at a file we control.
      * The factory must reject the document; the marker must never appear.
      */
+    #[RequiresOperatingSystemFamily('Linux')]
     public function testExternalEntityCannotReadLocalFileUsingNonDefaultOptions(): void
     {
         // file:// URI pointing at our temporary secret
@@ -97,14 +100,19 @@ XML;
 <foo>&xxe;</foo>
 XML;
 
+        $options = DOMDocumentFactory::getDefaultOptions();
+        if (defined('LIBXML_NO_XXE')) {
+            $options &= ~\LIBXML_NO_XXE;
+        }
+
         $doc = new DOMDocument();
-        $doc->loadXML($payload, DOMDocumentFactory::DEFAULT_OPTIONS | \LIBXML_NOENT);
+        $doc->loadXML($payload, $options | \LIBXML_NOENT);
         // Check that the secret did leak into the document.
-        $xml = $doc->saveXml();
+        $xml = (string)$doc->saveXml();
         $this->assertStringContainsString(
             $this->marker,
             $xml,
-            'XXE succeeded: local file content was expanded into the document'
+            'XXE succeeded: local file content was expanded into the document',
         );
     }
 
@@ -130,11 +138,11 @@ XML;
         $doc = new DOMDocument();
         $doc->loadXML($payload, DOMDocumentFactory::DEFAULT_OPTIONS);
         // If we reach here the protection failed – check that the secret did not leak into the document.
-        $xml = $doc->saveXml();
+        $xml = (string)$doc->saveXml();
         $this->assertStringNotContainsString(
             $this->marker,
             $xml,
-            'XXE succeeded: local file content was expanded into the document'
+            'XXE succeeded: local file content was expanded into the document',
         );
     }
 
@@ -142,6 +150,7 @@ XML;
     /**
      * Same idea with a UTF-16LE encoded payload.
      */
+    #[RequiresOperatingSystemFamily('Linux')]
     public function testUtf16ExternalEntityCannotReadLocalFileUsingNonDefaultOptions(): void
     {
         $uri = 'file://' . $this->secretFile;
@@ -157,16 +166,22 @@ XML;
 
         $payload = "\xFF\xFE" . mb_convert_encoding($utf8, 'UTF-16LE', 'UTF-8');
 
+        $options = DOMDocumentFactory::getDefaultOptions();
+        if (defined('LIBXML_NO_XXE')) {
+            $options &= ~\LIBXML_NO_XXE;
+        }
+
         $doc = new DOMDocument();
-        $doc->loadXML($payload, DOMDocumentFactory::DEFAULT_OPTIONS | \LIBXML_NOENT);
+        $doc->loadXML($payload, $options | \LIBXML_NOENT);
         // Check that the secret did leak into the document.
-        $xml = mb_convert_encoding($doc->saveXml(), 'UTF-8', 'UTF-16LE');
+        $xml = mb_convert_encoding((string)$doc->saveXml(), 'UTF-8', 'UTF-16LE');
         $this->assertStringContainsString(
             $this->marker,
             $xml,
-            'XXE succeeded: local file content was expanded into the document'
+            'XXE succeeded: local file content was expanded into the document',
         );
     }
+
 
     public function testNotXmlStringRaisesAnException(): void
     {

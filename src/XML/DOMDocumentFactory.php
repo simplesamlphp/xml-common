@@ -33,6 +33,22 @@ final class DOMDocumentFactory
 
 
     /**
+     * @return non-negative-int
+     */
+    public static function getDefaultOptions(): int
+    {
+        $options = self::DEFAULT_OPTIONS;
+
+        // Add LIBXML_NO_XXE to the defaults when available (libxml >= 2.13.0)
+        if (defined('LIBXML_NO_XXE')) {
+            $options |= \LIBXML_NO_XXE;
+        }
+
+        return $options;
+    }
+
+
+    /**
      * @param string $xml
      * @param non-negative-int $options
      */
