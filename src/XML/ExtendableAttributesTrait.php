@@ -8,6 +8,7 @@ use Dom;
 use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
+use SimpleSAML\XML\Limit\XMLLimit;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMAttributeException;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\StringValue;
@@ -180,7 +181,7 @@ trait ExtendableAttributesTrait
      */
     protected function setAttributesNS(array $attributes): void
     {
-        Assert::maxCount($attributes, C::UNBOUNDED_LIMIT);
+        Assert::maxCount($attributes, XMLLimit::getDefault()->maxAttribute);
         Assert::allIsInstanceOf(
             $attributes,
             Attribute::class,
