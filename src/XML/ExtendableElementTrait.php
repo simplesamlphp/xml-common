@@ -9,6 +9,7 @@ use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Constants as C;
+use SimpleSAML\XML\Limit\XMLLimit;
 use SimpleSAML\XML\Registry\ElementRegistry;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;

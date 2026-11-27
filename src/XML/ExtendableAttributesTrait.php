@@ -8,6 +8,7 @@ use Dom;
 use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Constants as C;
+use SimpleSAML\XML\Limit\XMLLimit;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMAttributeException;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\StringValue;

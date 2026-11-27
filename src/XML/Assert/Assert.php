@@ -10,6 +10,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @package simplesamlphp/xml-common
  *
  * @phpcs:ignore Generic.Files.LineLength.TooLong
+ * @method static void assertSafeXML(\Dom\Element $value, string $message = '', string $exception = '');
  * @method static void validAllowedXPathFilter(mixed $value, string[] $allowed_axes, string[] $allowed_functions, string $message = '', string $exception = '')
  * @method static void validAnyURI(mixed $value, string $message = '', string $exception = '')
  * @method static void validBase64Binary(mixed $value, string $message = '', string $exception = '')
@@ -54,6 +55,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void validYear(mixed $value, string $message = '', string $exception = '')
  * @method static void validYearMonth(mixed $value, string $message = '', string $exception = '')
  * @phpcs:ignore Generic.Files.LineLength.TooLong
+ * @method static void nullOrAssertSafeXML(mixed $value, string $message = '', string $exception = '');
  * @method static void nullOrValidAllowedXPathFilter(mixed $value, string[] $allowed_axes, string[] $allowed_functions, string $message = '', string $exception = '')
  * @method static void nullOrValidAnyURI(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidBase64Binary(mixed $value, string $message = '', string $exception = '')
@@ -98,6 +100,7 @@ use SimpleSAML\Assert\Assert as BaseAssert;
  * @method static void nullOrValidYear(mixed $value, string $message = '', string $exception = '')
  * @method static void nullOrValidYearMonth(mixed $value, string $message = '', string $exception = '')
  * @phpcs:ignore Generic.Files.LineLength.TooLong
+ * @method static void allAssertSafeXML(\Dom\Element[] $value, string $message = '', string $exception = '');
  * @method static void allValidAllowedXPathFilter(mixed $value, string[] $allowed_axes, string[] $allowed_functions, string $message = '', string $exception = '')
  * @method static void allValidAnyURI(mixed $value, string $message = '', string $exception = '')
  * @method static void allValidBase64Binary(mixed $value, string $message = '', string $exception = '')
@@ -176,6 +179,7 @@ class Assert extends BaseAssert
     use NormalizedStringTrait;
     use PositiveIntegerTrait;
     use QNameTrait;
+    use SafeXMLTrait;
     use ShortTrait;
     use StringTrait;
     use TimeTrait;
