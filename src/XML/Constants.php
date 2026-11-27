@@ -24,6 +24,8 @@ class Constants
     /**
      * The maximum amount of child nodes this library is willing to handle.
      * By specification, this limit is 150K, but that opens up for denial of service.
+     *
+     * @deprecated Use limits defined in XMLLimit instead. Will be removed in a future release
      */
     public const int UNBOUNDED_LIMIT = 10000;
 }
