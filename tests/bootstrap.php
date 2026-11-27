@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use SimpleSAML\Test\Container\TestContainer;
 use SimpleSAML\XML\Container\TestContainerSingleton;
+use SimpleSAML\XML\Limit\XMLLimit;
+use SimpleSAML\XML\Limit\XMLLimitConfig;
 use SimpleSAML\XML\Registry\ElementRegistry;
 
 $projectRoot = dirname(__DIR__);
@@ -14,3 +16,5 @@ $registry->importFromFile(dirname(__FILE__, 2) . '/classes/element.registry.php'
 
 $testContainer = new TestContainer();
 TestContainerSingleton::setContainer($testContainer);
+
+XMLLimit::setDefault(XMLLimitConfig::getHardDefaults());

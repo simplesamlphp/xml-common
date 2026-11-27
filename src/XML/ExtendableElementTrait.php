@@ -8,7 +8,6 @@ use Dom;
 use RuntimeException;
 use SimpleSAML\XML\Assert\Assert;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Constants as C;
 use SimpleSAML\XML\Limit\XMLLimit;
 use SimpleSAML\XML\Registry\ElementRegistry;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
@@ -121,7 +120,7 @@ trait ExtendableElementTrait
      */
     protected function setElements(array $elements): void
     {
-        Assert::maxCount($elements, C::UNBOUNDED_LIMIT);
+        Assert::maxCount($elements, XMLLimit::getDefault()->maxNode);
         Assert::allIsInstanceOf($elements, SerializableElementInterface::class);
 
         $namespace = $this->getElementNamespace();
